@@ -36,13 +36,20 @@ The packaged file `Project_PPeek1ng.zip` includes:
    ```bash
    git clone https://github.com/D1OK1NG/Shiny-Visualization-Project.git
    ```
-2. Unzip `Project_PPeek1ng.zip`  
-3. Open the project folder in RStudio  
-4. Run the app:
-   ```R
-   shiny::runApp("Project_PPeek1ng")
+2. Unzip `Project_PPeek1ng.zip` if the `Project_PPeek1ng` folder is not already present.
+3. Open the repository folder in VS Code. R and `Rscript` must be available on your PATH.
+4. Open the integrated terminal and run:
+   ```powershell
+   Rscript Start-Shiny.R
    ```
-5. The dashboard will open in your default browser.
+   The launcher installs any missing dependencies into the project-local `.R-library`
+   folder on the first run (internet access is required for installation).
+   You can also use **Terminal > Run Task > Run Shiny app** in VS Code.
+5. The dashboard opens at `http://127.0.0.1:7125`. Keep the terminal open;
+   press **Ctrl+C** to stop the app. Only one instance can use this port at a time.
+
+In RStudio, set the working directory to the repository root and run
+`source("Start-Shiny.R")`.
 
 ---
 

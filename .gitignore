@@ -1,0 +1,7 @@
+.R-library/
+.local/
+.Rhistory
+.RData
+
+# Course and administrative reference materials stay local.
+/local_reference/
