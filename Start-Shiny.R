@@ -26,10 +26,8 @@ if (length(missing)) {
 }
 
 setwd(file.path(project_dir, "Project_PPeek1ng"))
-app <- source("main.R", local = new.env(parent = globalenv()), encoding = "UTF-8")$value
-stopifnot(inherits(app, "shiny.appobj"))
 shiny::runApp(
-  app,
+  appDir = getwd(),
   host = "127.0.0.1",
   port = 7125,
   launch.browser = !("--no-browser" %in% commandArgs(trailingOnly = TRUE))

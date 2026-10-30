@@ -85,3 +85,43 @@ pmf_bind_actions <- function(input, output, session, df_current, pmf_edit,
   })
   invisible(NULL)
 }
+# A fresh state is created by the app server for each browser session.
+new_pmf_state <- function() {
+  shiny::reactiveValues(df_edit = NULL, df_final = NULL, counter = 0, has_final = FALSE)
+}
+
+# Keep the usual six-decimal display, but never label a positive divisor as zero.
+display_probability <- function(x) {
+  vapply(x, function(value) {
+    if (is.finite(value) && value != 0 && abs(value) < 0.0000005)
+      format(signif(value, 10), scientific = FALSE, trim = TRUE)
+    else sprintf("%.6f", value)
+  }, character(1), USE.NAMES = FALSE)
+}
+
+# Match the complete name, allowing only documented spelling aliases.
+distribution_answer_matches <- function(value, expected) {
+  if (is.null(value) || length(value) != 1L || is.na(value)) return(FALSE)
+  canonical <- function(s) {
+    s <- gsub("[-_[:space:]]+", " ", tolower(trimws(s)))
+    trimws(sub(" distribution$", "", s))
+  }
+  aliases <- list(binomial = c("binomial", "binom", "bin"),
+    poisson = "poisson", geometric = c("geometric", "geom"),
+    exponential = c("exponential", "exp"), normal = c("normal", "gaussian"),
+    uniform = c("uniform", "continuous uniform"), gamma = "gamma")
+  key <- canonical(expected)
+  allowed <- aliases[[key]]
+  if (is.null(allowed)) allowed <- key
+  canonical(value) %in% allowed
+}
+
+is_correct <- function(user_input, ans_val = NA, ans_frac = NA,
+                       ans_text = NA, tol = 1e-4) {
+  if (length(ans_text) == 1L && !is.na(ans_text))
+    return(distribution_answer_matches(user_input, ans_text))
+  value <- parse_user_prob(user_input)
+  if (!is.finite(value)) return(FALSE)
+  expected <- if (all(is.na(ans_val))) parse_user_prob(ans_frac) else ans_val
+  any(is.finite(expected) & abs(value - expected) < tol)
+}

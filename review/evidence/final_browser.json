@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-30T05:47:51.156Z",
+  "sessions": {
+    "A": [
+      "0.1",
+      "0.2",
+      "0.3",
+      "0.4"
+    ],
+    "B_initial_default": true,
+    "B": [
+      "0.25",
+      "0.25",
+      "0.25",
+      "0.25"
+    ],
+    "isolated": true
+  },
+  "game": [
+    {
+      "chapter": 1,
+      "passed": true
+    },
+    {
+      "chapter": 2,
+      "passed": true
+    },
+    {
+      "chapter": 3,
+      "passed": true
+    },
+    {
+      "chapter": 4,
+      "passed": true
+    },
+    {
+      "chapter": 5,
+      "passed": true
+    },
+    {
+      "chapter": 6,
+      "passed": true
+    },
+    {
+      "chapter": 7,
+      "passed": true
+    }
+  ],
+  "game_score": "Distribution\tErrors\tScore\nPoisson\t0\t3\nDU\t0\t3\nBernoulli\t0\t3\nGeometric\t0\t3\nHypergeo\t0\t3\nBinomial\t0\t3\nNegBin\t0\t3\nTotal\t0\t21",
+  "game_restart": true,
+  "layout_desktop": {
+    "panels": [
+      {
+        "clientWidth": 647,
+        "h": 228.7375030517578,
+        "scrollWidth": 647,
+        "w": 647.1500244140625,
+        "x": 546.5499877929688,
+        "y": 140.60000610351562
+      },
+      {
+        "clientWidth": 647,
+        "h": 260.70001220703125,
+        "scrollWidth": 647,
+        "w": 647.1500244140625,
+        "x": 546.5499877929688,
+        "y": 393.3374938964844
+      }
+    ],
+    "viewport": {
+      "h": 800,
+      "w": 1266
+    }
+  },
+  "layout_narrow": {
+    "panels": [
+      {
+        "clientWidth": 560,
+        "h": 228.7375030517578,
+        "scrollWidth": 560,
+        "w": 559.8500366210938,
+        "x": 267.45001220703125,
+        "y": 140.60000610351562
+      },
+      {
+        "clientWidth": 560,
+        "h": 260.70001220703125,
+        "scrollWidth": 560,
+        "w": 559.8500366210938,
+        "x": 267.45001220703125,
+        "y": 393.3374938964844
+      }
+    ],
+    "viewport": {
+      "h": 800,
+      "w": 900
+    }
+  },
+  "theme": {
+    "background": "rgb(44, 62, 80)",
+    "dark": true,
+    "text": "rgb(236, 240, 241)",
+    "navigation_preserves": true
+  },
+  "expectation_exact": "Solution:\nUsing the Uniform(0,100) formula:\nE[X2]=\na2+ab+b2\n\n\n3\n=\n02+0×100+1002\n\n\n3\n=\n10000\n\n\n3\n≈3333.33.\nTherefore, the expected value of the squared grazing distance is approximately 3333.33.",
+  "expectation_wrong_cloudy_rejected": true,
+  "expectation_pair": "Solution:\nFor a Poisson distribution, the mean equals the rate parameter:\nE[Y|W=Sunny]=24,E[Y|W=Cloudy]=12.\nTherefore, the farm collects on average 24 eggs on sunny days and 12 on cloudy days.",
+  "completed_at": "2026-10-30T06:02:48.150Z",
+  "conditional": {
+    "wrong_negative_binomial_rejected": true,
+    "poisson_exact_accepted": true,
+    "observed_probability": "0.3472",
+    "observed_percent": "34.72%"
+  },
+  "image_loading": [
+    {
+      "loaded": true,
+      "src": "img/logo.png"
+    }
+  ]
+}

@@ -35,7 +35,7 @@ for (module in c('joint','conditional','expectation')) {
   pmf_global <- reactiveValues(df_edit=NULL,df_final=NULL,counter=0,has_final=FALSE)
   source(file.path(module_dir,paste0('module_',module,'.R')),encoding='UTF-8')
   server <- get(paste0(if(module=='conditional') 'conditional' else module,'_Server'))
-  testServer(server, {
+  testServer(server, args=list(shared=pmf_global), {
     click_count <- c(generate=0L,normalize=0L,uniform=0L,add_row=0L)
     click <- function(action) {
       click_count[action] <<- click_count[action]+1L
@@ -144,7 +144,7 @@ for (module in c('joint','conditional','expectation')) {
 pmf_global <- reactiveValues(df_edit=NULL,df_final=NULL,counter=0,has_final=FALSE)
 for(module in c('joint','conditional','expectation')) source(file.path(module_dir,paste0('module_',module,'.R')),encoding='UTF-8')
 testServer(function(input,output,session) {
-  joint_Server('j'); conditional_Server('c'); expectation_Server('e')
+  joint_Server('j',pmf_global); conditional_Server('c',pmf_global); expectation_Server('e',pmf_global)
 }, {
   check_views <- function(expected) {
     all(vapply(c('j','c','e'),function(prefix) {

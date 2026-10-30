@@ -1,0 +1,1817 @@
+{
+  "date": "2026-10-30",
+  "total": 300,
+  "passed": 300,
+  "cases": [
+    {
+      "group": "names",
+      "name": "1 Binomial",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "1 BINOMIAL",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "1 Binomial distribution",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "1 reject ",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "1 reject not Binomial",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "1 reject Binomial or something else",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "1 reject Negative Binomial",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "1 name_only_instruction",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q1_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q1_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q1_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q2_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q2_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q2_rounded4",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q2_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q2_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q2_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q2_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "3 Poisson",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "3 POISSON",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "3 Poisson distribution",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "3 reject ",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "3 reject not Poisson",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "3 reject Poisson or something else",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "3 reject Binomial",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "3 name_only_instruction",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q3_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q3_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q3_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q4_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q4_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q4_rounded4",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q4_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q4_old_rejected",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q4_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q4_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q4_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "5 Geometric",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "5 GEOMETRIC",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "5 Geometric distribution",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "5 reject ",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "5 reject not Geometric",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "5 reject Geometric or something else",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "5 reject Binomial",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "5 name_only_instruction",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q5_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q5_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q5_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q6_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q6_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q6_rounded4",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q6_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q6_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q6_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q6_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "7 Exponential",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "7 EXPONENTIAL",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "7 Exponential distribution",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "7 reject ",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "7 reject not Exponential",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "7 reject Exponential or something else",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "7 reject Binomial",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "7 name_only_instruction",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q7_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q7_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q7_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q8_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q8_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q8_rounded4",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q8_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q8_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q8_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q8_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "9 Normal",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "9 NORMAL",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "9 Normal distribution",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "9 reject ",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "9 reject not Normal",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "9 reject Normal or something else",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "9 reject Binomial",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "9 name_only_instruction",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q9_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q9_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q9_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q10_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q10_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q10_rounded4",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q10_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q10_old_rejected",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q10_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q10_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q10_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "11 Uniform",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "11 UNIFORM",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "11 Uniform distribution",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "11 reject ",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "11 reject not Uniform",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "11 reject Uniform or something else",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "11 reject Binomial",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "11 name_only_instruction",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q11_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q11_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q11_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q12_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q12_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q12_rounded4",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q12_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q12_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q12_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q12_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "13 Gamma",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "13 GAMMA",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "13 Gamma distribution",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "13 reject ",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "13 reject not Gamma",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "13 reject Gamma or something else",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "13 reject Binomial",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "13 name_only_instruction",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q13_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q13_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "conditional",
+      "name": "q13_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "names",
+      "name": "controlled_aliases",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "geometric",
+      "name": "q5_shift_and_support",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "geometric",
+      "name": "q6_attempts_event_preserved",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q1_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q1_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q1_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q1_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q1_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q1_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q2_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q2_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q2_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q2_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q2_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q2_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q3_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q3_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q3_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q3_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q3_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q3_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q4_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q4_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q4_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q4_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q4_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q4_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q5_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q5_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q5_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q5_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q5_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q5_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q6_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q6_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q6_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q6_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q6_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q6_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q7_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q7_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q7_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q7_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q7_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q7_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q8_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q9_stored_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q9_exact",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q9_wrong",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q9_feedback1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q9_feedback2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "expectation",
+      "name": "q9_feedback3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "precision",
+      "name": "10000/3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "precision",
+      "name": "3333.33",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "precision",
+      "name": "3333.3333333333",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "precision",
+      "name": "reject 3333.34",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "precision",
+      "name": "reject 3333.32",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "precision",
+      "name": "reject NaN",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "precision",
+      "name": "reject 1/0",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "precision",
+      "name": "reject ",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "two_answers",
+      "name": "labels",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "two_answers",
+      "name": "correct",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "two_answers",
+      "name": "fractions",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "two_answers",
+      "name": "swapped",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "two_answers",
+      "name": "missing",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "two_answers",
+      "name": "wrong_sunny",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "two_answers",
+      "name": "wrong_cloudy",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "two_answers",
+      "name": "blank",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "two_answers",
+      "name": "targeted_cloudy_feedback",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "zero_marginal",
+      "name": "expectation_Y_given_X",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "zero_marginal",
+      "name": "expectation_X_given_Y",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "small_marginal",
+      "name": "positive_probability_not_zero_fraction",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "small_marginal",
+      "name": "sub_tolerance_positive_stays_positive",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "small_marginal",
+      "name": "positive_divisor_not_zero",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "bern valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "bern click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "binom valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "binom click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "nbinom valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "nbinom click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "geom valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "geom click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "pois valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "pois click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "hyper valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "hyper click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "dunifd valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "dunifd click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "geom 0.01",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "geom 0.5",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "geom 0.99",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "geom 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "nbinom 0.01",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "nbinom 0.5",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "nbinom 0.99",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "nbinom 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "bern 0",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "binom 0",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "bern 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "binom 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "DU_singleton",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "unif continuous_valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "unif density_click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "plots",
+      "name": "unif",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "exp continuous_valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "exp density_click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "plots",
+      "name": "exp",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "gamma continuous_valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "gamma density_click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "plots",
+      "name": "gamma",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "norm continuous_valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "norm density_click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "plots",
+      "name": "norm",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "beta continuous_valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "beta density_click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "plots",
+      "name": "beta",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "chisq continuous_valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "chisq density_click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "plots",
+      "name": "chisq",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "t continuous_valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "t density_click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "plots",
+      "name": "t",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "f continuous_valid",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "distributions",
+      "name": "f density_click",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "plots",
+      "name": "f",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "uniform_equal_rejected",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "endpoints",
+      "name": "uniform_recovers",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "singular_density",
+      "name": "gamma",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "singular_density",
+      "name": "beta",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "singular_density",
+      "name": "chisq",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "singular_density",
+      "name": "f",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "1 chapter",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "1 wrong 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "1 wrong 2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "1 wrong 3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "1 correct",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "2 chapter",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "2 wrong 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "2 wrong 2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "2 wrong 3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "2 correct",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "3 chapter",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "3 wrong 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "3 wrong 2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "3 wrong 3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "3 correct",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "4 chapter",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "4 wrong 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "4 wrong 2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "4 wrong 3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "4 correct",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "5 chapter",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "5 wrong 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "5 wrong 2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "5 wrong 3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "5 correct",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "6 chapter",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "6 wrong 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "6 wrong 2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "6 wrong 3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "6 correct",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "7 chapter",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "7 wrong 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "7 wrong 2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "7 wrong 3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "7 correct",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "ending_and_scores",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "restart 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "start 1",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "restart 2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "start 2",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "restart 3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game",
+      "name": "start 3",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game_content",
+      "name": "DU_assumption",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "game_content",
+      "name": "fixed_HYP_sample",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "sessions",
+      "name": "A_committed",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "sessions",
+      "name": "B_starts_independently",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "sessions",
+      "name": "B_own_commit",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "group": "sessions",
+      "name": "B_does_not_overwrite_A",
+      "passed": true,
+      "detail": {}
+    }
+  ],
+  "source_md5": {
+    "Project_PPeek1ng/app.R": "731ef53cae0eb1707056b270b078ed1c",
+    "Project_PPeek1ng/main.R": "c398775ede7dae52d60c3f89acb38356",
+    "Project_PPeek1ng/modules/module_conditional.R": "d30a2af9c42a3a1a0a334f72f40165bf",
+    "Project_PPeek1ng/modules/module_expectation.R": "603f276e520c4ecf3c125e7628ee4754",
+    "Project_PPeek1ng/modules/module_game_discrete.r": "6d9bbb12de3f3314cd64ff61b3df5e8f",
+    "Project_PPeek1ng/modules/module_joint.R": "d47263f16f0974ced47b7caacf0f4c2c",
+    "Project_PPeek1ng/modules/module_probability.R": "5fa39f8424c9e5cca38768cd8ebc05fd",
+    "Project_PPeek1ng/modules/pmf_helpers.R": "29d465c9785a2dd12a4f563f19e9c593"
+  }
+}

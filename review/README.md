@@ -2,7 +2,11 @@
 
 审查日期：2026-10-21（Pacific/Auckland）。代码基线：`0f609deed5caac75f55542ead1a0b4cd808f4f52`。
 
-首轮审查发现 **11 项已确认问题（8 项 P1、3 项 P2）**，另有会话隔离等待验证事项。**2026-10-30：R1-04、R1-05、R1-06 已修复并验证，其余 8 项待修复（5 项 P1、3 项 P2）**。此结果不表示应用已通过整体验收。
+首轮审查发现 **11 项已确认问题（8 项 P1、3 项 P2）**，另有会话隔离等待验证事项。**2026-10-30：首轮 11 项全部已修复并验证，另修复会话隔离、模型前提、边界、重启、图片和主题等 7 组问题**。此结果不表示应用已通过整体验收。
+
+最新结果见 [全量验证记录](evidence/final_verification.md)：R1-04 102/102、R1-05 11/11、R1-06 124/124、本轮 300/300，以及独立有理数核算 10/10、图片资源 13/13。覆盖以各项证据为准，不是所有输入组合或部署验收。
+
+当前复测从仓库根目录运行 `./review/scripts/run_regression.ps1`；应用启动后可运行 `./review/scripts/test_assets.ps1`。前者只更新 `final_*.json`，保留旧证据。直接调用模块时先加载 `pmf_helpers.R`，三个模块共享同一学生会话时显式传入同一个 `new_pmf_state()`。
 
 R1-04 的 [验证记录](evidence/r1_04_verification.md) 包含 10/10 题有理数复核、102/102 真实练习交互检查，以及 R1-05 11/11、R1-06 124/124 的重跑结果。复现需先运行 `Rscript --vanilla review/scripts/test_r1_04.R`，再运行 `python review/scripts/test_r1_04_math.py`。
 
@@ -19,7 +23,7 @@ R1-06 的 [验证记录](evidence/r1_06_verification.md) 包含三模块输入�
 | [浏览器记录](evidence/round1_browser.md) | 人机交互复现及覆盖限制 |
 | [数值结果](evidence/round1_numeric.json)、[联合题库结果](evidence/round1_joint.json) | 可复算证据 |
 
-## 本轮覆盖
+## 首轮覆盖（2026-10-21 历史范围）
 
 | 模块 | 已检查 | 本轮深度与限制 |
 |---|---|---|
@@ -32,15 +36,14 @@ R1-06 的 [验证记录](evidence/r1_06_verification.md) 包含三模块输入�
 
 课程阅读采用两本主课程手册的相关章节定位与核对，**没有逐份阅读下载目录内所有历史版本、作业或试卷**。STATS210 当前下载目录中的完整手册是 2024 年版本，应保留版本标记。课程原 PDF、抽取文本和页面图像留在 `G:\STATS` 或被忽略的 `.local/course-review/`，不加入 Git。
 
-## 复算
+## 复测与历史证据
 
-从仓库根目录依次运行；需要项目已有的 R 依赖与 Python 3 标准库，不需要课程 PDF：
+完整回归：
 
 ```powershell
-Rscript --vanilla review/scripts/round1_audit.R
-python review/scripts/round1_joint_audit.py
+./review/scripts/run_regression.ps1
 ```
 
-首轮使用 R 4.6.0；2026-10-30 复测使用的 R 路径为 `C:\Program Files\R\R-4.6.1\bin\Rscript.exe`，原路径已不可用。Python 使用 `C:\Program Files\Inkscape\bin\python.exe`。
+默认使用本机 R 4.6.1 与 Inkscape 自带 Python，可用 `-RscriptPath`、`-PythonPath` 指定其他安装位置。脚本依赖项目现有 R 包和 Python 标准库，不需要课程 PDF。`test_assets.ps1` 需先运行 `Rscript Start-Shiny.R --no-browser`。
 
-脚本从当前源码的语法树提取题库/判题函数；中间题库 JSON 留在 `.local`。它们是**审查工具**，用于记录缺陷，不是宣称应用通过的测试集。后续修复应另行执行真实模块回归，核对更新后的题干、答案、提示、解答与图形。
+`round1_audit.R` / `round1_joint_audit.py` 保留用于首轮基线 `0f609de` 的复现，包含旧错误表达式。它们不是当前回归入口；不要在当前代码上运行并覆盖 `round1_*` 历史结果。当前模块的共享判题函数已移至 `pmf_helpers.R`，应使用真实模块回归脚本。

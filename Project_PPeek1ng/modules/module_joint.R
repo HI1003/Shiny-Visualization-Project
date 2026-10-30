@@ -4,11 +4,6 @@
 library(shiny)
 library(shinyjs)
 library(dplyr)
-# ---- bind global pmf ----
-pmf_global <- get0("pmf_global", envir = .GlobalEnv, inherits = FALSE)
-if (is.null(pmf_global)) {
-  stop("pmf_global is not initialised in .GlobalEnv. Define it in main.R before sourcing modules.")
-}
 
 # ---- Helper: Table CSS ----
 joint_css <- tags$head(tags$style(HTML("
@@ -24,13 +19,14 @@ joint_css <- tags$head(tags$style(HTML("
 # main.R loads pmf_helpers.R before this module; direct module tests must do so too.
 
 # ---- 小数近似成分数（边际展示用）----
-simp_frac <- function(x, tol = 1e-5, max_den = 500) {
+simp_frac <- function(x, tol = 1e-12, max_den = 500) {
   if (is.na(x) || !is.finite(x)) return("?")
   for (den in 1:max_den) {
     num <- round(x * den)
+    if (num == 0 && x != 0) next
     if (abs(num / den - x) < tol) return(paste0(num, "/", den))
   }
-  sprintf("%.5f", x)
+  format(signif(x, 10), scientific = FALSE, trim = TRUE)
 }
 
 to_tex_frac <- function(s) {
@@ -54,55 +50,7 @@ wrap_div <- function(id, content) {
 }
 
 # ---- Flexible answer check (5 decimal places, rounded) ----
-is_correct <- function(user_input, ans_val = NA, ans_frac = NA, ans_text = NA, tol = 1e-4) {
-  # 空输入直接 FALSE
-  if (is.null(user_input) || trimws(user_input) == "") return(FALSE)
-  input_str <- trimws(user_input)
-  
-  # ---- 1️⃣ 文字题模糊匹配（不区分大小写）----
-  if (!is.na(ans_text) && is.character(ans_text)) {
-    keyword <- tolower(trimws(ans_text))
-    user_lower <- tolower(input_str)
-    # 模糊匹配：输入包含关键词即可
-    return(grepl(keyword, user_lower, fixed = TRUE))
-  }
-  
-  # ---- 2️⃣ 数值或分数输入解析 ----
-  parse_to_numeric <- function(s) {
-    s <- trimws(s)
-    # 分数形式 a/b
-    if (grepl("^[-+]?[0-9]+\\s*/\\s*[0-9]+$", s)) {
-      parts <- strsplit(gsub("\\s+", "", s), "/", fixed = TRUE)[[1]]
-      num <- suppressWarnings(as.numeric(parts[1]))
-      den <- suppressWarnings(as.numeric(parts[2]))
-      if (!is.na(num) && !is.na(den) && den != 0) {
-        return(num / den)
-      }
-    }
-    # 小数形式
-    if (grepl("^[-+]?[0-9]*\\.?[0-9]+$", s)) {
-      return(suppressWarnings(as.numeric(s)))
-    }
-    NA_real_
-  }
-  
-  user_val <- parse_to_numeric(input_str)
-  
-  # ---- 3️⃣ 如果 ans_val 是数值型 ----
-  if (!all(is.na(ans_val))) {
-    # 支持多个正确数值（任意一个匹配即可）
-    return(any(abs(user_val - ans_val) < tol, na.rm = TRUE))
-  }
-  
-  # ---- 4️⃣ 如果定义了 ans_frac（例如 "1/9"）----
-  if (!is.na(ans_frac) && is.character(ans_frac)) {
-    frac_val <- parse_to_numeric(ans_frac)
-    return(!is.na(user_val) && abs(user_val - frac_val) < tol)
-  }
-  
-  # ---- 5️⃣ 否则都不匹配 ----
-  FALSE
-}
+# Answer validation is shared in pmf_helpers.R.
 
 
 # =====================================================================
@@ -237,7 +185,8 @@ joint_UI <- function(id) {
 # =========================================================
 #  SERVER
 # =========================================================
-joint_Server <- function(id) {
+joint_Server <- function(id, shared = new_pmf_state()) {
+  pmf_global <- shared
   moduleServer(id, function(input, output, session) {
     # --- Safeguard: ensure id column exists (wrapped in isolate) ---
     isolate({
@@ -299,11 +248,11 @@ joint_Server <- function(id) {
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
         uiOutput(ns("input_feedback")),
         lapply(seq_len(nrow(df)), function(i) {
-          fluidRow(
-            column(3, textInput(ns(paste0("p_", df$id[i])), "p", value = df$p_input[i])),
-            column(3, numericInput(ns(paste0("x_", df$id[i])), "x", value = df$x[i])),
-            column(3, numericInput(ns(paste0("y_", df$id[i])), "y", value = df$y[i])),
-            column(3, actionButton(ns(paste0("del_", df$id[i])), "Delete", class = "btn-danger btn-sm"))
+          div(class = "pmf-edit-row",
+            div(class = "pmf-edit-prob", textInput(ns(paste0("p_", df$id[i])), "p", value = df$p_input[i])),
+            div(class = "pmf-edit-coordinate", numericInput(ns(paste0("x_", df$id[i])), "x", value = df$x[i])),
+            div(class = "pmf-edit-coordinate", numericInput(ns(paste0("y_", df$id[i])), "y", value = df$y[i])),
+            actionButton(ns(paste0("del_", df$id[i])), "Delete", class = "btn-danger btn-sm")
           )
         }),
         hr(),

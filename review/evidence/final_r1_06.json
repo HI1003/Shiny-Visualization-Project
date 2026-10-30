@@ -1,0 +1,926 @@
+{
+  "issue": "R1-06",
+  "date": "2026-10-30",
+  "environment": {
+    "R": "R version 4.6.1 (2026-06-24 ucrt)",
+    "shiny": "1.14.0"
+  },
+  "source_md5": {
+    "Project_PPeek1ng/modules/module_conditional.R": "d30a2af9c42a3a1a0a334f72f40165bf",
+    "Project_PPeek1ng/modules/module_expectation.R": "603f276e520c4ecf3c125e7628ee4754",
+    "Project_PPeek1ng/modules/module_joint.R": "d47263f16f0974ced47b7caacf0f4c2c",
+    "Project_PPeek1ng/modules/pmf_helpers.R": "29d465c9785a2dd12a4f563f19e9c593"
+  },
+  "total": 124,
+  "passed": 124,
+  "cases": [
+    {
+      "module": "joint",
+      "name": "negative_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "negative_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "tiny_negative_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "tiny_negative_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "text_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "text_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "zero_denominator_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "zero_denominator_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "zero_over_zero_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "zero_over_zero_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "blank_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "blank_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "infinity_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "infinity_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "nan_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "nan_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "overflow_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "overflow_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "malformed_fraction_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "malformed_fraction_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "all_zero_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">The total probability or weight must be greater than zero.<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "all_zero_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">The total probability or weight must be greater than zero.<\/div>"
+    },
+    {
+      "module": "joint",
+      "name": "empty_generate",
+      "passed": true
+    },
+    {
+      "module": "joint",
+      "name": "empty_normalize",
+      "passed": true
+    },
+    {
+      "module": "joint",
+      "name": "empty_uniform",
+      "passed": true
+    },
+    {
+      "module": "joint",
+      "name": "empty_table_recovery_controls",
+      "passed": true
+    },
+    {
+      "module": "joint",
+      "name": "add_after_empty",
+      "passed": true
+    },
+    {
+      "module": "joint",
+      "name": "valid_weights",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.10000000000000001, 0.20000000000000001, 0.29999999999999999, 0.40000000000000002]
+    },
+    {
+      "module": "joint",
+      "name": "valid_fractions",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.14285714285714288, 0.28571428571428575, 0.14285714285714288, 0.4285714285714286]
+    },
+    {
+      "module": "joint",
+      "name": "valid_small",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.10000000000000001, 0.20000000000000001, 0.29999999999999999, 0.40000000000000002]
+    },
+    {
+      "module": "joint",
+      "name": "valid_large",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.25, 0.25, 0.25, 0.25]
+    },
+    {
+      "module": "joint",
+      "name": "valid_duplicates",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.29999999999999999, 0.29999999999999999, 0.40000000000000002]
+    },
+    {
+      "module": "joint",
+      "name": "valid_explicit_zero",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0, 0.25, 0, 0.75]
+    },
+    {
+      "module": "joint",
+      "name": "normalize_draft_only",
+      "passed": true
+    },
+    {
+      "module": "joint",
+      "name": "generate_after_normalize",
+      "passed": true
+    },
+    {
+      "module": "joint",
+      "name": "uniform_repairs_draft",
+      "passed": true
+    },
+    {
+      "module": "joint",
+      "name": "generate_after_uniform",
+      "passed": true
+    },
+    {
+      "module": "joint",
+      "name": "delete_all_retains_result",
+      "passed": true
+    },
+    {
+      "module": "joint",
+      "name": "deleted_ids_not_reused",
+      "passed": true
+    },
+    {
+      "module": "joint",
+      "name": "regenerate_after_empty",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "negative_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "negative_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "tiny_negative_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "tiny_negative_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "text_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "text_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "zero_denominator_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "zero_denominator_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "zero_over_zero_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "zero_over_zero_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "blank_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "blank_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "infinity_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "infinity_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "nan_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "nan_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "overflow_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "overflow_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "malformed_fraction_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "malformed_fraction_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "all_zero_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">The total probability or weight must be greater than zero.<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "all_zero_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">The total probability or weight must be greater than zero.<\/div>"
+    },
+    {
+      "module": "conditional",
+      "name": "empty_generate",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "empty_normalize",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "empty_uniform",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "empty_table_recovery_controls",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "add_after_empty",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "valid_weights",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.10000000000000001, 0.20000000000000001, 0.29999999999999999, 0.40000000000000002]
+    },
+    {
+      "module": "conditional",
+      "name": "valid_fractions",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.14285714285714288, 0.28571428571428575, 0.14285714285714288, 0.4285714285714286]
+    },
+    {
+      "module": "conditional",
+      "name": "valid_small",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.10000000000000001, 0.20000000000000001, 0.29999999999999999, 0.40000000000000002]
+    },
+    {
+      "module": "conditional",
+      "name": "valid_large",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.25, 0.25, 0.25, 0.25]
+    },
+    {
+      "module": "conditional",
+      "name": "valid_duplicates",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.29999999999999999, 0.29999999999999999, 0.40000000000000002]
+    },
+    {
+      "module": "conditional",
+      "name": "valid_explicit_zero",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0, 0.25, 0, 0.75]
+    },
+    {
+      "module": "conditional",
+      "name": "normalize_draft_only",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "generate_after_normalize",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "uniform_repairs_draft",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "generate_after_uniform",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "delete_all_retains_result",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "deleted_ids_not_reused",
+      "passed": true
+    },
+    {
+      "module": "conditional",
+      "name": "regenerate_after_empty",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "negative_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "negative_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "tiny_negative_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "tiny_negative_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "text_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "text_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "zero_denominator_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "zero_denominator_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "zero_over_zero_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "zero_over_zero_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "blank_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "blank_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "infinity_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "infinity_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "nan_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "nan_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "overflow_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "overflow_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "malformed_fraction_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "malformed_fraction_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">Row 1: enter a finite, non-negative probability or weight (decimal or fraction).<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "all_zero_generate",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">The total probability or weight must be greater than zero.<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "all_zero_normalize",
+      "passed": true,
+      "retained": true,
+      "table_unchanged": true,
+      "message": "<div class=\"alert alert-danger\" role=\"alert\">The total probability or weight must be greater than zero.<\/div>"
+    },
+    {
+      "module": "expectation",
+      "name": "empty_generate",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "empty_normalize",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "empty_uniform",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "empty_table_recovery_controls",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "add_after_empty",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "valid_weights",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.10000000000000001, 0.20000000000000001, 0.29999999999999999, 0.40000000000000002]
+    },
+    {
+      "module": "expectation",
+      "name": "valid_fractions",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.14285714285714288, 0.28571428571428575, 0.14285714285714288, 0.4285714285714286]
+    },
+    {
+      "module": "expectation",
+      "name": "valid_small",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.10000000000000001, 0.20000000000000001, 0.29999999999999999, 0.40000000000000002]
+    },
+    {
+      "module": "expectation",
+      "name": "valid_large",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.25, 0.25, 0.25, 0.25]
+    },
+    {
+      "module": "expectation",
+      "name": "valid_duplicates",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0.29999999999999999, 0.29999999999999999, 0.40000000000000002]
+    },
+    {
+      "module": "expectation",
+      "name": "valid_explicit_zero",
+      "passed": true,
+      "probability_passed": true,
+      "input_passed": true,
+      "table_passed": true,
+      "downstream_passed": true,
+      "probabilities": [0, 0.25, 0, 0.75]
+    },
+    {
+      "module": "expectation",
+      "name": "normalize_draft_only",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "generate_after_normalize",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "uniform_repairs_draft",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "generate_after_uniform",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "delete_all_retains_result",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "deleted_ids_not_reused",
+      "passed": true
+    },
+    {
+      "module": "expectation",
+      "name": "regenerate_after_empty",
+      "passed": true
+    },
+    {
+      "module": "integration",
+      "name": "joint_commit_updates_three_views",
+      "passed": true
+    },
+    {
+      "module": "integration",
+      "name": "conditional_invalid_commit_keeps_three_views",
+      "passed": true
+    },
+    {
+      "module": "integration",
+      "name": "expectation_invalid_normalize_keeps_three_views",
+      "passed": true
+    },
+    {
+      "module": "integration",
+      "name": "expectation_commit_updates_three_views",
+      "passed": true
+    }
+  ]
+}

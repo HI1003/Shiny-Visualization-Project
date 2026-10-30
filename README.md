@@ -13,6 +13,7 @@ Users can interactively manipulate parameters, visualize how probability functio
 | Module | Description |
 |:--------|:-------------|
 | **Main Application (`main.R`)** | Integrates all modules into a unified Shiny dashboard. |
+| **Shiny entry point (`app.R`)** | Loads the dashboard through the application directory so bundled images are served correctly. |
 | **Probability Distribution (`module_probability.R`)** | Visualizes major discrete and continuous distributions, including Bernoulli, Binomial, Poisson, and Normal. |
 | **Game: Discrete (`module_game_discrete.r`)** | An interactive detective-style probability game that strengthens conceptual understanding through contextual tasks. |
 | **Joint Distribution (`module_joint.R`)** | Enables users to construct and explore joint PMFs, marginal, and conditional distributions. |
@@ -50,6 +51,10 @@ The packaged file `Project_PPeek1ng.zip` includes:
 
 In RStudio, set the working directory to the repository root and run
 `source("Start-Shiny.R")`.
+
+Review status and reproducible checks are recorded in [review/README.md](review/README.md).
+Run `./review/scripts/run_regression.ps1` from the repository root to check the modules;
+with the app running, `./review/scripts/test_assets.ps1` checks its image resources.
 
 ---
 

@@ -177,7 +177,7 @@ prob_UI <- function(id) {
           h4("Formula"),
           withMathJax(uiOutput(ns("formula_cont"))),
           hr(),
-          helpText("Click on the graph to highlight a value x, and the panel will display P(X = x) and F(x) = P(X ≤ x)")
+          helpText("Click on the graph to display the density f(x) and the probability F(x) = P(X ≤ x). For a continuous variable, P(X = x) = 0; a density value is not a point probability.")
         )
       ),
       
@@ -232,28 +232,22 @@ prob_Server <- function(id) {
     # default range
     #================================================
     default_range <- reactive({
+      req(input$dist)
       switch(input$dist,
              bern = c(0, 1),
              binom = c(0, input$n),
              nbinom = {
                r <- input$r_nb
-               p <- max(0.001, min(0.999, input$p_nb))
-               mu <- r * (1 - p) / p
-               sigma <- sqrt(r * (1 - p) / (p^2))     # Var = r(1-p)/p^2
-               lo <- max(0, floor(mu - 6 * sigma))
-               hi <- ceiling(mu + 6 * sigma)
-               c(lo, max(lo + 10, hi))
+               p <- input$p_nb
+               c(0, max(10, qnbinom(0.999, size = r, prob = p)))
              },
              geom = {
-               p <- max(0.001, min(0.999, input$pg))
-               kmax <- ceiling(log(1 - 0.999) / log(1 - p)-1)
+               p <- input$pg
+               kmax <- if (p == 1) 0 else qgeom(0.999, prob = p)
                c(0, max(10, kmax))
              },
              pois  = {
-               mu <- input$lambda
-               lo <- max(0, floor(mu - 6 * sqrt(mu)))
-               hi <- ceiling(mu + 6 * sqrt(mu))
-               c(lo, hi)
+               c(0, qpois(0.999, lambda = input$lambda))
              },
              hyper = {
                n <- input$n_hy; M <- input$M_hy; N <- input$N_hy
@@ -270,10 +264,11 @@ prob_Server <- function(id) {
     })
     
     default_range_cont <- reactive({
+      req(input$dist_cont)
       switch(input$dist_cont,
              unif = {
                a <- input$a_unif; b <- input$b_unif
-               if (!is.null(a) && !is.null(b) && a >= b) b <- a + 1e-6
+               validate(need(!is.null(a) && !is.null(b) && a < b, "Uniform requires a < b. Choose a wider interval."))
                c(a, b)
              },
              exp  = c(0, qexp(0.999, rate = input$rate_exp)),
@@ -308,14 +303,14 @@ prob_Server <- function(id) {
             
           } else if (input$dist == "nbinom") {
             k <- seq(max(0, rng[1]), max(0, rng[2]))
-            p <- max(0.001, min(0.999, input$p_nb))
+            p <- input$p_nb
             pmf <- dnbinom(k, size = input$r_nb, prob = p)
             cdf <- pnbinom(k, size = input$r_nb, prob = p)
             mean_val <- input$r_nb * (1 - p) / p
             
           } else if (input$dist == "geom") {
             k <- seq(max(0, rng[1]), max(0, rng[2]))
-            p <- max(0.001, min(0.999, input$pg))
+            p <- input$pg
             pmf <- dgeom(k, prob = p)
             cdf <- pgeom(k, prob = p)
             mean_val <- (1 - p) / p
@@ -354,7 +349,7 @@ prob_Server <- function(id) {
           
           if (input$dist_cont == "unif") {
             a <- input$a_unif; b <- input$b_unif
-            if (!is.null(a) && !is.null(b) && a >= b) b <- a + 1e-6
+            validate(need(!is.null(a) && !is.null(b) && a < b, "Uniform requires a < b. Choose a wider interval."))
             pdf <- dunif(x, min = a, max = b)
             cdf <- punif(x, min = a, max = b)
           } else if (input$dist_cont == "exp") {
@@ -458,7 +453,7 @@ prob_Server <- function(id) {
       switch(d,
              unif = {
                a <- input$a_unif; b <- input$b_unif
-               if (!is.null(a) && !is.null(b) && a >= b) b <- a + 1e-6
+               validate(need(!is.null(a) && !is.null(b) && a < b, "Uniform requires a < b. Choose a wider interval."))
                out_pdf <- dunif(x0, min = a, max = b)
                out_cdf <- punif(x0, min = a, max = b)
              },
@@ -545,7 +540,7 @@ prob_Server <- function(id) {
         geom_col(width = 0.9, fill = "#9ecae1") +
         scale_x_continuous(
           limits = c(x_min, rng[2] + 1.5),
-          breaks = seq(x_min, rng[2], by = 1)
+          breaks = unique(round(pretty(c(max(x_min, rng[1]), rng[2]), n = 8)))
         ) +
         scale_y_continuous(limits = c(0, 1)) +
         labs(x = "x", y = "Probability") +
@@ -591,7 +586,7 @@ prob_Server <- function(id) {
                    shape = 16, size = 2, color = "#238b45") +
         scale_x_continuous(
           limits = c(x_min, rng[2] + 1.5),
-          breaks = seq(x_min, rng[2], by = 1)
+          breaks = unique(round(pretty(c(max(x_min, rng[1]), rng[2]), n = 8)))
         ) +
         coord_cartesian(ylim = c(0, 1)) +
         labs(x = "x", y = "Cumulative probability") +
@@ -634,7 +629,7 @@ prob_Server <- function(id) {
           theme_minimal(base_size = 13) +
           theme(panel.grid.minor = element_blank())
       } else {
-        g <- ggplot(df, aes(x, pdf)) +
+        g <- ggplot(df[is.finite(df$pdf), ], aes(x, pdf)) +
           geom_area(fill = "#ffb81c", alpha = 0.3) +
           geom_line(color = "#ffb81c", linewidth = 1.2) +
           scale_x_continuous(limits = c(rng[1] - 1, rng[2] + 1),
@@ -644,6 +639,8 @@ prob_Server <- function(id) {
           theme_minimal(base_size = 13) +
           theme(panel.grid.minor = element_blank())
       }
+      if (any(!is.finite(df$pdf))) g <- g + labs(caption =
+        "Density is unbounded at a support endpoint; that endpoint is omitted.\nFinite sampling may not resolve a sharp peak. Use the CDF for probabilities.")
       g
     })
     
@@ -740,7 +737,7 @@ prob_Server <- function(id) {
         A random variable <em>X</em> is said to have a <b>Uniform distribution</b> 
         on the interval <em>(a, b)</em> if it is equally likely to take any value in that interval.<br>
         We write <em>X ~ Uniform(a, b)</em> (or <em>X ~ U(a, b)</em>).<br>
-        The pdf is constant over the interval and zero otherwise.
+        The pdf is constant over the interval and zero otherwise. Equal-length subintervals have equal probability; every individual point has probability zero.
         ")
       } else if (input$dist_cont == "exp") {
         HTML("
@@ -753,7 +750,7 @@ prob_Server <- function(id) {
         HTML("
         <b>Gamma Distribution</b><br>
         The <b>Gamma(k, λ)</b> distribution is a flexible family of distributions.<br><br>
-        It can be defined as the sum of <em>k</em> independent Exponential(λ) random variables:<br>
+        For a positive integer shape <em>k</em>, it is the sum of <em>k</em> independent Exponential(λ) random variables. The Gamma density also permits any real shape k &gt; 0:<br>
         If <em>X<sub>1</sub>, …, X<sub>k</sub> ~ Exponential(λ)</em> are independent, then<br>
         <em>X<sub>1</sub> + X<sub>2</sub> + ··· + X<sub>k</sub> ~ Gamma(k, λ)</em>.<br><br>
         <b>Special Case:</b> When k = 1, Gamma(1, λ) = Exponential(λ).<br>
@@ -785,14 +782,14 @@ prob_Server <- function(id) {
         <b>Student's t Distribution</b><br>
         A random variable <em>X</em> has a <b>t distribution</b> with <em>ν</em> degrees of freedom 
         if it is the ratio of a standard normal variable to the square root of a chi-squared variable 
-        (scaled by its degrees of freedom).<br>
+        (scaled by its degrees of freedom), with the normal and chi-squared variables independent.<br>
         We write <em>X ~ t(ν)</em>.<br>
         ")
       } else if (input$dist_cont == "f") {
         HTML("
         <b>F Distribution</b><br>
         A random variable <em>X</em> has an <b>F distribution</b> with 
-        <em>d₁</em> and <em>d₂</em> degrees of freedom if it is the ratio of two scaled chi-squared variables.<br>
+        <em>d₁</em> and <em>d₂</em> degrees of freedom if it is the ratio of two independent chi-squared variables, each divided by its degrees of freedom.<br>
         We write <em>X ~ F(d₁, d₂)</em>.<br>
         ")
       }
@@ -1076,4 +1073,4 @@ prob_Server <- function(id) {
       withMathJax(HTML(spec[[input$dist_cont]]))
     })
   })   
-}   
+}

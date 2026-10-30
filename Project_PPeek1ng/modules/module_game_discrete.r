@@ -136,11 +136,11 @@ Conclusion: Poisson — models rare events occurring randomly but with a constan
 - Random variable X: The index of the hiding spot, chosen from {1, 2, …, N}.<br>  
 - Parameter N: The total number of possible hiding spots.<br>  
 - Probability: Each outcome has probability 1/N, equally likely.<br>  
-- Detective’s insight: When no option is more suspicious, every possibility is equally likely.<br><br>
+- Detective’s insight: Equal probabilities are a modeling assumption; missing clues do not prove equal likelihood.<br><br>
 Characteristic check for X<br>
 - Outcome space: Finite set {1, …, N}.<br>
 - Probability: All outcomes have the same probability.<br>
-- Note: Unlike Bernoulli trials, the probability of success p is not constant across repeated draws, so DU is not part of the Bernoulli-trial family.<br>
+- Note: DU describes one finite-valued outcome. Independent draws with replacement can give Bernoulli indicators with constant p; searching without replacement generally changes conditional success probabilities.<br>
 Conclusion: Discrete Uniform — every outcome is equally likely.",
       hints = list(
         "Bernoulli"         = list(
@@ -187,7 +187,7 @@ Inwardly, you affirm your judgment: this was a Bernoulli trial. Despite earlier 
 - Parameter p: Probability of success (occupied).<br>
 - Detective’s insight: A single yes/no judgment defines the outcome.<br><br>
 Property check for Y<br>
-(i) Binary outcome? Yes<br>
+(i) Individual trial is binary? Yes<br>
 (ii) Constant success probability? Yes (p given)<br>
 (iii) Independent trials? N.A. (single trial)<br>
 Conclusion: Bernoulli — a single yes/no experiment.",
@@ -211,7 +211,7 @@ Conclusion: Bernoulli — a single yes/no experiment.",
         ),
         "Discrete Uniform" = list(
           hint1 = "Are all possible values equally likely?",
-          hint2 = "Uniform spreads probability across many values; here there are only two possible outcomes."
+          hint2 = "Equal probabilities have not been assumed. A binary indicator is Bernoulli(p); it is also uniform on {0,1} only when p=1/2."
         ),
         "Poisson" = list(
           hint1 = "Are we counting multiple events in a time interval?",
@@ -233,7 +233,7 @@ Following the trail through the harbor, you soon discover a streak of blood at t
 - Parameter p: Probability of success in each trial.<br>  
 - Detective’s insight: Geometric models the patience of repeated attempts until the first success.<br><br>
 Property check for X<br>
-(i) Binary outcome? Yes<br>
+(i) Individual trial is binary? Yes<br>
 (ii) Constant success probability? Yes<br>
 (iii) Independent trials? Yes<br>
 Conclusion: Geometric — failures before the first success.",
@@ -279,8 +279,7 @@ At that very moment, reinforcements arrived, and together you began the final st
 • N — total number of hostages (population size)<br>
 • M — number of criminals among them (successes in population)<br>
 • n — number of people released and checked (sample size)<br><br>
-<b>Example:</b> Suppose there are N = 10 hostages in total, among whom M = 3 are criminals.  
-You check n = 4 of them — then X counts how many of those 4 are criminals.<br><br>
+<b>Example:</b> Here N = 7 people, M = 1 accomplice, and n = 4 people are selected in advance. X counts accomplices among the first four, so X ~ Hypergeometric(4, 1, 7). This is a fixed-size sample, not the waiting time until identification.<br><br>
 <b>Detective’s insight:</b> Probabilities change after each draw — unlike the Binomial case where trials are independent.<br><br>
 Characteristic check for X<br>
 • Sampling: Without replacement.<br>
@@ -325,7 +324,7 @@ Characteristic check for X<br>
 - Parameters: n fixed trials, success probability p.<br>  
 - Detective’s insight: Each trial is a Bernoulli trial with the same probability of success; X counts the total number of successes out of these n trials.<br><br>
 Property check for X<br>
-(i) Binary outcome? Yes<br>
+(i) Individual trial is binary? Yes<br>
 (ii) Constant success probability? Yes<br>
 (iii) Independent trials? Yes<br>
 Conclusion: Binomial — counts the number of successes in n independent Bernoulli trials.",
@@ -362,7 +361,7 @@ Conclusion: Binomial — counts the number of successes in n independent Bernoul
       reason="This case describes waiting for the k-th success: X equals the number of failures before achieving the k-th success.",
       transition="Following your advice, the laboratory carefully rationed its limited reagents.<br>
       <img src='img/11.png' style='display:block; margin:auto; width:60%; max-width:600px; margin-top:15px; margin-bottom:15px;'>
-      <br> Sure enough, before even half of the stock was consumed, the 10th dangerous compound was successfully detected, completing the chain of evidence.<br><br>
+      <br> Sure enough, before even half of the stock was consumed, the 10th positive test result was obtained, completing the chain of evidence.<br><br>
 Your superior let out a long breath, relief softening his voice:<br>
 “Well done. Thanks to your reasoning, we neither wasted precious reagents nor missed the critical window for evidence collection.”<br><br>
 As the cap of the final vial snapped shut, the night wind over the harbor carried with it, at last, a touch of calm.",
@@ -371,7 +370,7 @@ As the cap of the final vial snapped shut, the night wind over the harbor carrie
 - Parameters: k = target successes, p = probability of success on each trial.<br>  
 - Detective’s insight: The Negative Binomial extends the Geometric distribution. Geometric counts failures before the first success (k=1), while Negative Binomial counts failures before the k-th success.<br><br>
 Property check for X<br>
-(i) Binary outcome? Yes<br>
+(i) Individual trial is binary? Yes<br>
 (ii) Constant success probability? Yes<br>
 (iii) Independent trials? Yes<br>
 Conclusion: Negative Binomial — counts the number of failures before the k-th success.",
@@ -420,7 +419,7 @@ Conclusion: Negative Binomial — counts the number of failures before the k-th 
       wellPanel(
         h4("Please select the most appropriate distribution"),
         radioButtons(ns(paste0("dist", n)), "Your Selection：",
-                     choices=c("Bernoulli","Binomial","Geometric",
+                     selected=character(0), choices=c("Bernoulli","Binomial","Geometric",
                                "Negative Binomial","Hypergeometric",
                                "Discrete Uniform","Poisson"))
       ),
@@ -462,7 +461,7 @@ Conclusion: Negative Binomial — counts the number of failures before the k-th 
       caseUI(1, "
 You choose to accompany your superior to handle the case. Having just received your driver’s license over the holidays, you are assigned to take the wheel, while your superior rides shotgun, keeping in contact with the caller over the radio to gather more details.<br><img src='img/3.jpg' style='display:block; margin:auto; width:60%; max-width:600px; margin-bottom:5px;'><br>
 Soon, you learn that <b>the first gunshot occurred about twenty minutes ago</b>. <b>During the following ten minutes, several more shots were heard—sporadic and scattered rather than concentrated.</b><br><br>
-Drawing on your knowledge of statistics, you realize that events like these, occurring irregularly within a fixed period of time, can often be modeled with a particular distribution. This insight might prove useful to the investigation.
+For this exercise, assume shot counts in disjoint time intervals are independent and the average rate is constant. Let X count shots in a fixed interval. Under these assumptions, a particular distribution models X. This insight might prove useful to the investigation.
 ")
     }
     
@@ -478,8 +477,8 @@ Your superior frowns, speaking in a low voice:<br>
 The night air hangs heavy over the docks. Stacked containers, warehouses packed with goods, fishing boats at berth, and the lighthouse at the shore—all could serve as hiding spots.<br><br>
 With just the two of you, charging recklessly in without backup would be far too dangerous.<br><br>
 Glancing around sharply, your superior whispers:<br>
-“Any of these places could be their hideout. We don’t have extra intelligence to single one out. That means <b>we must assume—the probability of them hiding in any location is the same.</b> We’ll need to prioritize sealing off the most accessible spots, then search them one by one.”<br><br>
-In your mind, the reasoning is clear: when no single place is more suspicious than another, each hiding spot must be equally likely. Now, ask yourself: which probability distribution models this assumption?
+“Any of these places could be their hideout. We don’t have extra intelligence to single one out. That means <b>for this simplified model, we will assume each of the N locations has probability 1/N. The absence of clues alone does not establish this assumption.</b> We’ll need to prioritize sealing off the most accessible spots, then search them one by one.”<br><br>
+In your mind, the reasoning is clear: equal likelihood is a modeling assumption that would need revision if evidence favors some locations. Now, ask yourself: which probability distribution models this assumption?
 ")
     }
     
@@ -500,7 +499,7 @@ This man, disgruntled over the division of spoils, attempted to keep the goods f
 <br>In the shootout, he was wounded and fled the scene with the crucial cargo manifest still in his possession. Without that list, it would be nearly impossible to identify which warehouses contain contraband.
 <br><br>Before you looms a mountain of warehouses, yet your manpower is severely limited. After a moment’s thought, you begin to reason:  
 “If it’s just the two of us starting a full-scale search now, then <b>each attempt will either uncover contraband (success) or come up empty (failure).</b>  
-<br><br>The real question is: <b>before we achieve our first success, how many failures might we face?</b> And how much delay could that impose on the entire operation?”
+<br><br>For this simplified model, assume searches are independent with the same success probability p; actual searches of a fixed set of warehouses may violate this assumption.<br>The real question is: <b>before we achieve our first success, how many failures might we face?</b> And how much delay could that impose on the entire operation?”
 ")
     }
     
@@ -511,14 +510,14 @@ You push open the heavy iron door of the lighthouse—only to be startled by the
 <img src='img/9.png' style='display:block; margin:auto; width:60%; max-width:600px; margin-top:15px; margin-bottom:15px;'><br><br>
 From the testimony of the captured smugglers, your superior suspects the truth: <b>the third gunman, wounded in the earlier clash, is very likely hiding among these seven people</b>.<br><br>
 But since he does not know his accomplices have already been caught, the situation is delicate. To avoid alarming him—and to prevent harm to the innocents—you turn to a familiar principle from statistics.<br><br>
-<b>You carefully untie and release the hostages one by one, in a random sequence, and each person is identified by the captured gang members as they enter the safe zone.</b>
+<b>Assume exactly one of the seven people is the accomplice. Before observing any identifications, select four people at random without replacement for checking. Let X count the accomplices among these four.</b> They are checked one by one as they enter the safe zone.
 ")
     }
     
     else if(cur == 6){
       caseUI(6, "
-Relying on the last smuggler’s incomplete cargo manifest, you can only narrow it down: <b>the main contraband is scattered somewhere within five of the ten warehouses, though exactly which ones remain uncertain.</b><br><br>  
-To resolve this, you organize your team to systematically search all ten warehouses.<br>
+The incomplete manifest lists ten warehouses. For this model, assume <b>each independently contains contraband with probability p = 0.5</b>; the total containing contraband is unknown.<br><br>
+Search all ten warehouses and let X be the number containing contraband. The number of trials is fixed at n = 10.<br>
 <img src='img/10.png' style='display:block; margin:auto; width:60%; max-width:600px; margin-top:15px; margin-bottom:15px;'>
 <br> <b>Each search is a Bernoulli trial: in one warehouse you may uncover contraband (success), in another you may find nothing at all (failure).</b>
 ")
@@ -527,12 +526,12 @@ To resolve this, you organize your team to systematically search all ten warehou
       caseUI(7, "
 The confiscated contraband is sealed one batch at a time, but a new dilemma soon arises.<br><br>
 Your superior’s brow furrows:  
-“To complete the chain of evidence, the lab must detect at least ten dangerous compounds. But the reagents for chemical analysis are extremely limited. If we use them all at once, there may not be enough left for subsequent tests. Yet if we wait for supplies to be transferred from outside, we’ll miss the critical window for evidence.”<br><br>
+“To complete the chain of evidence, the lab needs at least ten positive test results. But the reagents for chemical analysis are extremely limited. If we use them all at once, there may not be enough left for subsequent tests. Yet if we wait for supplies to be transferred from outside, we’ll miss the critical window for evidence.”<br><br>
 You glance at the mountain of contraband and quickly begin reasoning:  
 <b>Each test of a batch will either detect a dangerous compound (success) or not (failure). The probability of success is roughly constant, and the tests are independent.</b><br><br>
 The critical question becomes: <b>before the 10th success, how many failures will occur?</b><br><br>
 Lifting your head with confidence, you declare to your superior:  
-“Sir, there’s no need to hesitate. Even with limited stock, I can model whether the current supply is sufficient to detect ten compounds within the time limit. This is exactly the kind of statistical problem that can be described by a specific distribution.”  
+“Sir, there’s no need to hesitate. Even with limited stock, I can model whether the current supply is sufficient to obtain ten positive tests within the available supply. This is exactly the kind of statistical problem that can be described by a specific distribution.”
 ")
     }
     
@@ -552,7 +551,7 @@ Lifting your head with confidence, you declare to your superior:
           
           p(HTML("The <b>Poisson distribution</b> had guided you through the scattered rhythm of gunfire, revealing the crime scene’s location.")),
           
-          p(HTML("The <b>Discrete Uniform distribution</b> reminded you that, with no extra clues, every hiding place was equally suspicious.")),
+          p(HTML("The <b>Discrete Uniform distribution</b> reminded you that, equal probabilities across hiding places were a simplifying assumption, not a conclusion from missing clues.")),
           
           p(HTML("The <b>Bernoulli trial</b> forced a clear decision—was the warehouse occupied or not? That single judgment led to the capture of the lookout.")),
           
@@ -594,6 +593,7 @@ Lifting your head with confidence, you declare to your superior:
       key <- as.character(n)
       
       observeEvent(input[[submit_id]], {
+        req(step() == n)
         chosen <- input[[dist_id]]
         correct <- stories[[n]]$correct
         if(is.null(chosen)) return(NULL)
@@ -671,6 +671,7 @@ Lifting your head with confidence, you declare to your superior:
       })
       
       observeEvent(input[[next_id]], {
+        req(step() == n)
         if(step() < total_steps){
           step(step()+1)
         } else {
@@ -681,6 +682,7 @@ Lifting your head with confidence, you declare to your superior:
       })
       
       observeEvent(input[[paste0("prev", n)]], {
+        req(step() == n)
         if (step() > 0) {
           step(step() - 1)
         }
@@ -745,10 +747,18 @@ Lifting your head with confidence, you declare to your superior:
   restart_trigger <- reactiveVal(0)
   
   observeEvent(input$restartBtn, {
+    step(0)
+    for (i in seq_len(total_steps)) {
+      wrongCounts[[as.character(i)]] <- 0
+      output[[paste0("feedback", i)]] <- renderUI(NULL)
+      updateRadioButtons(session, paste0("dist", i), selected = character(0))
+    }
+    for (d in c("Poisson", "DU", "Bernoulli", "Geometric", "Hypergeo", "Binomial", "NegBin"))
+      score_tracker[[d]] <- 0
     restart_trigger(restart_trigger() + 1)
   })
   
   return(list(restart = restart_trigger))
   
   })  
-}      
+}

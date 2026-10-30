@@ -2,12 +2,6 @@
 #  module_expectation.R — Expectation Module
 # =====================================================================
 
-# ---- Bind global PMF ----
-pmf_global <- get0("pmf_global", envir = .GlobalEnv, inherits = FALSE)
-if (is.null(pmf_global)) {
-  stop("pmf_global is not initialised in .GlobalEnv. Define it in main.R before sourcing modules.")
-}
-
 # ---- Helper: Table CSS ----
 expectation_css <- tags$head(tags$style(HTML("
 .pmf-table { border-collapse: collapse; margin-top: 10px; }
@@ -22,13 +16,14 @@ expectation_css <- tags$head(tags$style(HTML("
 # main.R loads pmf_helpers.R before this module; direct module tests must do so too.
 
 # ---- 小数近似成分数（显示）----
-simp_frac <- function(x, tol = 1e-5, max_den = 500) {
+simp_frac <- function(x, tol = 1e-12, max_den = 500) {
   if (is.na(x) || !is.finite(x)) return("?")
   for (den in 1:max_den) {
     num <- round(x * den)
+    if (num == 0 && x != 0) next
     if (abs(num / den - x) < tol) return(paste0(num, "/", den))
   }
-  sprintf("%.5f", x)
+  format(signif(x, 10), scientific = FALSE, trim = TRUE)
 }
 
 # ---- 转成 LaTeX 分数显示 ----
@@ -51,55 +46,7 @@ wrap_div <- function(id, content) {
 # =====================================================================
 # ✅ Flexible Answer Checker (fuzzy match for numeric / fraction / text)
 # =====================================================================
-is_correct <- function(user_input, ans_val = NA, ans_frac = NA, ans_text = NA, tol = 1e-4) {
-  # 空输入直接 FALSE
-  if (is.null(user_input) || trimws(user_input) == "") return(FALSE)
-  input_str <- trimws(user_input)
-  
-  # ---- 1️⃣ 文字题模糊匹配（不区分大小写）----
-  if (!is.na(ans_text) && is.character(ans_text)) {
-    keyword <- tolower(trimws(ans_text))
-    user_lower <- tolower(input_str)
-    # 模糊匹配：输入中包含关键词即可，例如 "Poisson", "Normal"
-    return(grepl(keyword, user_lower, fixed = TRUE))
-  }
-  
-  # ---- 2️⃣ 数值或分数输入解析 ----
-  parse_to_numeric <- function(s) {
-    s <- trimws(s)
-    # 分数形式 a/b
-    if (grepl("^[-+]?[0-9]+\\s*/\\s*[0-9]+$", s)) {
-      parts <- strsplit(gsub("\\s+", "", s), "/", fixed = TRUE)[[1]]
-      num <- suppressWarnings(as.numeric(parts[1]))
-      den <- suppressWarnings(as.numeric(parts[2]))
-      if (!is.na(num) && !is.na(den) && den != 0) {
-        return(num / den)
-      }
-    }
-    # 小数形式
-    if (grepl("^[-+]?[0-9]*\\.?[0-9]+$", s)) {
-      return(suppressWarnings(as.numeric(s)))
-    }
-    NA_real_
-  }
-  
-  user_val <- parse_to_numeric(input_str)
-  
-  # ---- 3️⃣ 如果 ans_val 是数值型 ----
-  if (!all(is.na(ans_val))) {
-    # 支持多个正确数值，只要接近任意一个即算对
-    return(any(abs(user_val - ans_val) < tol, na.rm = TRUE))
-  }
-  
-  # ---- 4️⃣ 如果定义了分数字符串（例如 "3/7"）----
-  if (!is.na(ans_frac) && is.character(ans_frac)) {
-    frac_val <- parse_to_numeric(ans_frac)
-    return(!is.na(user_val) && abs(user_val - frac_val) < tol)
-  }
-  
-  # ---- 5️⃣ 否则不匹配 ----
-  FALSE
-}
+# Answer validation is shared in pmf_helpers.R.
 # =====================================================================
 #  UI
 # =====================================================================
@@ -227,7 +174,8 @@ expectation_UI <- function(id) {
 # =====================================================================
 #  SERVER
 # =====================================================================
-expectation_Server <- function(id) {
+expectation_Server <- function(id, shared = new_pmf_state()) {
+  pmf_global <- shared
   moduleServer(id, function(input, output, session) {
     # --- Safeguard: ensure id column exists (wrapped in isolate) ---
     isolate({
@@ -286,11 +234,11 @@ expectation_Server <- function(id) {
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
         uiOutput(ns("input_feedback")),
         lapply(seq_len(nrow(df)), function(i) {
-          fluidRow(
-            column(3, textInput(ns(paste0("p_", df$id[i])), "p", value = df$p_input[i])),
-            column(3, numericInput(ns(paste0("x_", df$id[i])), "x", value = df$x[i])),
-            column(3, numericInput(ns(paste0("y_", df$id[i])), "y", value = df$y[i])),
-            column(3, actionButton(ns(paste0("del_", df$id[i])), "Delete", class = "btn-danger btn-sm"))
+          div(class = "pmf-edit-row",
+            div(class = "pmf-edit-prob", textInput(ns(paste0("p_", df$id[i])), "p", value = df$p_input[i])),
+            div(class = "pmf-edit-coordinate", numericInput(ns(paste0("x_", df$id[i])), "x", value = df$x[i])),
+            div(class = "pmf-edit-coordinate", numericInput(ns(paste0("y_", df$id[i])), "y", value = df$y[i])),
+            actionButton(ns(paste0("del_", df$id[i])), "Delete", class = "btn-danger btn-sm")
           )
         }),
         hr(),
@@ -431,22 +379,10 @@ expectation_Server <- function(id) {
       
       tagList(
         withMathJax(),
-        fluidRow(
-          column(width = 2),
-          column(
-            width = 3,
-            joint_html,
-            tags$div(
-              style = "margin-top:8px; color:#666; font-size:13px;",
-              HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)")
-            )
-          ),
-          column(
-            width = 4,
-            div(style="border-left:1px solid #ddd; padding-left:16px;"),
-            cond_panel
-          ),
-          column(width = 3)
+        div(class = "pmf-table-layout",
+          div(class = "pmf-table-scroll", joint_html,
+            tags$p(HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)"))),
+          div(class = "pmf-calculation-panel", cond_panel)
         )
       )
     })
@@ -465,12 +401,12 @@ expectation_Server <- function(id) {
       
       ex_formula <- paste0(
         "\\(E[X] = \\sum_x x f_X(x) = ",
-        paste0(fx$x, "\\cdot ", sprintf("%.6f", fx$px), collapse = " + "),
+        paste0(fx$x, "\\cdot ", display_probability(fx$px), collapse = " + "),
         " = ", sprintf("%.6f", EX), "\\)"
       )
       ey_formula <- paste0(
         "\\(E[Y] = \\sum_y y f_Y(y) = ",
-        paste0(fy$y, "\\cdot ", sprintf("%.6f", fy$py), collapse = " + "),
+        paste0(fy$y, "\\cdot ", display_probability(fy$py), collapse = " + "),
         " = ", sprintf("%.6f", EY), "\\)"
       )
       
@@ -492,10 +428,11 @@ expectation_Server <- function(id) {
         formulas <- lapply(xvals, function(x0) {
           sub <- df[df$x == x0, c("y","p_value")]
           den <- sum(sub$p_value)
-          num_expr <- paste0(sub$y, "\\cdot ", sprintf("%.6f", sub$p_value), collapse = " + ")
+          num_expr <- paste0(sub$y, "\\cdot ", display_probability(sub$p_value), collapse = " + ")
+          if (den <= 0) return(tags$p(paste0("Conditional expectation is undefined: P(X = ", x0, ") = 0.")))
           val <- if (den > 0) sum(sub$y * sub$p_value) / den else NA
           formula <- paste0(
-            "\\(E[Y | X=", x0, "] = \\frac{", num_expr, "}{", sprintf("%.6f", den), "} = ",
+            "\\(E[Y | X=", x0, "] = \\frac{", num_expr, "}{", display_probability(den), "} = ",
             sprintf("%.6f", val), "\\)"
           )
           tags$p(HTML(formula))
@@ -505,10 +442,11 @@ expectation_Server <- function(id) {
         formulas <- lapply(yvals, function(y0) {
           sub <- df[df$y == y0, c("x","p_value")]
           den <- sum(sub$p_value)
-          num_expr <- paste0(sub$x, "\\cdot ", sprintf("%.6f", sub$p_value), collapse = " + ")
+          num_expr <- paste0(sub$x, "\\cdot ", display_probability(sub$p_value), collapse = " + ")
+          if (den <= 0) return(tags$p(paste0("Conditional expectation is undefined: P(Y = ", y0, ") = 0.")))
           val <- if (den > 0) sum(sub$x * sub$p_value) / den else NA
           formula <- paste0(
-            "\\(E[X | Y=", y0, "] = \\frac{", num_expr, "}{", sprintf("%.6f", den), "} = ",
+            "\\(E[X | Y=", y0, "] = \\frac{", num_expr, "}{", display_probability(den), "} = ",
             sprintf("%.6f", val), "\\)"
           )
           tags$p(HTML(formula))
@@ -533,7 +471,7 @@ expectation_Server <- function(id) {
           story = HTML("
     <h4>🌽 Problem 1</h4>
     <p>Each day you inspect <b>n = 10</b> rows of corn.</p>
-    <p>Each row has a 0.2 probability of containing a damaged plant, independently of all others.</p>
+    <p>Inspect one plant per row. Each inspected plant has damage probability 0.2, independently of the others.</p>
     <p>Let \\(X\\) be the total number of damaged plants found that day.</p>
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),
@@ -658,13 +596,14 @@ expectation_Server <- function(id) {
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),
           
-          question = HTML("
+          question = HTML("Give an exact fraction or round to two decimal places.<br>
     Find the expected value \\(E[X^2]\\).
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),
           
-          ans_frac = NA,
-          ans_val  = 3333.33,
+          ans_frac = "10000/3",
+          ans_val  = 10000/3,
+          tolerance = 0.005,
           
           hint1 = HTML("
     Think about the general formula for the second moment of a Uniform(\\(a,b\\)) random variable.  
@@ -830,7 +769,8 @@ expectation_Server <- function(id) {
   "),
           
           ans_frac = NA,
-          ans_val  = 24,  # 以主要答案（Sunny=24）为匹配值，可在前端提示 Cloudy=12
+          ans_val  = 24,
+          ans_pair = c(sunny = 24, cloudy = 12),
           
           hint1 = HTML("
     Recall that for a Poisson(\\(\\lambda\\)) random variable, the mean equals its rate parameter.  
@@ -953,10 +893,20 @@ expectation_Server <- function(id) {
     observeEvent(input$check, {
       p <- prob(); validate(need(!is.null(p), ""))
       
-      ok <- is_correct(input$ans, p$ans_val, p$ans_frac)
+      tol <- if (is.null(p$tolerance)) 1e-4 else p$tolerance
+      ok <- if (!is.null(p$ans_pair)) {
+        is_correct(input$ans_sunny, p$ans_pair[["sunny"]], tol = tol) &&
+          is_correct(input$ans_cloudy, p$ans_pair[["cloudy"]], tol = tol)
+      } else is_correct(input$ans, p$ans_val, p$ans_frac, tol = tol)
       ok <- isTRUE(ok)
       
-      result(list(status = if (ok) "ok" else "no"))
+      detail <- NULL
+      if (!ok && !is.null(p$ans_pair)) {
+        fields <- c(Sunny = is_correct(input$ans_sunny, 24), Cloudy = is_correct(input$ans_cloudy, 12))
+        detail <- paste0("Check the ", paste(names(fields)[!fields], collapse = " and "),
+                         " answer", if (sum(!fields) > 1) "s" else "", ". Both conditions must be answered correctly.")
+      }
+      result(list(status = if (ok) "ok" else "no", detail = detail))
       tries(tries() + if (ok) 3 else 1)
     })
     
@@ -975,7 +925,7 @@ expectation_Server <- function(id) {
           div(class = "alert alert-info", HTML(p$solution))
         }
       }
-      tags$div(id = ns("fb_mjx"), ui)
+      tags$div(id = ns("fb_mjx"), if (!is.null(st$detail)) tags$p(st$detail), ui)
     })
     
     # ============================================================
@@ -1022,6 +972,11 @@ expectation_Server <- function(id) {
     # ============================================================
     
     output$answer_input <- renderUI({
+      p <- prob()
+      if (!is.null(p$ans_pair)) return(tagList(
+        textInput(ns("ans_sunny"), "Sunny: E[Y | W = Sunny]", width = "100%"),
+        textInput(ns("ans_cloudy"), "Cloudy: E[Y | W = Cloudy]", width = "100%")
+      ))
       textInput(
         ns("ans"),
         label = NULL,

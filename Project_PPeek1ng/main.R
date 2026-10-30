@@ -10,19 +10,7 @@ library(plotly)
 # 🌐 Common Helper Functions (for all modules)
 # ============================================================
 
-# --- Global shared reactive values (place in .GlobalEnv) ---
-if (!exists("pmf_global", envir = .GlobalEnv, inherits = FALSE)) {
-  assign(
-    "pmf_global",
-    shiny::reactiveValues(
-      df_edit = NULL,
-      df_final = NULL,
-      counter = 0,
-      has_final = FALSE
-    ),
-    envir = .GlobalEnv
-  )
-}
+# PMF state is created inside server(), independently for each student session.
 # =========================================================
 #  Load all module files
 # =========================================================
@@ -89,6 +77,16 @@ ui <- bs4DashPage(
     # ---------- 全局样式 ----------
     tags$head(
       tags$style(HTML("
+        .pmf-edit-row {display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; border-bottom:1px solid #ddd; padding-bottom:12px; margin-bottom:12px;}
+        .pmf-edit-row .form-group {margin-bottom:0; width:100%;}
+        .pmf-edit-prob {flex:1 1 100%; min-width:0;}
+        .pmf-edit-coordinate {flex:1 1 85px; min-width:0;}
+        .pmf-table-layout {display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start;}
+        .pmf-table-scroll {flex:1 1 320px; min-width:0; overflow-x:auto;}
+        .pmf-calculation-panel {flex:1 1 320px; min-width:0; overflow-x:auto;}
+        .pmf-table-layout .shiny-input-container {max-width:100%;}
+        #shiny-tab-joint .card-body, #shiny-tab-conditional .card-body,
+        #shiny-tab-expectation .card-body {overflow-x:auto;}
         .sidebar-mini.sidebar-collapse .brand-link .brand-text {
     display: none !important;
   }
@@ -193,7 +191,7 @@ ui <- bs4DashPage(
 
 
       /* 深色主题 */
-      body.dark-mode, .content.dark-mode, .main-sidebar.dark-mode {
+      body.dark-mode, body.dark-mode .content, body.dark-mode .main-sidebar {
         background-color: #1c1c2b !important;
       }
 
@@ -206,6 +204,11 @@ ui <- bs4DashPage(
 
       body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 {
         color: #3498db !important;
+      }
+      body.dark-mode .card-header h3 {color: inherit !important;}
+      body.dark-mode .pmf-table th, body.dark-mode .pmf-table .sumcell {
+        background-color: #2c3e50 !important;
+        color: #ecf0f1 !important;
       }
     ")),
     
@@ -326,44 +329,17 @@ ui <- bs4DashPage(
 server <- function(input, output, session) {
   
   # 各模块服务器逻辑
-  joint_Server("joint1")
-  conditional_Server("cond1")
-  expectation_Server("exp1")
+  shared <- new_pmf_state()
+  joint_Server("joint1", shared)
+  conditional_Server("cond1", shared)
+  expectation_Server("exp1", shared)
   prob_Server("prob1")
   
-  # ✅ ------- 动态加载与重启 Game 模块 -------
-  module_version <- reactiveVal(1)
-  
-  output$game_module_ui <- renderUI({
-    game_discrete_UI(paste0("game1_", module_version()))
-  })
-  
-  observe({
-    # Capture module return value (includes restart trigger)
-    game_module <- game_discrete_Server(paste0("game1_", module_version()))
-    
-    # When module emits restart signal, reload it
-    observeEvent(game_module$restart(), {
-      cat("Restart triggered at", Sys.time(), "\n")
-      module_version(module_version() + 1)
-    }, ignoreInit = TRUE)
-  })
- 
-  
-  # --- 动态切换主题 ---
-  observeEvent(input$tabs, {
-    if (input$tabs == "game_discrete") {
-      runjs("
-      document.body.classList.add('dark-mode');
-      document.querySelector('.content').classList.add('dark-mode');
-    ")
-    } else {
-      runjs("
-      document.body.classList.remove('dark-mode');
-      document.querySelector('.content').classList.remove('dark-mode');
-    ")
-    }
-  })
+  output$game_module_ui <- renderUI(game_discrete_UI("game1"))
+  game_discrete_Server("game1")
+
+  # The dashboard's theme switch controls the theme; tab navigation preserves it.
+  invisible(shared)
 }
 
 # =========================================================

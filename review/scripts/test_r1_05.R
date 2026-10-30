@@ -41,7 +41,7 @@ add_case('zero_Y_marginal', zero_y, 'X|Y', 0, NULL)
 results <- new.env(parent=emptyenv())
 results$records <- list()
 
-testServer(conditional_Server, {
+testServer(conditional_Server, args=list(shared=pmf_global), {
   for (case in cases) {
     pmf_global$df_final <- case$data
     pmf_global$df_edit <- case$data

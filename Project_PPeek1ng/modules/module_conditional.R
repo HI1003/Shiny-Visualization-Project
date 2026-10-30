@@ -1,11 +1,6 @@
 # =====================================================================
 #  module_conditional.R — Conditional Distribution Module
 # =====================================================================
-# ---- bind global pmf ----
-pmf_global <- get0("pmf_global", envir = .GlobalEnv, inherits = FALSE)
-if (is.null(pmf_global)) {
-  stop("pmf_global is not initialised in .GlobalEnv. Define it in main.R before sourcing modules.")
-}
 # ---- Helper: MathJax (v2) ----
 conditional_mathjax <- tags$head(
   # 使用 MathJax v2 并允许在 renderUI 动态刷新
@@ -32,13 +27,14 @@ conditional_css <- tags$head(tags$style(HTML("
 # ---- Shared probability parsing and validation ----
 # main.R loads pmf_helpers.R before this module; direct module tests must do so too.
 
-simp_frac <- function(x, tol = 1e-5, max_den = 500) {
+simp_frac <- function(x, tol = 1e-12, max_den = 500) {
   if (is.na(x) || !is.finite(x)) return("?")
   for (den in 1:max_den) {
     num <- round(x * den)
+    if (num == 0 && x != 0) next
     if (abs(num / den - x) < tol) return(paste0(num, "/", den))
   }
-  sprintf("%.5f", x)
+  format(signif(x, 10), scientific = FALSE, trim = TRUE)
 }
 
 to_tex_frac <- function(s) {
@@ -60,55 +56,7 @@ wrap_div <- function(id, content) {
 # =====================================================================
 # ✅ Flexible Answer Checker (fuzzy match for numeric / fraction / text)
 # =====================================================================
-is_correct <- function(user_input, ans_val = NA, ans_frac = NA, ans_text = NA, tol = 1e-4) {
-  # 空输入直接 FALSE
-  if (is.null(user_input) || trimws(user_input) == "") return(FALSE)
-  input_str <- trimws(user_input)
-  
-  # ---- 1️⃣ 文字题模糊匹配（不区分大小写）----
-  if (!is.na(ans_text) && is.character(ans_text)) {
-    keyword <- tolower(trimws(ans_text))
-    user_lower <- tolower(input_str)
-    # 模糊匹配：输入中包含关键词即可，例如 "Poisson", "Normal"
-    return(grepl(keyword, user_lower, fixed = TRUE))
-  }
-  
-  # ---- 2️⃣ 数值或分数输入解析 ----
-  parse_to_numeric <- function(s) {
-    s <- trimws(s)
-    # 分数形式 a/b
-    if (grepl("^[-+]?[0-9]+\\s*/\\s*[0-9]+$", s)) {
-      parts <- strsplit(gsub("\\s+", "", s), "/", fixed = TRUE)[[1]]
-      num <- suppressWarnings(as.numeric(parts[1]))
-      den <- suppressWarnings(as.numeric(parts[2]))
-      if (!is.na(num) && !is.na(den) && den != 0) {
-        return(num / den)
-      }
-    }
-    # 小数形式
-    if (grepl("^[-+]?[0-9]*\\.?[0-9]+$", s)) {
-      return(suppressWarnings(as.numeric(s)))
-    }
-    NA_real_
-  }
-  
-  user_val <- parse_to_numeric(input_str)
-  
-  # ---- 3️⃣ 如果 ans_val 是数值型 ----
-  if (!all(is.na(ans_val))) {
-    # 支持多个正确数值，只要接近任意一个即算对
-    return(any(abs(user_val - ans_val) < tol, na.rm = TRUE))
-  }
-  
-  # ---- 4️⃣ 如果定义了分数字符串（例如 "3/7"）----
-  if (!is.na(ans_frac) && is.character(ans_frac)) {
-    frac_val <- parse_to_numeric(ans_frac)
-    return(!is.na(user_val) && abs(user_val - frac_val) < tol)
-  }
-  
-  # ---- 5️⃣ 否则不匹配 ----
-  FALSE
-}
+# Answer validation is shared in pmf_helpers.R.
 # =====================================================================
 #  UI
 # =====================================================================
@@ -238,7 +186,8 @@ conditional_UI <- function(id) {
 # =====================================================================
 #  SERVER
 # =====================================================================
-conditional_Server <- function(id) {
+conditional_Server <- function(id, shared = new_pmf_state()) {
+  pmf_global <- shared
   moduleServer(id, function(input, output, session) {
     # --- Safeguard: ensure id column exists (wrapped in isolate) ---
     isolate({
@@ -296,11 +245,11 @@ conditional_Server <- function(id) {
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
         uiOutput(ns("input_feedback")),
         lapply(seq_len(nrow(df)), function(i) {
-          fluidRow(
-            column(3, textInput(ns(paste0("p_", df$id[i])), "p", value = df$p_input[i])),
-            column(3, numericInput(ns(paste0("x_", df$id[i])), "x", value = df$x[i])),
-            column(3, numericInput(ns(paste0("y_", df$id[i])), "y", value = df$y[i])),
-            column(3, actionButton(ns(paste0("del_", df$id[i])), "Delete", class = "btn-danger btn-sm"))
+          div(class = "pmf-edit-row",
+            div(class = "pmf-edit-prob", textInput(ns(paste0("p_", df$id[i])), "p", value = df$p_input[i])),
+            div(class = "pmf-edit-coordinate", numericInput(ns(paste0("x_", df$id[i])), "x", value = df$x[i])),
+            div(class = "pmf-edit-coordinate", numericInput(ns(paste0("y_", df$id[i])), "y", value = df$y[i])),
+            actionButton(ns(paste0("del_", df$id[i])), "Delete", class = "btn-danger btn-sm")
           )
         }),
         hr(),
@@ -415,18 +364,12 @@ conditional_Server <- function(id) {
       
       # --- 条件控件 ---
       cond_panel <- tagList(
-        fluidRow(
-          column(
-            12,
-            div(style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;",
-                div(style="min-width:220px;",
-                    selectInput(ns("cond_type"), "Conditional slice:",
-                                choices = c("f(Y | X = x0)", "f(X | Y = y0)"),
-                                width = "100%")
-                ),
-                div(style="min-width:160px;", uiOutput(ns("cond_value_select")))
-            )
-          )
+        div(style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;",
+          div(style="flex:1 1 220px; min-width:0;",
+            selectInput(ns("cond_type"), "Conditional slice:",
+              choices = c("f(Y | X = x0)", "f(X | Y = y0)"), width = "100%")
+          ),
+          div(style="flex:1 1 160px; min-width:0;", uiOutput(ns("cond_value_select")))
         ),
         uiOutput(ns("cond_table_html"))
       )
@@ -434,22 +377,10 @@ conditional_Server <- function(id) {
       # --- 输出组合 ---
       tagList(
         withMathJax(),
-        fluidRow(
-          column(width = 2),  
-          column(
-            width = 3,
-            joint_html,
-            tags$div(
-              style = "margin-top:8px; color:#666; font-size:13px;",
-              HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)")
-            )
-          ),
-          column(
-            width = 5,
-            div(style="border-left:1px solid #ddd; padding-left:16px;"),
-            cond_panel
-          ),
-          column(width = 2)
+        div(class = "pmf-table-layout",
+          div(class = "pmf-table-scroll", joint_html,
+            tags$p(HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)"))),
+          div(class = "pmf-calculation-panel", cond_panel)
         )
       )
     })
@@ -753,7 +684,7 @@ conditional_Server <- function(id) {
       <li>On a <b>sunny</b> day: rate = 4 eggs/hour.</li>
       <li>On a <b>cloudy</b> day: rate = 2 eggs/hour.</li>
     </ul>
-    <p>Let \\(Y\\) denote the total number of eggs collected in 6 hours, and \\(W\\) the weather condition (Sunny or Cloudy).</p>
+    <p>Let \\(Y\\) denote the total number of eggs collected in 6 hours, and \\(W\\) the weather condition (Sunny or Cloudy). Given the weather, assume arrivals form a Poisson process with the stated constant rate.</p>
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),
           
@@ -804,7 +735,7 @@ conditional_Server <- function(id) {
   "),
           
           ans_frac = NA,
-          ans_val  = 0.263,  # approximate value
+          ans_val  = ppois(10, lambda = 12),
           
           hint1 = HTML("
     Given \\(Y\\mid W=\\text{Cloudy}\\sim Poisson(12)\\).  
@@ -818,9 +749,9 @@ conditional_Server <- function(id) {
     \\[
       P(Y\\le10\\mid W=\\text{Cloudy})
       =\\sum_{k=0}^{10} e^{-12}\\frac{12^k}{k!}
-      \\approx0.263.
+      \\approx0.3472.
     \\]
-    (Exact value may vary slightly depending on rounding.)
+    (Round the final probability to four decimal places.)
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset',MathJax.Hub]);</script>
   "),
           
@@ -830,9 +761,9 @@ conditional_Server <- function(id) {
     \\[
       P(Y\\le10\\mid W=\\text{Cloudy})
       =\\sum_{k=0}^{10} e^{-12}\\frac{12^k}{k!}
-      \\approx0.263.
+      \\approx0.3472.
     \\]
-    Thus, there is about a <b>26.3% chance</b> of collecting 10 or fewer eggs on a cloudy day.
+    Thus, there is about a <b>34.72% chance</b> of collecting 10 or fewer eggs on a cloudy day.
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset',MathJax.Hub]);</script>
   ")
         ),
@@ -851,7 +782,7 @@ conditional_Server <- function(id) {
   "),
           
           question = HTML("
-    Once we condition on the skill level \\(\\{S=s\\}\\), what is the conditional distribution of \\(Y\\)? 
+    Let \\(Z=Y-1\\) count failures before success. Given \\(S=s\\), what is the named distribution of \\(Z\\)?
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),
           ans_text = "Geometric",
@@ -859,23 +790,23 @@ conditional_Server <- function(id) {
           ans_val  = NA,
           
           hint1 = HTML("
-    \\(Y\\) counts the number of independent Bernoulli trials until the first success.  
+    \\(Y\\) counts attempts including success; \\(Z=Y-1\\) counts failures in independent Bernoulli trials before success.
     Think: which named distribution models that waiting time?
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),
           
           hint2 = HTML("
     Given \\(S=s\\), the success probability is \\(p_s\\).  
-    Therefore \\(Y\\mid S=s\\sim Geometric(p_s)\\).
+    Therefore \\(Z\\mid S=s\\sim Geometric(p_s)\\).
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),
           
           solution = HTML("
     <b>Solution:</b><br>
-    Given \\(S=s\\), \\(Y\\) counts the number of independent Bernoulli trials until the first success.  
+    Given \\(S=s\\), \\(Y\\) counts attempts including success; \\(Z=Y-1\\) counts failures in independent Bernoulli trials before success.
     Hence the conditional distribution is:<br><br>
     \\[
-      Y\\mid S=s \\sim Geometric(p_s),
+      Z=Y-1\\mid S=s \\sim Geometric(p_s), \\quad Z=0,1,2,\\ldots,
     \\]
     where \\(p_s\\) is the success probability for the worker’s skill level \\(s\\).
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
@@ -900,7 +831,7 @@ conditional_Server <- function(id) {
           ans_val  = 0.64,
           
           hint1 = HTML("
-    If \\(Y\\mid S=\\text{Novice}\\sim Geometric(p=0.2)\\),  
+    With \\(Z=Y-1\\mid S=\\text{Novice}\\sim Geometric(0.2)\\),
     then \\(P(Y\\ge3)=(1-p)^{3-1}\\).  
     Try substituting \\(p=0.2\\).
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
@@ -917,7 +848,7 @@ conditional_Server <- function(id) {
           
           solution = HTML("
     <b>Solution:</b><br>
-    Given \\(S=\\text{Novice}\\), \\(Y\\mid S\\sim Geometric(p=0.2)\\).<br><br>
+    Given \\(S=\\text{Novice}\\), \\(Z=Y-1\\sim Geometric(0.2)\\), with \\(Y=1,2,\\ldots\\). At least three attempts means at least two failures.<br><br>
     The probability of needing at least 3 attempts is:<br>
     \\[
       P(Y\\ge3\\mid S=\\text{Novice})=(1-0.2)^{2}=0.64.
@@ -1002,7 +933,7 @@ conditional_Server <- function(id) {
     </script>
   "),
           
-          ans_val = 0.6321,
+          ans_val = pexp(2, rate = 0.5),
           ans_frac = NA,
           
           hint1 = HTML("
@@ -1095,20 +1026,20 @@ conditional_Server <- function(id) {
   "),
           
           ans_frac = NA,
-          ans_val  = 0.0475,
+          ans_val  = pnorm(70, mean = 65, sd = 3, lower.tail = FALSE),
           
           hint1 = HTML("
     Standardize the Normal variable:  
     \\[
       Z = \\frac{Y-\\mu}{\\sigma}.
     \\]
-    Then \\(P(Y>70)=P(Z>\\frac{70-65}{3})=P(Z>1.67)\\).
+    Then \\(P(Y>70)=P(Z>\\frac{70-65}{3})=P(Z>5/3)\\).
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),
           
           hint2 = HTML("
-    Using the standard normal table, \\(P(Z>1.67)=1-\\Phi(1.67)=1-0.9525=0.0475.\\)  
-    Hence, \\(P(Y>70\\mid X=3)=0.0475.\\)
+    The variance is 9, so the standard deviation is 3. Retain the exact z-score 5/3 until the final step: \\(P(Z>5/3)=1-\\Phi(5/3)\\approx0.0478.\\)
+    Hence, \\(P(Y>70\\mid X=3)\\approx0.0478.\\)
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),
           
@@ -1117,7 +1048,7 @@ conditional_Server <- function(id) {
     Given \\(Y\\mid X=3\\sim N(65,9)\\),  
     \\[
       P(Y>70\\mid X=3)=1-\\Phi\\left(\\frac{70-65}{3}\\right)
-      =1-\\Phi(1.67)\\approx1-0.9525=0.0475.
+      =1-\\Phi(5/3)\\approx0.0478.
     \\]
     Therefore, even in a highly fertile plot (\\(X=3\\)),  
     only about 4.8% of strawberries exceed 70 grams in weight.
@@ -1185,7 +1116,7 @@ conditional_Server <- function(id) {
   "),
           
           ans_frac = "9/14",
-          ans_val  = 0.6429,
+          ans_val  = 90/140,
           
           hint1 = HTML("
     For \\(Uniform(a,b)\\), the probability that \\(Y>y\\) is  
@@ -1323,20 +1254,12 @@ conditional_Server <- function(id) {
     observeEvent(input$check, {
       p <- prob(); validate(need(!is.null(p), ""))
       
-      if (is.na(p$ans_val) && is.na(p$ans_frac)) {
-        
-        correct_text <- tolower(trimws(p$ans_text))
-        user_input <- tolower(trimws(input$ans))
-        
-        ok <- FALSE
-        if (!is.null(user_input) && nzchar(user_input) && !is.null(correct_text)) {
-          ok <- grepl(correct_text, user_input, ignore.case = TRUE)
-        }
-        
+      ok <- if (is.na(p$ans_val) && is.na(p$ans_frac)) {
+        distribution_answer_matches(input$ans, p$ans_text)
       } else {
-        ok <- is_correct(input$ans, p$ans_val, p$ans_frac)
+        is_correct(input$ans, p$ans_val, p$ans_frac)
       }
-      
+
       ok <- isTRUE(ok)
       
       result(list(status = if (ok) "ok" else "no"))
@@ -1407,7 +1330,7 @@ conditional_Server <- function(id) {
       is_named <- is.na(p$ans_val) && is.na(p$ans_frac)
       
       placeholder_text <- if (is_named) {
-        "Input a named distribution"
+        "Distribution name only (e.g. Binomial); parameters are not required"
       } else {
         "Input fractions such as 3/7 or decimals"
       }

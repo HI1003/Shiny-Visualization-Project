@@ -14,7 +14,7 @@ record<-function(id,name,passed) {
   results$cases[[length(results$cases)+1L]]<-list(question=id,name=name,passed=isTRUE(passed))
 }
 expected<-c('1/8','1/20','7/18','7/24','1/2','5/12','1/24','0','1/18','1/9')
-testServer(joint_Server,{
+testServer(joint_Server,args=list(shared=pmf_global),{
   results$bank<-lapply(question_bank,function(q) lapply(q,function(value) if(inherits(value,'html')) as.character(value) else value))
   session$setInputs(back_q=1L)
   record(1,'first_page_boundary',current_index()==1L)
