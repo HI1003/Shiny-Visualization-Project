@@ -2,7 +2,9 @@
 
 审查日期：2026-10-21（Pacific/Auckland）。代码基线：`0f609deed5caac75f55542ead1a0b4cd808f4f52`。
 
-本轮已完成初步审查，应用代码尚未修改。结果为 **11 项已确认问题（8 项 P1、3 项 P2）**，另有会话隔离等待验证事项。此结果不表示应用已通过验收。
+首轮审查发现 **11 项已确认问题（8 项 P1、3 项 P2）**，另有会话隔离等待验证事项。**2026-10-30：R1-05 已修复并验证，其余 10 项待修复（7 项 P1、3 项 P2）**。此结果不表示应用已通过整体验收。
+
+R1-05 的 [验证记录](evidence/r1_05_verification.md) 包含修复前后对比、11 个真实模块输出案例和浏览器证据。运行当前回归检查：`Rscript --vanilla review/scripts/test_r1_05.R`。首轮 `round1_*` 证据保持原样；首轮脚本中的 `actual_scalar_ifelse` 是旧表达式复现，不代表修复后的模块状态。
 
 | 记录 | 用途 |
 |---|---|
@@ -35,6 +37,6 @@ Rscript --vanilla review/scripts/round1_audit.R
 python review/scripts/round1_joint_audit.py
 ```
 
-本机 R 路径为 `C:\Users\ghu206\Desktop\WYF\BIB\R\R-4.6.0\bin\x64\Rscript.exe`。Python 本轮使用 `C:\Program Files\Inkscape\bin\python.exe`。
+首轮使用 R 4.6.0；2026-10-30 复测使用的 R 路径为 `C:\Program Files\R\R-4.6.1\bin\Rscript.exe`，原路径已不可用。Python 使用 `C:\Program Files\Inkscape\bin\python.exe`。
 
 脚本从当前源码的语法树提取题库/判题函数；中间题库 JSON 留在 `.local`。它们是**审查工具**，用于记录缺陷，不是宣称应用通过的测试集。后续修复应另行执行真实模块回归，核对更新后的题干、答案、提示、解答与图形。

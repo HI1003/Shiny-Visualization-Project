@@ -515,7 +515,10 @@ conditional_Server <- function(id) {
         x0 <- as.numeric(input$x0)
         sub <- df %>% filter(x == x0)
         total_x <- sum(sub$p_value)
-        sub <- sub %>% mutate(cond_p = ifelse(total_x > 0, p_value / total_x, 0))
+        validate(need(is.finite(total_x) && total_x > 0,
+                      paste0("Conditional distribution is undefined: P(X = ", x0,
+                             ") must be positive.")))
+        sub$cond_p <- sub$p_value / total_x
         title <- paste0("f(Y | X = ", x0, ")")
         var_col <- "y"
       } else {
@@ -523,7 +526,10 @@ conditional_Server <- function(id) {
         y0 <- as.numeric(input$y0)
         sub <- df %>% filter(y == y0)
         total_y <- sum(sub$p_value)
-        sub <- sub %>% mutate(cond_p = ifelse(total_y > 0, p_value / total_y, 0))
+        validate(need(is.finite(total_y) && total_y > 0,
+                      paste0("Conditional distribution is undefined: P(Y = ", y0,
+                             ") must be positive.")))
+        sub$cond_p <- sub$p_value / total_y
         title <- paste0("f(X | Y = ", y0, ")")
         var_col <- "x"
       }
