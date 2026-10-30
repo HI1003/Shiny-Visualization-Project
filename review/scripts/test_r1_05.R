@@ -9,6 +9,7 @@ suppressPackageStartupMessages({
   library(latex2exp)
 })
 pmf_global <- reactiveValues(df_edit=NULL, df_final=NULL, counter=0, has_final=FALSE)
+source('Project_PPeek1ng/modules/pmf_helpers.R', encoding='UTF-8')
 source('Project_PPeek1ng/modules/module_conditional.R', encoding='UTF-8')
 
 make_pmf <- function(xs, ys, probabilities) {
@@ -22,7 +23,7 @@ add_case <- function(name, data, direction, value, expected) {
 }
 default <- make_pmf(c(0,0,1,1), c(0,1,0,1),
                     round(c(188,16,16,1)/221, 5))
-# Match the existing five-decimal input parser; do not change R1-06 here.
+# Retain the original rounded fixture to keep the R1-05 regression comparable.
 add_case('default_Y_given_X0', default, 'Y|X', 0, default$p_value[1:2]/sum(default$p_value[1:2]))
 add_case('default_Y_given_X1', default, 'Y|X', 1, default$p_value[3:4]/sum(default$p_value[3:4]))
 add_case('default_X_given_Y0', default, 'X|Y', 0, default$p_value[c(1,3)]/sum(default$p_value[c(1,3)]))

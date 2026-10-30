@@ -26,6 +26,7 @@ if (!exists("pmf_global", envir = .GlobalEnv, inherits = FALSE)) {
 # =========================================================
 #  Load all module files
 # =========================================================
+source("modules/pmf_helpers.R")
 source("modules/module_joint.R")
 source("modules/module_conditional.R")
 source("modules/module_expectation.R")

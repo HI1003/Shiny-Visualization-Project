@@ -29,24 +29,8 @@ conditional_css <- tags$head(tags$style(HTML("
 ")))
 
 
-# ---- Helper: 分数/小数解析 ----
-parse_user_prob <- function(s, digits = 5) {
-  s <- trimws(s)
-  if (s == "") return(NA_real_)
-  if (grepl("^[-+]?[0-9]+\\s*/\\s*[0-9]+$", s)) {
-    parts <- strsplit(gsub("\\s+", "", s), "/", fixed = TRUE)[[1]]
-    num <- suppressWarnings(as.numeric(parts[1]))
-    den <- suppressWarnings(as.numeric(parts[2]))
-    if (is.na(num) || is.na(den) || den == 0) return(NA_real_)
-    return(round(num / den, digits))
-  }
-  if (grepl("^[-+]?[0-9]*\\.?[0-9]+$", s)) {
-    val <- suppressWarnings(as.numeric(s))
-    if (is.na(val)) return(NA_real_)
-    return(round(val, digits))
-  }
-  NA_real_
-}
+# ---- Shared probability parsing and validation ----
+# main.R loads pmf_helpers.R before this module; direct module tests must do so too.
 
 simp_frac <- function(x, tol = 1e-5, max_den = 500) {
   if (is.na(x) || !is.finite(x)) return("?")
@@ -293,9 +277,9 @@ conditional_Server <- function(id) {
     pmf_final   <- reactiveVal(isolate(pmf_global$df_final))
     row_counter <- reactiveVal(isolate(pmf_global$counter))
     
-    # 只有在 has_final=TRUE 时才从全局推送更新，避免一进页就把旧数据灌回来
+    # Accept committed data after Generate; keep the dependency reactive.
     observe({
-      req(isTRUE(isolate(pmf_global$has_final)))
+      req(isTRUE(pmf_global$has_final))
       pmf_edit(pmf_global$df_edit)
       pmf_final(pmf_global$df_final)
       row_counter(pmf_global$counter)
@@ -304,11 +288,13 @@ conditional_Server <- function(id) {
     # ---- 输入区域 ----
     output$input_panel <- renderUI({
       df <- pmf_edit()
-      if (is.null(df) || nrow(df) == 0 || !"id" %in% names(df)) {
+      if (is.null(df) || !"id" %in% names(df)) {
         return(tags$div(style="color:#888; padding:10px;", "Initializing table..."))
       }
       tagList(
         h4("Input (x, y, p):"),
+        helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
+        uiOutput(ns("input_feedback")),
         lapply(seq_len(nrow(df)), function(i) {
           fluidRow(
             column(3, textInput(ns(paste0("p_", df$id[i])), "p", value = df$p_input[i])),
@@ -354,7 +340,8 @@ conditional_Server <- function(id) {
                               x = 0, y = 0, p_input = "0", p_value = 0, id = seq_len(nrow(df)))
         }
       }
-      new_id  <- ifelse("id" %in% names(df), max(df$id, na.rm = TRUE) + 1, nrow(df) + 1)
+      new_id <- row_counter() + 1L
+      row_counter(new_id)
       new_row <- data.frame(x = 1, y = 1, p_input = "0", p_value = 0, id = new_id)
       df <- dplyr::bind_rows(df, new_row)
       
@@ -372,53 +359,15 @@ conditional_Server <- function(id) {
             df_now <- df_now[df_now$id != i, ]
             pmf_edit(df_now)
             pmf_global$df_edit <- df_now
-            pmf_global$counter <- nrow(df_now)
+            pmf_global$counter <- row_counter()
           })
         }, ignoreInit = TRUE)
       })
     })
     
-    observeEvent(input$normalize, {
-      df <- df_current()
-      total <- sum(df$p_value, na.rm = TRUE)
-      if (total > 0) {
-        df$p_value <- df$p_value / total
-        df$p_input <- sprintf("%.5f", df$p_value)
-        pmf_edit(df)
-        pmf_global$df_edit <- df
-      }
-    })
-    
-    observeEvent(input$uniform, {
-      df <- pmf_edit()
-      if (nrow(df) > 0) {
-        df$p_value <- rep(1 / nrow(df), nrow(df))
-        df$p_input <- sprintf("%.5f", df$p_value)
-        pmf_edit(df)
-        pmf_global$df_edit <- df
-      }
-    })
-    
-    # ---- Generate PMF ----
-    observeEvent(input$generate, {
-      df <- df_current()
-      df <- df %>%
-        dplyr::group_by(x, y) %>%
-        dplyr::summarise(
-          p_input = dplyr::first(p_input),
-          p_value = sum(p_value),
-          .groups = "drop"
-        )
-      df$p_value <- df$p_value / sum(df$p_value)
-      if (!"id" %in% names(df)) df$id <- seq_len(nrow(df))
-      
-      pmf_final(df)
-      pmf_global$df_edit   <- df
-      pmf_global$df_final  <- df
-      pmf_global$counter   <- nrow(df)
-      pmf_global$has_final <- TRUE
-    })
-    
+    pmf_bind_actions(input, output, session, df_current, pmf_edit,
+                     pmf_final, row_counter, pmf_global)
+
     # ---- Joint + Conditional Probability Table ----
     output$joint_table_html <- renderUI({
       df <- pmf_final()
