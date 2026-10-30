@@ -1,0 +1,417 @@
+{
+  "issue": "R1-04",
+  "date": "2026-10-30",
+  "total": 10,
+  "passed": 2,
+  "questions": [
+    {
+      "question": 1,
+      "passed": false,
+      "question_valid": true,
+      "table_valid": false,
+      "total_mass": "17/24",
+      "expected_fraction": "1/8",
+      "stored_fraction": "1/8",
+      "answer_valid": true,
+      "selection_valid": false,
+      "equations_checked": 0,
+      "equations_valid": false,
+      "equation_errors": [],
+      "selected_cells": [
+        [
+          1,
+          1
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "1/8",
+        "1,0": "1/12",
+        "2,0": "1/24",
+        "0,1": "1/12",
+        "1,1": "1/8",
+        "2,1": "1/24",
+        "0,2": "1/24",
+        "1,2": "1/24",
+        "2,2": "1/8"
+      }
+    },
+    {
+      "question": 2,
+      "passed": false,
+      "question_valid": true,
+      "table_valid": false,
+      "total_mass": "4/5",
+      "expected_fraction": "1/20",
+      "stored_fraction": "1/20",
+      "answer_valid": true,
+      "selection_valid": false,
+      "equations_checked": 0,
+      "equations_valid": false,
+      "equation_errors": [],
+      "selected_cells": [
+        [
+          2,
+          1
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "1/10",
+        "1,0": "1/20",
+        "2,0": "1/20",
+        "0,1": "1/5",
+        "1,1": "1/10",
+        "2,1": "1/20",
+        "0,2": "1/20",
+        "1,2": "1/10",
+        "2,2": "1/10"
+      }
+    },
+    {
+      "question": 3,
+      "passed": false,
+      "question_valid": true,
+      "table_valid": false,
+      "total_mass": "17/18",
+      "expected_fraction": "7/18",
+      "stored_fraction": "7/18",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 1,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "1/9",
+        "1,0": "1/9",
+        "2,0": "1/9",
+        "0,1": "1/18",
+        "1,1": "1/6",
+        "2,1": "1/18",
+        "0,2": "1/18",
+        "1,2": "1/9",
+        "2,2": "1/6"
+      }
+    },
+    {
+      "question": 4,
+      "passed": false,
+      "question_valid": true,
+      "table_valid": false,
+      "total_mass": "7/12",
+      "expected_fraction": "7/24",
+      "stored_fraction": "1/4",
+      "answer_valid": false,
+      "selection_valid": true,
+      "equations_checked": 1,
+      "equations_valid": false,
+      "equation_errors": [
+        {
+          "field": "solution",
+          "formula": "=\\tfrac{1}{24}+\\tfrac{1}{12}+\\tfrac{1}{8}+\\tfrac{1}{24}=\\tfrac{1}{4}.",
+          "values": [
+            "7/24",
+            "1/4"
+          ]
+        }
+      ],
+      "selected_cells": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "1/24",
+        "1,0": "1/12",
+        "2,0": "1/8",
+        "3,0": "1/24",
+        "0,1": "1/24",
+        "1,1": "1/12",
+        "2,1": "1/8",
+        "3,1": "1/24"
+      }
+    },
+    {
+      "question": 5,
+      "passed": false,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "1/2",
+      "stored_fraction": "2/5",
+      "answer_valid": false,
+      "selection_valid": true,
+      "equations_checked": 1,
+      "equations_valid": false,
+      "equation_errors": [
+        {
+          "field": "solution",
+          "formula": "= \\tfrac{1}{10} + \\tfrac{1}{10} + \\tfrac{1}{5} + \\tfrac{1}{10} = \\tfrac{2}{5}.",
+          "values": [
+            "1/2",
+            "2/5"
+          ]
+        }
+      ],
+      "selected_cells": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "1/10",
+        "1,0": "1/10",
+        "2,0": "1/5",
+        "0,1": "1/10",
+        "1,1": "1/10",
+        "2,1": "1/10",
+        "0,2": "1/10",
+        "1,2": "1/10",
+        "2,2": "1/10"
+      }
+    },
+    {
+      "question": 6,
+      "passed": false,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "5/12",
+      "stored_fraction": "7/24",
+      "answer_valid": false,
+      "selection_valid": true,
+      "equations_checked": 1,
+      "equations_valid": false,
+      "equation_errors": [
+        {
+          "field": "solution",
+          "formula": "= \\tfrac{1}{8} + \\tfrac{1}{8} + \\tfrac{1}{6} = \\tfrac{7}{24}.",
+          "values": [
+            "5/12",
+            "7/24"
+          ]
+        }
+      ],
+      "selected_cells": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "1/12",
+        "1,0": "1/12",
+        "2,0": "1/6",
+        "0,1": "1/8",
+        "1,1": "1/12",
+        "2,1": "1/8",
+        "0,2": "1/24",
+        "1,2": "1/8",
+        "2,2": "1/6"
+      }
+    },
+    {
+      "question": 7,
+      "passed": false,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "1/24",
+      "stored_fraction": "1/8",
+      "answer_valid": false,
+      "selection_valid": true,
+      "equations_checked": 1,
+      "equations_valid": false,
+      "equation_errors": [
+        {
+          "field": "solution",
+          "formula": "\n      1*(1/24) = 1 - \\Big(\n        \\tfrac{1}{8} + \\tfrac{1}{8} + \\tfrac{1}{6} + \\tfrac{1}{12} + \n        \\tfrac{1}{8} + \\tfrac{1}{12} + \\tfrac{1}{6} + \\tfrac{1}{12}\n      \\Big)\n      = 1 - \\tfrac{7}{8} = \\tfrac{1}{8}.\n    ",
+          "values": [
+            "1/24",
+            "1/24",
+            "1/8",
+            "1/8"
+          ]
+        }
+      ],
+      "selected_cells": [],
+      "completed_cells": {
+        "0,0": "1/8",
+        "1,0": "1/8",
+        "2,0": "1/24",
+        "0,1": "1/6",
+        "1,1": "1/12",
+        "2,1": "1/8",
+        "0,2": "1/12",
+        "1,2": "1/6",
+        "2,2": "1/12"
+      }
+    },
+    {
+      "question": 8,
+      "passed": false,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "0",
+      "stored_fraction": "1/10",
+      "answer_valid": false,
+      "selection_valid": true,
+      "equations_checked": 5,
+      "equations_valid": false,
+      "equation_errors": [
+        {
+          "field": "hint2",
+          "formula": "0.8 + 2*(0) = 1",
+          "values": [
+            "4/5",
+            "1"
+          ]
+        },
+        {
+          "field": "solution",
+          "formula": "\n      \\tfrac{1}{5} + \\tfrac{1}{10} + \\tfrac{1}{10} + \\tfrac{1}{5} + \\tfrac{1}{10} + \\tfrac{1}{10} + \\tfrac{1}{5} = 0.8.\n    ",
+          "values": [
+            "1",
+            "4/5"
+          ]
+        },
+        {
+          "field": "solution",
+          "formula": "\n      0.8 + 2*(0) = 1 \\Rightarrow 1*(0) = 0.1 = \\tfrac{1}{10}.\n    ",
+          "values": [
+            "4/5",
+            "1"
+          ]
+        },
+        {
+          "field": "solution",
+          "formula": "\n      0.8 + 2*(0) = 1 \\Rightarrow 1*(0) = 0.1 = \\tfrac{1}{10}.\n    ",
+          "values": [
+            "0",
+            "1/10",
+            "1/10"
+          ]
+        },
+        {
+          "field": "solution",
+          "formula": "1*(0) = \\tfrac{1}{10}.",
+          "values": [
+            "0",
+            "1/10"
+          ]
+        }
+      ],
+      "selected_cells": [],
+      "completed_cells": {
+        "0,0": "1/5",
+        "1,0": "1/10",
+        "2,0": "0",
+        "0,1": "1/10",
+        "1,1": "1/5",
+        "2,1": "1/10",
+        "0,2": "0",
+        "1,2": "1/10",
+        "2,2": "1/5"
+      }
+    },
+    {
+      "question": 9,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "1/18",
+      "stored_fraction": "1/18",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 4,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [],
+      "completed_cells": {
+        "0,0": "0",
+        "0,1": "1/18",
+        "0,2": "1/9",
+        "1,0": "1/18",
+        "1,1": "1/9",
+        "1,2": "1/6",
+        "2,0": "1/9",
+        "2,1": "1/6",
+        "2,2": "2/9"
+      }
+    },
+    {
+      "question": 10,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "1/9",
+      "stored_fraction": "1/9",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 5,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [],
+      "completed_cells": {
+        "0,0": "1/9",
+        "0,1": "1/12",
+        "0,2": "1/6",
+        "1,0": "1/12",
+        "1,1": "1/9",
+        "1,2": "1/12",
+        "2,0": "1/6",
+        "2,1": "1/12",
+        "2,2": "1/9"
+      }
+    }
+  ]
+}

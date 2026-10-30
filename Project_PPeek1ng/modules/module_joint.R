@@ -516,752 +516,123 @@ joint_Server <- function(id) {
     # ============================================================
     
     get_joint_question_bank <- function() {
-      list(
-        # === Q1 — Joint probability (lookup) ===
-        list(
-          id = 1,
-          table_ui = HTML("
-  <table class='pmf-table'>
-    <thead>
-      <tr>
-        <th class='corner outer'>\\(f_{X,Y}(x,y)\\)</th>
-        <th>\\(x=0\\)</th><th>\\(x=1\\)</th><th>\\(x=2\\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><th>\\(y=0\\)</th><td>\\(\\tfrac{1}{8}\\)</td><td>\\(\\tfrac{1}{12}\\)</td><td>\\(\\tfrac{1}{24}\\)</td></tr>
-      <tr><th>\\(y=1\\)</th><td>\\(\\tfrac{1}{12}\\)</td><td>\\(\\tfrac{1}{8}\\)</td><td>\\(\\tfrac{1}{24}\\)</td></tr>
-      <tr><th>\\(y=2\\)</th><td>\\(\\tfrac{1}{24}\\)</td><td>\\(\\tfrac{1}{24}\\)</td><td>\\(\\tfrac{1}{8}\\)</td></tr>
-    </tbody>
-  </table>
-  <script type='text/javascript'>
-    if (window.MathJax && MathJax.Hub) {
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-    }
-  </script>
-  "),
-          
-          question = HTML("
-    Find the joint probability \\(P(X=1,\\,Y=1)\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          ans_frac = '1/8',
-          ans_val  = 1/8,
-          
-          # Hint1：定位交叉单元格
-          hint1 = HTML("
-    Locate the cell at column \\(X=1\\) and row \\(Y=1\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # Hint2：强调“该单元格即为联合概率”，但不直接给数值
-          hint2 = HTML("
-    The entry at that intersection equals \\(P(X=1, Y=1)\\).
-    Use the value shown in the table (you may express it as a simplified fraction or as a decimal to 5 places).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          solution = HTML("
-    <b>Solution:</b><br>
-    The intersection of \\(X=1\\) and \\(Y=1\\) gives \\(f_{X,Y}(1,1)=\\tfrac{1}{8}.\\)
-    Hence, \\(P(X=1, Y=1)=\\tfrac{1}{8}.\\)
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  ")
-        ),
-        
-        # === Q2 — Joint probability (lookup #2) ===
-        list(
-          id = 2,
-          table_ui = HTML("
-  <table class='pmf-table'>
-    <thead>
-      <tr>
-        <th class='corner outer'>\\(f_{X,Y}(x,y)\\)</th>
-        <th>\\(x=0\\)</th><th>\\(x=1\\)</th><th>\\(x=2\\)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><th>\\(y=0\\)</th><td>\\(\\tfrac{1}{10}\\)</td><td>\\(\\tfrac{1}{20}\\)</td><td>\\(\\tfrac{1}{20}\\)</td></tr>
-      <tr><th>\\(y=1\\)</th><td>\\(\\tfrac{1}{5}\\)</td><td>\\(\\tfrac{1}{10}\\)</td><td>\\(\\tfrac{1}{20}\\)</td></tr>
-      <tr><th>\\(y=2\\)</th><td>\\(\\tfrac{1}{20}\\)</td><td>\\(\\tfrac{1}{10}\\)</td><td>\\(\\tfrac{1}{10}\\)</td></tr>
-    </tbody>
-  </table>
-  <script type='text/javascript'>
-    if (window.MathJax && MathJax.Hub) {
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-    }
-  </script>
-  "),
-          
-          question = HTML("
-    Find the joint probability \\(P(X=2,\\,Y=1)\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          ans_frac = '1/20',
-          ans_val  = 1/20,
-          
-          # Hint1：引导定位
-          hint1 = HTML("
-    Locate the cell corresponding to \\(X=2\\) (column) and \\(Y=1\\) (row).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # Hint2：提示该单元格即目标，但不泄露答案数值
-          hint2 = HTML("
-    The value at that cell represents \\(P(X=2, Y=1)\\).
-    Read the number directly from the table and enter it as a fraction or decimal rounded to 5 digits.
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          solution = HTML("
-    <b>Solution:</b><br>
-    The intersection of \\(X=2\\) and \\(Y=1\\) gives \\(f_{X,Y}(2,1)=\\tfrac{1}{20}.\\)
-    Hence, \\(P(X=2, Y=1)=\\tfrac{1}{20}.\\)
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  ")
-        ),
-        
-        # === Q3 — Marginal f_X(1) ===
-        list(
-          id = 3,
-          table_ui = HTML("
-  <table class='pmf-table'>
-    <thead><tr>
-      <th class='corner outer'>\\(f_{X,Y}(x,y)\\)</th>
-      <th>\\(x=0\\)</th><th>\\(x=1\\)</th><th>\\(x=2\\)</th>
-    </tr></thead>
-    <tbody>
-      <tr><th>\\(y=0\\)</th><td>\\(\\tfrac{1}{9}\\)</td><td>\\(\\tfrac{1}{9}\\)</td><td>\\(\\tfrac{1}{9}\\)</td></tr>
-      <tr><th>\\(y=1\\)</th><td>\\(\\tfrac{1}{18}\\)</td><td>\\(\\tfrac{1}{6}\\)</td><td>\\(\\tfrac{1}{18}\\)</td></tr>
-      <tr><th>\\(y=2\\)</th><td>\\(\\tfrac{1}{18}\\)</td><td>\\(\\tfrac{1}{9}\\)</td><td>\\(\\tfrac{1}{6}\\)</td></tr>
-    </tbody>
-  </table>
-  <script type='text/javascript'>
-    if (window.MathJax && MathJax.Hub) {
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-    }
-  </script>
-  "),
-          
-          question = HTML("
-    Compute the marginal probability \\(f_X(1)=\\sum_y f_{X,Y}(1,y)\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          ans_frac = '7/18',
-          ans_val  = 7/18,
-          
-          # ✅ Hint1：说明要对 y 求和
-          hint1 = HTML("
-    To compute the marginal \\(f_X(1)\\), sum all joint probabilities in the column where \\(x=1\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Hint2：引导到计算过程，但不直接给结果
-          hint2 = HTML("
-    Identify the values in the column for \\(x=1\\): \\(f_{X,Y}(1,0), f_{X,Y}(1,1), f_{X,Y}(1,2)\\). 
-    Then add them together to obtain \\(f_X(1)\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ 完整解答
-          solution = HTML("
-    <b>Solution:</b><br>
-    \\(f_X(1)=f_{X,Y}(1,0)+f_{X,Y}(1,1)+f_{X,Y}(1,2)\\)<br>
-    \\(=\\tfrac{1}{9}+\\tfrac{1}{6}+\\tfrac{1}{9}=\\tfrac{7}{18}\\approx0.389.\\)
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  ")
-        ),
-        
-        # === Q4 — Marginal f_Y(0) ===
-        list(
-          id = 4,
-          table_ui = HTML("
-  <table class='pmf-table'>
-    <thead><tr>
-      <th class='corner outer'>\\(f_{X,Y}(x,y)\\)</th>
-      <th>\\(x=0\\)</th><th>\\(x=1\\)</th><th>\\(x=2\\)</th><th>\\(x=3\\)</th>
-    </tr></thead>
-    <tbody>
-      <tr><th>\\(y=0\\)</th><td>\\(\\tfrac{1}{24}\\)</td><td>\\(\\tfrac{1}{12}\\)</td><td>\\(\\tfrac{1}{8}\\)</td><td>\\(\\tfrac{1}{24}\\)</td></tr>
-      <tr><th>\\(y=1\\)</th><td>\\(\\tfrac{1}{24}\\)</td><td>\\(\\tfrac{1}{12}\\)</td><td>\\(\\tfrac{1}{8}\\)</td><td>\\(\\tfrac{1}{24}\\)</td></tr>
-    </tbody>
-  </table>
-  <script type='text/javascript'>
-    if (window.MathJax && MathJax.Hub) {
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-    }
-  </script>
-  "),
-          
-          question = HTML("
-    Compute the marginal probability \\(f_Y(0)=\\sum_x f_{X,Y}(x,0)\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          ans_frac = '1/4',
-          ans_val  = 1/4,
-          
-          # ✅ Hint1：说明行方向求和
-          hint1 = HTML("
-    To find the marginal \\(f_Y(0)\\), add up all the joint probabilities in the row where \\(y=0\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Hint2：引导识别哪些单元格相加，不直接给结果
-          hint2 = HTML("
-    Identify each cell along the row \\(y=0\\): \\(f_{X,Y}(0,0), f_{X,Y}(1,0), f_{X,Y}(2,0), f_{X,Y}(3,0)\\).
-    Then sum these four probabilities to obtain \\(f_Y(0)\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Solution：完整计算过程
-          solution = HTML("
-    <b>Solution:</b><br>
-    \\(f_Y(0)=f_{X,Y}(0,0)+f_{X,Y}(1,0)+f_{X,Y}(2,0)+f_{X,Y}(3,0)\\)<br>
-    \\(=\\tfrac{1}{24}+\\tfrac{1}{12}+\\tfrac{1}{8}+\\tfrac{1}{24}=\\tfrac{1}{4}.\\)
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  ")
-        ),
-        
-        # === Q5 — Region event: P(X>0, Y≤1) ===
-        list(
-          id = 5,
-          table_ui = HTML("
-  <table class='pmf-table'>
-    <thead><tr>
-      <th class='corner outer'>\\(f_{X,Y}(x,y)\\)</th>
-      <th>\\(x=0\\)</th><th>\\(x=1\\)</th><th>\\(x=2\\)</th>
-    </tr></thead>
-    <tbody>
-      <tr><th>\\(y=0\\)</th><td>\\(\\tfrac{1}{10}\\)</td><td>\\(\\tfrac{1}{10}\\)</td><td>\\(\\tfrac{1}{5}\\)</td></tr>
-      <tr><th>\\(y=1\\)</th><td>\\(\\tfrac{1}{10}\\)</td><td>\\(\\tfrac{1}{10}\\)</td><td>\\(\\tfrac{1}{10}\\)</td></tr>
-      <tr><th>\\(y=2\\)</th><td>\\(\\tfrac{1}{10}\\)</td><td>\\(\\tfrac{1}{10}\\)</td><td>\\(\\tfrac{1}{10}\\)</td></tr>
-    </tbody>
-  </table>
-  <script type='text/javascript'>
-    if (window.MathJax && MathJax.Hub) {
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-    }
-  </script>
-  "),
-          
-          question = HTML("
-    Find \\(P(X>0,\\,Y\\le1)\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          ans_frac = '2/5',
-          ans_val  = 2/5,
-          
-          # ✅ Hint1：说明选取哪些区域
-          hint1 = HTML("
-    The event \\(X>0, Y\\le1\\) includes all cells where \\(x=1,2\\) and \\(y=0,1\\).
-    Highlight those four cells in the table.
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Hint2：说明如何相加，不直接给出结果
-          hint2 = HTML("
-    Add the probabilities of the four selected cells:
-    \\(f_{X,Y}(1,0), f_{X,Y}(1,1), f_{X,Y}(2,0), f_{X,Y}(2,1)\\).
-    Their sum gives \\(P(X>0, Y\\le1)\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Solution：完整解答
-          solution = HTML("
-    <b>Solution:</b><br>
-    \\(P(X>0, Y\\le1) = f_{X,Y}(1,0) + f_{X,Y}(1,1) + f_{X,Y}(2,0) + f_{X,Y}(2,1)\\)<br>
-    \\(= \\tfrac{1}{10} + \\tfrac{1}{10} + \\tfrac{1}{5} + \\tfrac{1}{10} = \\tfrac{2}{5}.\\)
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  ")
-        ),
-        
-        # === Q6 — Region event: P(X+Y≥3) ===
-        list(
-          id = 6,
-          table_ui = HTML("
-  <table class='pmf-table'>
-    <thead><tr>
-      <th class='corner outer'>\\(f_{X,Y}(x,y)\\)</th>
-      <th>\\(x=0\\)</th><th>\\(x=1\\)</th><th>\\(x=2\\)</th>
-    </tr></thead>
-    <tbody>
-      <tr><th>\\(y=0\\)</th><td>\\(\\tfrac{1}{12}\\)</td><td>\\(\\tfrac{1}{12}\\)</td><td>\\(\\tfrac{1}{6}\\)</td></tr>
-      <tr><th>\\(y=1\\)</th><td>\\(\\tfrac{1}{8}\\)</td><td>\\(\\tfrac{1}{12}\\)</td><td>\\(\\tfrac{1}{8}\\)</td></tr>
-      <tr><th>\\(y=2\\)</th><td>\\(\\tfrac{1}{24}\\)</td><td>\\(\\tfrac{1}{8}\\)</td><td>\\(\\tfrac{1}{6}\\)</td></tr>
-    </tbody>
-  </table>
-  <script type='text/javascript'>
-    if (window.MathJax && MathJax.Hub) {
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-    }
-  </script>
-  "),
-          
-          question = HTML("
-    Compute \\(P(X+Y\\ge3)\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          ans_frac = '7/24',
-          ans_val  = 7/24,
-          
-          # ✅ Hint1：帮助学生确定条件区域
-          hint1 = HTML("
-    Identify all \\((x,y)\\) pairs where \\(x + y \\ge 3\\).
-    Mark those cells in the table before summing their probabilities.
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Hint2：提示哪些具体格子被选中，但不直接给数值
-          hint2 = HTML("
-    The qualifying cells are where \\(x+y=3\\) or \\(x+y>3\\), for example \\((1,2)\\), \\((2,1)\\), and \\((2,2)\\).
-    Add their probabilities to get \\(P(X+Y\\ge3)\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Solution：展示计算过程
-          solution = HTML("
-    <b>Solution:</b><br>
-    The cells satisfying \\(x+y\\ge3\\) are \\((1,2), (2,1), (2,2)\\).<br>
-    \\(P(X+Y\\ge3) = f_{X,Y}(1,2) + f_{X,Y}(2,1) + f_{X,Y}(2,2)\\)<br>
-    \\(= \\tfrac{1}{8} + \\tfrac{1}{8} + \\tfrac{1}{6} = \\tfrac{7}{24}.\\)
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  ")
-        ),
-        
-        # === Q7 — Missing entry (normalization) ===
-        list(
-          id = 7,
-          table_ui = HTML("
-  <table class='pmf-table'>
-    <thead><tr>
-      <th class='corner outer'>\\(f_{X,Y}(x,y)\\)</th>
-      <th>\\(x=0\\)</th><th>\\(x=1\\)</th><th>\\(x=2\\)</th>
-    </tr></thead>
-    <tbody>
-      <tr><th>\\(y=0\\)</th><td>\\(\\tfrac{1}{8}\\)</td><td>\\(\\tfrac{1}{8}\\)</td><td>?</td></tr>
-      <tr><th>\\(y=1\\)</th><td>\\(\\tfrac{1}{6}\\)</td><td>\\(\\tfrac{1}{12}\\)</td><td>\\(\\tfrac{1}{8}\\)</td></tr>
-      <tr><th>\\(y=2\\)</th><td>\\(\\tfrac{1}{12}\\)</td><td>\\(\\tfrac{1}{6}\\)</td><td>\\(\\tfrac{1}{12}\\)</td></tr>
-    </tbody>
-  </table>
-  <script type='text/javascript'>
-    if (window.MathJax && MathJax.Hub) {
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-    }
-  </script>
-  "),
-          
-          question = HTML("
-    Find the missing probability value (?) so that \\(\\sum_x\\sum_y f_{X,Y}(x,y) = 1\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          ans_frac = '1/8',
-          ans_val  = 1/8,
-          
-          # ✅ Hint1：提示整体思路
-          hint1 = HTML("
-    Add up all the known probabilities in the table.  
-    The total must equal 1 after including the missing cell.
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Hint2：提示代数关系，不直接给结果
-          hint2 = HTML("
-    Let the missing value be \\(p\\).  
-    Then \\(p = 1 - (\\text{sum of all known entries})\\).  
-    Compute the sum of all visible fractions, and solve for \\(p\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Solution：详细演算步骤
-          solution = HTML("
-    <b>Solution:</b><br>
-    Let the missing entry be \\(p\\).  
-    All probabilities must sum to 1, so
-    \\[
-      p = 1 - \\Big(
-        \\tfrac{1}{8} + \\tfrac{1}{8} + \\tfrac{1}{6} + \\tfrac{1}{12} + 
-        \\tfrac{1}{8} + \\tfrac{1}{12} + \\tfrac{1}{6} + \\tfrac{1}{12}
-      \\Big)
-      = 1 - \\tfrac{7}{8} = \\tfrac{1}{8}.
-    \\]
-    Therefore, the missing probability is \\(\\tfrac{1}{8}.\\)
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  ")
-        ),
-        
-        # === Q8 — Unknown a (normalization constant) ===
-        list(
-          id = 8,
-          table_ui = HTML("
-  <table class='pmf-table'>
-    <thead><tr>
-      <th class='corner outer'>\\(f_{X,Y}(x,y)\\)</th>
-      <th>\\(x=0\\)</th><th>\\(x=1\\)</th><th>\\(x=2\\)</th>
-    </tr></thead>
-    <tbody>
-      <tr><th>\\(y=0\\)</th><td>\\(\\tfrac{1}{5}\\)</td><td>\\(\\tfrac{1}{10}\\)</td><td>\\(a\\)</td></tr>
-      <tr><th>\\(y=1\\)</th><td>\\(\\tfrac{1}{10}\\)</td><td>\\(\\tfrac{1}{5}\\)</td><td>\\(\\tfrac{1}{10}\\)</td></tr>
-      <tr><th>\\(y=2\\)</th><td>\\(a\\)</td><td>\\(\\tfrac{1}{10}\\)</td><td>\\(\\tfrac{1}{5}\\)</td></tr>
-    </tbody>
-  </table>
-  <script type='text/javascript'>
-    if (window.MathJax && MathJax.Hub) {
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-    }
-  </script>
-  "),
-          
-          question = HTML("
-    Find the value of \\(a\\) such that the total probability equals 1:
-    \\[
-      \\sum_x \\sum_y f_{X,Y}(x,y) = 1.
-    \\]
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          ans_frac = '1/10',
-          ans_val  = 1/10,
-          
-          # ✅ Hint1：整体思路
-          hint1 = HTML("
-    To find the constant \\(a\\), sum all probabilities in the table.  
-    The total must equal 1.  
-    Identify which cells contain \\(a\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Hint2：引导建立方程
-          hint2 = HTML("
-    The total probability can be written as  
-    \\[
-      (\\text{sum of numeric entries}) + (\\text{number of } a \\text{ terms})\\times a = 1.
-    \\]
-    There are two cells with \\(a\\), so form the equation \\(0.8 + 2a = 1\\), then solve for \\(a\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Solution：完整推导
-          solution = HTML("
-    <b>Solution:</b><br>
-    Sum all fixed probabilities:
-    \\[
-      \\tfrac{1}{5} + \\tfrac{1}{10} + \\tfrac{1}{10} + \\tfrac{1}{5} + \\tfrac{1}{10} + \\tfrac{1}{10} + \\tfrac{1}{5} = 0.8.
-    \\]
-    There are two unknown cells with value \\(a\\), so
-    \\[
-      0.8 + 2a = 1 \\Rightarrow a = 0.1 = \\tfrac{1}{10}.
-    \\]
-    Therefore, \\(a = \\tfrac{1}{10}.\\)
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  ")
-        ),
-        
-        # === Q9 — Parameter k ===
-        list(
-          id = 9,
-          table_ui = HTML("
-  <table class='pmf-table'>
-    <thead><tr>
-      <th>x</th><th>y</th><th>\\(f_{X,Y}(x,y)\\)</th>
-    </tr></thead>
-    <tbody>
-      <tr><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>0</td><td>1</td><td>k</td></tr>
-      <tr><td>0</td><td>2</td><td>2k</td></tr>
-      <tr><td>1</td><td>0</td><td>k</td></tr>
-      <tr><td>1</td><td>1</td><td>2k</td></tr>
-      <tr><td>1</td><td>2</td><td>3k</td></tr>
-      <tr><td>2</td><td>0</td><td>2k</td></tr>
-      <tr><td>2</td><td>1</td><td>3k</td></tr>
-      <tr><td>2</td><td>2</td><td>4k</td></tr>
-    </tbody>
-  </table>
-  <script type='text/javascript'>
-    if (window.MathJax && MathJax.Hub) {
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-    }
-  </script>
-  "),
-          
-          question = HTML("
-    Find the value of \\(k\\) such that
-    \\[
-      \\sum_x \\sum_y f_{X,Y}(x,y) = 1.
-    \\]
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          ans_frac = '1/18',
-          ans_val  = 1/18,
-          
-          # ✅ Hint1：引导思路
-          hint1 = HTML("
-    Observe that each probability is a multiple of \\(k\\).  
-    Add up all the coefficients of \\(k\\); their total must equal 1.
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Hint2：建立方程，但不直接给结果
-          hint2 = HTML("
-    The coefficients of \\(k\\) are: 1, 2, 1, 2, 3, 2, 3, 4.  
-    Summing them gives 18.  
-    Form the equation \\(18k = 1\\) and solve for \\(k\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          # ✅ Solution：完整推导
-          solution = HTML("
-    <b>Solution:</b><br>
-    Sum all nonzero entries:
-    \\[
-      (1 + 2 + 1 + 2 + 3 + 2 + 3 + 4)k = 18k.
-    \\]
-    To satisfy the normalization condition \\(\\sum_x\\sum_y f_{X,Y}(x,y)=1\\),
-    \\[
-      18k = 1 \\Rightarrow k = \\tfrac{1}{18}.
-    \\]
-    Therefore, \\(k = \\tfrac{1}{18}.\\)
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  ")
-        ),
-        
-        # === Q10 — Parameter p ===
-        list(
-          id = 10,
-          table_ui = HTML("
-  <table class='pmf-table'>
-    <thead><tr>
-      <th>\\(x\\)</th>
-      <th>\\(y=0\\)</th>
-      <th>\\(y=1\\)</th>
-      <th>\\(y=2\\)</th>
-      <th>\\(\\sum_y f_{X,Y}(x,y)\\)</th>
-    </tr></thead>
-    <tbody>
-      <tr><th>\\(x=0\\)</th><td>\\(p\\)</td><td>\\(\\tfrac{1}{12}\\)</td><td>\\(\\tfrac{1}{6}\\)</td><td>?</td></tr>
-      <tr><th>\\(x=1\\)</th><td>\\(\\tfrac{1}{12}\\)</td><td>\\(p\\)</td><td>\\(\\tfrac{1}{12}\\)</td><td>?</td></tr>
-      <tr><th>\\(x=2\\)</th><td>\\(\\tfrac{1}{6}\\)</td><td>\\(\\tfrac{1}{12}\\)</td><td>\\(p\\)</td><td>?</td></tr>
-      <tr><th>\\(\\sum_x f_{X,Y}(x,y)\\)</th><td>?</td><td>?</td><td>?</td><td>1</td></tr>
-    </tbody>
-  </table>
-  <script type='text/javascript'>
-    if (window.MathJax && MathJax.Hub) {
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-    }
-  </script>
-  "),
-          
-          question = HTML("
-    Find the value of \\(p\\) such that
-    \\[
-      \\sum_x \\sum_y f_{X,Y}(x,y) = 1.
-    \\]
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          ans_frac = '1/9',
-          ans_val  = 1/9,
-          
-          hint1 = HTML("
-    Each entry represents \\(f_{X,Y}(x,y)\\).  
-    Add all the table values together (including those containing \\(p\\)),  
-    and ensure the total equals 1.
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          hint2 = HTML("
-    There are three cells with \\(p\\).  
-    Sum all numeric probabilities first:
-    \\[
-      \\tfrac{1}{6} + \\tfrac{1}{6} + 4\\times\\tfrac{1}{12} = \\tfrac{2}{3}.
-    \\]
-    Form the normalization equation:
-    \\[
-      3p + \\tfrac{2}{3} = 1.
-    \\]
-    Solve for \\(p\\).
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  "),
-          
-          solution = HTML("
-    <b>Solution:</b><br>
-    Using the total probability condition:
-    \\[
-      3p + \\tfrac{2}{3} = 1 \\Rightarrow p = \\tfrac{1}{9}.
-    \\]
-    Therefore, \\(p = \\tfrac{1}{9}.\\)
-    <script type='text/javascript'>
-      if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-      }
-    </script>
-  ")
-        )
+      # Integer weights are the single source for each table, answer and explanation.
+      matrix_rows <- function(values, columns=3) matrix(values,ncol=columns,byrow=TRUE)
+      specs <- list(
+        list(w=matrix_rows(c(3,2,8,2,3,1,1,1,3)),d=24,kind="lookup",x=1,y=1),
+        list(w=matrix_rows(c(6,1,1,4,2,1,1,2,2)),d=20,kind="lookup",x=2,y=1),
+        list(w=matrix_rows(c(3,2,2,1,3,1,1,2,3)),d=18,kind="marginal_x",x=1),
+        list(w=matrix_rows(c(1,2,3,1,11,2,3,1),4),d=24,kind="marginal_y",y=0),
+        list(w=matrix_rows(c(1,1,2,1,1,1,1,1,1)),d=10,kind="region"),
+        list(w=matrix_rows(c(2,2,4,3,2,3,1,3,4)),d=24,kind="sum"),
+        list(w=matrix_rows(c(3,3,0,4,2,3,2,4,2)),d=24,kind="parameter",
+             parameter="p",missing=TRUE,coeff=matrix_rows(c(0,0,1,0,0,0,0,0,0))),
+        list(w=matrix_rows(c(2,1,0,1,2,1,0,1,2)),d=10,kind="parameter",
+             parameter="a",coeff=matrix_rows(c(0,0,1,0,0,0,1,0,0))),
+        list(w=matrix_rows(rep(0,9)),d=1,kind="parameter",parameter="k",
+             layout="list",coeff=matrix_rows(c(0,1,2,1,2,3,2,3,4))),
+        list(w=matrix_rows(c(0,1,2,1,0,1,2,1,0)),d=12,kind="parameter",
+             parameter="p",layout="margins",coeff=diag(3))
       )
+      gcd <- function(a,b) { while(b!=0) { remainder<-a%%b; a<-b; b<-remainder }; a }
+      fraction <- function(n,d=1) { common<-gcd(abs(n),d); c(n=n/common,d=d/common) }
+      plain <- function(f) if(f[["d"]]==1) as.character(f[["n"]]) else paste0(f[["n"]],"/",f[["d"]])
+      tex <- function(f) if(f[["d"]]==1) as.character(f[["n"]]) else paste0("\\tfrac{",f[["n"]],"}{",f[["d"]],"}")
+      math <- function(text) paste0("\\(",text,"\\)")
+      paragraph <- function(text) paste0("<p>",text,"</p>")
+      typeset <- "<script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>"
+      html <- function(text) HTML(paste0(text,typeset))
+      lapply(seq_along(specs),function(id) {
+        spec<-specs[[id]]; w<-spec$w; den<-spec$d
+        xs<-seq_len(ncol(w))-1L; ys<-seq_len(nrow(w))-1L
+        grid<-expand.grid(x=xs,y=ys)
+        weights<-as.vector(t(w))
+        coefficients<-if(is.null(spec$coeff)) rep(0,length(weights)) else as.vector(t(spec$coeff))
+        parameter_question<-spec$kind=="parameter"
+        if(parameter_question) {
+          answer<-fraction(den-sum(weights),den*sum(coefficients))
+          label<-spec$parameter; selected<-integer(0)
+        } else {
+          selected<-which(switch(spec$kind,
+            lookup=grid$x==spec$x & grid$y==spec$y,
+            marginal_x=grid$x==spec$x,marginal_y=grid$y==spec$y,
+            region=grid$x>0 & grid$y<=1,sum=grid$x+grid$y>=3))
+          answer<-fraction(sum(weights[selected]),den)
+          label<-switch(spec$kind,
+            lookup=paste0("P(X=",spec$x,",Y=",spec$y,")"),
+            marginal_x=paste0("f_X(",spec$x,")"),marginal_y=paste0("f_Y(",spec$y,")"),
+            region="P(X>0,\\,Y\\le1)",sum="P(X+Y\\ge3)")
+        }
+        completed<-weights/den+coefficients*answer[["n"]]/answer[["d"]]
+        stopifnot(all(completed>=0),abs(sum(completed)-1)<1e-12)
+        cell_text<-vapply(seq_along(weights),function(i) {
+          if(coefficients[i]>0) {
+            if(isTRUE(spec$missing)) return("?")
+            return(paste0(if(coefficients[i]==1) "" else coefficients[i],spec$parameter))
+          }
+          tex(fraction(weights[i],den))
+        },character(1))
+        cells<-matrix(cell_text,nrow=nrow(w),byrow=TRUE)
+        td<-function(text) paste0("<td>",math(text),"</td>")
+        th<-function(text) paste0("<th>",math(text),"</th>")
+        if(identical(spec$layout,"list")) {
+          header<-paste0("<tr><th>x</th><th>y</th>",th("f_{X,Y}(x,y)"),"</tr>")
+          rows<-vapply(seq_along(weights),function(i) paste0("<tr><td>",grid$x[i],"</td><td>",grid$y[i],"</td><td>",cell_text[i],"</td></tr>"),character(1))
+          orientation<-"Each row lists one (x,y) outcome and its joint probability."
+        } else if(identical(spec$layout,"margins")) {
+          header<-paste0("<tr>",th("x"),paste0(vapply(ys,function(y) th(paste0("y=",y)),character(1)),collapse=""),th("f_X(x)"),"</tr>")
+          rows<-vapply(seq_along(xs),function(i) paste0("<tr>",th(paste0("x=",xs[i])),paste0(vapply(cells[,i],td,character(1)),collapse=""),td("?"),"</tr>"),character(1))
+          rows<-c(rows,paste0("<tr>",th("f_Y(y)"),paste0(rep(td("?"),length(ys)),collapse=""),td("1"),"</tr>"))
+          orientation<-"Rows show X and columns show Y. The '?' cells are marginal totals; use only the nine interior joint probabilities when normalizing."
+        } else {
+          header<-paste0("<tr>",th("f_{X,Y}(x,y)"),paste0(vapply(xs,function(x) th(paste0("x=",x)),character(1)),collapse=""),"</tr>")
+          rows<-vapply(seq_along(ys),function(i) paste0("<tr>",th(paste0("y=",ys[i])),paste0(vapply(cells[i,],td,character(1)),collapse=""),"</tr>"),character(1))
+          orientation<-"Rows show Y and columns show X."
+        }
+        table<-paste0("<table class='pmf-table'><thead>",header,"</thead><tbody>",paste0(rows,collapse=""),"</tbody></table>")
+        if(!parameter_question) {
+          coordinates<-paste0("(",grid$x[selected],",",grid$y[selected],")")
+          terms<-paste0("f_{X,Y}(",grid$x[selected],",",grid$y[selected],")")
+          values<-vapply(weights[selected],function(n) tex(fraction(n,den)),character(1))
+          question<-paste0("Find ",math(label),".")
+          hint1<-switch(spec$kind,
+            lookup="Read the joint probability at the intersection of the requested X column and Y row.",
+            marginal_x="Keep X fixed and sum over every Y value in that column.",
+            marginal_y="Keep Y fixed and sum over every X value in that row.",
+            region="Include only cells satisfying both X>0 and Y<=1; check the boundary Y=1.",
+            sum="Include all cells with X+Y at least 3, including the boundary X+Y=3.")
+          hint2<-paste0(if(length(selected)==1) "Use the cell " else "Add the cells ",math(paste0(coordinates,collapse=", ")),".")
+          solution<-paste0("<b>Solution:</b>",
+            paragraph(math(paste0(label," = ",paste0(terms,collapse=" + ")))),
+            paragraph(math(paste0(paste0(values,collapse=" + ")," = ",tex(answer)))),
+            paragraph(paste0("Therefore ",math(paste0(label," = ",tex(answer))),".")))
+        } else {
+          known<-fraction(sum(weights),den); coefficient_sum<-sum(coefficients)
+          unknown_term<-paste0(if(coefficient_sum==1) "" else coefficient_sum,spec$parameter)
+          known_terms<-vapply(weights[coefficients==0],function(n) tex(fraction(n,den)),character(1))
+          question<-if(isTRUE(spec$missing)) "Find the missing probability '?' so that the completed table is a joint PMF." else
+            paste0("Find ",math(paste0(spec$parameter,"\\ge0"))," so that the joint probabilities sum to 1.")
+          hint1<-"Every entry must be non-negative, and the joint probabilities must sum to 1. First add the fixed entries."
+          hint2<-paste0("The fixed probabilities sum to ",math(tex(known)),". The unknown contribution is ",
+            math(unknown_term),"; solve ",math(paste0(tex(known)," + ",unknown_term," = 1")),".")
+          if(isTRUE(spec$missing)) hint2<-paste0("Let the missing cell be ",math("p"),". ",hint2)
+          if(id==10) hint1<-paste0(hint1," Do not add the marginal totals to the interior probabilities.")
+          solution<-paste0("<b>Solution:</b>",
+            if(isTRUE(spec$missing)) paragraph(paste0("Let the missing probability be ",math("p"),".")) else "",
+            paragraph(paste0("Fixed entries: ",math(paste0(paste0(known_terms,collapse=" + ")," = ",tex(known))),".")),
+            paragraph(paste0("The unknown contribution is ",math(unknown_term),".")),
+            paragraph(math(paste0(tex(known)," + ",unknown_term," = 1 \\quad\\Rightarrow\\quad ",spec$parameter," = ",tex(answer)))),
+            paragraph(paste0("Check: ",math(paste0(tex(known)," + ",coefficient_sum,"\\times(",tex(answer),") = 1")),
+              "; all completed probabilities are non-negative.")))
+          if(id==8) solution<-paste0(solution,paragraph("Zero probabilities are allowed: the fixed entries already contain all the probability mass."))
+        }
+        list(id=id,table_ui=html(table),
+          question=html(paste0(paragraph(orientation),paragraph(question),paragraph("Unlisted outcomes have probability zero."))),
+          ans_frac=plain(answer),ans_val=unname(answer[["n"]]/answer[["d"]]),
+          hint1=html(paragraph(hint1)),hint2=html(paragraph(hint2)),solution=html(solution))
+      })
     }
+
     # ============================================================
     # 题目逻辑 
     # ============================================================
@@ -1320,7 +691,10 @@ joint_Server <- function(id) {
     observeEvent(input$check, {
       p <- prob(); validate(need(!is.null(p), ""))
       
-      ok <- is_correct(input$ans, p$ans_val, p$ans_frac)
+      # Joint probabilities and these normalization constants cannot be negative.
+      candidate <- parse_user_prob(input$ans)
+      ok <- is.finite(candidate) && candidate >= 0 &&
+        is_correct(input$ans, p$ans_val, p$ans_frac)
       result(list(status = if (ok) "ok" else "no"))
       tries(tries() + if (ok) 3 else 1)
     })

@@ -2,7 +2,9 @@
 
 审查日期：2026-10-21（Pacific/Auckland）。代码基线：`0f609deed5caac75f55542ead1a0b4cd808f4f52`。
 
-首轮审查发现 **11 项已确认问题（8 项 P1、3 项 P2）**，另有会话隔离等待验证事项。**2026-10-30：R1-05、R1-06 已修复并验证，其余 9 项待修复（6 项 P1、3 项 P2）**。此结果不表示应用已通过整体验收。
+首轮审查发现 **11 项已确认问题（8 项 P1、3 项 P2）**，另有会话隔离等待验证事项。**2026-10-30：R1-04、R1-05、R1-06 已修复并验证，其余 8 项待修复（5 项 P1、3 项 P2）**。此结果不表示应用已通过整体验收。
+
+R1-04 的 [验证记录](evidence/r1_04_verification.md) 包含 10/10 题有理数复核、102/102 真实练习交互检查，以及 R1-05 11/11、R1-06 124/124 的重跑结果。复现需先运行 `Rscript --vanilla review/scripts/test_r1_04.R`，再运行 `python review/scripts/test_r1_04_math.py`。
 
 R1-05 的 [验证记录](evidence/r1_05_verification.md) 包含修复前后对比、11 个真实模块输出案例和浏览器证据。运行当前回归检查：`Rscript --vanilla review/scripts/test_r1_05.R`。首轮 `round1_*` 证据保持原样；首轮脚本中的 `actual_scalar_ifelse`、`invalid_mass_normalization` 是旧表达式复现，修复后状态以专项回归为准。
 
