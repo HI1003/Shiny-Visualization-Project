@@ -1,0 +1,189 @@
+{
+  "baseline": "0f609deed5caac75f55542ead1a0b4cd808f4f52",
+  "source_md5": {
+    "Project_PPeek1ng/main.R": "0593e4c01df0e42b90312828fc2a9551",
+    "Project_PPeek1ng/modules/module_conditional.R": "296224d38b56ace673a301b1e8a18e4b",
+    "Project_PPeek1ng/modules/module_expectation.R": "ed58ea6000f855aea5fd44e3644c7394",
+    "Project_PPeek1ng/modules/module_game_discrete.r": "fe03126c5c82b3f7fbb499ced7238e04",
+    "Project_PPeek1ng/modules/module_joint.R": "a1234bab2efb07c2a43d4cc72dcdfeb1",
+    "Project_PPeek1ng/modules/module_probability.R": "f6041adafdafb9fc1f438a269918a92a"
+  },
+  "counts": {
+    "joint": 10,
+    "conditional": 13,
+    "expectation": 9
+  },
+  "checks": {
+    "conditional_poisson": {
+      "issue": "R1-01",
+      "question": 4,
+      "expected": 0.34722941755417164,
+      "stored": 0.26300000000000001,
+      "correct_answer_accepted": false
+    },
+    "expectation_second_moment": {
+      "issue": "R1-02",
+      "question": 4,
+      "expected": 3333.3333333333335,
+      "stored": 3333.3299999999999,
+      "exact_fraction_accepted": false,
+      "stored_decimal_accepted": true
+    },
+    "conditional_distribution_name": {
+      "issue": "R1-03",
+      "question": 1,
+      "stored": "Binomial",
+      "wrong_negative_binomial_accepted": true,
+      "negation_accepted": true
+    },
+    "numeric_positive_control": {
+      "one_eighth_accepted": true,
+      "wrong_answer_rejected": true
+    },
+    "conditional_default_table": {
+      "issue": "R1-05",
+      "input_probabilities": [0.85067873303167418, 0.072398190045248875],
+      "expected": [0.92156862745098034, 0.078431372549019607],
+      "actual_scalar_ifelse": [0.92156862745098045, 0.92156862745098045]
+    },
+    "conditional_numeric_bank": [
+      {
+        "question": 2,
+        "expected": 0.67231999999999992,
+        "stored": 0.67232000000000003,
+        "accepted": true
+      },
+      {
+        "question": 4,
+        "expected": 0.34722941755417164,
+        "stored": 0.26300000000000001,
+        "accepted": false
+      },
+      {
+        "question": 6,
+        "expected": 0.64000000000000012,
+        "stored": 0.64000000000000001,
+        "accepted": true
+      },
+      {
+        "question": 8,
+        "expected": 0.63212055882855767,
+        "stored": 0.6321,
+        "accepted": true
+      },
+      {
+        "question": 10,
+        "expected": 0.047790352272814703,
+        "stored": 0.047500000000000001,
+        "accepted": false
+      },
+      {
+        "question": 12,
+        "expected": 0.6428571428571429,
+        "stored": 0.64290000000000003,
+        "accepted": true
+      }
+    ],
+    "expectation_numeric_bank": [
+      {
+        "question": 1,
+        "expected": 2,
+        "stored": 2,
+        "accepted": true,
+        "caveat": ""
+      },
+      {
+        "question": 2,
+        "expected": 24,
+        "stored": 24,
+        "accepted": true,
+        "caveat": ""
+      },
+      {
+        "question": 3,
+        "expected": 2,
+        "stored": 2,
+        "accepted": true,
+        "caveat": ""
+      },
+      {
+        "question": 4,
+        "expected": 3333.3333333333335,
+        "stored": 3333.3299999999999,
+        "accepted": false,
+        "caveat": ""
+      },
+      {
+        "question": 5,
+        "expected": 9,
+        "stored": 9,
+        "accepted": true,
+        "caveat": ""
+      },
+      {
+        "question": 6,
+        "expected": 0.5,
+        "stored": 0.5,
+        "accepted": true,
+        "caveat": ""
+      },
+      {
+        "question": 7,
+        "expected": 2,
+        "stored": 2,
+        "accepted": true,
+        "caveat": ""
+      },
+      {
+        "question": 8,
+        "expected": 24,
+        "stored": 24,
+        "accepted": true,
+        "caveat": "Prompt asks two values; only Sunny=24 is checked; Cloudy=12 also required."
+      },
+      {
+        "question": 9,
+        "expected": 65,
+        "stored": 65,
+        "accepted": true,
+        "caveat": ""
+      }
+    ],
+    "probability_endpoints": [
+      {
+        "distribution": "geom",
+        "input_p": 1,
+        "mass_at_zero": 0.999,
+        "displayed_mean": 0.0010010010010010019,
+        "endpoint_correct": false
+      },
+      {
+        "distribution": "nbinom",
+        "input_p": 1,
+        "mass_at_zero": 0.99800100000000003,
+        "displayed_mean": 0.0020020020020020037,
+        "endpoint_correct": false
+      },
+      {
+        "distribution": "bern",
+        "input_p": 1,
+        "mass_at_zero": 0,
+        "displayed_mean": 1,
+        "endpoint_correct": true
+      },
+      {
+        "distribution": "binom",
+        "input_p": 1,
+        "mass_at_zero": 0,
+        "displayed_mean": 5,
+        "endpoint_correct": true
+      }
+    ],
+    "invalid_mass_normalization": {
+      "issue": "R1-06",
+      "input": [-1, 1, 1, 1],
+      "generated": [-0.5, 0.5, 0.5, 0.5],
+      "zero_total_result": ["NaN", "NaN"]
+    }
+  }
+}

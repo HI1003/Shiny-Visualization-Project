@@ -1,0 +1,92 @@
+[
+  {
+    "question": 1,
+    "expected_fraction": "1/8",
+    "expected": 0.125,
+    "stored": 0.125,
+    "answer_matches": true,
+    "mass": "17/24",
+    "detail": "Direct table calculation; invalid PMF must be redesigned before final answers are fixed."
+  },
+  {
+    "question": 2,
+    "expected_fraction": "1/20",
+    "expected": 0.05,
+    "stored": 0.05,
+    "answer_matches": true,
+    "mass": "4/5",
+    "detail": "Direct table calculation; invalid PMF must be redesigned before final answers are fixed."
+  },
+  {
+    "question": 3,
+    "expected_fraction": "7/18",
+    "expected": 0.3888888888888889,
+    "stored": 0.3888888888888889,
+    "answer_matches": true,
+    "mass": "17/18",
+    "detail": "Direct table calculation; invalid PMF must be redesigned before final answers are fixed."
+  },
+  {
+    "question": 4,
+    "expected_fraction": "7/24",
+    "expected": 0.2916666666666667,
+    "stored": 0.25,
+    "answer_matches": false,
+    "mass": "7/12",
+    "detail": "Direct table calculation; invalid PMF must be redesigned before final answers are fixed."
+  },
+  {
+    "question": 5,
+    "expected_fraction": "1/2",
+    "expected": 0.5,
+    "stored": 0.4,
+    "answer_matches": false,
+    "mass": "1",
+    "detail": "Direct table calculation."
+  },
+  {
+    "question": 6,
+    "expected_fraction": "5/12",
+    "expected": 0.4166666666666667,
+    "stored": 0.2916666666666667,
+    "answer_matches": false,
+    "mass": "1",
+    "detail": "Direct table calculation."
+  },
+  {
+    "question": 7,
+    "expected_fraction": "1/24",
+    "expected": 0.041666666666666664,
+    "stored": 0.125,
+    "answer_matches": false,
+    "mass": "13/12",
+    "detail": "Known mass=23/24; 1 unknown cell(s). Total shown uses stored answer."
+  },
+  {
+    "question": 8,
+    "expected_fraction": "0",
+    "expected": 0.0,
+    "stored": 0.1,
+    "answer_matches": false,
+    "mass": "6/5",
+    "detail": "Known mass=1; 2 unknown cell(s). Total shown uses stored answer."
+  },
+  {
+    "question": 9,
+    "expected_fraction": "1/18",
+    "expected": 0.05555555555555555,
+    "stored": 0.05555555555555555,
+    "answer_matches": true,
+    "mass": null,
+    "detail": "Sum of k coefficients=18."
+  },
+  {
+    "question": 10,
+    "expected_fraction": "1/9",
+    "expected": 0.1111111111111111,
+    "stored": 0.1111111111111111,
+    "answer_matches": true,
+    "mass": null,
+    "detail": "Known joint mass=2/3; three p cells. Marginals excluded."
+  }
+]
