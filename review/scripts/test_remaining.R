@@ -194,7 +194,7 @@ session_a$flushReact()
 record('sessions','B_does_not_overwrite_A',identical(isolate(state_a$df_final),a))
 session_a$close(); session_b$close()
 args <- commandArgs(trailingOnly=TRUE)
-report <- list(date='2026-10-30',total=length(results$cases),
+report <- list(date=format(Sys.time(),'%Y-%m-%d',tz='Pacific/Auckland'),total=length(results$cases),
   passed=sum(vapply(results$cases,function(x)x$passed,logical(1))),cases=results$cases,
   source_md5=as.list(tools::md5sum(list.files('Project_PPeek1ng',pattern='[.][Rr]$',recursive=TRUE,full.names=TRUE))))
 jsonlite::write_json(report,if(length(args)) args[1] else 'review/evidence/final_remaining.json',auto_unbox=TRUE,pretty=TRUE,digits=16)

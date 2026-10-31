@@ -1,4 +1,8 @@
-# 第一轮模块审查
+# 模块审查与教学复核
+
+2026-10-31 教学定位：**服务当前 STATS125 学生，少量内容为后续 STATS210 作可选铺垫。** 已完成 [教学内容复核](TEACHING_REVIEW_STATS125.md)：逐题核对 32 题，建议 20 核心、8 铺垫、4 后续，形成 8 个原创核心练习方案。条件期望、全期望、离散 E[g(X)] 和方差仍属 125 核心。少量叙述/近似符号已修正，[本轮 300/300 回归通过](evidence/teaching_regression_2026_10_31.json)。**界面分层、筛选与新增练习尚待实施。**
+
+此前四次修复已同步 GitHub，基线为 `eabd184`；本轮新增教学复核与文字修正保存在本地，未推送。以下首轮和 2026-10-30 数值验证保留为历史记录。
 
 审查日期：2026-10-21（Pacific/Auckland）。代码基线：`0f609deed5caac75f55542ead1a0b4cd808f4f52`。
 
@@ -17,6 +21,7 @@ R1-06 的 [验证记录](evidence/r1_06_verification.md) 包含三模块输入�
 | 记录 | 用途 |
 |---|---|
 | [COURSE_MAP.md](COURSE_MAP.md) | 本地课程来源、章节页码、模块对应关系 |
+| [TEACHING_REVIEW_STATS125.md](TEACHING_REVIEW_STATS125.md) | 125 主线、逐题分层、教学缺口、可直接实施的核心练习与先修说明 |
 | [ISSUES.md](ISSUES.md) | 问题编号、复现、预期、证据、修复建议和验收条件 |
 | [WORKLOG.md](WORKLOG.md) | 本轮工作、时间口径和后续工时记录模板 |
 | [HANDOVER.md](HANDOVER.md) | 修复顺序、范围边界和待确认事项 |

@@ -956,7 +956,7 @@ conditional_Server <- function(id, shared = new_pmf_state()) {
     <b>Solution:</b><br>
     Using the exponential CDF \\(1-e^{-\\lambda y}\\):<br>
     \\[
-      P(Y\\le2\\mid C=Cloudy)=1-e^{-0.5\\times2}=1-e^{-1}=0.6321.
+      P(Y\\le2\\mid C=Cloudy)=1-e^{-0.5\\times2}=1-e^{-1}\\approx0.6321.
     \\]
     <p>Thus, on a cloudy day, there is approximately a 63% chance that rain begins within 2 hours.</p>
     <script>
@@ -1060,8 +1060,8 @@ conditional_Server <- function(id, shared = new_pmf_state()) {
           story = HTML("
     <h4>🐑 Problem 11</h4>
     <p>Every afternoon, you record how far the sheep wander from the barn.</p>
-    <p>The distance \\(Y\\) (in meters) depends on the wind level \\(W\\): stronger winds make the sheep stay closer.</p>
-    <p>Empirically, the maximum roaming distance increases linearly with wind level \\(W\\):</p>
+    <p>The distance \\(Y\\) (in meters) depends on the wind level \\(W\\): for this illustrative model, higher wind categories are associated with a larger roaming range.</p>
+    <p>For this exercise, assume the maximum roaming distance increases linearly with wind level \\(W\\):</p>
     \\[
       Y\\mid W=w \\sim Uniform(0,\\,100+20w),
     \\]
@@ -1079,7 +1079,7 @@ conditional_Server <- function(id, shared = new_pmf_state()) {
           ans_val  = NA,
           
           hint1 = HTML("
-    For a \\(Uniform(a,b)\\) distribution, all values between \\(a\\) and \\(b\\) are equally likely.  
+    For a continuous Uniform(a,b) model, equal-length subintervals within the support have equal probability.
     The upper bound \\(b\\) here depends on the wind level \\(w\\).
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),
@@ -1130,7 +1130,7 @@ conditional_Server <- function(id, shared = new_pmf_state()) {
           hint2 = HTML("
     Compute:  
     \\[
-      P(Y>50\\mid W=2)=\\frac{140-50}{140-0}=\\frac{90}{140}=0.6429.
+      P(Y>50\\mid W=2)=\\frac{140-50}{140-0}=\\frac{90}{140}\\approx0.6429.
     \\]
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),
@@ -1139,7 +1139,7 @@ conditional_Server <- function(id, shared = new_pmf_state()) {
     <b>Solution:</b><br>
     Given \\(Y\\mid W=2\\sim Uniform(0,140)\\):  
     \\[
-      P(Y>50\\mid W=2)=\\frac{140-50}{140-0}=\\frac{90}{140}=0.6429.
+      P(Y>50\\mid W=2)=\\frac{140-50}{140-0}=\\frac{90}{140}\\approx0.6429.
     \\]
     When the wind is moderate (\\(W=2\\)),  
     there is about a 64% chance that the sheep will roam farther than 50 meters —  
@@ -1153,7 +1153,7 @@ conditional_Server <- function(id, shared = new_pmf_state()) {
     <h4>☀️ Problem 13 </h4>
     <p>On your uncle’s farm, the total solar energy produced during the daytime (in kWh) is denoted by \\(Y\\).</p>
     <p>The sunlight duration \\(H\\) (in hours) varies from day to day and affects output variability.</p>
-    <p>Empirically, conditional on \\(H=h\\), the total energy output follows a Gamma model:</p>
+    <p>Assume the sunlight duration is positive. Conditional on \\(H=h\\), the total energy output follows a Gamma model:</p>
     \\[
       Y\\mid H=h\\sim Gamma(\\alpha=h,\\,\\beta=2),
     \\]

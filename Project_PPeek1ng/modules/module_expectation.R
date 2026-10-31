@@ -650,7 +650,7 @@ expectation_Server <- function(id, shared = new_pmf_state()) {
           ans_val  = 9,
           
           hint1 = HTML("
-    Recall that for a Normal random variable, the mean and variance fully determine all its moments.  
+    For any random variable with finite variance, the expected squared deviation from its mean equals its variance.
     What does \\(E[(X - μ)^2]\\) represent in terms of variance?
     <script>if (window.MathJax && MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);</script>
   "),

@@ -1,0 +1,681 @@
+{
+  "date": "2026-10-31",
+  "baseline_commit": "eabd1847d4d5f3c38b5885308f4cad0b8a337e16",
+  "audience": "当前学习 STATS125、后续将学习 STATS210 的学生；125 核心优先，210 铺垫自愿，不预设已学 210。",
+  "status": "教学复核已完成；分层与新增题仅为实施方案，尚未写入应用路径。少量语义/近似符号已修正。",
+  "sources": [
+    {
+      "source_id": "STATS125",
+      "local_file": "G:\\STATS\\STATS125\\2026_S2\\01_课程手册\\2026\\Stat 125 Coursebook 2026 gapped_working file .pdf",
+      "sha256": "1a1fa06f5cec71ada1b5d6b9b58dbf9dee7720af0db78184f54d117c974e4154",
+      "pdf_pages": 205,
+      "version": "2026"
+    },
+    {
+      "source_id": "STATS210",
+      "local_file": "G:\\STATS\\STATS210\\2026_S2\\01_课程手册与章节笔记\\Notes and Slides S2 2024\\Gapped\\Stat 210 gapped Coursebook 2024.pdf",
+      "sha256": "f556261d26f5a37cb34fb676b81ea5fc079503088f46b63ead01a89bb1a6e125",
+      "pdf_pages": 235,
+      "version": "2024"
+    },
+    {
+      "source_id": "C125-TINFO",
+      "local_file": "G:\\STATS\\STATS125\\2026_S2\\07_测试信息与公式\\2026S2_test stuff\\test Info _S2_26.pdf",
+      "sha256": "1d0ab97bd9c49e187d0ed4d7f07df0d8977120725cb800775f4a4365ef4eee01",
+      "pdf_pages": 2,
+      "version": "2026 S2"
+    },
+    {
+      "source_id": "C125-FORM",
+      "local_file": "G:\\STATS\\STATS125\\2026_S2\\07_测试信息与公式\\2026S2_test stuff\\Test formulae_S22026.pdf",
+      "sha256": "628a816ff7e8c701011c20779af297ddbc331dbf59d37f2dcdccf6efefe0252e",
+      "pdf_pages": 3,
+      "version": "2026 S2"
+    },
+    {
+      "source_id": "C125-T4",
+      "local_file": "G:\\STATS\\STATS125\\2026_S2\\03_辅导课\\S2_26\\S2_26Tut4Questions.pdf",
+      "sha256": "b072e57d67945af9c004bf725f94ed9c6a341a45df7dfa0c5f6c021c81ab0ef0",
+      "pdf_pages": 2,
+      "version": "2026 S2"
+    },
+    {
+      "source_id": "C125-T6",
+      "local_file": "G:\\STATS\\STATS125\\2026_S2\\03_辅导课\\S2_26\\S2_2026Tut6.pdf",
+      "sha256": "24b5edac93164506fa2911c2b866aeb1a30c014e9c1f59e54e392daae67a7731",
+      "pdf_pages": 1,
+      "version": "2026 S2"
+    },
+    {
+      "source_id": "C125-T7",
+      "local_file": "G:\\STATS\\STATS125\\2026_S2\\03_辅导课\\S2_26\\S2-26-Tut7.pdf",
+      "sha256": "d17a5d7fb072b82fb480d96fe3de117e57911e76c94e9d5f8f900bc6e51fbdba",
+      "pdf_pages": 2,
+      "version": "2026 S2"
+    },
+    {
+      "source_id": "C125-T8",
+      "local_file": "G:\\STATS\\STATS125\\2026_S2\\03_辅导课\\S2_26\\S2_26-Tut8.pdf",
+      "sha256": "3589219a29c4febf7aeab992e8c8432e077284199a87467eec566141ea57ef0a",
+      "pdf_pages": 2,
+      "version": "2026 S2"
+    }
+  ],
+  "visually_reviewed_pages": [
+    "STATS125:3",
+    "STATS125:136",
+    "STATS125:146",
+    "STATS210:3",
+    "C125-T4:1",
+    "C125-T7:1",
+    "C125-T8:1"
+  ],
+  "counts": {
+    "core": 20,
+    "bridge": 8,
+    "later": 4
+  },
+  "question_catalog": [
+    {
+      "module": "Joint",
+      "question_id": 1,
+      "layer": "core",
+      "topic": "读取联合概率格子",
+      "course_refs": [
+        "C125:95-105"
+      ],
+      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+    },
+    {
+      "module": "Joint",
+      "question_id": 2,
+      "layer": "core",
+      "topic": "读取联合概率格子",
+      "course_refs": [
+        "C125:95-105"
+      ],
+      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+    },
+    {
+      "module": "Joint",
+      "question_id": 3,
+      "layer": "core",
+      "topic": "对 Y 求和得到 X 边际",
+      "course_refs": [
+        "C125:95-105"
+      ],
+      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+    },
+    {
+      "module": "Joint",
+      "question_id": 4,
+      "layer": "core",
+      "topic": "对 X 求和得到 Y 边际",
+      "course_refs": [
+        "C125:95-105"
+      ],
+      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+    },
+    {
+      "module": "Joint",
+      "question_id": 5,
+      "layer": "core",
+      "topic": "联合事件求和及边界",
+      "course_refs": [
+        "C125:95-105"
+      ],
+      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+    },
+    {
+      "module": "Joint",
+      "question_id": 6,
+      "layer": "core",
+      "topic": "和变量事件求和",
+      "course_refs": [
+        "C125:95-105"
+      ],
+      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+    },
+    {
+      "module": "Joint",
+      "question_id": 7,
+      "layer": "core",
+      "topic": "补全缺失概率",
+      "course_refs": [
+        "C125:95-105"
+      ],
+      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+    },
+    {
+      "module": "Joint",
+      "question_id": 8,
+      "layer": "core",
+      "topic": "允许零质量的归一化",
+      "course_refs": [
+        "C125:95-105"
+      ],
+      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+    },
+    {
+      "module": "Joint",
+      "question_id": 9,
+      "layer": "core",
+      "topic": "带系数的归一化",
+      "course_refs": [
+        "C125:95-105"
+      ],
+      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+    },
+    {
+      "module": "Joint",
+      "question_id": 10,
+      "layer": "core",
+      "topic": "区分内部联合格子与边际总计",
+      "course_refs": [
+        "C125:95-105"
+      ],
+      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 1,
+      "layer": "core",
+      "topic": "条件 Binomial 模型",
+      "course_refs": [
+        "C125:72-78",
+        "C125:110-117"
+      ],
+      "action": "保留，增加参数和支持集说明。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 2,
+      "layer": "core",
+      "topic": "条件 Binomial 补事件概率",
+      "course_refs": [
+        "C125:72-78",
+        "C125:110-117"
+      ],
+      "action": "保留，增加参数和支持集说明。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 3,
+      "layer": "core",
+      "topic": "条件 Poisson 模型与区间参数",
+      "course_refs": [
+        "C125:92-93",
+        "C125:110-117"
+      ],
+      "action": "保留，增加参数和支持集说明。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 4,
+      "layer": "core",
+      "topic": "条件 Poisson CDF",
+      "course_refs": [
+        "C125:92-93",
+        "C125:110-117"
+      ],
+      "action": "保留，增加参数和支持集说明。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 5,
+      "layer": "core",
+      "topic": "Geometric 失败数与尝试数平移",
+      "course_refs": [
+        "C125:79-81",
+        "C125:110-117"
+      ],
+      "action": "保留，增加参数和支持集说明。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 6,
+      "layer": "core",
+      "topic": "Geometric 条件尾事件",
+      "course_refs": [
+        "C125:79-81",
+        "C125:110-117"
+      ],
+      "action": "保留，增加参数和支持集说明。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 7,
+      "layer": "bridge",
+      "topic": "条件 Exponential 直观",
+      "course_refs": [
+        "C210:170-176"
+      ],
+      "action": "可选预习；先给概念和所需公式，不计入核心路径必答。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 8,
+      "layer": "bridge",
+      "topic": "Exponential CDF 给定公式代入",
+      "course_refs": [
+        "C210:170-176"
+      ],
+      "action": "可选预习；先给概念和所需公式，不计入核心路径必答。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 9,
+      "layer": "bridge",
+      "topic": "条件 Normal 的均值与方差",
+      "course_refs": [
+        "C210:183-188"
+      ],
+      "action": "可选预习；先给概念和所需公式，不计入核心路径必答。 避免仅从题干抄写分布名称，改问参数变化或概率含义。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 10,
+      "layer": "later",
+      "topic": "Normal 标准化与尾概率",
+      "course_refs": [
+        "C210:183-188"
+      ],
+      "action": "移至后续拓展；不作为 125 学生的默认必答题。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 11,
+      "layer": "bridge",
+      "topic": "连续 Uniform 范围与密度",
+      "course_refs": [
+        "C210:169"
+      ],
+      "action": "可选预习；先给概念和所需公式，不计入核心路径必答。 避免仅从题干抄写分布名称，改问参数变化或概率含义。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 12,
+      "layer": "bridge",
+      "topic": "连续 Uniform 区间概率",
+      "course_refs": [
+        "C210:169"
+      ],
+      "action": "可选预习；先给概念和所需公式，不计入核心路径必答。"
+    },
+    {
+      "module": "Conditional",
+      "question_id": 13,
+      "layer": "later",
+      "topic": "Gamma 的 shape-rate 模型",
+      "course_refs": [
+        "C210:177-181"
+      ],
+      "action": "移至后续拓展；不作为 125 学生的默认必答题。"
+    },
+    {
+      "module": "Expectation",
+      "question_id": 1,
+      "layer": "core",
+      "topic": "Binomial 均值",
+      "course_refs": [
+        "C125:58-59",
+        "C125:72-78"
+      ],
+      "action": "保留，强调模型参数与测量单位。"
+    },
+    {
+      "module": "Expectation",
+      "question_id": 2,
+      "layer": "core",
+      "topic": "Poisson 区间均值",
+      "course_refs": [
+        "C125:58-59",
+        "C125:92-93"
+      ],
+      "action": "保留，强调模型参数与测量单位。"
+    },
+    {
+      "module": "Expectation",
+      "question_id": 3,
+      "layer": "bridge",
+      "topic": "Exponential 均值",
+      "course_refs": [
+        "C125:58-59",
+        "C210:170-176"
+      ],
+      "action": "可选预习，给出必要定义；不作为核心必答。"
+    },
+    {
+      "module": "Expectation",
+      "question_id": 4,
+      "layer": "later",
+      "topic": "连续 Uniform 二阶矩",
+      "course_refs": [
+        "C125:60-61",
+        "C210:169"
+      ],
+      "action": "移至后续拓展；核心改用离散例子训练同一个期望概念。"
+    },
+    {
+      "module": "Expectation",
+      "question_id": 5,
+      "layer": "bridge",
+      "topic": "方差的定义，当前用 Normal 包装",
+      "course_refs": [
+        "C125:63-68",
+        "C210:183-188"
+      ],
+      "action": "概念本属 125 核心；当前 Normal 包装先列可选，优先改为简单离散 PMF 后纳入核心。"
+    },
+    {
+      "module": "Expectation",
+      "question_id": 6,
+      "layer": "later",
+      "topic": "Exponential 二阶矩",
+      "course_refs": [
+        "C125:60-68",
+        "C210:170-176"
+      ],
+      "action": "移至后续拓展；核心改用离散例子训练同一个期望概念。"
+    },
+    {
+      "module": "Expectation",
+      "question_id": 7,
+      "layer": "core",
+      "topic": "条件 Binomial 均值",
+      "course_refs": [
+        "C125:72-78",
+        "C125:136-137"
+      ],
+      "action": "保留，强调模型参数与测量单位。"
+    },
+    {
+      "module": "Expectation",
+      "question_id": 8,
+      "layer": "core",
+      "topic": "两种天气下的条件 Poisson 均值",
+      "course_refs": [
+        "C125:92-93",
+        "C125:136-138",
+        "C125:146"
+      ],
+      "action": "保留；Q8 后增加按天气概率加权的全期望例子。"
+    },
+    {
+      "module": "Expectation",
+      "question_id": 9,
+      "layer": "bridge",
+      "topic": "条件 Normal 的均值函数",
+      "course_refs": [
+        "C125:136-147",
+        "C210:183-188"
+      ],
+      "action": "当前 Normal 模型列可选；可改为给定条件均值函数，或离散条件模型后纳入核心。"
+    }
+  ],
+  "distribution_catalog": [
+    {
+      "distribution": "Bernoulli",
+      "layer": "core",
+      "course_ref": "C125:70"
+    },
+    {
+      "distribution": "Binomial",
+      "layer": "core",
+      "course_ref": "C125:72"
+    },
+    {
+      "distribution": "Geometric",
+      "layer": "core",
+      "course_ref": "C125:79"
+    },
+    {
+      "distribution": "Negative Binomial",
+      "layer": "core",
+      "course_ref": "C125:82"
+    },
+    {
+      "distribution": "Hypergeometric",
+      "layer": "core",
+      "course_ref": "C125:86"
+    },
+    {
+      "distribution": "Discrete Uniform",
+      "layer": "core",
+      "course_ref": "C125:91"
+    },
+    {
+      "distribution": "Poisson",
+      "layer": "core",
+      "course_ref": "C125:92"
+    },
+    {
+      "distribution": "Uniform",
+      "layer": "bridge",
+      "course_ref": "C210:169",
+      "note": "只作可选的密度/面积/位置与尺度直观；不预设积分、标准化或特殊函数。"
+    },
+    {
+      "distribution": "Exponential",
+      "layer": "bridge",
+      "course_ref": "C210:170",
+      "note": "只作可选的密度/面积/位置与尺度直观；不预设积分、标准化或特殊函数。"
+    },
+    {
+      "distribution": "Normal",
+      "layer": "bridge",
+      "course_ref": "C210:183",
+      "note": "只作可选的密度/面积/位置与尺度直观；不预设积分、标准化或特殊函数。"
+    },
+    {
+      "distribution": "Gamma",
+      "layer": "later",
+      "note": "C210 177-181 的后续分布，不作为 125 默认铺垫要求。"
+    },
+    {
+      "distribution": "Beta",
+      "layer": "later",
+      "note": "C210 2024 手册 p182 本身标为 non-examinable；不能据此推断 2026 安排。"
+    },
+    {
+      "distribution": "Chi-Squared",
+      "layer": "later",
+      "note": "210 Gamma/Normal 关系中出现，非本次 125 默认路径所需。"
+    },
+    {
+      "distribution": "Student's t",
+      "layer": "later",
+      "note": "210 后续推断中出现，非本次 125 默认路径所需。"
+    },
+    {
+      "distribution": "F",
+      "layer": "later",
+      "note": "本次未核实为 210 必备衔接内容；不据此断言后续课程完全不使用。"
+    }
+  ],
+  "synthetic_example": {
+    "description": "原创虚构频数例子；X/Y 为 0/1 指示变量，未指代实际学生数据。",
+    "counts": [
+      [
+        6,
+        4
+      ],
+      [
+        2,
+        8
+      ]
+    ],
+    "total": 20,
+    "joint": [
+      [
+        "3/10",
+        "1/5"
+      ],
+      [
+        "1/10",
+        "2/5"
+      ]
+    ]
+  },
+  "proposed_core_exercises": [
+    {
+      "id": "B01",
+      "objective": "由 20 个虚构观测频数构造合法联合 PMF",
+      "expected": [
+        "3/10",
+        "1/5",
+        "1/10",
+        "2/5"
+      ]
+    },
+    {
+      "id": "B02",
+      "objective": "Bernoulli(.4) 的 CDF 与端点不等号",
+      "expected": {
+        "F(0)": "3/5",
+        "P(X<1)": "3/5",
+        "P(X>=1)": "2/5",
+        "P(X>1)": "0"
+      }
+    },
+    {
+      "id": "B03",
+      "objective": "边际由联合格子求和",
+      "expected": {
+        "P(X=1)": "1/2",
+        "P(Y=1)": "3/5"
+      }
+    },
+    {
+      "id": "B04",
+      "objective": "区分联合、条件与条件反向",
+      "expected": {
+        "P(X=1,Y=1)": "2/5",
+        "P(Y=1|X=1)": "4/5",
+        "P(X=1|Y=1)": "2/3"
+      }
+    },
+    {
+      "id": "B05",
+      "objective": "检验独立性：反例一格即可，证明独立须检查所有支持格子",
+      "expected": {
+        "independent": false,
+        "actual": "2/5",
+        "product": "3/10"
+      }
+    },
+    {
+      "id": "B06",
+      "objective": "条件期望与全期望，先固定 X 再对 X 加权",
+      "expected": {
+        "E(Y|X=0)": "2/5",
+        "E(Y|X=1)": "4/5",
+        "E(Y)": "3/5",
+        "E(E(Y|X))": "3/5",
+        "E(XY)": "2/5"
+      }
+    },
+    {
+      "id": "B07",
+      "objective": "DU(5) 下 E[X^2]、E[X]^2 与方差",
+      "expected": {
+        "E(X^2)": "11",
+        "E(X)^2": "9",
+        "Var(X)": "2"
+      }
+    },
+    {
+      "id": "B08",
+      "objective": "零边际时的条件分布未定义",
+      "expected": {
+        "P(X=0)": "0",
+        "P(Y=1|X=0)": "undefined",
+        "P(Y=1|X=1)": "3/4"
+      },
+      "variant_joint": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ]
+    }
+  ],
+  "validation": {
+    "classified_question_count": 32,
+    "answer_fields_unchanged": 32,
+    "exact_example_checks_passed": true,
+    "source_sha256": {
+      "Project_PPeek1ng\\app.R": "a21e3e1f4c1ad353b438f7aeb0723ef56caac7eb53369830e2a06f333efb5f7d",
+      "Project_PPeek1ng\\main.R": "11f4f7f25a0d7d2c59c656ef4a3607132bb4a05cec32341af86fb0a778c5c8c4",
+      "Project_PPeek1ng\\modules\\module_conditional.R": "9b06f6d30a112413160dbb7ab9df63751e4e847518f67afbb564086ff89bf17e",
+      "Project_PPeek1ng\\modules\\module_expectation.R": "59574bcae68aa8a16e4bb7cc816e0e29491a30bc588a235de8d5dbc7a11b6159",
+      "Project_PPeek1ng\\modules\\module_game_discrete.r": "6d61b398584ef6c924e3462e803055588e8649b62de1e0bfac277d3c6621df85",
+      "Project_PPeek1ng\\modules\\module_joint.R": "63887582a97f4912236ea15ae03d8a6e8607f2348a42a922cc5bf3a56a13d467",
+      "Project_PPeek1ng\\modules\\module_probability.R": "46cb2e91ec479e00d664794c872951eb73ac3b34c26c421dcde9b3f031c65111",
+      "Project_PPeek1ng\\modules\\pmf_helpers.R": "54a7374ee97c5d2d40dca0a8c9131eb665efea3dcfef6dcaf65ee267c68fa3e7"
+    },
+    "regression": {
+      "date": "2026-10-31",
+      "passed": 300,
+      "total": 300,
+      "report": "teaching_regression_2026_10_31.json"
+    },
+    "visualization_range_gaps_confirmed": 3
+  },
+  "visualization_parameter_gaps": [
+    {
+      "distribution": "Poisson",
+      "input_id": "lambda",
+      "current_max": 10.0,
+      "example_values": [
+        12,
+        24
+      ],
+      "question_refs": [
+        "C03",
+        "C04",
+        "E02",
+        "E08"
+      ],
+      "source": "sliderInput(ns(\"lambda\"), \"λ\", min = 0.01, max = 10, value = 5, step = 0.1)",
+      "status": "confirmed teaching reproducibility gap; not changed this round"
+    },
+    {
+      "distribution": "Normal",
+      "input_id": "mean_norm",
+      "current_max": 10.0,
+      "example_values": [
+        50,
+        65
+      ],
+      "question_refs": [
+        "C09",
+        "C10",
+        "E05",
+        "E09"
+      ],
+      "source": "sliderInput(ns(\"mean_norm\"), \"μ\", min = -10, max = 10, value = 0, step = 0.01),",
+      "status": "confirmed teaching reproducibility gap; not changed this round"
+    },
+    {
+      "distribution": "Uniform",
+      "input_id": "b_unif",
+      "current_max": 10.0,
+      "example_values": [
+        100,
+        140
+      ],
+      "question_refs": [
+        "C11",
+        "C12",
+        "E04"
+      ],
+      "source": "sliderInput(ns(\"b_unif\"), \"b\", min =   0, max = 10, value =  5, step = 0.01)",
+      "status": "confirmed teaching reproducibility gap; not changed this round"
+    }
+  ]
+}
