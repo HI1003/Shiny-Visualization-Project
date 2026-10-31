@@ -6,6 +6,7 @@ import html
 import json
 import re
 import sys
+from datetime import date
 from fractions import Fraction as F
 from pathlib import Path
 
@@ -137,7 +138,7 @@ assert numeric(r"\tfrac{1}{8} + \tfrac{1}{8}") == F(1,4)
 assert numeric(r"\tfrac{1}{8} + \tfrac{1}{8}") != numeric(r"\tfrac{1}{8}")
 assert len(banks) == 10 and [q["id"] for q in banks] == list(range(1,11))
 results = [check_question(q) for q in banks]
-report = dict(issue="R1-04",date="2026-10-30",total=10,
+report = dict(issue="R1-04",date=date.today().isoformat(),total=10,
               passed=sum(row["passed"] for row in results),questions=results)
 destination.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 print(f'{report["passed"]}/10 exact table/answer/explanation checks passed.')

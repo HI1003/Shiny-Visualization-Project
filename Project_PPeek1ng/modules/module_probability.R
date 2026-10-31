@@ -14,18 +14,23 @@ prob_UI <- function(id) {
   fluidPage(
     tags$head(tags$style(HTML('body {font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";} .small-note{color:#666;font-size:12px}'))),
     titlePanel("Probability Distributions"),
+    uiOutput(ns("path_description")),
     sidebarLayout(
       sidebarPanel(
-        withMathJax(HTML("<h4>Discrete and Continuous</h4>")),
+        withMathJax(HTML("<h4>Explore distributions</h4>")),
         
         radioButtons(
           inputId = ns("dist_type"),
-          label   = "There are two major classes of probability distributions.",
+          label   = "Distributions in this learning path",
           choices = c("Discrete" = "discrete", "Continuous" = "continuous"),
           selected = "discrete",
           inline = TRUE
         ),
         
+        selectInput(ns("plot_example"), "Example from practice", choices=c("Cloudy eggs: Poisson(12)"="eggs_cloudy")),
+        actionButton(ns("load_plot_example"), "Load example", class="btn-primary"),
+        helpText("Load applies the selected preset. Moving sliders explores a different model; practice questions keep their stated parameters."),
+        uiOutput(ns("example_note")),
         #================================================
         # Discrete Sidebar
         #================================================
@@ -61,7 +66,7 @@ prob_UI <- function(id) {
           
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'bern'"),
-            sliderInput(ns("p_bern"), "p", min = 0, max = 1, value = 0.50, step = 0.01)
+            sliderInput(ns("p_bern"), "p", min = 0, max = 1, value = 0.40, step = 0.01)
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'binom'"),
@@ -79,7 +84,7 @@ prob_UI <- function(id) {
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'pois'"),
-            sliderInput(ns("lambda"), "λ", min = 0.01, max = 10, value = 5, step = 0.1)
+            sliderInput(ns("lambda"), "λ (mean count over the stated interval)", min = 0.01, max = 30, value = 5, step = 0.1)
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'hyper'"),
@@ -105,24 +110,8 @@ prob_UI <- function(id) {
         #================================================
         conditionalPanel(
           condition = paste0("input['", ns('dist_type'), "'] == 'continuous'"),
-          withMathJax(HTML("
-    <p>
-      A continuous random variable \\(X\\) is called <em>continuous</em> if it can take values in an interval on the real line.
-      For a continuous random variable, there exist functions: the
-      <span style='color:#ffb81c;font-weight:bold;'>probability density function</span> (PDF) \\(f_X(x)\\) and the
-      <span style='color:#ff5722;font-weight:bold;'>cumulative distribution function</span> (CDF) \\(F_X(x)\\), defined by
-    </p>
-    <ul>
-      <li>\\( f_X(x) = \\frac{d}{dx} F_X(x) \\)</li>
-      <li>\\( F_X(x) = \\mathbb{P}(X \\le x) = \\int_{-\\infty}^x f_X(t) dt \\)</li>
-    </ul>
-    <p>
-      Choose one of the following major continuous distributions to visualize. 
-      The <span style='color:#ffb81c;font-weight:bold;'>PDF</span> is shown in <span style='color:#ffb81c;'>yellow</span> 
-      and the <span style='color:#ff5722;font-weight:bold;'>CDF</span> in <span style='color:#ff5722;'>orange</span>.
-    </p>
-  ")),
-          
+          tags$p("A continuous variable can take values in an interval. The PDF is a density: probability over an interval is the area under its curve. Each individual point has probability zero. The CDF is P(X <= x)."),
+          tags$p("Use Uniform for equal-length intervals, Exponential for a waiting-time model, and Normal to explore location and scale. Formal formulas below are optional."),
           selectInput(ns("dist_cont"), "Choose continuous distribution", c(
             "Uniform" = "unif",
             "Exponential" = "exp",
@@ -137,7 +126,7 @@ prob_UI <- function(id) {
           conditionalPanel(
             condition = paste0("input['", ns('dist_cont'), "'] == 'unif'"),
             sliderInput(ns("a_unif"), "a", min = -10, max = 0,  value = -5, step = 0.01),
-            sliderInput(ns("b_unif"), "b", min =   0, max = 10, value =  5, step = 0.01)
+            sliderInput(ns("b_unif"), "b", min =   0, max = 200, value =  5, step = 0.01)
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist_cont'), "'] == 'exp'"),
@@ -150,7 +139,7 @@ prob_UI <- function(id) {
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist_cont'), "'] == 'norm'"),
-            sliderInput(ns("mean_norm"), "μ", min = -10, max = 10, value = 0, step = 0.01),
+            sliderInput(ns("mean_norm"), "μ", min = -100, max = 100, value = 0, step = 0.01),
             sliderInput(ns("sd_norm"),   "σ",   min = 0.01, max = 5, value = 1, step = 0.01)
           ),
           conditionalPanel(
@@ -174,8 +163,9 @@ prob_UI <- function(id) {
           
           hr(),
           uiOutput(ns("dist_desc_cont")),
-          h4("Formula"),
-          withMathJax(uiOutput(ns("formula_cont"))),
+          tags$details(tags$summary("Optional mathematical formulas"),
+            withMathJax(HTML("For a continuous model: \\(F(x)=\\int_{-\\infty}^x f(t)dt\\) and \\(f(x)=F'(x)\\) where differentiable.")),
+            withMathJax(uiOutput(ns("formula_cont")))),
           hr(),
           helpText("Click on the graph to display the density f(x) and the probability F(x) = P(X ≤ x). For a continuous variable, P(X = x) = 0; a density value is not a point probability.")
         )
@@ -185,6 +175,7 @@ prob_UI <- function(id) {
       # Right plot main panel
       #================================================
       mainPanel(
+        uiOutput(ns("practice_section")),
         # Discrete Plot
         conditionalPanel(
           condition = paste0("input['", ns('dist_type'), "'] == 'discrete'"),
@@ -208,7 +199,7 @@ prob_UI <- function(id) {
           condition = paste0("input['", ns('dist_type'), "'] == 'continuous'"),
           fluidRow(
             column(6, 
-                   withMathJax(HTML("<h4>PDF: \\( f_X(x) = \\frac{d}{dx} F_X(x) \\)</h4>")),
+                   h4("PDF: density f(x); probability is area"),
                    plotOutput(ns("pdf_plot_cont"), height = 360, click = ns("click_pdf_cont"))
             ),
             column(6, 
@@ -225,15 +216,84 @@ prob_UI <- function(id) {
   )
 }
 
-prob_Server <- function(id) {
+prob_Server <- function(id, course_path=function() "core", plot_request=function() NULL) {
   moduleServer(id, function(input, output, session) {
+    path <- reactive(learning_path(course_path()))
+    examples <- learning_graph_examples()
+    requested_example <- reactiveVal(NULL)
+    allowed_examples <- reactive(names(examples)[vapply(examples,function(ex) path() %in% ex$paths,logical(1))])
+    discrete_key <- reactive({
+      req(path() %in% c("core","legacy"), input$dist)
+      validate(need(input$dist %in% c("bern","binom","geom","nbinom","pois","hyper","dunifd"),"Choose a discrete distribution."))
+      input$dist
+    })
+    continuous_key <- reactive({
+      allowed <- learning_continuous_choices(path());req(length(allowed)>0,input$dist_cont)
+      if(input$dist_cont %in% allowed) input$dist_cont else unname(allowed[1])
+    })
+    observeEvent(path(), {
+      kind <- if(path()=="core") "discrete" else if(path()=="legacy") isolate(input$dist_type) else "continuous"
+      if(is.null(kind)) kind <- "discrete"
+      choices <- if(path()=="core") c("Discrete (STATS125)"="discrete") else if(path()=="legacy") c("Discrete"="discrete","Continuous"="continuous") else c("Continuous (optional)"="continuous")
+      updateRadioButtons(session,"dist_type",choices=choices,selected=kind)
+      allowed <- learning_continuous_choices(path())
+      if(length(allowed)) {
+        previous <- isolate(input$dist_cont)
+        selected <- if(!is.null(previous) && previous %in% allowed) previous else unname(allowed[1])
+        updateSelectInput(session,"dist_cont",choices=allowed,selected=selected)
+      }
+      keys <- allowed_examples()
+      updateSelectInput(session,"plot_example",choices=stats::setNames(keys,vapply(examples[keys],`[[`,character(1),"label")),selected=keys[1])
+      requested_example(NULL)
+    })
+    output$path_description <- renderUI(tags$p(class="small-note",switch(path(),
+      core="STATS125 Core: explore the seven discrete models, their PMFs and CDFs. The CDF practice below is part of the core pathway.",
+      preview="Optional STATS210 preview: explore density as area, waiting times, and location/scale. Calculus and formula memorisation are not prerequisites for these observations.",
+      further="Optional further exploration: additional continuous models and mathematical formulas. These do not count towards STATS125 Core completion.",
+      "Original distribution library for reference checks.")))
+    current_example <- reactive({
+      key <- requested_example()
+      if(is.null(key) || !key %in% allowed_examples()) return(NULL)
+      ex <- examples[[key]]
+      distribution <- if(ex$type=="discrete") discrete_key() else continuous_key()
+      if(!identical(distribution,ex$dist)) return(NULL)
+      matches <- vapply(names(ex$inputs),function(name) {
+        actual <- input[[name]];expected <- ex$inputs[[name]]
+        length(actual)==1L && is.finite(actual) && abs(actual-expected)<1e-12
+      },logical(1))
+      if(all(matches)) ex else NULL
+    })
+    apply_example <- function(key) {
+      if(is.null(key) || !key %in% allowed_examples()) return(invisible(NULL))
+      ex <- examples[[key]]
+      updateRadioButtons(session,"dist_type",selected=ex$type)
+      updateSelectInput(session,if(ex$type=="discrete") "dist" else "dist_cont",selected=ex$dist)
+      updateSelectInput(session,"plot_example",selected=key)
+      for(name in names(ex$inputs)) updateSliderInput(session,name,value=ex$inputs[[name]])
+      requested_example(key)
+      invisible(NULL)
+    }
+    observeEvent(input$load_plot_example,apply_example(input$plot_example))
+    observeEvent(plot_request(),{request <- plot_request();req(request$key);apply_example(request$key)},ignoreNULL=TRUE)
+    output$example_note <- renderUI({ex <- current_example();if(is.null(ex)) return(NULL);tags$p(class="alert alert-info",ex$note)})
+    practice_questions <- learning_questions(list(),"overview")
+    practice <- learning_practice_server(input,output,session,practice_questions,"overview",course_path,open_plot=apply_example)
+    output$practice_section <- renderUI({
+      if(path()=="core") learning_practice_ui(session$ns,"STATS125 Core: CDF practice")
+      else if(path()=="preview") tags$details(tags$summary("Optional observations"),
+        tags$ul(tags$li("Uniform: compare a point probability (zero) with the area of an interval."),
+          tags$li("Exponential: increase the rate and observe a shorter typical waiting time."),
+          tags$li("Normal: change the mean and standard deviation separately; variance is the squared standard deviation.")))
+      else NULL
+    })
+
     
     #================================================
     # default range
     #================================================
     default_range <- reactive({
-      req(input$dist)
-      switch(input$dist,
+      req(discrete_key())
+      switch(discrete_key(),
              bern = c(0, 1),
              binom = c(0, input$n),
              nbinom = {
@@ -264,8 +324,8 @@ prob_Server <- function(id) {
     })
     
     default_range_cont <- reactive({
-      req(input$dist_cont)
-      switch(input$dist_cont,
+      req(continuous_key())
+      switch(continuous_key(),
              unif = {
                a <- input$a_unif; b <- input$b_unif
                validate(need(!is.null(a) && !is.null(b) && a < b, "Uniform requires a < b. Choose a wider interval."))
@@ -288,40 +348,40 @@ prob_Server <- function(id) {
         dist_df <- reactive({
           rng <- default_range()
           
-          if (input$dist == "bern") {
+          if (discrete_key() == "bern") {
             k <- 0:1
             p <- input$p_bern
             pmf <- ifelse(k == 1, p, 1 - p)
             cdf <- cumsum(pmf)
             mean_val <- p
             
-          } else if (input$dist == "binom") {
+          } else if (discrete_key() == "binom") {
             k <- seq(rng[1], rng[2])
             pmf <- dbinom(k, size = input$n, prob = input$p)
             cdf <- pbinom(k, size = input$n, prob = input$p)
             mean_val <- input$n * input$p
             
-          } else if (input$dist == "nbinom") {
+          } else if (discrete_key() == "nbinom") {
             k <- seq(max(0, rng[1]), max(0, rng[2]))
             p <- input$p_nb
             pmf <- dnbinom(k, size = input$r_nb, prob = p)
             cdf <- pnbinom(k, size = input$r_nb, prob = p)
             mean_val <- input$r_nb * (1 - p) / p
             
-          } else if (input$dist == "geom") {
+          } else if (discrete_key() == "geom") {
             k <- seq(max(0, rng[1]), max(0, rng[2]))
             p <- input$pg
             pmf <- dgeom(k, prob = p)
             cdf <- pgeom(k, prob = p)
             mean_val <- (1 - p) / p
             
-          } else if (input$dist == "pois") {
+          } else if (discrete_key() == "pois") {
             k <- seq(rng[1], rng[2])
             pmf <- dpois(k, lambda = input$lambda)
             cdf <- ppois(k, lambda = input$lambda)
             mean_val <- input$lambda
             
-          } else if (input$dist == "hyper") {
+          } else if (discrete_key() == "hyper") {
             n <- input$n_hy; M <- input$M_hy; N <- input$N_hy
             M <- max(0, min(M, N)); n <- max(0, min(n, N))
             lo <- max(0, n + M - N); hi <- min(n, M)
@@ -347,30 +407,30 @@ prob_Server <- function(id) {
           rng <- default_range_cont()
           x <- seq(rng[1], rng[2], length.out = 600)
           
-          if (input$dist_cont == "unif") {
+          if (continuous_key() == "unif") {
             a <- input$a_unif; b <- input$b_unif
             validate(need(!is.null(a) && !is.null(b) && a < b, "Uniform requires a < b. Choose a wider interval."))
             pdf <- dunif(x, min = a, max = b)
             cdf <- punif(x, min = a, max = b)
-          } else if (input$dist_cont == "exp") {
+          } else if (continuous_key() == "exp") {
             pdf <- dexp(x, rate = input$rate_exp)
             cdf <- pexp(x, rate = input$rate_exp)
-          } else if (input$dist_cont == "gamma") {
+          } else if (continuous_key() == "gamma") {
             pdf <- dgamma(x, shape = input$shape_gam, rate = input$rate_gam)
             cdf <- pgamma(x, shape = input$shape_gam, rate = input$rate_gam)
-          } else if (input$dist_cont == "norm") {
+          } else if (continuous_key() == "norm") {
             pdf <- dnorm(x, mean = input$mean_norm, sd = input$sd_norm)
             cdf <- pnorm(x, mean = input$mean_norm, sd = input$sd_norm)
-          } else if (input$dist_cont == "beta") {
+          } else if (continuous_key() == "beta") {
             pdf <- dbeta(x, shape1 = input$alpha_beta, shape2 = input$beta_beta)
             cdf <- pbeta(x, shape1 = input$alpha_beta, shape2 = input$beta_beta)
-          } else if (input$dist_cont == "chisq") {
+          } else if (continuous_key() == "chisq") {
             pdf <- dchisq(x, df = input$df_chi)
             cdf <- pchisq(x, df = input$df_chi)
-          } else if (input$dist_cont == "t") {
+          } else if (continuous_key() == "t") {
             pdf <- dt(x, df = input$df_t)
             cdf <- pt(x, df = input$df_t)
-          } else if (input$dist_cont == "f") {
+          } else if (continuous_key() == "f") {
             pdf <- df(x, df1 = input$df1_f, df2 = input$df2_f)
             cdf <- pf(x, df1 = input$df1_f, df2 = input$df2_f)
           } else {
@@ -387,9 +447,9 @@ prob_Server <- function(id) {
     
     # Store the currently highlighted discrete value
     selected_k <- reactiveVal(NULL)
-    observeEvent(dist_df(), ignoreInit = TRUE, {
-      df <- dist_df()
-      selected_k(df$k[which.max(df$pmf)])
+    observeEvent(list(dist_df(),requested_example()), ignoreInit = TRUE, {
+      df <- dist_df();ex <- current_example()
+      selected_k(if(!is.null(ex) && ex$type=="discrete") df$k[which.min(abs(df$k-ex$x))] else df$k[which.max(df$pmf)])
     })
     
     nearest_k <- function(x_click, ks) {
@@ -427,9 +487,9 @@ prob_Server <- function(id) {
     
     selected_x_cont <- reactiveVal(NULL)
     
-    observeEvent(dist_df_cont(), ignoreInit = TRUE, {
-      rng <- default_range_cont()
-      selected_x_cont(mean(rng))
+    observeEvent(list(dist_df_cont(),requested_example()), ignoreInit = TRUE, {
+      rng <- default_range_cont();ex <- current_example()
+      selected_x_cont(if(!is.null(ex) && ex$type=="continuous") ex$x else mean(rng))
     })
     
     output$sel_text <- renderText({
@@ -447,7 +507,7 @@ prob_Server <- function(id) {
     # Calculate the PDF/CDF of the current continuous distribution
     #================================================
     pdf_cdf_at_cont <- function(x0) {
-      d <- input$dist_cont
+      d <- continuous_key()
       out_pdf <- NA_real_; out_cdf <- NA_real_
       
       switch(d,
@@ -534,7 +594,7 @@ prob_Server <- function(id) {
       p_sel <- if (!is.null(k_sel) && k_sel %in% df$k) df$pmf[df$k == k_sel] else NA_real_
       
       rng <- default_range()
-      x_min <- if (input$dist == "bern") -1 else -3
+      x_min <- if (discrete_key() == "bern") -1 else -3
       
       g <- ggplot(df, aes(k, pmf)) +
         geom_col(width = 0.9, fill = "#9ecae1") +
@@ -564,7 +624,7 @@ prob_Server <- function(id) {
       F_sel <- if (!is.null(k_sel) && k_sel %in% df$k) df$cdf[df$k == k_sel] else NA_real_
       
       rng <- default_range()
-      x_min <- if (input$dist == "bern") -1 else -3
+      x_min <- if (discrete_key() == "bern") -1 else -3
       
       seg_df <- data.frame(
         x_start = c(x_min, df$k),
@@ -609,7 +669,7 @@ prob_Server <- function(id) {
       df <- dist_df_cont()
       rng <- default_range_cont()
       
-      if (input$dist_cont == "unif") {
+      if (continuous_key() == "unif") {
         a <- input$a_unif
         b <- input$b_unif
         h <- 1 / (b - a)
@@ -664,12 +724,12 @@ prob_Server <- function(id) {
     
     # Discrete distribution description
     output$dist_desc <- renderUI({
-      if (input$dist == "bern") {
+      if (discrete_key() == "bern") {
         HTML("
         <b>Bernoulli Distribution</b><br>
         A random variable Y is called a <b>Bernoulli</b> random variable if it has only two possible values, 0 and 1.<br>
         Y ~ Bernoulli(p) means P(Y = 1) = p and P(Y = 0) = 1 − p, where p is the parameter of the distribution.")
-      } else if (input$dist == "binom") {
+      } else if (discrete_key() == "binom") {
         HTML("
         <b>Binomial Distribution</b><br>
         Let <em>X</em> be the number of successes in <em>n</em> independent Bernoulli trials,
@@ -678,7 +738,7 @@ prob_Server <- function(id) {
         <em>X ~ Binomial(n, p)</em> (or <em>X ~ Bin(n, p)</em>).<br>
         Thus, the binomial distribution counts the number of successes in a fixed number of Bernoulli trials.
         ")
-      } else if (input$dist == "nbinom") {
+      } else if (discrete_key() == "nbinom") {
         HTML("
         <b>Negative Binomial Distribution</b><br>
         Let <em>X</em> be the number of failures before the <em>k</em>-th success occurs 
@@ -686,7 +746,7 @@ prob_Server <- function(id) {
         Then <em>X</em> has the <b>Negative Binomial</b> distribution with parameters <em>k</em> and <em>p</em>, 
         and we write <em>X ~ NegBin(k, p)</em>.<br>
         ")
-      } else if (input$dist == "geom") {
+      } else if (discrete_key() == "geom") {
         HTML("
         <b>Geometric Distribution</b><br>
         Let <em>X</em> be the number of failures before the first success occurs 
@@ -694,16 +754,16 @@ prob_Server <- function(id) {
         Then <em>X</em> has the <b>Geometric</b> distribution with parameter <em>p</em>, 
         and we write <em>X ~ Geometric(p)</em>.
         ")
-      } else if (input$dist == "pois") {
+      } else if (discrete_key() == "pois") {
         HTML("
         <b>Poisson Distribution</b><br>
         A discrete random variable <em>X</em> is said to have a <b>Poisson</b> distribution with parameter 
-        <em>&lambda; &gt; 0</em>. The parameter <em>&lambda;</em> represents the average rate of occurrence of events 
+        <em>&lambda; &gt; 0</em>. The parameter <em>&lambda;</em> represents the expected number of events
         in a fixed interval of time or space. The Poisson distribution is commonly used to model the number of 
         arrivals, occurrences, or events happening independently at a constant rate. For this distribution, the 
         mean and variance are both equal to <em>&lambda;</em>.
         ")
-      } else if (input$dist == "hyper") {
+      } else if (discrete_key() == "hyper") {
         HTML("
         <b>Hypergeometric Distribution</b><br>
         Let <em>X</em> be the number of “successes” in <em>n</em> draws without replacement 
@@ -713,7 +773,7 @@ prob_Server <- function(id) {
         (or <em>X ~ Hypergeometric(n, M, N)</em>).<br><br>
         The support is <em>x = max(0, n - N + M), ..., min(n, M)</em>.
         ")
-      } else if (input$dist == "dunifd") {
+      } else if (discrete_key() == "dunifd") {
         HTML("
         <b>Discrete Uniform Distribution</b><br>
         Suppose <em>X</em> is equally likely to take any integer value from 
@@ -731,7 +791,7 @@ prob_Server <- function(id) {
     #================================================
     
     output$dist_desc_cont <- renderUI({
-      if (input$dist_cont == "unif") {
+      if (continuous_key() == "unif") {
         HTML("
         <b>Uniform Distribution</b><br>
         A random variable <em>X</em> is said to have a <b>Uniform distribution</b> 
@@ -739,14 +799,14 @@ prob_Server <- function(id) {
         We write <em>X ~ Uniform(a, b)</em> (or <em>X ~ U(a, b)</em>).<br>
         The pdf is constant over the interval and zero otherwise. Equal-length subintervals have equal probability; every individual point has probability zero.
         ")
-      } else if (input$dist_cont == "exp") {
+      } else if (continuous_key() == "exp") {
         HTML("
         <b>Exponential Distribution</b><br>
         A random variable <em>X</em> has an <b>Exponential distribution</b> with rate parameter 
         <em>λ > 0</em> if it models the waiting time between independent events occurring at rate λ.<br>
         We write <em>X ~ Exp(λ)</em>.<br>
         ")
-      } else if (input$dist_cont == "gamma") {
+      } else if (continuous_key() == "gamma") {
         HTML("
         <b>Gamma Distribution</b><br>
         The <b>Gamma(k, λ)</b> distribution is a flexible family of distributions.<br><br>
@@ -755,14 +815,14 @@ prob_Server <- function(id) {
         <em>X<sub>1</sub> + X<sub>2</sub> + ··· + X<sub>k</sub> ~ Gamma(k, λ)</em>.<br><br>
         <b>Special Case:</b> When k = 1, Gamma(1, λ) = Exponential(λ).<br>
         ")
-      } else if (input$dist_cont == "norm") {
+      } else if (continuous_key() == "norm") {
         HTML("
         <b>Normal Distribution</b><br>
         A random variable <em>X</em> is said to have a <b>Normal distribution</b> 
         with mean <em>μ</em> and variance <em>σ²</em> if its pdf is bell-shaped and symmetric about μ.<br>
         We write <em>X ~ Normal(μ, σ²)</em>.<br>
         ")
-      } else if (input$dist_cont == "beta") {
+      } else if (continuous_key() == "beta") {
         HTML("
         <b>Beta Distribution</b><br>
         A random variable <em>X</em> has a <b>Beta distribution</b> with parameters 
@@ -770,14 +830,14 @@ prob_Server <- function(id) {
         <em>x<sup>α−1</sup>(1−x)<sup>β−1</sup></em>.<br>
         We write <em>X ~ Beta(α, β)</em>.<br>
         ")
-      } else if (input$dist_cont == "chisq") {
+      } else if (continuous_key() == "chisq") {
         HTML("
         <b>Chi-Squared Distribution</b><br>
         A random variable <em>X</em> has a <b>Chi-squared distribution</b> with 
         <em>ν</em> degrees of freedom if it is the sum of squares of ν independent standard normal variables.<br>
         We write <em>X ~ χ²(ν)</em>.<br>
         ")
-      } else if (input$dist_cont == "t") {
+      } else if (continuous_key() == "t") {
         HTML("
         <b>Student's t Distribution</b><br>
         A random variable <em>X</em> has a <b>t distribution</b> with <em>ν</em> degrees of freedom 
@@ -785,7 +845,7 @@ prob_Server <- function(id) {
         (scaled by its degrees of freedom), with the normal and chi-squared variables independent.<br>
         We write <em>X ~ t(ν)</em>.<br>
         ")
-      } else if (input$dist_cont == "f") {
+      } else if (continuous_key() == "f") {
         HTML("
         <b>F Distribution</b><br>
         A random variable <em>X</em> has an <b>F distribution</b> with 
@@ -950,7 +1010,7 @@ prob_Server <- function(id) {
 </ul>"
         
       )
-      withMathJax(HTML(spec[[input$dist]]))
+      withMathJax(HTML(spec[[discrete_key()]]))
     })
     
     #Continuous distribution formula
@@ -1070,7 +1130,8 @@ prob_Server <- function(id) {
     </ul>"
       )
       
-      withMathJax(HTML(spec[[input$dist_cont]]))
+      withMathJax(HTML(spec[[continuous_key()]]))
     })
+    practice
   })   
 }

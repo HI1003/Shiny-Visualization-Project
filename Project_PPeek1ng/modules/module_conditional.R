@@ -122,6 +122,7 @@ conditional_UI <- function(id) {
       column(width = 9,
              box(
                title = "Probability Table", width = 12, status = "primary", solidHeader = TRUE,
+               uiOutput(ns("pmf_example_note")),
                uiOutput(ns("joint_table_html"))
              ),
              
@@ -144,41 +145,8 @@ conditional_UI <- function(id) {
              )
              ,
              # ---------------- 练习模块 ----------------
-             box(
-               title = NULL, width = 12, status = "warning", solidHeader = FALSE,
-               tags$h4(
-                 "Conditional Farm",
-                 style = "margin-top:0; font-weight:600; color:#333;"
-               ),
-               withMathJax(
-                 div(
-                   style = "text-align:center; margin-top:10px;",
-                   uiOutput(ns("story_out"))
-                 ),
-                 div(
-                   style = "text-align:center; margin-top:10px;",
-                   uiOutput(ns("given_out"))
-                 ),
-                 
-                 tags$hr(),
-                 div(
-                   style = "text-align:center; margin-top:10px;",
-                   uiOutput(ns("qtext"))
-                 ),
-                 uiOutput(ns("answer_input")),
-                 actionButton(
-                   ns("check"), "Submit",
-                   class = "btn btn-success btn-block",
-                   style = "margin-top:5px; font-weight:600;"
-                 ),
-                 tags$hr(style = "margin: 15px 0;"),
-                 uiOutput(ns("feedback")),
-                 div(
-                   style = "margin-top:15px;",
-                   uiOutput(ns("nav_buttons"))
-                 )
-               )
-             )
+             box(title = "Conditional practice", width = 12, status = "warning", solidHeader = TRUE,
+          learning_practice_ui(ns, NULL))
       )
     )
   )
@@ -186,7 +154,7 @@ conditional_UI <- function(id) {
 # =====================================================================
 #  SERVER
 # =====================================================================
-conditional_Server <- function(id, shared = new_pmf_state()) {
+conditional_Server <- function(id, shared = new_pmf_state(), course_path = function() "core", open_plot = NULL) {
   pmf_global <- shared
   moduleServer(id, function(input, output, session) {
     # --- Safeguard: ensure id column exists (wrapped in isolate) ---
@@ -241,6 +209,8 @@ conditional_Server <- function(id, shared = new_pmf_state()) {
         return(tags$div(style="color:#888; padding:10px;", "Initializing table..."))
       }
       tagList(
+        selectInput(ns("pmf_example"), "Worked example", choices = c("Two Ace indicators"="cards", "20 fictional observations"="counts20", "Zero conditioning probability"="zero_x")),
+        actionButton(ns("load_pmf_example"), "Load worked example", class="btn-outline-primary"),
         h4("Input (x, y, p):"),
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
         uiOutput(ns("input_feedback")),
@@ -314,7 +284,7 @@ conditional_Server <- function(id, shared = new_pmf_state()) {
       })
     })
     
-    pmf_bind_actions(input, output, session, df_current, pmf_edit,
+    pmf_actions <- pmf_bind_actions(input, output, session, df_current, pmf_edit,
                      pmf_final, row_counter, pmf_global)
 
     # ---- Joint + Conditional Probability Table ----
@@ -1202,145 +1172,14 @@ conditional_Server <- function(id, shared = new_pmf_state()) {
     
     # ==== 题库 ====
     question_bank <- get_condition_question_bank()
-    
-    # ==== 当前状态 ====
-    current_index <- reactiveVal(1)
-    result <- reactiveVal(NULL)
-    tries <- reactiveVal(0)
-    
-    # 当前题目
-    prob <- reactive({
-      req(question_bank[[current_index()]])
-      question_bank[[current_index()]]
-    })
-    
-    # ============================================================
-    # 1️⃣ 题目输出
-    # ============================================================
- 
-    output$story_out <- renderUI({
-      p <- prob(); validate(need(!is.null(p), ""))
-      if (is.null(p$story)) return(NULL)
-      
-      div(
-        id = ns("story_mjx"),
-        style = "display:inline-block; text-align:center;",
-        HTML(p$story)
-      )
-    })
-    
-    
-    # ============================================================
-    # 2️⃣ 题干与附加信息
-    # ============================================================
-    output$qtext <- renderUI({
-      p <- prob(); validate(need(!is.null(p), ""))
-      div(
-        id = ns("q_mjx"),
-        style = "display:inline-block; text-align:center;",
-        HTML(p$question)
-      )
-    })
-    
-    output$given_out <- renderUI({
-      p <- prob()
-      if (is.null(p) || is.null(p$given)) return(NULL)
-      div(class = "table-note", HTML(p$given))
-    })
-    
-    # ============================================================
-    # 3️⃣ 答案检查与反馈
-    # ============================================================
-    observeEvent(input$check, {
-      p <- prob(); validate(need(!is.null(p), ""))
-      
-      ok <- if (is.na(p$ans_val) && is.na(p$ans_frac)) {
-        distribution_answer_matches(input$ans, p$ans_text)
-      } else {
-        is_correct(input$ans, p$ans_val, p$ans_frac)
-      }
-
-      ok <- isTRUE(ok)
-      
-      result(list(status = if (ok) "ok" else "no"))
-      tries(tries() + if (ok) 3 else 1)
-    })
-    
-    
-    output$feedback <- renderUI({
-      st <- result(); p <- prob()
-      if (is.null(st) || is.null(p)) return(NULL)
-      
-      ui <- if (st$status == "ok") {
-        div(class = "alert alert-success", HTML(p$solution))
-      } else if (st$status == "no") {
-        if (tries() == 1) {
-          div(class = "alert alert-warning", HTML(p$hint1))
-        } else if (tries() == 2) {
-          div(class = "alert alert-warning", HTML(p$hint2))
-        } else {
-          div(class = "alert alert-info", HTML(p$solution))
-        }
-      }
-      tags$div(id = ns("fb_mjx"), ui)
-    })
-    
-    # ============================================================
-    # 4️⃣ 翻页按钮与逻辑
-    # ============================================================
-    output$nav_buttons <- renderUI({
-      n_total <- length(question_bank)
-      idx <- current_index()
-      
-      btns <- list()
-      if (idx > 1)
-        btns <- append(btns, list(
-          actionButton(ns("back_q"), "← Back",
-                       class = "btn btn-secondary btn-block")
-        ))
-      if (idx < n_total)
-        btns <- append(btns, list(
-          actionButton(ns("next_q"), "Next →",
-                       class = "btn btn-primary btn-block")
-        ))
-      
-      fluidRow(lapply(btns, function(b) column(6, b)))
-    })
-    
-    observeEvent(input$back_q, {
-      idx <- current_index()
-      if (idx > 1) {
-        current_index(idx - 1)
-        result(NULL); tries(0)
-      }
-    })
-    
-    observeEvent(input$next_q, {
-      idx <- current_index()
-      if (idx < length(question_bank)) {
-        current_index(idx + 1)
-        result(NULL); tries(0)
-      }
-    })
-    
-    output$answer_input <- renderUI({
-      p <- prob(); validate(need(!is.null(p), ""))
-      
-      # 🧠 判断是不是 Named Distribution 题
-      is_named <- is.na(p$ans_val) && is.na(p$ans_frac)
-      
-      placeholder_text <- if (is_named) {
-        "Distribution name only (e.g. Binomial); parameters are not required"
-      } else {
-        "Input fractions such as 3/7 or decimals"
-      }
-      
-      textInput(
-        ns("ans"),
-        label = NULL,
-        placeholder = placeholder_text,
-        width = "100%"
-      )
-    })
+    practice_questions <- learning_questions(question_bank, "conditional")
+    practice <- learning_practice_server(input, output, session, practice_questions,
+      "conditional", course_path, load_pmf=pmf_actions$load_example, open_plot=open_plot)
+    # Stable references also support regression of the unchanged original question library.
+    current_index <- practice$current_index
+    prob <- practice$prob
+    result <- practice$result
+    tries <- practice$tries
+    practice
   })
 }

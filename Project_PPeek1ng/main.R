@@ -15,6 +15,8 @@ library(plotly)
 #  Load all module files
 # =========================================================
 source("modules/pmf_helpers.R")
+source("modules/learning_content.R")
+source("modules/learning_practice.R")
 source("modules/module_joint.R")
 source("modules/module_conditional.R")
 source("modules/module_expectation.R")
@@ -51,6 +53,10 @@ ui <- bs4DashPage(
       tags$span("Navigation", style = "font-weight:600; color:#1a73e8;")
     ),
     
+    div(class="learning-path-controls",
+      selectInput("learning_path", "Learning path", choices=learning_path_labels, selected="core"),
+      uiOutput("learning_progress")
+    ),
     bs4SidebarMenu(
       id = "tabs",
       bs4SidebarMenuItem("Home", tabName = "home", icon = icon("home")),
@@ -73,10 +79,15 @@ ui <- bs4DashPage(
   
   bs4DashBody(
     useShinyjs(),
+    uiOutput("learning_path_banner"),
     
     # ---------- 全局样式 ----------
     tags$head(
       tags$style(HTML("
+        .learning-path-controls {padding:12px;}
+        .learning-path-controls .shiny-input-container {width:100%;}
+        .practice-progress, .question-path {font-weight:600; margin:10px 0;}
+        .practice-question {margin:12px 0; line-height:1.6;}
         .pmf-edit-row {display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; border-bottom:1px solid #ddd; padding-bottom:12px; margin-bottom:12px;}
         .pmf-edit-row .form-group {margin-bottom:0; width:100%;}
         .pmf-edit-prob {flex:1 1 100%; min-width:0;}
@@ -233,7 +244,7 @@ ui <- bs4DashPage(
   </p>
 
   <p>
-    The system integrates multiple learning modules, allowing users to experiment 
+    The primary audience is students currently studying STATS125. A separate optional path introduces a few ideas they may meet later in STATS210. The system integrates multiple learning modules, allowing users to experiment
     with discrete and continuous probability models, explore relationships between variables, 
     and apply concepts to structured problem-solving scenarios.
   </p>
@@ -287,11 +298,22 @@ ui <- bs4DashPage(
   </ul>
 
   <p style='color:#555; font-style:italic; margin-top:20px;'>
-    Tip: Begin with the <b>Probability Distribution</b> module to establish a foundation, 
-    then proceed to <b>Game: Discrete</b> for application-based learning. 
-    Continue with <b>Joint</b> and <b>Conditional</b> modules to understand relationships between variables, 
-    and conclude with <b>Expectation</b> for a unified mathematical perspective.
+    <b>STATS125 learning route:</b> Check your event, conditional probability and independence basics (Chapters 2–4).
+    Start with discrete PMFs, CDFs, means and variances (Chapter 5), then the seven discrete models (Chapter 6).
+    Use <b>Game: Discrete</b> after learning those models. Continue with joint/marginal tables and conditional PMFs (Chapter 7),
+    then conditional means and total expectation (Chapter 8). <b>E[g(X)], variance and total expectation are part of STATS125.</b>
+    The sidebar defaults to <b>STATS125 Core</b>. Uniform, Exponential and Normal provide a separate optional preview for later STATS210 study.
+    Formal continuous-distribution calculations are in <b>Further exploration</b>. Skipping optional paths does not affect Core completion.
   </p>
+  <details><summary>Before you start: symbols, units and conditions</summary>
+    <ul>
+      <li><b>X, Y:</b> define what is measured or counted, its units and its possible values (support).</li>
+      <li><b>f(x,y), f_X(x), f_Y(y):</b> joint probability and the two marginals. Add over the other variable to find a marginal.</li>
+      <li><b>P(Y=y | X=x):</b> restrict to X=x, then divide by P(X=x). This condition must have positive probability; reversing it changes the denominator.</li>
+      <li><b>E[Y | X=x]:</b> one conditional mean. Weight these means by P(X=x) to recover E[Y].</li>
+      <li><b>Model parameters:</b> state the sampling assumptions. Poisson lambda is a mean count for the stated interval; an Exponential rate is per unit time; a Normal standard deviation is the square root of its variance.</li>
+    </ul>
+  </details>
 
 </div>
 
@@ -328,13 +350,37 @@ ui <- bs4DashPage(
 # =========================================================
 server <- function(input, output, session) {
   
-  # 各模块服务器逻辑
+  course_path <- reactive({
+    value <- input$learning_path
+    if(length(value)!=1 || is.na(value) || !value %in% unname(learning_path_labels)) "core" else value
+  })
+  plot_request <- reactiveVal(NULL)
+  plot_counter <- 0L
+  open_plot <- function(key) {
+    plot_counter <<- plot_counter+1L
+    plot_request(list(key=key, counter=plot_counter))
+    bs4Dash::updatebs4TabItems(session, "tabs", "probability")
+  }
   shared <- new_pmf_state()
-  joint_Server("joint1", shared)
-  conditional_Server("cond1", shared)
-  expectation_Server("exp1", shared)
-  prob_Server("prob1")
-  
+  practice_modules <- list(
+    joint=joint_Server("joint1",shared,course_path,open_plot),
+    conditional=conditional_Server("cond1",shared,course_path,open_plot),
+    expectation=expectation_Server("exp1",shared,course_path,open_plot),
+    overview=prob_Server("prob1",course_path,plot_request)
+  )
+  output$learning_progress <- renderUI({
+    total <- sum(vapply(practice_modules,function(x) x$total(),numeric(1)))
+    complete <- sum(vapply(practice_modules,function(x) x$completed(),numeric(1)))
+    tags$p(role="status",paste0(complete," / ",total," practice exercises correct"))
+  })
+  output$learning_path_banner <- renderUI({
+    div(class="alert alert-info",strong(learning_path_label(course_path()))," — ",
+      switch(course_path(),core="Discrete probability, joint/conditional PMFs, expectation and variance for STATS125. Optional paths do not count towards Core completion.",
+        preview="Optional preparation for later STATS210 study. The needed concepts and formulas are provided; this is separate from the STATS125 Core path.",
+        further="Optional further exploration. These exercises and formal formulas are not required to complete this tool's STATS125 Core path."),
+      tags$small(" The discrete game has its own score."))
+  })
+
   output$game_module_ui <- renderUI(game_discrete_UI("game1"))
   game_discrete_Server("game1")
 

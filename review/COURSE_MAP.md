@@ -38,4 +38,6 @@
 
 本轮补充核对了 2026 S2 的 Tutorial 4/6/7/8、测试说明与公式表；8 份选用 PDF 的路径、版本、页数和 SHA-256 记录在 [教学证据索引](evidence/teaching_scope_2026_10_31.json)。Tutorial 7 同时要求条件 PMF、模型参数与假设，Tutorial 8 使用全期望，均支持补强现有核心练习。期中测试只覆盖第 2–6 章的说明不代表整门课不含第 7–8 章。
 
-本项目定位为第 5–8 章部分主题的辅助工具，不覆盖整门 STATS125；本轮不要求新增 Markov chains 或完整 210 课程。32 题界面分层和新增核心练习尚待实施。
+本项目定位为第 5–8 章部分主题的辅助工具，不覆盖整门 STATS125；本轮不要求新增 Markov chains 或完整 210 课程。
+
+后续内容改进已实现上述原 32 题分层，并增加 10 道核心练习。实际默认路径共 30 核心题（Overview 1 / Joint 13 / Conditional 10 / Expectation 6），可选预习 8 题、可选拓展 4 题，分开计数。核心包括离散二阶矩、方差、条件期望及全期望。连续预习的图形选择只列 Uniform / Exponential / Normal，其他连续分布保留在拓展。15 个图形预设与题目相连，详细映射及验证见 [内容改进记录](evidence/content_verification.md) 和 [42 题目录/图形参数](evidence/content_learning_paths.json)。

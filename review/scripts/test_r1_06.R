@@ -6,6 +6,8 @@ args <- commandArgs(trailingOnly=TRUE)
 destination <- if(length(args)) args[1] else 'review/evidence/r1_06_regression.json'
 module_dir <- if(length(args)>1) args[2] else 'Project_PPeek1ng/modules'
 if(file.exists(file.path(module_dir,'pmf_helpers.R'))) source(file.path(module_dir,'pmf_helpers.R'),encoding='UTF-8')
+source('Project_PPeek1ng/modules/learning_content.R',encoding='UTF-8')
+source('Project_PPeek1ng/modules/learning_practice.R',encoding='UTF-8')
 results <- new.env(parent=emptyenv()); results$cases <- list()
 record <- function(module, name, passed, detail=list()) {
   results$cases[[length(results$cases)+1L]] <- c(list(module=module, name=name, passed=isTRUE(passed)), detail)
@@ -175,7 +177,7 @@ testServer(function(input,output,session) {
   record('integration','expectation_commit_updates_three_views',check_views(rep(.25,4)))
 })
 stopifnot(length(results$cases)==124L)
-report <- list(issue='R1-06',date='2026-10-30',
+report <- list(issue='R1-06',date=format(Sys.time(),'%Y-%m-%d',tz='Pacific/Auckland'),
   environment=list(R=R.version.string,shiny=as.character(packageVersion('shiny'))),
   source_md5=as.list(tools::md5sum(list.files(module_dir,pattern='(module_(joint|conditional|expectation)|pmf_helpers)\\.R$',full.names=TRUE))),
   total=length(results$cases),passed=sum(vapply(results$cases,function(x)x$passed,logical(1))),cases=results$cases)

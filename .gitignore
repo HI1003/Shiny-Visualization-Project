@@ -1,5 +1,7 @@
 .R-library/
 .local/
+/output/playwright/
+/.playwright-cli/
 .Rhistory
 .RData
 

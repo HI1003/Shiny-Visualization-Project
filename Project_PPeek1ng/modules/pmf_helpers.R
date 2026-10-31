@@ -83,7 +83,20 @@ pmf_bind_actions <- function(input, output, session, df_current, pmf_edit,
     shared$df_final <- df
     shared$has_final <- TRUE
   })
-  invisible(NULL)
+  load_example <- function(key) {
+    if(is.null(key) || !key %in% names(learning_pmf_notes)) {
+      error_message("Choose a listed worked example.");return(invisible(NULL))
+    }
+    df <- pmf_prepare(learning_pmf_example(key),merge_duplicates=TRUE)
+    df <- update_draft(df)
+    pmf_final(df);shared$df_final <- df;shared$has_final <- TRUE
+    shiny::updateSelectInput(session,"pmf_example",selected=key)
+    error_message(NULL)
+    invisible(NULL)
+  }
+  shiny::observeEvent(input$load_pmf_example,load_example(input$pmf_example))
+  output$pmf_example_note <- shiny::renderUI(shiny::tags$p(class="small-note",learning_pmf_caption(pmf_final())))
+  list(load_example=load_example)
 }
 # A fresh state is created by the app server for each browser session.
 new_pmf_state <- function() {

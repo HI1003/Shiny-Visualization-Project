@@ -1,0 +1,145 @@
+{
+  "date": "2026-10-31",
+  "url": "http://127.0.0.1:7130/",
+  "total": 22,
+  "passed": 22,
+  "cases": [
+    {
+      "name": "default_core_30",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "partial_answer_no_credit",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_fractions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "table_selector_matches_loaded_question",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "preview_counter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no_joint_optional_requirement",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "further_counter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "core_retains_progress",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_three_answers",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "question_preset_poisson12_x10",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "plot_selector_matches_question",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CDF_question_loads_bernoulli04",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CDF_four_endpoints",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "poisson24_within_slider",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "preview_only_three_continuous_models",
+      "passed": true,
+      "detail": "exp,norm,unif"
+    },
+    {
+      "name": "normal65_sd3",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "uniform140_event50",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "formulas_collapsed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "900_no_document_horizontal_overflow",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "second_tab_has_own_progress",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "second_tab_does_not_reset_first",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no_shiny_output_errors",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "content_core.png",
+      "sha256": "88c44e25f8e5b486436d7078bc862d306289c27c34b928ba10250342a52fa039"
+    },
+    {
+      "file": "content_preview.png",
+      "sha256": "3b0470284c99277c3e7108e8f2285b30e44cc815ae3f340145c2cfae7545f156"
+    },
+    {
+      "file": "content_preview_900.png",
+      "sha256": "496534e6a2516bc03cfc6835c417f42ddb650b4e6156901c3bd707794480c313"
+    }
+  ],
+  "tool": "Playwright CLI; isolated Chrome; actual local Shiny application",
+  "source_md5": {
+    "Project_PPeek1ng/app.R": "731ef53cae0eb1707056b270b078ed1c",
+    "Project_PPeek1ng/main.R": "e95126e7b747cd480d65abf5844cd093",
+    "Project_PPeek1ng/modules/learning_content.R": "3529c2882c44d1ccf0bae76df71aa016",
+    "Project_PPeek1ng/modules/learning_practice.R": "9cf63f69f7c2be52264cbd27a540b997",
+    "Project_PPeek1ng/modules/module_conditional.R": "80e2aeb5fe7c1e069bfcf06165076baa",
+    "Project_PPeek1ng/modules/module_expectation.R": "8bc0b19aa148cde30e694cf5c56ec83a",
+    "Project_PPeek1ng/modules/module_game_discrete.r": "6d9bbb12de3f3314cd64ff61b3df5e8f",
+    "Project_PPeek1ng/modules/module_joint.R": "763e3b3727d70b0e4b528f5f89dc39d8",
+    "Project_PPeek1ng/modules/module_probability.R": "776fee4ada5cd747c443b2d0c848aa7a",
+    "Project_PPeek1ng/modules/pmf_helpers.R": "7e9640c58b7bb8947aea635904623e49"
+  }
+}

@@ -108,64 +108,12 @@ expectation_UI <- function(id) {
       column(width = 9,
              box(
                title = "Probability Table", width = 12, status = "primary", solidHeader = TRUE,
+               uiOutput(ns("pmf_example_note")),
                uiOutput(ns("joint_table_html"))
              ),
              # ---------------- Expectation Practice ----------------
-             box(
-               title = NULL, width = 12, status = "warning", solidHeader = FALSE,
-               
-               # ==== 标题 ====
-               tags$h4(
-                 "Expectation Practice",
-                 style = "margin-top:0; font-weight:600; color:#333;"
-               ),
-               
-               # ==== 启用 MathJax 支持 ====
-               withMathJax(
-                 
-                 # ==== 题目故事 ====
-                 div(
-                   style = "text-align:center; margin-top:10px;",
-                   uiOutput(ns("story_out"))
-                 ),
-                 
-                 # ==== 附加说明 ====
-                 div(
-                   style = "text-align:center; margin-top:10px;",
-                   uiOutput(ns("given_out"))
-                 ),
-                 
-                 tags$hr(),
-                 
-                 # ==== 题干 ====
-                 div(
-                   style = "text-align:center; margin-top:10px;",
-                   uiOutput(ns("qtext"))
-                 ),
-                 
-                 # ==== 答案输入框 ====
-                 uiOutput(ns("answer_input")),
-                 
-                 # ==== 提交按钮 ====
-                 actionButton(
-                   ns("check"), "Submit",
-                   class = "btn btn-success btn-block",
-                   style = "margin-top:5px; font-weight:600;"
-                 ),
-                 
-                 # ==== 分隔线 ====
-                 tags$hr(style = "margin: 15px 0;"),
-                 
-                 # ==== 反馈 ====
-                 uiOutput(ns("feedback")),
-                 
-                 # ==== 翻页按钮 ====
-                 div(
-                   style = "margin-top:15px;",
-                   uiOutput(ns("nav_buttons"))
-                 )
-               )
-             )
+             box(title = "Expectation practice", width = 12, status = "warning", solidHeader = TRUE,
+          learning_practice_ui(ns, NULL))
       )
     )
   )
@@ -174,7 +122,7 @@ expectation_UI <- function(id) {
 # =====================================================================
 #  SERVER
 # =====================================================================
-expectation_Server <- function(id, shared = new_pmf_state()) {
+expectation_Server <- function(id, shared = new_pmf_state(), course_path = function() "core", open_plot = NULL) {
   pmf_global <- shared
   moduleServer(id, function(input, output, session) {
     # --- Safeguard: ensure id column exists (wrapped in isolate) ---
@@ -230,6 +178,8 @@ expectation_Server <- function(id, shared = new_pmf_state()) {
         return(tags$div(style="color:#888; padding:10px;", "Initializing table..."))
       }
       tagList(
+        selectInput(ns("pmf_example"), "Worked example", choices = c("Two Ace indicators"="cards", "20 fictional observations"="counts20", "Zero conditioning probability"="zero_x")),
+        actionButton(ns("load_pmf_example"), "Load worked example", class="btn-outline-primary"),
         h4("Input (x, y, p):"),
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
         uiOutput(ns("input_feedback")),
@@ -316,7 +266,7 @@ expectation_Server <- function(id, shared = new_pmf_state()) {
       })
     })
     
-    pmf_bind_actions(input, output, session, df_current, pmf_edit,
+    pmf_actions <- pmf_bind_actions(input, output, session, df_current, pmf_edit,
                      pmf_final, row_counter, pmf_global)
 
     # ---- 联合概率表 + 右侧计算区 ----
@@ -844,145 +794,14 @@ expectation_Server <- function(id, shared = new_pmf_state()) {
     
     # ==== 题库 ====
     question_bank <- get_expectation_question_bank()
-    
-    # ==== 当前状态 ====
-    current_index <- reactiveVal(1)
-    result <- reactiveVal(NULL)
-    tries <- reactiveVal(0)
-    
-    # ==== 当前题目 ====
-    prob <- reactive({
-      req(question_bank[[current_index()]])
-      question_bank[[current_index()]]
-    })
-    
-    # ============================================================
-    # 1️⃣ 题目输出（story + given + question）
-    # ============================================================
-    
-    output$story_out <- renderUI({
-      p <- prob(); validate(need(!is.null(p), ""))
-      if (is.null(p$story)) return(NULL)
-      
-      div(
-        id = ns("story_mjx"),
-        style = "display:inline-block; text-align:center;",
-        HTML(p$story)
-      )
-    })
-    
-    output$given_out <- renderUI({
-      p <- prob()
-      if (is.null(p) || is.null(p$given)) return(NULL)
-      div(class = "table-note", HTML(p$given))
-    })
-    
-    output$qtext <- renderUI({
-      p <- prob(); validate(need(!is.null(p), ""))
-      div(
-        id = ns("q_mjx"),
-        style = "display:inline-block; text-align:center;",
-        HTML(p$question)
-      )
-    })
-    
-    # ============================================================
-    # 2️⃣ 答案检查与反馈 (纯数值判断)
-    # ============================================================
-    
-    observeEvent(input$check, {
-      p <- prob(); validate(need(!is.null(p), ""))
-      
-      tol <- if (is.null(p$tolerance)) 1e-4 else p$tolerance
-      ok <- if (!is.null(p$ans_pair)) {
-        is_correct(input$ans_sunny, p$ans_pair[["sunny"]], tol = tol) &&
-          is_correct(input$ans_cloudy, p$ans_pair[["cloudy"]], tol = tol)
-      } else is_correct(input$ans, p$ans_val, p$ans_frac, tol = tol)
-      ok <- isTRUE(ok)
-      
-      detail <- NULL
-      if (!ok && !is.null(p$ans_pair)) {
-        fields <- c(Sunny = is_correct(input$ans_sunny, 24), Cloudy = is_correct(input$ans_cloudy, 12))
-        detail <- paste0("Check the ", paste(names(fields)[!fields], collapse = " and "),
-                         " answer", if (sum(!fields) > 1) "s" else "", ". Both conditions must be answered correctly.")
-      }
-      result(list(status = if (ok) "ok" else "no", detail = detail))
-      tries(tries() + if (ok) 3 else 1)
-    })
-    
-    output$feedback <- renderUI({
-      st <- result(); p <- prob()
-      if (is.null(st) || is.null(p)) return(NULL)
-      
-      ui <- if (st$status == "ok") {
-        div(class = "alert alert-success", HTML(p$solution))
-      } else if (st$status == "no") {
-        if (tries() == 1) {
-          div(class = "alert alert-warning", HTML(p$hint1))
-        } else if (tries() == 2) {
-          div(class = "alert alert-warning", HTML(p$hint2))
-        } else {
-          div(class = "alert alert-info", HTML(p$solution))
-        }
-      }
-      tags$div(id = ns("fb_mjx"), if (!is.null(st$detail)) tags$p(st$detail), ui)
-    })
-    
-    # ============================================================
-    # 3️⃣ 翻页按钮与逻辑
-    # ============================================================
-    
-    output$nav_buttons <- renderUI({
-      n_total <- length(question_bank)
-      idx <- current_index()
-      
-      btns <- list()
-      if (idx > 1)
-        btns <- append(btns, list(
-          actionButton(ns("back_q"), "← Back",
-                       class = "btn btn-secondary btn-block")
-        ))
-      if (idx < n_total)
-        btns <- append(btns, list(
-          actionButton(ns("next_q"), "Next →",
-                       class = "btn btn-primary btn-block")
-        ))
-      
-      fluidRow(lapply(btns, function(b) column(6, b)))
-    })
-    
-    observeEvent(input$back_q, {
-      idx <- current_index()
-      if (idx > 1) {
-        current_index(idx - 1)
-        result(NULL); tries(0)
-      }
-    })
-    
-    observeEvent(input$next_q, {
-      idx <- current_index()
-      if (idx < length(question_bank)) {
-        current_index(idx + 1)
-        result(NULL); tries(0)
-      }
-    })
-    
-    # ============================================================
-    # 4️⃣ 固定输入框（因为都是计算题）
-    # ============================================================
-    
-    output$answer_input <- renderUI({
-      p <- prob()
-      if (!is.null(p$ans_pair)) return(tagList(
-        textInput(ns("ans_sunny"), "Sunny: E[Y | W = Sunny]", width = "100%"),
-        textInput(ns("ans_cloudy"), "Cloudy: E[Y | W = Cloudy]", width = "100%")
-      ))
-      textInput(
-        ns("ans"),
-        label = NULL,
-        placeholder = "Enter numeric or fraction answer (e.g. 4.25 or 17/4)",
-        width = "100%"
-      )
-    })
+    practice_questions <- learning_questions(question_bank, "expectation")
+    practice <- learning_practice_server(input, output, session, practice_questions,
+      "expectation", course_path, load_pmf=pmf_actions$load_example, open_plot=open_plot)
+    # Stable references also support regression of the unchanged original question library.
+    current_index <- practice$current_index
+    prob <- practice$prob
+    result <- practice$result
+    tries <- practice$tries
+    practice
   })
 }

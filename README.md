@@ -3,6 +3,8 @@
 This repository contains the Shiny-based interactive visualization system developed for the dissertation project in Probability and Statistics Education.  
 This tool enables learners to explore probability distributions through interactive graphics, hands-on experimentation, and storytelling elements that bring abstract ideas to life.
 
+The current teaching revision defaults to **STATS125 Core**, with separate **Optional STATS210 preview** and **Further exploration** paths. It retains the original 32 exercises and adds 10 core exercises: 30 core, 8 preview and 4 further exercises in total. Practice progress is separate for each path and lasts for the current session; the discrete game keeps its own score. Worked-example buttons load the parameters used in a question into its tables or plots. See the [teaching review](review/TEACHING_REVIEW_STATS125.md) and [verification record](review/evidence/content_verification.md).
+
 ## Project Overview
 
 The Shiny application helps students learn key probability concepts through simulation and dynamic visualization.  

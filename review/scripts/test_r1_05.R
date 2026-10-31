@@ -12,6 +12,8 @@ pmf_global <- reactiveValues(df_edit=NULL, df_final=NULL, counter=0, has_final=F
 source('Project_PPeek1ng/modules/pmf_helpers.R', encoding='UTF-8')
 source('Project_PPeek1ng/modules/module_conditional.R', encoding='UTF-8')
 
+source('Project_PPeek1ng/modules/learning_content.R',encoding='UTF-8')
+source('Project_PPeek1ng/modules/learning_practice.R',encoding='UTF-8')
 make_pmf <- function(xs, ys, probabilities) {
   data.frame(x=xs, y=ys, p_input=as.character(probabilities),
              p_value=probabilities, id=seq_along(probabilities))
@@ -81,7 +83,7 @@ testServer(conditional_Server, args=list(shared=pmf_global), {
 })
 args <- commandArgs(trailingOnly=TRUE)
 destination <- if(length(args)) args[[1]] else 'review/evidence/r1_05_regression.json'
-report <- list(issue='R1-05', date='2026-10-30',
+report <- list(issue='R1-05', date=format(Sys.time(),'%Y-%m-%d',tz='Pacific/Auckland'),
   environment=list(R=R.version.string, shiny=as.character(packageVersion('shiny')),
                    dplyr=as.character(packageVersion('dplyr')),
                    plotly=as.character(packageVersion('plotly'))),

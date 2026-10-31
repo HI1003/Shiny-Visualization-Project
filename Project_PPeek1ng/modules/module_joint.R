@@ -108,7 +108,8 @@ joint_UI <- function(id) {
         box(
           title = "Probability Table", width = 12, status = "primary", solidHeader = TRUE,
           # ✅ 用 withMathJax() 让表格中的公式渲染
-          withMathJax(uiOutput(ns("joint_table_html")))
+          withMathJax(uiOutput(ns("pmf_example_note")),
+               uiOutput(ns("joint_table_html")))
         ),
         
         # 3D + Bird's-eye 并列
@@ -130,53 +131,8 @@ joint_UI <- function(id) {
         ),
         
         # ---------------- 练习模块 ----------------
-        box(
-          title = NULL, width = 12, status = "warning", solidHeader = FALSE,
-          tags$h4(
-            "Joint Exercises",
-            style = "margin-top:0; font-weight:600; color:#333;"
-          ),
-          
-          # ✅ 整个练习部分都包在 withMathJax() 里
-          withMathJax(
-            # ==== 居中区域（题目表格 + 题干）====
-            div(
-              style = "text-align:center; margin-top:10px;",
-              uiOutput(ns("table_out"))
-            ),
-            div(
-              style = "text-align:center; margin-top:10px;",
-              uiOutput(ns("given_out"))
-            ),
-            tags$hr(),
-            div(
-              style = "text-align:center; margin-top:10px;",
-              uiOutput(ns("qtext"))
-            ),
-            
-            # ==== 答案输入 ====
-            textInput(
-              ns("ans"),
-              label = NULL,
-              placeholder = "Input fractions such as 3/7 or decimals",
-              width = "100%"
-            ),
-            
-            actionButton(
-              ns("check"), "Submit",
-              class = "btn btn-success btn-block",
-              style = "margin-top:5px; font-weight:600;"
-            ),
-            
-            # ==== 反馈与翻页 ====
-            tags$hr(style = "margin: 15px 0;"),
-            uiOutput(ns("feedback")),
-            div(
-              style = "margin-top:15px;",
-              uiOutput(ns("nav_buttons"))
-            )
-          )
-        )
+        box(title = "Joint practice", width = 12, status = "warning", solidHeader = TRUE,
+          learning_practice_ui(ns, NULL))
       )
     )
   )
@@ -185,7 +141,7 @@ joint_UI <- function(id) {
 # =========================================================
 #  SERVER
 # =========================================================
-joint_Server <- function(id, shared = new_pmf_state()) {
+joint_Server <- function(id, shared = new_pmf_state(), course_path = function() "core", open_plot = NULL) {
   pmf_global <- shared
   moduleServer(id, function(input, output, session) {
     # --- Safeguard: ensure id column exists (wrapped in isolate) ---
@@ -244,6 +200,8 @@ joint_Server <- function(id, shared = new_pmf_state()) {
         return(tags$div(style="color:#888; padding:10px;", "Initializing table..."))
       }
       tagList(
+        selectInput(ns("pmf_example"), "Worked example", choices = c("Two Ace indicators"="cards", "20 fictional observations"="counts20", "Zero conditioning probability"="zero_x")),
+        actionButton(ns("load_pmf_example"), "Load worked example", class="btn-outline-primary"),
         h4("Input (x, y, p):"),
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
         uiOutput(ns("input_feedback")),
@@ -319,7 +277,7 @@ joint_Server <- function(id, shared = new_pmf_state()) {
     })
     
     # Shared validation and draft/commit actions
-    pmf_bind_actions(input, output, session, df_current, pmf_edit,
+    pmf_actions <- pmf_bind_actions(input, output, session, df_current, pmf_edit,
                      pmf_final, row_counter, pmf_global)
     
     
@@ -588,121 +546,14 @@ joint_Server <- function(id, shared = new_pmf_state()) {
     
     # ==== 题库 ====
     question_bank <- get_joint_question_bank()
-    
-    # ==== 当前状态 ====
-    current_index <- reactiveVal(1)
-    result <- reactiveVal(NULL)
-    tries <- reactiveVal(0)
-    
-    # 当前题目
-    prob <- reactive({
-      req(question_bank[[current_index()]])
-      question_bank[[current_index()]]
-    })
-    
-    # ============================================================
-    # 1️⃣ 题目表格输出
-    # ============================================================
-    output$table_out <- renderUI({
-      p <- prob(); validate(need(!is.null(p), ""))
-      tbl <- p$table_ui
-      if (is.character(tbl)) tbl <- HTML(tbl)
-      
-      # 直接输出表格（无需 MathJax 手动刷新）
-      div(
-        id = ns("tbl_mjx"),
-        style = "display:inline-block;",
-        tbl
-      )
-    })
-    
-    # ============================================================
-    # 2️⃣ 题干与附加信息
-    # ============================================================
-    output$qtext <- renderUI({
-      p <- prob(); validate(need(!is.null(p), ""))
-      div(
-        id = ns("q_mjx"),
-        style = "display:inline-block; text-align:center;",
-        HTML(p$question)
-      )
-    })
-    
-    output$given_out <- renderUI({
-      p <- prob()
-      if (is.null(p) || is.null(p$given)) return(NULL)
-      div(class = "table-note", HTML(p$given))
-    })
-    
-    # ============================================================
-    # 3️⃣ 答案检查与反馈
-    # ============================================================
-    observeEvent(input$check, {
-      p <- prob(); validate(need(!is.null(p), ""))
-      
-      # Joint probabilities and these normalization constants cannot be negative.
-      candidate <- parse_user_prob(input$ans)
-      ok <- is.finite(candidate) && candidate >= 0 &&
-        is_correct(input$ans, p$ans_val, p$ans_frac)
-      result(list(status = if (ok) "ok" else "no"))
-      tries(tries() + if (ok) 3 else 1)
-    })
-    
-    output$feedback <- renderUI({
-      st <- result(); p <- prob()
-      if (is.null(st) || is.null(p)) return(NULL)
-      
-      # 用 HTML() 确保公式正常渲染
-      ui <- if (st$status == "ok") {
-        div(class = "alert alert-success", HTML(p$solution))
-      } else if (st$status == "no") {
-        if (tries() == 1) {
-          div(class = "alert alert-warning", HTML(p$hint1))
-        } else if (tries() == 2) {
-          div(class = "alert alert-warning", HTML(p$hint2))
-        } else {
-          div(class = "alert alert-info", HTML(p$solution))
-        }
-      }
-      tags$div(id = ns("fb_mjx"), ui)
-    })
-    
-    # ============================================================
-    # 4️⃣ 翻页按钮与逻辑
-    # ============================================================
-    output$nav_buttons <- renderUI({
-      n_total <- length(question_bank)
-      idx <- current_index()
-      
-      btns <- list()
-      if (idx > 1)
-        btns <- append(btns, list(
-          actionButton(ns("back_q"), "← Back",
-                       class = "btn btn-secondary btn-block")
-        ))
-      if (idx < n_total)
-        btns <- append(btns, list(
-          actionButton(ns("next_q"), "Next →",
-                       class = "btn btn-primary btn-block")
-        ))
-      
-      fluidRow(lapply(btns, function(b) column(6, b)))
-    })
-    
-    observeEvent(input$back_q, {
-      idx <- current_index()
-      if (idx > 1) {
-        current_index(idx - 1)
-        result(NULL); tries(0)
-      }
-    })
-    
-    observeEvent(input$next_q, {
-      idx <- current_index()
-      if (idx < length(question_bank)) {
-        current_index(idx + 1)
-        result(NULL); tries(0)
-      }
-    })
+    practice_questions <- learning_questions(question_bank, "joint")
+    practice <- learning_practice_server(input, output, session, practice_questions,
+      "joint", course_path, load_pmf=pmf_actions$load_example, open_plot=open_plot)
+    # Stable references also support regression of the unchanged original question library.
+    current_index <- practice$current_index
+    prob <- practice$prob
+    result <- practice$result
+    tries <- practice$tries
+    practice
   })
 }

@@ -4,13 +4,15 @@ if(.Platform$OS.type=='windows') Sys.setlocale('LC_CTYPE','.UTF-8')
 suppressPackageStartupMessages({library(shiny);library(shinyjs);library(plotly);library(dplyr);library(latex2exp)})
 for(f in c('pmf_helpers.R','module_joint.R','module_conditional.R','module_expectation.R','module_probability.R','module_game_discrete.r'))
   source(file.path('Project_PPeek1ng/modules',f),encoding='UTF-8')
+source('Project_PPeek1ng/modules/learning_content.R',encoding='UTF-8')
+source('Project_PPeek1ng/modules/learning_practice.R',encoding='UTF-8')
 results <- new.env(); results$cases <- list()
 record <- function(group,name,passed,detail=NULL) {
   if(length(results$cases)==0 || tail(results$cases,1)[[1]]$group!=group) cat('Checking',group,'\n')
   results$cases[[length(results$cases)+1L]] <- list(group=group,name=name,passed=isTRUE(passed),detail=detail)
 }
 html <- function(x) if(is.null(x)) '' else x$html
-testServer(conditional_Server, {
+testServer(conditional_Server, args=list(course_path=function() "legacy"), {
   check_count <- 0L
   submit <- function(value) {
     check_count <<- check_count+1L
@@ -56,7 +58,7 @@ testServer(conditional_Server, {
   text <- paste(unlist(question_bank[[6]][c('hint1','hint2','solution')]),collapse=' ')
   record('geometric','q6_attempts_event_preserved',grepl('Z=Y-1',text,fixed=TRUE) && grepl('0.64',text,fixed=TRUE))
 })
-testServer(expectation_Server, {
+testServer(expectation_Server, args=list(course_path=function() "legacy"), {
   check_count <- 0L
   submit <- function(value) {
     check_count <<- check_count+1L
@@ -102,7 +104,7 @@ testServer(expectation_Server, {
   record('small_marginal','positive_divisor_not_zero',grepl('0.00000002',html(output$expectation_detail),fixed=TRUE) &&
     grepl('0.00000001',html(output$expectation_detail),fixed=TRUE) && !grepl('undefined',html(output$expectation_detail),fixed=TRUE))
 })
-testServer(prob_Server, {
+testServer(prob_Server, args=list(course_path=function() "legacy"), {
   session$setInputs(dist='bern',p_bern=.5,n=5,p=.5,r_nb=2,p_nb=.5,pg=.5,lambda=5,
     n_hy=4,M_hy=3,N_hy=10,N_du=5,dist_cont='unif',a_unif=-5,b_unif=5,
     rate_exp=1,shape_gam=2,rate_gam=1,mean_norm=0,sd_norm=1,alpha_beta=2,beta_beta=2,
