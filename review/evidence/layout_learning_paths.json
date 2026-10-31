@@ -1,0 +1,1324 @@
+{
+  "date": "2026-10-31",
+  "total": 158,
+  "passed": 158,
+  "original_answer_baseline": "7852cc1",
+  "catalog": [
+    {
+      "reference": "J01",
+      "track": "core",
+      "original": true,
+      "stage": "joint",
+      "table_example": {},
+      "plot_examples": {}
+    },
+    {
+      "reference": "J02",
+      "track": "core",
+      "original": true,
+      "stage": "joint",
+      "table_example": {},
+      "plot_examples": {}
+    },
+    {
+      "reference": "J03",
+      "track": "core",
+      "original": true,
+      "stage": "joint",
+      "table_example": {},
+      "plot_examples": {}
+    },
+    {
+      "reference": "J04",
+      "track": "core",
+      "original": true,
+      "stage": "joint",
+      "table_example": {},
+      "plot_examples": {}
+    },
+    {
+      "reference": "J05",
+      "track": "core",
+      "original": true,
+      "stage": "joint",
+      "table_example": {},
+      "plot_examples": {}
+    },
+    {
+      "reference": "J06",
+      "track": "core",
+      "original": true,
+      "stage": "joint",
+      "table_example": {},
+      "plot_examples": {}
+    },
+    {
+      "reference": "J07",
+      "track": "core",
+      "original": true,
+      "stage": "joint",
+      "table_example": {},
+      "plot_examples": {}
+    },
+    {
+      "reference": "J08",
+      "track": "core",
+      "original": true,
+      "stage": "joint",
+      "table_example": {},
+      "plot_examples": {}
+    },
+    {
+      "reference": "J09",
+      "track": "core",
+      "original": true,
+      "stage": "joint",
+      "table_example": {},
+      "plot_examples": {}
+    },
+    {
+      "reference": "J10",
+      "track": "core",
+      "original": true,
+      "stage": "joint",
+      "table_example": {},
+      "plot_examples": {}
+    },
+    {
+      "reference": "J11",
+      "track": "core",
+      "original": false,
+      "stage": "joint",
+      "table_example": "counts20",
+      "plot_examples": {}
+    },
+    {
+      "reference": "J12",
+      "track": "core",
+      "original": false,
+      "stage": "joint",
+      "table_example": "counts20",
+      "plot_examples": {}
+    },
+    {
+      "reference": "J13",
+      "track": "core",
+      "original": false,
+      "stage": "joint",
+      "table_example": "counts20",
+      "plot_examples": {}
+    },
+    {
+      "reference": "C01",
+      "track": "core",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "corn5"
+    },
+    {
+      "reference": "C02",
+      "track": "core",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "corn5"
+    },
+    {
+      "reference": "C03",
+      "track": "core",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": ["eggs_sunny", "eggs_cloudy"]
+    },
+    {
+      "reference": "C04",
+      "track": "core",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "eggs_cloudy"
+    },
+    {
+      "reference": "C05",
+      "track": "core",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "novice"
+    },
+    {
+      "reference": "C06",
+      "track": "core",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "novice"
+    },
+    {
+      "reference": "C07",
+      "track": "preview",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "rain"
+    },
+    {
+      "reference": "C08",
+      "track": "preview",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "rain"
+    },
+    {
+      "reference": "C09",
+      "track": "preview",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "normal65"
+    },
+    {
+      "reference": "C10",
+      "track": "further",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "normal65"
+    },
+    {
+      "reference": "C11",
+      "track": "preview",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "uniform140"
+    },
+    {
+      "reference": "C12",
+      "track": "preview",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "uniform140"
+    },
+    {
+      "reference": "C13",
+      "track": "further",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": {}
+    },
+    {
+      "reference": "C14",
+      "track": "core",
+      "original": false,
+      "stage": "conditional",
+      "table_example": "counts20",
+      "plot_examples": {}
+    },
+    {
+      "reference": "C15",
+      "track": "core",
+      "original": false,
+      "stage": "conditional",
+      "table_example": "zero_x",
+      "plot_examples": {}
+    },
+    {
+      "reference": "C16",
+      "track": "core",
+      "original": false,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "tokens"
+    },
+    {
+      "reference": "C17",
+      "track": "core",
+      "original": false,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "worker_nb"
+    },
+    {
+      "reference": "E01",
+      "track": "core",
+      "original": true,
+      "stage": "foundation",
+      "table_example": {},
+      "plot_examples": "corn10"
+    },
+    {
+      "reference": "E02",
+      "track": "core",
+      "original": true,
+      "stage": "foundation",
+      "table_example": {},
+      "plot_examples": "eggs_sunny"
+    },
+    {
+      "reference": "E03",
+      "track": "preview",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "rain"
+    },
+    {
+      "reference": "E04",
+      "track": "further",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "uniform100"
+    },
+    {
+      "reference": "E05",
+      "track": "preview",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "normal50"
+    },
+    {
+      "reference": "E06",
+      "track": "further",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "exp2"
+    },
+    {
+      "reference": "E07",
+      "track": "core",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "corn10"
+    },
+    {
+      "reference": "E08",
+      "track": "core",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": ["eggs_sunny", "eggs_cloudy"]
+    },
+    {
+      "reference": "E09",
+      "track": "preview",
+      "original": true,
+      "stage": "conditional",
+      "table_example": {},
+      "plot_examples": "normal65"
+    },
+    {
+      "reference": "E10",
+      "track": "core",
+      "original": false,
+      "stage": "conditional",
+      "table_example": "counts20",
+      "plot_examples": {}
+    },
+    {
+      "reference": "E11",
+      "track": "core",
+      "original": false,
+      "stage": "foundation",
+      "table_example": {},
+      "plot_examples": "du5"
+    },
+    {
+      "reference": "O01",
+      "track": "core",
+      "original": false,
+      "stage": "foundation",
+      "table_example": {},
+      "plot_examples": "bern04"
+    }
+  ],
+  "graph_examples": {
+    "bern04": {
+      "label": "CDF practice: Bernoulli(p=0.4)",
+      "paths": ["core", "legacy"],
+      "type": "discrete",
+      "dist": "bern",
+      "inputs": {
+        "p_bern": 0.40000000000000002
+      },
+      "x": 0,
+      "note": "P(X=0)=0.6 and P(X=1)=0.4. The CDF at 0 includes X=0; compare strict and inclusive inequalities."
+    },
+    "corn5": {
+      "label": "Corn: Binomial(n=5,p=0.2)",
+      "paths": ["core", "legacy"],
+      "type": "discrete",
+      "dist": "binom",
+      "inputs": {
+        "n": 5,
+        "p": 0.20000000000000001
+      },
+      "x": 0,
+      "note": "Given 5 inspected plants, Y is Binomial(5,0.2). P(Y>=1)=1-F(0)=0.67232."
+    },
+    "corn10": {
+      "label": "Corn: Binomial(n=10,p=0.2), mean 2",
+      "paths": ["core", "legacy"],
+      "type": "discrete",
+      "dist": "binom",
+      "inputs": {
+        "n": 10,
+        "p": 0.20000000000000001
+      },
+      "x": 2,
+      "note": "With 10 independent inspected plants, the expected count is np=10*0.2=2."
+    },
+    "novice": {
+      "label": "Novice: Geometric(p=0.2), failures Z",
+      "paths": ["core", "legacy"],
+      "type": "discrete",
+      "dist": "geom",
+      "inputs": {
+        "pg": 0.20000000000000001
+      },
+      "x": 1,
+      "note": "Z counts failures before success, and attempts Y=Z+1. P(Y>=3)=P(Z>=2)=1-F_Z(1)=0.64."
+    },
+    "du5": {
+      "label": "Second moments: Discrete Uniform on 1,...,5",
+      "paths": ["core", "legacy"],
+      "type": "discrete",
+      "dist": "dunifd",
+      "inputs": {
+        "N_du": 5
+      },
+      "x": 3,
+      "note": "DU(5) has mean 3. Averaging squared outcomes gives E[Z^2]=11; variance=11-9=2."
+    },
+    "tokens": {
+      "label": "Red tokens: Hypergeometric(n=5,M=8,N=20)",
+      "paths": ["core", "legacy"],
+      "type": "discrete",
+      "dist": "hyper",
+      "inputs": {
+        "n_hy": 5,
+        "M_hy": 8,
+        "N_hy": 20
+      },
+      "x": 2,
+      "note": "Draw 5 tokens without replacement from 20, including 8 red. The conditional mean is nM/N=2."
+    },
+    "worker_nb": {
+      "label": "Worker: Negative Binomial(k=2,p=1/4)",
+      "paths": ["core", "legacy"],
+      "type": "discrete",
+      "dist": "nbinom",
+      "inputs": {
+        "r_nb": 2,
+        "p_nb": 0.25
+      },
+      "x": 6,
+      "note": "Y counts failures before the second success in independent trials. Its mean is k(1-p)/p=6."
+    },
+    "eggs_cloudy": {
+      "label": "Cloudy eggs: Poisson(12), P(Y <= 10)",
+      "paths": ["core", "legacy"],
+      "type": "discrete",
+      "dist": "pois",
+      "inputs": {
+        "lambda": 12
+      },
+      "x": 10,
+      "note": "Cloudy: 2 eggs/hour for 6 hours gives lambda=12. The highlighted CDF at 10 is P(Y <= 10), about 0.3472."
+    },
+    "eggs_sunny": {
+      "label": "Sunny eggs: Poisson(24), mean 24",
+      "paths": ["core", "legacy"],
+      "type": "discrete",
+      "dist": "pois",
+      "inputs": {
+        "lambda": 24
+      },
+      "x": 24,
+      "note": "Sunny: 4 eggs/hour for 6 hours gives lambda=24. The count mean is 24; the rate per hour is 4."
+    },
+    "rain": {
+      "label": "Rain waiting time: Exponential(rate=0.5)",
+      "paths": ["preview", "further", "legacy"],
+      "type": "continuous",
+      "dist": "exp",
+      "inputs": {
+        "rate_exp": 0.5
+      },
+      "x": 2,
+      "note": "Cloudy rain model: rate=0.5 per hour, mean waiting time=2 hours. The CDF at 2 is about 0.6321."
+    },
+    "normal65": {
+      "label": "Strawberries: Normal(mean=65, sd=3)",
+      "paths": ["preview", "further", "legacy"],
+      "type": "continuous",
+      "dist": "norm",
+      "inputs": {
+        "mean_norm": 65,
+        "sd_norm": 3
+      },
+      "x": 70,
+      "note": "For fertility X=3, the mean is 65 and the variance is 9 (standard deviation 3). The tail above 70 is 1-F(70), about 0.0478."
+    },
+    "uniform140": {
+      "label": "Grazing: Uniform(0,140)",
+      "paths": ["preview", "further", "legacy"],
+      "type": "continuous",
+      "dist": "unif",
+      "inputs": {
+        "a_unif": 0,
+        "b_unif": 140
+      },
+      "x": 50,
+      "note": "At W=2, the assumed upper bound is 140. P(Y>50)=1-F(50)=90/140=9/14; a single point still has probability zero."
+    },
+    "uniform100": {
+      "label": "Grazing: Uniform(0,100)",
+      "paths": ["further", "legacy"],
+      "type": "continuous",
+      "dist": "unif",
+      "inputs": {
+        "a_unif": 0,
+        "b_unif": 100
+      },
+      "x": 50,
+      "note": "The optional second-moment exercise uses Uniform(0,100). The density is 1/100 and E[X^2]=10000/3."
+    },
+    "normal50": {
+      "label": "Strawberries: Normal(mean=50, sd=3)",
+      "paths": ["preview", "further", "legacy"],
+      "type": "continuous",
+      "dist": "norm",
+      "inputs": {
+        "mean_norm": 50,
+        "sd_norm": 3
+      },
+      "x": 50,
+      "note": "Mean 50, variance 9, standard deviation 3. The expected squared deviation from the mean is the variance."
+    },
+    "exp2": {
+      "label": "Waiting time: Exponential(rate=2)",
+      "paths": ["further", "legacy"],
+      "type": "continuous",
+      "dist": "exp",
+      "inputs": {
+        "rate_exp": 2
+      },
+      "x": 0.5,
+      "note": "The optional second-moment exercise uses rate 2; the mean is 1/2 and E[X^2]=1/2."
+    }
+  },
+  "cases": [
+    {
+      "group": "catalog",
+      "name": "42_unique_references",
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "name": "30_core_8_preview_4_further",
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "name": "original_32_retained",
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "name": "continuous_selection_is_scoped",
+      "passed": true
+    },
+    {
+      "group": "compatibility",
+      "name": "joint_answers_unchanged",
+      "passed": true
+    },
+    {
+      "group": "compatibility",
+      "name": "conditional_answers_unchanged",
+      "passed": true
+    },
+    {
+      "group": "compatibility",
+      "name": "expectation_answers_unchanged",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "default_is_core",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "first_reference",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J11 correct_fraction_fields",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J11 count_once",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J11 repeat_no_extra_credit",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J11 missing_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J11 one_wrong_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J11 feedback 1",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J11 feedback 2",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J11 feedback 3",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J12 correct_fraction_fields",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J12 count_once",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J12 repeat_no_extra_credit",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J12 missing_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J12 one_wrong_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J12 feedback 1",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J12 feedback 2",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J12 feedback 3",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J13 correct_fraction_fields",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J13 count_once",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J13 repeat_no_extra_credit",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J13 missing_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J13 one_wrong_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J13 feedback 1",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J13 feedback 2",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "J13 feedback 3",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "all_new_questions_counted",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "transient_path_change_has_no_navigation_error",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "first_boundary",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "last_boundary",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "preview_count_and_no_core_credit",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "empty_preview_has_no_submit",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "further_separate",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "core_progress_retained",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "navigation_preserves_table",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "load_table counts20",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "load_table zero_x",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "load_table cards",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "default_is_core",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "first_reference",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C14 correct_fraction_fields",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C14 count_once",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C14 repeat_no_extra_credit",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C14 missing_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C14 one_wrong_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C14 feedback 1",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C14 feedback 2",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C14 feedback 3",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C15 correct_fraction_fields",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C15 count_once",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C15 repeat_no_extra_credit",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C15 missing_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C15 one_wrong_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C15 feedback 1",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C15 feedback 2",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C15 feedback 3",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C16 correct_fraction_fields",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C16 count_once",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C16 repeat_no_extra_credit",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C16 missing_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C16 one_wrong_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C16 feedback 1",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C16 feedback 2",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C16 feedback 3",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C17 correct_fraction_fields",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C17 count_once",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C17 repeat_no_extra_credit",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C17 missing_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C17 one_wrong_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C17 feedback 1",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C17 feedback 2",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "C17 feedback 3",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "all_new_questions_counted",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "transient_path_change_has_no_navigation_error",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "first_boundary",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "last_boundary",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "preview_count_and_no_core_credit",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "preview_answer_counts_separately",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "further_separate",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "core_progress_retained",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "navigation_preserves_table",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "load_table counts20",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "load_table zero_x",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "load_table cards",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "default_is_core",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "first_reference",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E10 correct_fraction_fields",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E10 count_once",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E10 repeat_no_extra_credit",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E10 missing_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E10 one_wrong_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E10 feedback 1",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E10 feedback 2",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E10 feedback 3",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E11 correct_fraction_fields",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E11 count_once",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E11 repeat_no_extra_credit",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E11 missing_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E11 one_wrong_field_rejected",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E11 feedback 1",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E11 feedback 2",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "E11 feedback 3",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "all_new_questions_counted",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "transient_path_change_has_no_navigation_error",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "first_boundary",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "last_boundary",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "preview_count_and_no_core_credit",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "preview_answer_counts_separately",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "further_separate",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "core_progress_retained",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "navigation_preserves_table",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "load_table counts20",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "load_table zero_x",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "load_table cards",
+      "passed": true
+    },
+    {
+      "group": "grading",
+      "name": "reject ",
+      "passed": true
+    },
+    {
+      "group": "grading",
+      "name": "reject NaN",
+      "passed": true
+    },
+    {
+      "group": "grading",
+      "name": "reject Inf",
+      "passed": true
+    },
+    {
+      "group": "grading",
+      "name": "reject 1/0",
+      "passed": true
+    },
+    {
+      "group": "grading",
+      "name": "reject -0.1",
+      "passed": true
+    },
+    {
+      "group": "grading",
+      "name": "reject not a number",
+      "passed": true
+    },
+    {
+      "group": "grading",
+      "name": "reject_negated_model",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "core_question",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "CDF_endpoints_correct",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "continuous_not_in_core",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "eggs_cloudy parameters",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "eggs_cloudy highlight",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "eggs_cloudy CDF",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "eggs_sunny parameters",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "eggs_sunny highlight",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "eggs_sunny CDF",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "custom_parameters_remove_example_label",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "preview_no_core_score",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "normal65 highlight",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "normal65 CDF",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "uniform140 highlight",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "uniform140 CDF",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "rain highlight",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "rain CDF",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "preview_blocks_other_models",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "further_all_models",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "CDF_progress_retained",
+      "passed": true
+    },
+    {
+      "group": "ranges",
+      "name": "lambda",
+      "passed": true
+    },
+    {
+      "group": "ranges",
+      "name": "mean_norm",
+      "passed": true
+    },
+    {
+      "group": "ranges",
+      "name": "b_unif",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "default_30_core",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "real_module_updates_global_progress",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "preview_eight",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "further_four",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "legacy_not_selectable",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "question_to_plot_request",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "new_session_no_progress",
+      "passed": true
+    }
+  ],
+  "source_md5": {
+    "Project_PPeek1ng/app.R": "731ef53cae0eb1707056b270b078ed1c",
+    "Project_PPeek1ng/main.R": "378db20330f1992e31148703de2afc48",
+    "Project_PPeek1ng/modules/learning_content.R": "3529c2882c44d1ccf0bae76df71aa016",
+    "Project_PPeek1ng/modules/learning_practice.R": "59026b29a01cf9b93d3bf0fcc13cbd37",
+    "Project_PPeek1ng/modules/module_conditional.R": "26d309bb5a3dd5fb1fa4dedf0933c0a2",
+    "Project_PPeek1ng/modules/module_expectation.R": "b7e654577a4afe1619150b7b52172979",
+    "Project_PPeek1ng/modules/module_game_discrete.r": "6d9bbb12de3f3314cd64ff61b3df5e8f",
+    "Project_PPeek1ng/modules/module_joint.R": "cc3b46ef95c32afe25a248f6d163de0f",
+    "Project_PPeek1ng/modules/module_probability.R": "cdf2bf2541ec057ac4c29cb683ed797a",
+    "Project_PPeek1ng/modules/pmf_helpers.R": "7e9640c58b7bb8947aea635904623e49"
+  }
+}

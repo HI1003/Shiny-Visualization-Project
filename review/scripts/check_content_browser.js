@@ -60,7 +60,13 @@ async page => {
   check('formulas_collapsed',!await details.evaluate(el=>el.closest('details').open));
   await page.evaluate(()=>window.scrollTo(0,0));await page.screenshot({path:'output/playwright/content_preview_final.png'});
   await page.setViewportSize({width:900,height:900});
-  await page.waitForFunction(()=>document.documentElement.scrollWidth<=window.innerWidth);
+  await page.evaluate(()=>{window.__contentWidthStable={key:'',at:performance.now()};});
+  await page.waitForFunction(()=>{
+    const key=[innerWidth,document.documentElement.scrollWidth,document.querySelector('.content-wrapper').clientWidth].join(',');
+    const state=window.__contentWidthStable;
+    if(key!==state.key){state.key=key;state.at=performance.now();return false;}
+    return document.documentElement.scrollWidth<=innerWidth&&performance.now()-state.at>700;
+  });
   await page.screenshot({path:'output/playwright/content_preview_900.png'});
   check('900_no_document_horizontal_overflow',await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth));
   await page.setViewportSize({width:1266,height:900});await setPath('core');await globalProgress('3 / 30');

@@ -61,16 +61,8 @@ wrap_div <- function(id, content) {
 #  UI
 # =====================================================================
 conditional_UI <- function(id) {
-  ns <- NS(id)
-  fluidPage(
-    fluidRow(
-      # 左侧：公式 + 参数输入
-      column(width = 3,
-             box(
-               title = "Conditional Distribution Theory",
-               width = 12, status = "primary", solidHeader = TRUE,
-               
-               withMathJax(
+  tagList(learning_table_module_ui(id,"Conditional Distribution",
+    theory=withMathJax(
                  tagList(
                    h4("Conditional Probability"),
                    p("A conditional PMF describes the probability distribution of one variable when the other variable is known."),
@@ -110,46 +102,7 @@ conditional_UI <- function(id) {
                    p("If all conditional PMFs are identical for different conditioning values, then X and Y are independent."),
                    p("Later modules will build on this to compare joint and conditional distributions more deeply.")
                  )
-               )
-             ),
-             box(
-               title = "Parameter Input", width = 12, status = "info", solidHeader = TRUE,
-               uiOutput(ns("input_panel"))
-             )
-      ),
-      
-      # 右侧：表格 + 图 + 练习
-      column(width = 9,
-             box(
-               title = "Probability Table", width = 12, status = "primary", solidHeader = TRUE,
-               uiOutput(ns("pmf_example_note")),
-               uiOutput(ns("joint_table_html"))
-             ),
-             
-             # 3D + Bird's-eye 并列
-             fluidRow(
-               column(
-                 width = 6,
-                 box(
-                   title = "3D Conditional PMF", width = 12, status = "info", solidHeader = TRUE,
-                   plotlyOutput(ns("plot3d_cond"), height = "400px")
-                 )
-               ),
-               column(
-                 width = 6,
-                 box(
-                   title = "Bird’s-eye View (Conditional)", width = 12, status = "info", solidHeader = TRUE,
-                   plotlyOutput(ns("plot_bird_cond"), height = "400px")
-                 )
-               )
-             )
-             ,
-             # ---------------- 练习模块 ----------------
-             box(title = "Conditional practice", width = 12, status = "warning", solidHeader = TRUE,
-          learning_practice_ui(ns, NULL))
-      )
-    )
-  )
+               ),plot_ids=c("plot_bird_cond","plot3d_cond")))
 }
 # =====================================================================
 #  SERVER

@@ -1,0 +1,131 @@
+{
+  "date": "2026-10-31",
+  "url": "http://127.0.0.1:7130/",
+  "total": 22,
+  "passed": 22,
+  "cases": [
+    {
+      "name": "default_core_30",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "partial_answer_no_credit",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_fractions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "table_selector_matches_loaded_question",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "preview_counter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no_joint_optional_requirement",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "further_counter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "core_retains_progress",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_three_answers",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "question_preset_poisson12_x10",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "plot_selector_matches_question",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CDF_question_loads_bernoulli04",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CDF_four_endpoints",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "poisson24_within_slider",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "preview_only_three_continuous_models",
+      "passed": true,
+      "detail": "exp,norm,unif"
+    },
+    {
+      "name": "normal65_sd3",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "uniform140_event50",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "formulas_collapsed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "900_no_document_horizontal_overflow",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "second_tab_has_own_progress",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "second_tab_does_not_reset_first",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no_shiny_output_errors",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "source_md5": {
+    "Project_PPeek1ng/app.R": "731ef53cae0eb1707056b270b078ed1c",
+    "Project_PPeek1ng/main.R": "378db20330f1992e31148703de2afc48",
+    "Project_PPeek1ng/modules/learning_content.R": "3529c2882c44d1ccf0bae76df71aa016",
+    "Project_PPeek1ng/modules/learning_practice.R": "59026b29a01cf9b93d3bf0fcc13cbd37",
+    "Project_PPeek1ng/modules/module_conditional.R": "26d309bb5a3dd5fb1fa4dedf0933c0a2",
+    "Project_PPeek1ng/modules/module_expectation.R": "b7e654577a4afe1619150b7b52172979",
+    "Project_PPeek1ng/modules/module_game_discrete.r": "6d9bbb12de3f3314cd64ff61b3df5e8f",
+    "Project_PPeek1ng/modules/module_joint.R": "cc3b46ef95c32afe25a248f6d163de0f",
+    "Project_PPeek1ng/modules/module_probability.R": "cdf2bf2541ec057ac4c29cb683ed797a",
+    "Project_PPeek1ng/modules/pmf_helpers.R": "7e9640c58b7bb8947aea635904623e49"
+  },
+  "browser_script_sha256": "db735db7bd42839bf4658a04e995c04a4158d380a0b81b898a16f8989c8fdcf8"
+}

@@ -1,0 +1,819 @@
+{
+  "date": "2026-10-31",
+  "url": "http://127.0.0.1:7130/",
+  "total": 77,
+  "passed": 77,
+  "cases": [
+    {
+      "name": "layout_css_loaded",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "home_core_button_opens_and_focuses_practice",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "home_joint_button_opens_and_focuses_practice",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_practice_in_first_screen",
+      "passed": true,
+      "detail": {
+        "x": 272.5,
+        "y": 298,
+        "width": 562.828125,
+        "height": 797.546875
+      }
+    },
+    {
+      "name": "joint_jump_focus",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_1600_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1600,
+        "documentWidth": 1600,
+        "practiceWidth": 760.5,
+        "tableWidth": 524.5,
+        "mode": "columns",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "joint_1600_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_1600_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "joint_1600_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_1266_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1266,
+        "documentWidth": 1266,
+        "practiceWidth": 562.828125,
+        "tableWidth": 388.171875,
+        "mode": "columns",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "joint_1266_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_1266_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "joint_1266_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_900_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 900,
+        "documentWidth": 900,
+        "practiceWidth": 855,
+        "tableWidth": 855,
+        "mode": "stacked",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "joint_900_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_900_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "joint_900_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_390_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 390,
+        "documentWidth": 390,
+        "practiceWidth": 345,
+        "tableWidth": 345,
+        "mode": "stacked",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "joint_390_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_390_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "joint_390_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_theory_expands_at_full_width",
+      "passed": true,
+      "detail": {
+        "open": true,
+        "width": 969,
+        "moduleWidth": 971
+      }
+    },
+    {
+      "name": "joint_visible_math_has_measured_width",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_3d_initially_collapsed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_3d_renders_after_expanding",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_practice_in_first_screen",
+      "passed": true,
+      "detail": {
+        "x": 272.5,
+        "y": 298,
+        "width": 562.828125,
+        "height": 819.140625
+      }
+    },
+    {
+      "name": "conditional_jump_focus",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_1600_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1600,
+        "documentWidth": 1600,
+        "practiceWidth": 760.5,
+        "tableWidth": 524.5,
+        "mode": "columns",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "conditional_1600_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_1600_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "conditional_1600_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_1266_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1266,
+        "documentWidth": 1266,
+        "practiceWidth": 562.828125,
+        "tableWidth": 388.171875,
+        "mode": "columns",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "conditional_1266_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_1266_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "conditional_1266_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_900_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 900,
+        "documentWidth": 900,
+        "practiceWidth": 855,
+        "tableWidth": 855,
+        "mode": "stacked",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "conditional_900_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_900_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "conditional_900_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_390_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 390,
+        "documentWidth": 390,
+        "practiceWidth": 345,
+        "tableWidth": 345,
+        "mode": "stacked",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "conditional_390_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_390_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "conditional_390_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_theory_expands_at_full_width",
+      "passed": true,
+      "detail": {
+        "open": true,
+        "width": 969,
+        "moduleWidth": 971
+      }
+    },
+    {
+      "name": "conditional_visible_math_has_measured_width",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_3d_initially_collapsed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_3d_renders_after_expanding",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_practice_in_first_screen",
+      "passed": true,
+      "detail": {
+        "x": 272.5,
+        "y": 298,
+        "width": 562.828125,
+        "height": 632.765625
+      }
+    },
+    {
+      "name": "expectation_jump_focus",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_1600_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1600,
+        "documentWidth": 1600,
+        "practiceWidth": 760.5,
+        "tableWidth": 524.5,
+        "mode": "columns",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "expectation_1600_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_1600_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "expectation_1600_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_1266_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1266,
+        "documentWidth": 1266,
+        "practiceWidth": 562.828125,
+        "tableWidth": 388.171875,
+        "mode": "columns",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "expectation_1266_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_1266_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "expectation_1266_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_900_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 900,
+        "documentWidth": 900,
+        "practiceWidth": 855,
+        "tableWidth": 855,
+        "mode": "stacked",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "expectation_900_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_900_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "expectation_900_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_390_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 390,
+        "documentWidth": 390,
+        "practiceWidth": 345,
+        "tableWidth": 345,
+        "mode": "stacked",
+        "overlap": false,
+        "rowOverlap": false,
+        "clippedText": [],
+        "tableFullyVisible": true
+      }
+    },
+    {
+      "name": "expectation_390_no_panel_or_input_overlap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_390_plain_text_wraps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "expectation_390_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_theory_expands_at_full_width",
+      "passed": true,
+      "detail": {
+        "open": true,
+        "width": 969,
+        "moduleWidth": 971
+      }
+    },
+    {
+      "name": "expectation_visible_math_has_measured_width",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overview_plot_jump_focus",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overview_1600_no_page_or_plot_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1600,
+        "documentWidth": 1600,
+        "explorerWidth": 1305,
+        "plotWidths": [
+          430.921875,
+          430.9375
+        ],
+        "clipped": false
+      }
+    },
+    {
+      "name": "overview_1266_no_page_or_plot_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1266,
+        "documentWidth": 1266,
+        "explorerWidth": 971,
+        "plotWidths": [
+          311.640625,
+          311.65625
+        ],
+        "clipped": false
+      }
+    },
+    {
+      "name": "overview_900_no_page_or_plot_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 900,
+        "documentWidth": 900,
+        "explorerWidth": 855,
+        "plotWidths": [
+          264.5,
+          264.5
+        ],
+        "clipped": false
+      }
+    },
+    {
+      "name": "overview_390_no_page_or_plot_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 390,
+        "documentWidth": 390,
+        "explorerWidth": 345,
+        "plotWidths": [
+          319,
+          319
+        ],
+        "clipped": false
+      }
+    },
+    {
+      "name": "collapsed_sidebar_hides_learning_selector",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "collapsed_sidebar_uses_main_space",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "dark_panel_text_contrast",
+      "passed": true,
+      "detail": 12.470697717375543
+    },
+    {
+      "name": "inline_math_does_not_overlap_after_tab_and_theme_changes",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no_visible_shiny_errors",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "measurements": [
+    {
+      "module": "joint",
+      "viewport": 1600,
+      "documentWidth": 1600,
+      "practiceWidth": 760.5,
+      "tableWidth": 524.5,
+      "mode": "columns",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "joint",
+      "viewport": 1266,
+      "documentWidth": 1266,
+      "practiceWidth": 562.828125,
+      "tableWidth": 388.171875,
+      "mode": "columns",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "joint",
+      "viewport": 900,
+      "documentWidth": 900,
+      "practiceWidth": 855,
+      "tableWidth": 855,
+      "mode": "stacked",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "joint",
+      "viewport": 390,
+      "documentWidth": 390,
+      "practiceWidth": 345,
+      "tableWidth": 345,
+      "mode": "stacked",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "conditional",
+      "viewport": 1600,
+      "documentWidth": 1600,
+      "practiceWidth": 760.5,
+      "tableWidth": 524.5,
+      "mode": "columns",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "conditional",
+      "viewport": 1266,
+      "documentWidth": 1266,
+      "practiceWidth": 562.828125,
+      "tableWidth": 388.171875,
+      "mode": "columns",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "conditional",
+      "viewport": 900,
+      "documentWidth": 900,
+      "practiceWidth": 855,
+      "tableWidth": 855,
+      "mode": "stacked",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "conditional",
+      "viewport": 390,
+      "documentWidth": 390,
+      "practiceWidth": 345,
+      "tableWidth": 345,
+      "mode": "stacked",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "expectation",
+      "viewport": 1600,
+      "documentWidth": 1600,
+      "practiceWidth": 760.5,
+      "tableWidth": 524.5,
+      "mode": "columns",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "expectation",
+      "viewport": 1266,
+      "documentWidth": 1266,
+      "practiceWidth": 562.828125,
+      "tableWidth": 388.171875,
+      "mode": "columns",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "expectation",
+      "viewport": 900,
+      "documentWidth": 900,
+      "practiceWidth": 855,
+      "tableWidth": 855,
+      "mode": "stacked",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "expectation",
+      "viewport": 390,
+      "documentWidth": 390,
+      "practiceWidth": 345,
+      "tableWidth": 345,
+      "mode": "stacked",
+      "overlap": false,
+      "rowOverlap": false,
+      "clippedText": [],
+      "tableFullyVisible": true
+    },
+    {
+      "module": "overview",
+      "viewport": 1600,
+      "documentWidth": 1600,
+      "explorerWidth": 1305,
+      "plotWidths": [
+        430.921875,
+        430.9375
+      ],
+      "clipped": false
+    },
+    {
+      "module": "overview",
+      "viewport": 1266,
+      "documentWidth": 1266,
+      "explorerWidth": 971,
+      "plotWidths": [
+        311.640625,
+        311.65625
+      ],
+      "clipped": false
+    },
+    {
+      "module": "overview",
+      "viewport": 900,
+      "documentWidth": 900,
+      "explorerWidth": 855,
+      "plotWidths": [
+        264.5,
+        264.5
+      ],
+      "clipped": false
+    },
+    {
+      "module": "overview",
+      "viewport": 390,
+      "documentWidth": 390,
+      "explorerWidth": 345,
+      "plotWidths": [
+        319,
+        319
+      ],
+      "clipped": false
+    }
+  ],
+  "source_md5": {
+    "Project_PPeek1ng/app.R": "731ef53cae0eb1707056b270b078ed1c",
+    "Project_PPeek1ng/main.R": "378db20330f1992e31148703de2afc48",
+    "Project_PPeek1ng/modules/learning_content.R": "3529c2882c44d1ccf0bae76df71aa016",
+    "Project_PPeek1ng/modules/learning_practice.R": "59026b29a01cf9b93d3bf0fcc13cbd37",
+    "Project_PPeek1ng/modules/module_conditional.R": "26d309bb5a3dd5fb1fa4dedf0933c0a2",
+    "Project_PPeek1ng/modules/module_expectation.R": "b7e654577a4afe1619150b7b52172979",
+    "Project_PPeek1ng/modules/module_game_discrete.r": "6d9bbb12de3f3314cd64ff61b3df5e8f",
+    "Project_PPeek1ng/modules/module_joint.R": "cc3b46ef95c32afe25a248f6d163de0f",
+    "Project_PPeek1ng/modules/module_probability.R": "cdf2bf2541ec057ac4c29cb683ed797a",
+    "Project_PPeek1ng/modules/pmf_helpers.R": "7e9640c58b7bb8947aea635904623e49"
+  },
+  "browser_script_sha256": "34e1025449ea2138ec0c3bfd5b5e1c8271ba2f170719c699bc426099590df07a",
+  "screenshots": [
+    {
+      "file": "layout_before.png",
+      "sha256": "885852f238056aa8c0ff72d0a57d0afba486443b93a659256e2ff9d467826d7c"
+    },
+    {
+      "file": "layout_joint_1266.png",
+      "sha256": "e3ea284c47b14d50cf8cefe5681c2b3d3738521488ad9e2e402fe83398e59129"
+    },
+    {
+      "file": "layout_joint_390.png",
+      "sha256": "a16e1d2ded3e104073b695252d20431b556aa261a62920e01a0621b202a994e7"
+    },
+    {
+      "file": "layout_joint_theory.png",
+      "sha256": "f0029bb5540ca39d4b103e8debf3b91253c5b11833202ab98a7729e8d32b8a70"
+    },
+    {
+      "file": "layout_conditional_1266.png",
+      "sha256": "2c10eeaccdaca4605e1d975a578723027b56fe1eda30626a44f217146e669f25"
+    },
+    {
+      "file": "layout_expectation_1266.png",
+      "sha256": "428501c808ad79790cbea26d198cade348aa08c1e979bf6f305f67aae5cb48e3"
+    },
+    {
+      "file": "layout_overview_1266.png",
+      "sha256": "88591f0b95218feca6e6e160f31c8b856ce5aae2e99968c2a6d852fee98a915f"
+    },
+    {
+      "file": "layout_dark.png",
+      "sha256": "33b722cb34531990e84fdf6ea8593b6556bacd9df6a0b8ae865282245a64fcef"
+    }
+  ],
+  "before_measurement": {
+    "viewport": 1266,
+    "theory_column_width": 213,
+    "content_width": 420,
+    "baseline": "09a0f90"
+  }
+}

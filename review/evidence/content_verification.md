@@ -1,5 +1,7 @@
 # STATS125 内容改进验证
 
+此文件保留 `09a0f90` 内容改进时的记录；后续入口、遮挡和布局改进及当前验证见 [layout_verification.md](layout_verification.md)。
+
 日期：2026-10-31（Pacific/Auckland）。实现基线：本地 `7852cc1`。课程依据沿用 [教学复核](../TEACHING_REVIEW_STATS125.md) 和 [课程来源/逐题证据](teaching_scope_2026_10_31.json)；本轮没有重新逐份阅读全部课程资料。
 
 ## 已实现

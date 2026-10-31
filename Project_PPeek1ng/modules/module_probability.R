@@ -9,52 +9,23 @@ library(latex2exp)
 
 # ---- UI Module Definition ----
 prob_UI <- function(id) {
-  ns <- NS(id)
-  
-  fluidPage(
-    tags$head(tags$style(HTML('body {font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";} .small-note{color:#666;font-size:12px}'))),
-    titlePanel("Probability Distributions"),
-    uiOutput(ns("path_description")),
-    sidebarLayout(
-      sidebarPanel(
-        withMathJax(HTML("<h4>Explore distributions</h4>")),
-        
-        radioButtons(
-          inputId = ns("dist_type"),
-          label   = "Distributions in this learning path",
-          choices = c("Discrete" = "discrete", "Continuous" = "continuous"),
-          selected = "discrete",
-          inline = TRUE
-        ),
-        
-        selectInput(ns("plot_example"), "Example from practice", choices=c("Cloudy eggs: Poisson(12)"="eggs_cloudy")),
-        actionButton(ns("load_plot_example"), "Load example", class="btn-primary"),
-        helpText("Load applies the selected preset. Moving sliders explores a different model; practice questions keep their stated parameters."),
-        uiOutput(ns("example_note")),
-        #================================================
-        # Discrete Sidebar
-        #================================================
-        conditionalPanel(
-          condition = paste0("input['", ns('dist_type'), "'] == 'discrete'"),
-          withMathJax(HTML("
-            <p>
-              A discrete random variable \\(X\\) is called <em>discrete</em> if its set of possible values is finite or countably infinite.
-              For a discrete random variable, there exist unique nonnegative functions: the
-              <span style='color:#2171b5;font-weight:bold;'>probability mass function</span> (PMF) \\(f_X(x)\\) and the
-              <span style='color:#238b45;font-weight:bold;'>cumulative distribution function</span> (CDF) \\(F_X(x)\\), defined by
-            </p>
-            <ul>
-              <li>\\( f_X(x) = P(X = x) \\)</li>
-              <li>\\( F_X(x) = P(X \\le x) ; -\\infty < x < \\infty \\)</li>
-            </ul>
-            <p>
-              Choose one of the following major discrete distributions to visualize. The <span style='color:#2171b5;font-weight:bold;'>PMF</span> is shown in 
-              <span style='color:#2171b5;font-weight:bold;'>blue</span> and the <span style='color:#238b45;font-weight:bold;'>CDF</span> in 
-              <span style='color:#238b45;font-weight:bold;'>green</span>.
-            </p>
-          ")),
-          
-          selectInput(ns("dist"), "Choose discrete distribution", c(
+  ns<-NS(id)
+  tagList(
+    div(class="learning-module",
+      learning_module_header(ns,"Probability Distributions",
+        "Explore a model using its PMF or density and CDF. Practice questions keep their stated parameters.",
+        c("Go to practice / observations"="practice","Explore plots & parameters"="explorer","Theory & formulas"="theory")),
+      uiOutput(ns("path_description")),
+      learning_section(ns,"practice","Practice / observations",uiOutput(ns("practice_section")),class="learning-overview-practice learning-practice"),
+      div(id=ns("explorer"),class="learning-overview-explorer",tabindex="-1",
+        learning_section(ns,"controls","Model and parameters",
+          radioButtons(ns("dist_type"),"Distributions in this learning path",c("Discrete"="discrete","Continuous"="continuous"),selected="discrete",inline=TRUE),
+          selectInput(ns("plot_example"),"Example from practice",choices=c("CDF practice: Bernoulli(p=0.4)"="bern04")),
+          actionButton(ns("load_plot_example"),"Load example",class="btn-primary"),
+          helpText("Load applies the selected preset. Moving sliders explores a different model; practice questions keep their stated parameters."),
+          uiOutput(ns("example_note")),
+          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'discrete'"),
+            selectInput(ns("dist"), "Choose discrete distribution", c(
             "Bernoulli" = "bern",
             "Binomial" = "binom",
             "Negative Binomial" = "nbinom",
@@ -95,24 +66,9 @@ prob_UI <- function(id) {
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'dunifd'"),
             sliderInput(ns("N_du"), "N", min = 1, max = 5, value = 1, step = 1)
-          ),
-          
-          hr(),
-          uiOutput(ns("dist_desc")),
-          h4("Formula"),
-          withMathJax(uiOutput(ns("formula"))),
-          hr(),
-          helpText("Click on the graph to highlight a value x, and the panel will display P(X = x) and F(x) = P(X ≤ x)")
-        ),
-        
-        #================================================
-        # Continuous Sidebar
-        #================================================
-        conditionalPanel(
-          condition = paste0("input['", ns('dist_type'), "'] == 'continuous'"),
-          tags$p("A continuous variable can take values in an interval. The PDF is a density: probability over an interval is the area under its curve. Each individual point has probability zero. The CDF is P(X <= x)."),
-          tags$p("Use Uniform for equal-length intervals, Exponential for a waiting-time model, and Normal to explore location and scale. Formal formulas below are optional."),
-          selectInput(ns("dist_cont"), "Choose continuous distribution", c(
+          )),
+          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'continuous'"),
+            selectInput(ns("dist_cont"), "Choose continuous distribution", c(
             "Uniform" = "unif",
             "Exponential" = "exp",
             "Gamma" = "gamma",
@@ -159,61 +115,32 @@ prob_UI <- function(id) {
             condition = paste0("input['", ns('dist_cont'), "'] == 'f'"),
             sliderInput(ns("df1_f"), "d1", min = 1, max = 20, value = 5, step = 1),
             sliderInput(ns("df2_f"), "d2", min = 1, max = 20, value = 5, step = 1)
-          ),
-          
-          hr(),
-          uiOutput(ns("dist_desc_cont")),
-          tags$details(tags$summary("Optional mathematical formulas"),
-            withMathJax(HTML("For a continuous model: \\(F(x)=\\int_{-\\infty}^x f(t)dt\\) and \\(f(x)=F'(x)\\) where differentiable.")),
-            withMathJax(uiOutput(ns("formula_cont")))),
-          hr(),
-          helpText("Click on the graph to display the density f(x) and the probability F(x) = P(X ≤ x). For a continuous variable, P(X = x) = 0; a density value is not a point probability.")
-        )
-      ),
-      
-      #================================================
-      # Right plot main panel
-      #================================================
-      mainPanel(
-        uiOutput(ns("practice_section")),
-        # Discrete Plot
-        conditionalPanel(
-          condition = paste0("input['", ns('dist_type'), "'] == 'discrete'"),
-          fluidRow(
-            column(6,
-                   withMathJax(HTML("<h4>PMF: f<sub>X</sub>(x) = ℙ(X = x)</h4>")),
-                   plotOutput(ns("pmf_plot"), height = 360, click = ns("click_pmf"))
-            ),
-            column(6,
-                   withMathJax(HTML("<h4>CDF: F<sub>X</sub>(x) = ℙ(X ≤ x)</h4>")),
-                   plotOutput(ns("cdf_plot"), height = 360, click = ns("click_cdf"))
-            )
-          ),
-          fluidRow(
-            column(12, h4("Current Selection"), verbatimTextOutput(ns("sel_text")))
-          )
-        ),
-        
-        # Continuous graph
-        conditionalPanel(
-          condition = paste0("input['", ns('dist_type'), "'] == 'continuous'"),
-          fluidRow(
-            column(6, 
-                   h4("PDF: density f(x); probability is area"),
-                   plotOutput(ns("pdf_plot_cont"), height = 360, click = ns("click_pdf_cont"))
-            ),
-            column(6, 
-                   withMathJax(HTML("<h4>CDF: F<sub>X</sub>(x) = ℙ(X ≤ x)</h4>")),
-                   plotOutput(ns("cdf_plot_cont"), height = 360, click = ns("click_cdf_cont"))
-            )
-          ),
-          fluidRow(
-            column(12, h4("Current Selection"), verbatimTextOutput(ns("sel_text_cont")))
-          )
-        )
-      )
-    )
-  )
+          )),class="learning-overview-controls"),
+        learning_section(ns,"plots","Plots and selected value",
+          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'discrete'"),
+            div(class="learning-plot-pair",
+              div(h4(HTML("PMF: P(X = x)")),plotOutput(ns("pmf_plot"),height=320,click=ns("click_pmf"))),
+              div(h4(HTML("CDF: P(X &le; x)")),plotOutput(ns("cdf_plot"),height=320,click=ns("click_cdf")))),
+            helpText("Click a graph to select x. The PMF gives its point probability; the CDF includes all outcomes up to x."),
+            h4("Current Selection"),verbatimTextOutput(ns("sel_text"))),
+          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'continuous'"),
+            div(class="learning-plot-pair",
+              div(h4("PDF: probability is area"),plotOutput(ns("pdf_plot_cont"),height=320,click=ns("click_pdf_cont"))),
+              div(h4(HTML("CDF: P(X &le; x)")),plotOutput(ns("cdf_plot_cont"),height=320,click=ns("click_cdf_cont")))),
+            helpText("Click a graph to select x. For a continuous variable, P(X = x) = 0; a density value is not a point probability."),
+            h4("Current Selection"),verbatimTextOutput(ns("sel_text_cont"))),class="learning-overview-plots")),
+      tags$details(id=ns("theory"),class="learning-card learning-theory",tabindex="-1",
+        tags$summary("Theory and formulas"),div(class="learning-card-body math-scroll",
+          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'discrete'"),
+            p("A discrete random variable has finitely or countably many possible values. Its PMF gives P(X=x), and its CDF gives P(X<=x)."),
+            uiOutput(ns("dist_desc")),h4("Formula"),withMathJax(uiOutput(ns("formula")))),
+          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'continuous'"),
+            p("A continuous variable can take values in an interval. Probability is area under the PDF, and every individual point has probability zero. The CDF gives P(X<=x)."),
+            p("Uniform illustrates equal-length intervals, Exponential illustrates waiting times, and Normal illustrates location and scale."),
+            uiOutput(ns("dist_desc_cont")),
+            tags$details(tags$summary("Optional mathematical formulas"),
+              withMathJax(HTML("For a continuous model: \\(F(x)=\\int_{-\\infty}^x f(t)dt\\) and \\(f(x)=F'(x)\\) where differentiable.")),
+              withMathJax(uiOutput(ns("formula_cont")))))))))
 }
 
 prob_Server <- function(id, course_path=function() "core", plot_request=function() NULL) {
@@ -271,6 +198,7 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
       updateSelectInput(session,"plot_example",selected=key)
       for(name in names(ex$inputs)) updateSliderInput(session,name,value=ex$inputs[[name]])
       requested_example(key)
+      session$sendCustomMessage("learning-focus",list(id=session$ns("explorer")))
       invisible(NULL)
     }
     observeEvent(input$load_plot_example,apply_example(input$plot_example))
@@ -284,7 +212,7 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
         tags$ul(tags$li("Uniform: compare a point probability (zero) with the area of an interval."),
           tags$li("Exponential: increase the rate and observe a shorter typical waiting time."),
           tags$li("Normal: change the mean and standard deviation separately; variance is the squared standard deviation.")))
-      else NULL
+      else tags$p("Further exploration focuses on plots. Optional graded exercises are in Conditional Distribution and Expectation.")
     })
 
     

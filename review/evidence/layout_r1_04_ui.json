@@ -1,0 +1,519 @@
+{
+  "issue": "R1-04",
+  "date": "2026-10-31",
+  "source_md5": "cc3b46ef95c32afe25a248f6d163de0f",
+  "total": 102,
+  "passed": 102,
+  "cases": [
+    {
+      "question": 1,
+      "name": "first_page_boundary",
+      "passed": true
+    },
+    {
+      "question": 1,
+      "name": "current_table_and_prompt",
+      "passed": true
+    },
+    {
+      "question": 1,
+      "name": "first_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 1,
+      "name": "second_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 1,
+      "name": "third_wrong_solution",
+      "passed": true
+    },
+    {
+      "question": 1,
+      "name": "correct_exact_answer",
+      "passed": true
+    },
+    {
+      "question": 1,
+      "name": "correct_five_decimal_answer",
+      "passed": true
+    },
+    {
+      "question": 1,
+      "name": "wrong_numeric_answer",
+      "passed": true
+    },
+    {
+      "question": 1,
+      "name": "text_rejected",
+      "passed": true
+    },
+    {
+      "question": 1,
+      "name": "blank_rejected",
+      "passed": true
+    },
+    {
+      "question": 1,
+      "name": "next_page_resets_feedback",
+      "passed": true
+    },
+    {
+      "question": 2,
+      "name": "current_table_and_prompt",
+      "passed": true
+    },
+    {
+      "question": 2,
+      "name": "first_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 2,
+      "name": "second_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 2,
+      "name": "third_wrong_solution",
+      "passed": true
+    },
+    {
+      "question": 2,
+      "name": "correct_exact_answer",
+      "passed": true
+    },
+    {
+      "question": 2,
+      "name": "correct_five_decimal_answer",
+      "passed": true
+    },
+    {
+      "question": 2,
+      "name": "wrong_numeric_answer",
+      "passed": true
+    },
+    {
+      "question": 2,
+      "name": "text_rejected",
+      "passed": true
+    },
+    {
+      "question": 2,
+      "name": "blank_rejected",
+      "passed": true
+    },
+    {
+      "question": 2,
+      "name": "next_page_resets_feedback",
+      "passed": true
+    },
+    {
+      "question": 3,
+      "name": "current_table_and_prompt",
+      "passed": true
+    },
+    {
+      "question": 3,
+      "name": "first_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 3,
+      "name": "second_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 3,
+      "name": "third_wrong_solution",
+      "passed": true
+    },
+    {
+      "question": 3,
+      "name": "correct_exact_answer",
+      "passed": true
+    },
+    {
+      "question": 3,
+      "name": "correct_five_decimal_answer",
+      "passed": true
+    },
+    {
+      "question": 3,
+      "name": "wrong_numeric_answer",
+      "passed": true
+    },
+    {
+      "question": 3,
+      "name": "text_rejected",
+      "passed": true
+    },
+    {
+      "question": 3,
+      "name": "blank_rejected",
+      "passed": true
+    },
+    {
+      "question": 3,
+      "name": "next_page_resets_feedback",
+      "passed": true
+    },
+    {
+      "question": 4,
+      "name": "current_table_and_prompt",
+      "passed": true
+    },
+    {
+      "question": 4,
+      "name": "first_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 4,
+      "name": "second_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 4,
+      "name": "third_wrong_solution",
+      "passed": true
+    },
+    {
+      "question": 4,
+      "name": "correct_exact_answer",
+      "passed": true
+    },
+    {
+      "question": 4,
+      "name": "correct_five_decimal_answer",
+      "passed": true
+    },
+    {
+      "question": 4,
+      "name": "wrong_numeric_answer",
+      "passed": true
+    },
+    {
+      "question": 4,
+      "name": "text_rejected",
+      "passed": true
+    },
+    {
+      "question": 4,
+      "name": "blank_rejected",
+      "passed": true
+    },
+    {
+      "question": 4,
+      "name": "next_page_resets_feedback",
+      "passed": true
+    },
+    {
+      "question": 5,
+      "name": "current_table_and_prompt",
+      "passed": true
+    },
+    {
+      "question": 5,
+      "name": "first_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 5,
+      "name": "second_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 5,
+      "name": "third_wrong_solution",
+      "passed": true
+    },
+    {
+      "question": 5,
+      "name": "correct_exact_answer",
+      "passed": true
+    },
+    {
+      "question": 5,
+      "name": "correct_five_decimal_answer",
+      "passed": true
+    },
+    {
+      "question": 5,
+      "name": "wrong_numeric_answer",
+      "passed": true
+    },
+    {
+      "question": 5,
+      "name": "text_rejected",
+      "passed": true
+    },
+    {
+      "question": 5,
+      "name": "blank_rejected",
+      "passed": true
+    },
+    {
+      "question": 5,
+      "name": "next_page_resets_feedback",
+      "passed": true
+    },
+    {
+      "question": 6,
+      "name": "current_table_and_prompt",
+      "passed": true
+    },
+    {
+      "question": 6,
+      "name": "first_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 6,
+      "name": "second_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 6,
+      "name": "third_wrong_solution",
+      "passed": true
+    },
+    {
+      "question": 6,
+      "name": "correct_exact_answer",
+      "passed": true
+    },
+    {
+      "question": 6,
+      "name": "correct_five_decimal_answer",
+      "passed": true
+    },
+    {
+      "question": 6,
+      "name": "wrong_numeric_answer",
+      "passed": true
+    },
+    {
+      "question": 6,
+      "name": "text_rejected",
+      "passed": true
+    },
+    {
+      "question": 6,
+      "name": "blank_rejected",
+      "passed": true
+    },
+    {
+      "question": 6,
+      "name": "next_page_resets_feedback",
+      "passed": true
+    },
+    {
+      "question": 7,
+      "name": "current_table_and_prompt",
+      "passed": true
+    },
+    {
+      "question": 7,
+      "name": "first_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 7,
+      "name": "second_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 7,
+      "name": "third_wrong_solution",
+      "passed": true
+    },
+    {
+      "question": 7,
+      "name": "correct_exact_answer",
+      "passed": true
+    },
+    {
+      "question": 7,
+      "name": "correct_five_decimal_answer",
+      "passed": true
+    },
+    {
+      "question": 7,
+      "name": "wrong_numeric_answer",
+      "passed": true
+    },
+    {
+      "question": 7,
+      "name": "text_rejected",
+      "passed": true
+    },
+    {
+      "question": 7,
+      "name": "blank_rejected",
+      "passed": true
+    },
+    {
+      "question": 7,
+      "name": "next_page_resets_feedback",
+      "passed": true
+    },
+    {
+      "question": 8,
+      "name": "current_table_and_prompt",
+      "passed": true
+    },
+    {
+      "question": 8,
+      "name": "first_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 8,
+      "name": "second_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 8,
+      "name": "third_wrong_solution",
+      "passed": true
+    },
+    {
+      "question": 8,
+      "name": "correct_exact_answer",
+      "passed": true
+    },
+    {
+      "question": 8,
+      "name": "correct_five_decimal_answer",
+      "passed": true
+    },
+    {
+      "question": 8,
+      "name": "wrong_numeric_answer",
+      "passed": true
+    },
+    {
+      "question": 8,
+      "name": "text_rejected",
+      "passed": true
+    },
+    {
+      "question": 8,
+      "name": "blank_rejected",
+      "passed": true
+    },
+    {
+      "question": 8,
+      "name": "negative_near_zero_rejected",
+      "passed": true
+    },
+    {
+      "question": 8,
+      "name": "next_page_resets_feedback",
+      "passed": true
+    },
+    {
+      "question": 9,
+      "name": "current_table_and_prompt",
+      "passed": true
+    },
+    {
+      "question": 9,
+      "name": "first_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 9,
+      "name": "second_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 9,
+      "name": "third_wrong_solution",
+      "passed": true
+    },
+    {
+      "question": 9,
+      "name": "correct_exact_answer",
+      "passed": true
+    },
+    {
+      "question": 9,
+      "name": "correct_five_decimal_answer",
+      "passed": true
+    },
+    {
+      "question": 9,
+      "name": "wrong_numeric_answer",
+      "passed": true
+    },
+    {
+      "question": 9,
+      "name": "text_rejected",
+      "passed": true
+    },
+    {
+      "question": 9,
+      "name": "blank_rejected",
+      "passed": true
+    },
+    {
+      "question": 9,
+      "name": "next_page_resets_feedback",
+      "passed": true
+    },
+    {
+      "question": 10,
+      "name": "current_table_and_prompt",
+      "passed": true
+    },
+    {
+      "question": 10,
+      "name": "first_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 10,
+      "name": "second_wrong_hint",
+      "passed": true
+    },
+    {
+      "question": 10,
+      "name": "third_wrong_solution",
+      "passed": true
+    },
+    {
+      "question": 10,
+      "name": "correct_exact_answer",
+      "passed": true
+    },
+    {
+      "question": 10,
+      "name": "correct_five_decimal_answer",
+      "passed": true
+    },
+    {
+      "question": 10,
+      "name": "wrong_numeric_answer",
+      "passed": true
+    },
+    {
+      "question": 10,
+      "name": "text_rejected",
+      "passed": true
+    },
+    {
+      "question": 10,
+      "name": "blank_rejected",
+      "passed": true
+    },
+    {
+      "question": 10,
+      "name": "last_page_boundary",
+      "passed": true
+    }
+  ]
+}

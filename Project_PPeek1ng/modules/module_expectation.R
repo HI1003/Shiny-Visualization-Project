@@ -51,15 +51,8 @@ wrap_div <- function(id, content) {
 #  UI
 # =====================================================================
 expectation_UI <- function(id) {
-  ns <- NS(id)
-  fluidPage(
-    fluidRow(
-      column(width = 3,
-             box(
-               title = "Expectation Theory",
-               width = 12, status = "primary", solidHeader = TRUE,
-               
-               withMathJax(
+  tagList(learning_table_module_ui(id,"Expectation",
+    theory=withMathJax(
                  tagList(
                    h4("Expectation"),
                    p("In this module, we study the expected values of discrete random variables and how to compute conditional expectations based on the joint and conditional PMFs."),
@@ -95,28 +88,7 @@ expectation_UI <- function(id) {
                    HTML("$$E[Y] = \\sum_x E[Y|X=x] f_X(x)$$"),
                    p("This law states that the overall expectation of Y can be found by averaging the conditional expectations \\(E[Y|X=x]\\), weighted by the probability of each \\(X=x\\).")
                    )
-               )
-             ),
-             
-             box(
-               title = "Parameter Input", width = 12, status = "info", solidHeader = TRUE,
-               uiOutput(ns("input_panel"))
-             )
-      ),
-      
-      # 右侧：表格 + 练习
-      column(width = 9,
-             box(
-               title = "Probability Table", width = 12, status = "primary", solidHeader = TRUE,
-               uiOutput(ns("pmf_example_note")),
-               uiOutput(ns("joint_table_html"))
-             ),
-             # ---------------- Expectation Practice ----------------
-             box(title = "Expectation practice", width = 12, status = "warning", solidHeader = TRUE,
-          learning_practice_ui(ns, NULL))
-      )
-    )
-  )
+               ),plot_ids=NULL))
 }
 
 # =====================================================================

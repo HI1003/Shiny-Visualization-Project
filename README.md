@@ -5,6 +5,8 @@ This tool enables learners to explore probability distributions through interact
 
 The current teaching revision defaults to **STATS125 Core**, with separate **Optional STATS210 preview** and **Further exploration** paths. It retains the original 32 exercises and adds 10 core exercises: 30 core, 8 preview and 4 further exercises in total. Practice progress is separate for each path and lasts for the current session; the discrete game keeps its own score. Worked-example buttons load the parameters used in a question into its tables or plots. See the [teaching review](review/TEACHING_REVIEW_STATS125.md) and [verification record](review/evidence/content_verification.md).
 
+Home now links directly to practice, and each module provides section shortcuts. Practice and the interactive table share the main workspace, stacking on smaller windows; theory expands across the available width and 3D plots are optional. See the [layout verification](review/evidence/layout_verification.md) for the tested widths and display fixes.
+
 ## Project Overview
 
 The Shiny application helps students learn key probability concepts through simulation and dynamic visualization.  

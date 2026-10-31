@@ -1,4 +1,35 @@
 # Shared practice rendering, grading, and path-specific progress.
+learning_section <- function(ns,key,title,...,class="") {
+  shiny::tags$section(id=ns(key),class=paste("learning-card",class),tabindex="-1",
+    shiny::tags$h3(class="learning-card-title",title),
+    shiny::tags$div(class="learning-card-body",...))
+}
+learning_module_header <- function(ns,title,description,sections) {
+  shiny::tagList(shiny::tags$header(class="learning-module-heading",shiny::tags$h2(title),shiny::tags$p(description)),
+    shiny::tags$nav(class="learning-section-nav",`aria-label`=paste(title,"sections"),
+      lapply(seq_along(sections),function(i) shiny::tags$a(href=paste0("#",ns(sections[[i]])),
+        `data-learning-jump`=ns(sections[[i]]),class=if(i==1) "btn btn-primary" else "btn btn-outline-primary",names(sections)[i]))))
+}
+learning_table_module_ui <- function(id,title,theory,plot_ids=NULL) {
+  ns<-shiny::NS(id)
+  sections<-c("Go to practice"="practice","Table & controls"="workbench","Theory & formulas"="theory")
+  if(!is.null(plot_ids)) sections<-c(sections,"Plots"="plots")
+  shiny::tags$div(class="learning-module",
+    learning_module_header(ns,title,"Answer the exercise, or load its example into the interactive table to explore.",sections),
+    shiny::tags$div(class="learning-workspace",
+      learning_section(ns,"practice",paste(title,"practice"),learning_practice_ui(ns,NULL),class="learning-practice"),
+      learning_section(ns,"workbench","Interactive probability table",
+        shiny::uiOutput(ns("pmf_example_note")),
+        shiny::tags$div(class="math-scroll",shiny::withMathJax(shiny::uiOutput(ns("joint_table_html")))),
+        shiny::tags$details(class="learning-editor",open=NA,
+          shiny::tags$summary("Edit table / choose a worked example"),shiny::uiOutput(ns("input_panel"))),class="learning-workbench")),
+    shiny::tags$details(id=ns("theory"),class="learning-card learning-theory",tabindex="-1",
+      shiny::tags$summary("Theory and formulas"),shiny::tags$div(class="learning-card-body math-scroll",theory)),
+    if(!is.null(plot_ids)) learning_section(ns,"plots","Explore the distribution",
+      shiny::tags$h4("2D view"),plotly::plotlyOutput(ns(plot_ids[[1]]),height="320px"),
+      shiny::tags$details(class="learning-3d",shiny::tags$summary("3D visualization (optional)"),
+        plotly::plotlyOutput(ns(plot_ids[[2]]),height="380px"))))
+}
 learning_practice_ui <- function(ns,title="Practice") {
   shiny::tagList(
     if(!is.null(title)) shiny::tags$h4(title),shiny::uiOutput(ns("practice_status")),shiny::uiOutput(ns("question_meta")),
@@ -81,7 +112,7 @@ learning_practice_server <- function(input,output,session,questions,module,cours
   output$example_action<-shiny::renderUI({
     q<-prob();if(is.null(q)) return(NULL)
     if(!is.null(q$pmf_example) && !is.null(load_pmf)) return(shiny::tagList(
-      shiny::helpText("Use the table in this question. The button replaces the table above with this worked example."),
+      shiny::helpText("Use the reference table in this question. The button replaces the interactive probability table with this worked example."),
       shiny::actionButton(ns("explore_example"),"Load this example into the tables and plots",class="btn-outline-primary")))
     if(!is.null(q$plot_examples) && !is.null(open_plot)) {
       examples<-learning_graph_examples();keys<-q$plot_examples

@@ -57,22 +57,11 @@ wrap_div <- function(id, content) {
 #  UI 
 # =====================================================================
 joint_UI <- function(id) {
-  ns <- NS(id)
-  
-  fluidPage(
-    useShinyjs(),
-    joint_css, 
-    fluidRow(
-      # ---------------- 左侧：公式 + 参数输入 ----------------
-      column(
-        width = 3,
-        box(
-          title = "Joint Distribution Theory",
-          width = 12, status = "primary",solidHeader = TRUE,
-          withMathJax(
+  tagList(useShinyjs(), joint_css, learning_table_module_ui(id,"Joint Distribution",
+    theory=withMathJax(
             tagList(
               h4("Joint Probability"),
-              p("The joint probability mass functiondescribes how two discrete random variables, X and Y, take on values together."),
+              p("The joint probability mass function describes how two discrete random variables, X and Y, take on values together."),
               HTML("$$f_{X,Y}(x,y) = P(X = x, Y = y)$$"),
               
               tags$hr(),
@@ -94,48 +83,7 @@ joint_UI <- function(id) {
               p("Tabulating or plotting the joint PMF helps us visualize how X and Y vary together."),
               p("High probability cells indicate likely combinations of (x, y), while low probability cells show rare outcomes.")
             )
-          )
-        ),
-        box(
-          title = "Parameter Input", width = 12, status = "info", solidHeader = TRUE,
-          uiOutput(ns("input_panel"))
-        )
-      ),
-      
-      # ---------------- 右侧：表格 + 图 + 练习 ----------------
-      column(
-        width = 9,
-        box(
-          title = "Probability Table", width = 12, status = "primary", solidHeader = TRUE,
-          # ✅ 用 withMathJax() 让表格中的公式渲染
-          withMathJax(uiOutput(ns("pmf_example_note")),
-               uiOutput(ns("joint_table_html")))
-        ),
-        
-        # 3D + Bird's-eye 并列
-        fluidRow(
-          column(
-            width = 6,
-            box(
-              title = "3D Joint PMF", width = 12, status = "info",solidHeader = TRUE,
-              plotlyOutput(ns("plot3d"), height = "400px")
-            )
-          ),
-          column(
-            width = 6,
-            box(
-              title = "Bird’s-eye View (Joint)", width = 12, status = "info",solidHeader = TRUE,
-              plotlyOutput(ns("plot_bird"), height = "400px")
-            )
-          )
-        ),
-        
-        # ---------------- 练习模块 ----------------
-        box(title = "Joint practice", width = 12, status = "warning", solidHeader = TRUE,
-          learning_practice_ui(ns, NULL))
-      )
-    )
-  )
+          ),plot_ids=c("plot_bird","plot3d")))
 }
 
 # =========================================================
@@ -349,14 +297,9 @@ joint_Server <- function(id, shared = new_pmf_state(), course_path = function() 
       
       tagList(
         withMathJax(),
-        fluidRow(
-          column(width = 4),  
-          column(width = 8,
-                 table_html,
-                 tags$div(style = "margin-top:8px; color:#666; font-size:13px;",
-                          HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)"))
-          )
-        )
+        table_html,
+        tags$div(class="small-note",style="margin-top:8px; font-size:13px;",
+                 HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)"))
       )
     })
     # ==========================输入逻辑与概率表===========================================

@@ -83,6 +83,8 @@ ui <- bs4DashPage(
     
     # ---------- 全局样式 ----------
     tags$head(
+      tags$link(rel="stylesheet",href="css/learning-layout.css"),
+      tags$script(src="js/learning-layout.js",defer=NA),
       tags$style(HTML("
         .learning-path-controls {padding:12px;}
         .learning-path-controls .shiny-input-container {width:100%;}
@@ -226,6 +228,9 @@ ui <- bs4DashPage(
     # ---------- Tab 内容 ----------
     tabItems(
       tabItem(tabName = "home",
+              div(class="learning-home-actions",
+                actionButton("start_core_practice","Start STATS125 core practice",icon=icon("play"),class="btn-primary"),
+                actionButton("start_joint_practice","Start joint-table practice",class="btn-outline-primary")),
               fluidRow(
                 column(width = 12,
                        box(
@@ -235,7 +240,7 @@ ui <- bs4DashPage(
                                  -webkit-background-clip: text; color: transparent;
                                  font-family: Poppins, sans-serif;'>PPk1ng Probability Learning System</span>"),
                          HTML("
-<div style='padding: 10px; line-height:1.6; font-size:15px; color:#333;'>
+<div style='padding: 10px; line-height:1.6; font-size:15px;'>
 
   <p>
     <b>PPk1ng</b> is an interactive probability learning system designed to help students 
@@ -355,6 +360,16 @@ server <- function(input, output, session) {
     if(length(value)!=1 || is.na(value) || !value %in% unname(learning_path_labels)) "core" else value
   })
   plot_request <- reactiveVal(NULL)
+  observeEvent(input$start_core_practice, {
+    updateSelectInput(session,"learning_path",selected="core")
+    bs4Dash::updatebs4TabItems(session,"tabs","probability")
+    session$sendCustomMessage("learning-focus",list(id="prob1-practice"))
+  })
+  observeEvent(input$start_joint_practice, {
+    updateSelectInput(session,"learning_path",selected="core")
+    bs4Dash::updatebs4TabItems(session,"tabs","joint")
+    session$sendCustomMessage("learning-focus",list(id="joint1-practice"))
+  })
   plot_counter <- 0L
   open_plot <- function(key) {
     plot_counter <<- plot_counter+1L
