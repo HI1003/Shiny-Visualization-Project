@@ -1,0 +1,638 @@
+{
+  "date": "2026-11-01",
+  "url": "http://127.0.0.1:7130/",
+  "total": 65,
+  "passed": 65,
+  "cases": [
+    {
+      "name": "optional_progress_not_promoted",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "home_opens_concept_review",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overview_concepts_then_visuals_then_optional",
+      "passed": true,
+      "detail": {
+        "reviewFirst": true,
+        "practiceLast": true,
+        "reviewVisible": true,
+        "practiceCollapsed": true
+      }
+    },
+    {
+      "name": "overview_concepts_visible_and_practice_closed",
+      "passed": true,
+      "detail": {
+        "reviewFirst": true,
+        "practiceLast": true,
+        "reviewVisible": true,
+        "practiceCollapsed": true
+      }
+    },
+    {
+      "name": "overview_review_jump",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overview_1600_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1600,
+        "documentWidth": 1600,
+        "reviewWidth": 1303,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "overview_1600_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overview_1266_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1266,
+        "documentWidth": 1266,
+        "reviewWidth": 969,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "overview_1266_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overview_900_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 900,
+        "documentWidth": 900,
+        "reviewWidth": 853,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "overview_900_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overview_390_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 390,
+        "documentWidth": 390,
+        "reviewWidth": 343,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "overview_390_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overview_visual_jump_without_quiz",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overview_quiz_still_optional",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overview_source_label_honest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_concepts_then_visuals_then_optional",
+      "passed": true,
+      "detail": {
+        "reviewFirst": true,
+        "practiceLast": true,
+        "reviewVisible": true,
+        "practiceCollapsed": true
+      }
+    },
+    {
+      "name": "joint_concepts_visible_and_practice_closed",
+      "passed": true,
+      "detail": {
+        "reviewFirst": true,
+        "practiceLast": true,
+        "reviewVisible": true,
+        "practiceCollapsed": true
+      }
+    },
+    {
+      "name": "joint_review_jump",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_1600_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1600,
+        "documentWidth": 1600,
+        "reviewWidth": 1303,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "joint_1600_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_1266_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1266,
+        "documentWidth": 1266,
+        "reviewWidth": 969,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "joint_1266_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_900_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 900,
+        "documentWidth": 900,
+        "reviewWidth": 853,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "joint_900_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_390_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 390,
+        "documentWidth": 390,
+        "reviewWidth": 343,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "joint_390_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_visual_jump_without_quiz",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_quiz_still_optional",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_source_label_honest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "joint_3d_optional",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_concepts_then_visuals_then_optional",
+      "passed": true,
+      "detail": {
+        "reviewFirst": true,
+        "practiceLast": true,
+        "reviewVisible": true,
+        "practiceCollapsed": true
+      }
+    },
+    {
+      "name": "conditional_concepts_visible_and_practice_closed",
+      "passed": true,
+      "detail": {
+        "reviewFirst": true,
+        "practiceLast": true,
+        "reviewVisible": true,
+        "practiceCollapsed": true
+      }
+    },
+    {
+      "name": "conditional_review_jump",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_1600_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1600,
+        "documentWidth": 1600,
+        "reviewWidth": 1303,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "conditional_1600_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_1266_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1266,
+        "documentWidth": 1266,
+        "reviewWidth": 969,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "conditional_1266_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_900_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 900,
+        "documentWidth": 900,
+        "reviewWidth": 853,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "conditional_900_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_390_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 390,
+        "documentWidth": 390,
+        "reviewWidth": 343,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "conditional_390_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_visual_jump_without_quiz",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_quiz_still_optional",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_source_label_honest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "conditional_3d_optional",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_concepts_then_visuals_then_optional",
+      "passed": true,
+      "detail": {
+        "reviewFirst": true,
+        "practiceLast": true,
+        "reviewVisible": true,
+        "practiceCollapsed": true
+      }
+    },
+    {
+      "name": "expectation_concepts_visible_and_practice_closed",
+      "passed": true,
+      "detail": {
+        "reviewFirst": true,
+        "practiceLast": true,
+        "reviewVisible": true,
+        "practiceCollapsed": true
+      }
+    },
+    {
+      "name": "expectation_review_jump",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_1600_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1600,
+        "documentWidth": 1600,
+        "reviewWidth": 1303,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "expectation_1600_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_1266_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 1266,
+        "documentWidth": 1266,
+        "reviewWidth": 969,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "expectation_1266_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_900_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 900,
+        "documentWidth": 900,
+        "reviewWidth": 853,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "expectation_900_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_390_readable_no_page_overflow",
+      "passed": true,
+      "detail": {
+        "viewport": 390,
+        "documentWidth": 390,
+        "reviewWidth": 343,
+        "clipped": [],
+        "tableFits": true
+      }
+    },
+    {
+      "name": "expectation_390_default_table_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_visual_jump_without_quiz",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_quiz_still_optional",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "expectation_source_label_honest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "home_joint_opens_review_not_quiz",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "poisson_visual_works_without_practice",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "preview_concept_review_matches_continuous_models",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "preview_visual_works_without_quiz",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no_visible_output_errors",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "measurements": [
+    {
+      "module": "overview",
+      "viewport": 1600,
+      "documentWidth": 1600,
+      "reviewWidth": 1303,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "overview",
+      "viewport": 1266,
+      "documentWidth": 1266,
+      "reviewWidth": 969,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "overview",
+      "viewport": 900,
+      "documentWidth": 900,
+      "reviewWidth": 853,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "overview",
+      "viewport": 390,
+      "documentWidth": 390,
+      "reviewWidth": 343,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "joint",
+      "viewport": 1600,
+      "documentWidth": 1600,
+      "reviewWidth": 1303,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "joint",
+      "viewport": 1266,
+      "documentWidth": 1266,
+      "reviewWidth": 969,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "joint",
+      "viewport": 900,
+      "documentWidth": 900,
+      "reviewWidth": 853,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "joint",
+      "viewport": 390,
+      "documentWidth": 390,
+      "reviewWidth": 343,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "conditional",
+      "viewport": 1600,
+      "documentWidth": 1600,
+      "reviewWidth": 1303,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "conditional",
+      "viewport": 1266,
+      "documentWidth": 1266,
+      "reviewWidth": 969,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "conditional",
+      "viewport": 900,
+      "documentWidth": 900,
+      "reviewWidth": 853,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "conditional",
+      "viewport": 390,
+      "documentWidth": 390,
+      "reviewWidth": 343,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "expectation",
+      "viewport": 1600,
+      "documentWidth": 1600,
+      "reviewWidth": 1303,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "expectation",
+      "viewport": 1266,
+      "documentWidth": 1266,
+      "reviewWidth": 969,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "expectation",
+      "viewport": 900,
+      "documentWidth": 900,
+      "reviewWidth": 853,
+      "clipped": [],
+      "tableFits": true
+    },
+    {
+      "module": "expectation",
+      "viewport": 390,
+      "documentWidth": 390,
+      "reviewWidth": 343,
+      "clipped": [],
+      "tableFits": true
+    }
+  ],
+  "source_md5": {
+    "Project_PPeek1ng/app.R": "731ef53cae0eb1707056b270b078ed1c",
+    "Project_PPeek1ng/main.R": "7fc6627e56348bc911ddc99157dd23ab",
+    "Project_PPeek1ng/modules/learning_content.R": "3529c2882c44d1ccf0bae76df71aa016",
+    "Project_PPeek1ng/modules/learning_practice.R": "001e406972d0d91a231c3f90e505ba96",
+    "Project_PPeek1ng/modules/module_conditional.R": "26d309bb5a3dd5fb1fa4dedf0933c0a2",
+    "Project_PPeek1ng/modules/module_expectation.R": "b7e654577a4afe1619150b7b52172979",
+    "Project_PPeek1ng/modules/module_game_discrete.r": "6d9bbb12de3f3314cd64ff61b3df5e8f",
+    "Project_PPeek1ng/modules/module_joint.R": "cc3b46ef95c32afe25a248f6d163de0f",
+    "Project_PPeek1ng/modules/module_probability.R": "7fe3395f6ae2aaf0cd81e1d3a7c847a3",
+    "Project_PPeek1ng/modules/pmf_helpers.R": "7e9640c58b7bb8947aea635904623e49"
+  },
+  "browser_script_sha256": "acde6e580fba3172cb27cd1318ee9647918f5435d0a14473125b4cd93863cc72",
+  "screenshots": [
+    {
+      "file": "concept_overview_1266.png",
+      "sha256": "1f523cbc4d515522aaf427df1f8464bada9b6a2d947d3c92d9d6d0fb0cd9d339"
+    },
+    {
+      "file": "concept_joint_1266.png",
+      "sha256": "018a41719dd97bee44b8a6470368463a50c6d003aa3b83117c2517c98de33752"
+    },
+    {
+      "file": "concept_conditional_1266.png",
+      "sha256": "ea28251bb502d8a5f7602a5f8adf968464addbc29c41c9a9fd290d89acee15e5"
+    },
+    {
+      "file": "concept_expectation_1266.png",
+      "sha256": "74fe799edbb75c64001d3b897af0954e0ae716683b1c5a8cc9dd84400a75f715"
+    },
+    {
+      "file": "concept_overview_390.png",
+      "sha256": "1d6239eb1e8c6fa2b1de418bf357b51b5ff99dc13c24b7abc5ff7416546fd322"
+    },
+    {
+      "file": "concept_joint_390.png",
+      "sha256": "ba1c6f0c2a84fc87177369b34bcfb247a61a4a2e2896c5ebb167faddf4c556a9"
+    }
+  ]
+}

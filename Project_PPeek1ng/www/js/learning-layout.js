@@ -18,6 +18,7 @@
     function attempt() {
       if (request !== focusRequest) return;
       const target = document.getElementById(id);
+      if (target && target.tagName === 'DETAILS') target.open = true;
       if (target && target.getClientRects().length &&
           !document.documentElement.classList.contains('shiny-busy') &&
           (!id.endsWith('-practice') || target.querySelector('.practice-progress'))) {

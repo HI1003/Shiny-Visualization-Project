@@ -7,6 +7,16 @@ body.dark-mode { --learning-surface:#273546; --learning-border:#526171; --learni
 .learning-section-nav,.learning-home-actions { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
 .learning-section-nav .btn,.learning-home-actions .btn { white-space:normal; text-align:left; }
 .learning-workspace { display:grid; grid-template-columns:minmax(0,1fr); gap:20px; align-items:start; }
+.learning-exploration { display:grid; grid-template-columns:minmax(0,1fr); gap:20px; align-items:start; scroll-margin-top:20px; }
+@container (min-width:900px) {
+  .learning-exploration-pair { grid-template-columns:minmax(340px,1fr) minmax(0,1.45fr); }
+}
+.learning-observe { padding:10px 12px; background:rgba(23,101,186,.07); border-left:3px solid var(--learning-accent); }
+.learning-more-theory { border-top:1px solid var(--learning-border); margin-top:12px; }
+.learning-more-theory > summary { padding-left:0; }
+.learning-optional-practice > summary { color:var(--learning-muted); font-weight:500; }
+.learning-optional-progress { margin-top:12px; font-size:13px; }
+.learning-optional-progress > summary { cursor:pointer; }
 @container (min-width:900px) {
   .learning-workspace { grid-template-columns:minmax(0,1.45fr) minmax(340px,1fr); }
 }

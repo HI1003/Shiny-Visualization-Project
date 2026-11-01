@@ -55,7 +55,8 @@ ui <- bs4DashPage(
     
     div(class="learning-path-controls",
       selectInput("learning_path", "Learning path", choices=learning_path_labels, selected="core"),
-      uiOutput("learning_progress")
+      helpText("Review concepts and explore the visualizations. Self-checks are optional."),
+      tags$details(class="learning-optional-progress",tags$summary("Optional practice progress"),uiOutput("learning_progress"))
     ),
     bs4SidebarMenu(
       id = "tabs",
@@ -229,8 +230,8 @@ ui <- bs4DashPage(
     tabItems(
       tabItem(tabName = "home",
               div(class="learning-home-actions",
-                actionButton("start_core_practice","Start STATS125 core practice",icon=icon("play"),class="btn-primary"),
-                actionButton("start_joint_practice","Start joint-table practice",class="btn-outline-primary")),
+                actionButton("start_core_practice","Review STATS125 concepts",icon=icon("play"),class="btn-primary"),
+                actionButton("start_joint_practice","Explore joint probability",class="btn-outline-primary")),
               fluidRow(
                 column(width = 12,
                        box(
@@ -308,7 +309,7 @@ ui <- bs4DashPage(
     Use <b>Game: Discrete</b> after learning those models. Continue with joint/marginal tables and conditional PMFs (Chapter 7),
     then conditional means and total expectation (Chapter 8). <b>E[g(X)], variance and total expectation are part of STATS125.</b>
     The sidebar defaults to <b>STATS125 Core</b>. Uniform, Exponential and Normal provide a separate optional preview for later STATS210 study.
-    Formal continuous-distribution calculations are in <b>Further exploration</b>. Skipping optional paths does not affect Core completion.
+    Formal continuous-distribution calculations are in <b>Further exploration</b>. Begin with key ideas and visual exploration; self-checks are optional.
   </p>
   <details><summary>Before you start: symbols, units and conditions</summary>
     <ul>
@@ -363,12 +364,12 @@ server <- function(input, output, session) {
   observeEvent(input$start_core_practice, {
     updateSelectInput(session,"learning_path",selected="core")
     bs4Dash::updatebs4TabItems(session,"tabs","probability")
-    session$sendCustomMessage("learning-focus",list(id="prob1-practice"))
+    session$sendCustomMessage("learning-focus",list(id="prob1-theory"))
   })
   observeEvent(input$start_joint_practice, {
     updateSelectInput(session,"learning_path",selected="core")
     bs4Dash::updatebs4TabItems(session,"tabs","joint")
-    session$sendCustomMessage("learning-focus",list(id="joint1-practice"))
+    session$sendCustomMessage("learning-focus",list(id="joint1-theory"))
   })
   plot_counter <- 0L
   open_plot <- function(key) {
@@ -390,10 +391,10 @@ server <- function(input, output, session) {
   })
   output$learning_path_banner <- renderUI({
     div(class="alert alert-info",strong(learning_path_label(course_path()))," — ",
-      switch(course_path(),core="Discrete probability, joint/conditional PMFs, expectation and variance for STATS125. Optional paths do not count towards Core completion.",
-        preview="Optional preparation for later STATS210 study. The needed concepts and formulas are provided; this is separate from the STATS125 Core path.",
-        further="Optional further exploration. These exercises and formal formulas are not required to complete this tool's STATS125 Core path."),
-      tags$small(" The discrete game has its own score."))
+      switch(course_path(),core="Review discrete probability, joint/conditional PMFs, expectation and variance, then explore them with tables and plots.",
+        preview="Optional preparation for later STATS210 study: review the needed ideas, then explore continuous models visually.",
+        further="Optional further exploration of additional models and mathematical formulas."),
+      tags$small(" Practice and the discrete game are optional."))
   })
 
   output$game_module_ui <- renderUI(game_discrete_UI("game1"))

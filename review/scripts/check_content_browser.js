@@ -9,8 +9,10 @@ async page => {
   if(!/^http:\/\/(127\.0\.0\.1|localhost):[0-9]+\//.test(appUrl)) throw new Error('Open the local Shiny app first.');
   await page.goto(appUrl);
   await page.setViewportSize({width:1266,height:900});
+  await page.locator('.learning-optional-progress > summary').click();
   await globalProgress('0 / 30');check('default_core_30',true);
   await page.getByRole('link',{name:'chart-area icon Joint Distribution',exact:true}).click();
+  await page.getByRole('link',{name:'Optional practice',exact:true}).click();
   await page.getByRole('textbox',{name:'P(X=0,Y=0)',exact:true}).waitFor();
   for(const [name,value] of [['P(X=0,Y=0)','3/10'],['P(X=0,Y=1)','1/5'],['P(X=1,Y=0)','1/10'],['P(X=1,Y=1)','0']]) await page.getByRole('textbox',{name,exact:true}).fill(value);
   await page.getByRole('button',{name:'Submit',exact:true}).click();
@@ -27,6 +29,7 @@ async page => {
   await setPath('further');await globalProgress('0 / 4');check('further_counter',true);
   await setPath('core');await globalProgress('1 / 30');check('core_retains_progress',true);
   await page.getByRole('link',{name:'chart-bar icon Conditional Distribution',exact:true}).click();
+  await page.getByRole('link',{name:'Optional practice',exact:true}).click();
   await page.locator('#cond1-answer_C14_joint').waitFor();
   for(const [id,value] of [['cond1-answer_C14_joint','2/5'],['cond1-answer_C14_ygivenx','4/5'],['cond1-answer_C14_xgiveny','2/3']])await page.locator('#'+id).fill(value);
   await page.locator('#cond1-check').click();await globalProgress('2 / 30');check('conditional_three_answers',true);
@@ -38,6 +41,7 @@ async page => {
   await page.getByText('F(10) = P(X ≤ 10) = 0.347229',{exact:false}).waitFor();
   check('question_preset_poisson12_x10',await page.locator('#prob1-lambda').inputValue()==='12');
   check('plot_selector_matches_question',await page.locator('#prob1-plot_example').inputValue()==='eggs_cloudy');
+  await page.getByRole('link',{name:'Optional practice',exact:true}).click();
   await page.getByRole('button',{name:'Open this example in Overview',exact:true}).click();
   await page.getByText('P(X=0)=0.6 and P(X=1)=0.4.',{exact:false}).waitFor();
   check('CDF_question_loads_bernoulli04',true);
@@ -71,9 +75,10 @@ async page => {
   check('900_no_document_horizontal_overflow',await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth));
   await page.setViewportSize({width:1266,height:900});await setPath('core');await globalProgress('3 / 30');
   const other=await page.context().newPage();await other.goto(appUrl);
+  await other.locator('.learning-optional-progress > summary').click();
   await other.getByRole('status').filter({hasText:'0 / 30 practice exercises correct'}).waitFor();
   check('second_tab_has_own_progress',true);await other.close();
   await globalProgress('3 / 30');check('second_tab_does_not_reset_first',true);
   check('no_shiny_output_errors',await page.locator('.shiny-output-error:visible').count()===0);
-  return {date:'2026-10-31',url:page.url(),total:cases.length,passed:cases.filter(c=>c.passed).length,cases,screenshots:['content_core_final.png','content_preview_final.png','content_preview_900.png']};
+  return {date:new Date().toLocaleDateString('en-CA',{timeZone:'Pacific/Auckland'}),url:page.url(),total:cases.length,passed:cases.filter(c=>c.passed).length,cases,screenshots:['content_core_final.png','content_preview_final.png','content_preview_900.png']};
 }

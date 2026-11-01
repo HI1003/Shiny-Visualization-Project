@@ -1,0 +1,337 @@
+{
+  "issue": "R1-04",
+  "date": "2026-11-01",
+  "total": 10,
+  "passed": 10,
+  "questions": [
+    {
+      "question": 1,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "1/8",
+      "stored_fraction": "1/8",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 1,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [
+        [
+          1,
+          1
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "1/8",
+        "1,0": "1/12",
+        "2,0": "1/3",
+        "0,1": "1/12",
+        "1,1": "1/8",
+        "2,1": "1/24",
+        "0,2": "1/24",
+        "1,2": "1/24",
+        "2,2": "1/8"
+      }
+    },
+    {
+      "question": 2,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "1/20",
+      "stored_fraction": "1/20",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 1,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [
+        [
+          2,
+          1
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "3/10",
+        "1,0": "1/20",
+        "2,0": "1/20",
+        "0,1": "1/5",
+        "1,1": "1/10",
+        "2,1": "1/20",
+        "0,2": "1/20",
+        "1,2": "1/10",
+        "2,2": "1/10"
+      }
+    },
+    {
+      "question": 3,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "7/18",
+      "stored_fraction": "7/18",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 1,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "1/6",
+        "1,0": "1/9",
+        "2,0": "1/9",
+        "0,1": "1/18",
+        "1,1": "1/6",
+        "2,1": "1/18",
+        "0,2": "1/18",
+        "1,2": "1/9",
+        "2,2": "1/6"
+      }
+    },
+    {
+      "question": 4,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "7/24",
+      "stored_fraction": "7/24",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 1,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "1/24",
+        "1,0": "1/12",
+        "2,0": "1/8",
+        "3,0": "1/24",
+        "0,1": "11/24",
+        "1,1": "1/12",
+        "2,1": "1/8",
+        "3,1": "1/24"
+      }
+    },
+    {
+      "question": 5,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "1/2",
+      "stored_fraction": "1/2",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 1,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "1/10",
+        "1,0": "1/10",
+        "2,0": "1/5",
+        "0,1": "1/10",
+        "1,1": "1/10",
+        "2,1": "1/10",
+        "0,2": "1/10",
+        "1,2": "1/10",
+        "2,2": "1/10"
+      }
+    },
+    {
+      "question": 6,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "5/12",
+      "stored_fraction": "5/12",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 1,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "completed_cells": {
+        "0,0": "1/12",
+        "1,0": "1/12",
+        "2,0": "1/6",
+        "0,1": "1/8",
+        "1,1": "1/12",
+        "2,1": "1/8",
+        "0,2": "1/24",
+        "1,2": "1/8",
+        "2,2": "1/6"
+      }
+    },
+    {
+      "question": 7,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "1/24",
+      "stored_fraction": "1/24",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 5,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [],
+      "completed_cells": {
+        "0,0": "1/8",
+        "1,0": "1/8",
+        "2,0": "1/24",
+        "0,1": "1/6",
+        "1,1": "1/12",
+        "2,1": "1/8",
+        "0,2": "1/12",
+        "1,2": "1/6",
+        "2,2": "1/12"
+      }
+    },
+    {
+      "question": 8,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "0",
+      "stored_fraction": "0",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 5,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [],
+      "completed_cells": {
+        "0,0": "1/5",
+        "1,0": "1/10",
+        "2,0": "0",
+        "0,1": "1/10",
+        "1,1": "1/5",
+        "2,1": "1/10",
+        "0,2": "0",
+        "1,2": "1/10",
+        "2,2": "1/5"
+      }
+    },
+    {
+      "question": 9,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "1/18",
+      "stored_fraction": "1/18",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 5,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [],
+      "completed_cells": {
+        "0,0": "0",
+        "1,0": "1/18",
+        "2,0": "1/9",
+        "0,1": "1/18",
+        "1,1": "1/9",
+        "2,1": "1/6",
+        "0,2": "1/9",
+        "1,2": "1/6",
+        "2,2": "2/9"
+      }
+    },
+    {
+      "question": 10,
+      "passed": true,
+      "question_valid": true,
+      "table_valid": true,
+      "total_mass": "1",
+      "expected_fraction": "1/9",
+      "stored_fraction": "1/9",
+      "answer_valid": true,
+      "selection_valid": true,
+      "equations_checked": 5,
+      "equations_valid": true,
+      "equation_errors": [],
+      "selected_cells": [],
+      "completed_cells": {
+        "0,0": "1/9",
+        "0,1": "1/12",
+        "0,2": "1/6",
+        "1,0": "1/12",
+        "1,1": "1/9",
+        "1,2": "1/12",
+        "2,0": "1/6",
+        "2,1": "1/12",
+        "2,2": "1/9"
+      }
+    }
+  ]
+}

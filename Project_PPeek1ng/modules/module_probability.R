@@ -13,10 +13,18 @@ prob_UI <- function(id) {
   tagList(
     div(class="learning-module",
       learning_module_header(ns,"Probability Distributions",
-        "Explore a model using its PMF or density and CDF. Practice questions keep their stated parameters.",
-        c("Go to practice / observations"="practice","Explore plots & parameters"="explorer","Theory & formulas"="theory")),
+        "Review the key ideas, then change parameters and read the plots. Self-check questions are optional.",
+        c("Review key ideas"="theory","Explore plots & parameters"="explorer","Optional practice"="practice")),
       uiOutput(ns("path_description")),
-      learning_section(ns,"practice","Practice / observations",uiOutput(ns("practice_section")),class="learning-overview-practice learning-practice"),
+      learning_section(ns,"theory","1. Review the key ideas",
+        uiOutput(ns("concept_review")),
+        conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'discrete'"),
+          uiOutput(ns("dist_desc")),tags$details(class="learning-more-theory",tags$summary("Model formulas"),withMathJax(uiOutput(ns("formula"))))),
+        conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'continuous'"),
+          uiOutput(ns("dist_desc_cont")),
+          tags$details(class="learning-more-theory",tags$summary("Optional mathematical formulas"),
+            withMathJax(HTML("For a continuous model: \\(F(x)=\\int_{-\\infty}^x f(t)dt\\) and \\(f(x)=F'(x)\\) where differentiable.")),
+            withMathJax(uiOutput(ns("formula_cont"))))),class="learning-theory"),
       div(id=ns("explorer"),class="learning-overview-explorer",tabindex="-1",
         learning_section(ns,"controls","Model and parameters",
           radioButtons(ns("dist_type"),"Distributions in this learning path",c("Discrete"="discrete","Continuous"="continuous"),selected="discrete",inline=TRUE),
@@ -129,18 +137,7 @@ prob_UI <- function(id) {
               div(h4(HTML("CDF: P(X &le; x)")),plotOutput(ns("cdf_plot_cont"),height=320,click=ns("click_cdf_cont")))),
             helpText("Click a graph to select x. For a continuous variable, P(X = x) = 0; a density value is not a point probability."),
             h4("Current Selection"),verbatimTextOutput(ns("sel_text_cont"))),class="learning-overview-plots")),
-      tags$details(id=ns("theory"),class="learning-card learning-theory",tabindex="-1",
-        tags$summary("Theory and formulas"),div(class="learning-card-body math-scroll",
-          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'discrete'"),
-            p("A discrete random variable has finitely or countably many possible values. Its PMF gives P(X=x), and its CDF gives P(X<=x)."),
-            uiOutput(ns("dist_desc")),h4("Formula"),withMathJax(uiOutput(ns("formula")))),
-          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'continuous'"),
-            p("A continuous variable can take values in an interval. Probability is area under the PDF, and every individual point has probability zero. The CDF gives P(X<=x)."),
-            p("Uniform illustrates equal-length intervals, Exponential illustrates waiting times, and Normal illustrates location and scale."),
-            uiOutput(ns("dist_desc_cont")),
-            tags$details(tags$summary("Optional mathematical formulas"),
-              withMathJax(HTML("For a continuous model: \\(F(x)=\\int_{-\\infty}^x f(t)dt\\) and \\(f(x)=F'(x)\\) where differentiable.")),
-              withMathJax(uiOutput(ns("formula_cont")))))))))
+      learning_optional_practice(ns,"3. Optional self-checks",uiOutput(ns("practice_section")))))
 }
 
 prob_Server <- function(id, course_path=function() "core", plot_request=function() NULL) {
@@ -174,9 +171,9 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
       requested_example(NULL)
     })
     output$path_description <- renderUI(tags$p(class="small-note",switch(path(),
-      core="STATS125 Core: explore the seven discrete models, their PMFs and CDFs. The CDF practice below is part of the core pathway.",
+      core="STATS125 Core: review the seven discrete models and explore their PMFs and CDFs. Self-check questions are optional.",
       preview="Optional STATS210 preview: explore density as area, waiting times, and location/scale. Calculus and formula memorisation are not prerequisites for these observations.",
-      further="Optional further exploration: additional continuous models and mathematical formulas. These do not count towards STATS125 Core completion.",
+      further="Optional further exploration: additional continuous models and mathematical formulas.",
       "Original distribution library for reference checks.")))
     current_example <- reactive({
       key <- requested_example()
@@ -206,13 +203,21 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
     output$example_note <- renderUI({ex <- current_example();if(is.null(ex)) return(NULL);tags$p(class="alert alert-info",ex$note)})
     practice_questions <- learning_questions(list(),"overview")
     practice <- learning_practice_server(input,output,session,practice_questions,"overview",course_path,open_plot=apply_example)
+    output$concept_review <- renderUI({
+      if(path() %in% c("core","legacy")) tagList(
+        tags$ul(tags$li("A PMF gives point probabilities; supported values have non-negative probabilities summing to 1."),
+          tags$li("The CDF F(x)=P(X<=x) includes its endpoint. For integer-valued X, P(X>=k)=1-F(k-1)."),
+          tags$li("Define the outcome being counted, its support, model assumptions and parameters before interpreting a distribution.")),
+        tags$p(class="learning-observe",tags$strong("What to explore: "),"Move the Bernoulli probability from 0.2 to 0.8. Compare the mass at 1 with the CDF at 0; then explore a count model such as Binomial."))
+      else tagList(tags$ul(
+        tags$li("A density is not a point probability: probabilities are areas over intervals, and P(X=x)=0 for a continuous model."),
+        tags$li("The CDF is the probability up to x. A tail probability is one minus that CDF."),
+        tags$li("Distinguish a Normal standard deviation from its variance, and an Exponential rate from its mean waiting time.")),
+        tags$p(class="learning-observe",tags$strong("What to explore: "),"Compare equal-width Uniform intervals, increase the Exponential rate, and move a Normal mean separately from its standard deviation."))
+    })
     output$practice_section <- renderUI({
-      if(path()=="core") learning_practice_ui(session$ns,"STATS125 Core: CDF practice")
-      else if(path()=="preview") tags$details(tags$summary("Optional observations"),
-        tags$ul(tags$li("Uniform: compare a point probability (zero) with the area of an interval."),
-          tags$li("Exponential: increase the rate and observe a shorter typical waiting time."),
-          tags$li("Normal: change the mean and standard deviation separately; variance is the squared standard deviation.")))
-      else tags$p("Further exploration focuses on plots. Optional graded exercises are in Conditional Distribution and Expectation.")
+      if(path()=="core") learning_practice_ui(session$ns,"Optional CDF self-check")
+      else tags$p("Use the visual exploration prompts above. Supplementary self-checks for this scope are available in Conditional Distribution and Expectation.")
     })
 
     

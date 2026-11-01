@@ -10,25 +10,49 @@ learning_module_header <- function(ns,title,description,sections) {
       lapply(seq_along(sections),function(i) shiny::tags$a(href=paste0("#",ns(sections[[i]])),
         `data-learning-jump`=ns(sections[[i]]),class=if(i==1) "btn btn-primary" else "btn btn-outline-primary",names(sections)[i]))))
 }
+learning_optional_practice <- function(ns,title,...) {
+  shiny::tags$details(id=ns("practice"),class="learning-card learning-practice learning-optional-practice",tabindex="-1",
+    shiny::tags$summary(title),shiny::tags$div(class="learning-card-body",
+      shiny::tags$p(class="small-note","Optional self-checks. These practice questions are supplementary; past-exam provenance has not been verified."),...))
+}
+learning_concept_summary <- function(title) {
+  content<-switch(title,
+    "Joint Distribution"=list(
+      c("A joint PMF gives the probability of a pair of outcomes; all cells are non-negative and together sum to 1.",
+        "Find a marginal by adding over the other variable. In the interactive table, X labels rows and Y labels columns.",
+        "Independence requires each joint probability to equal the product of its marginals; one unequal pair disproves it."),
+      "Choose the 20-observation worked example. Read one joint cell, then compare its row and column totals."),
+    "Conditional Distribution"=list(
+      c("Conditioning restricts attention to the outcomes satisfying the given event, then rescales their probabilities to sum to 1.",
+        "Divide a joint probability by the marginal probability of the condition. Reversing the condition usually changes that denominator.",
+        "A conditional PMF is undefined here when the conditioning probability is zero."),
+      "Keep the joint table fixed and switch the conditional direction. Compare the selected slice with its original row or column."),
+    "Expectation"=list(
+      c("An expectation is a probability-weighted average of outcomes. For E[g(X)], transform each outcome before averaging.",
+        "A conditional mean averages within the specified condition; E[Y | X=x] is a number for a fixed x.",
+        "The law of total expectation recovers E[Y] by weighting those conditional means by P(X=x)."),
+      "Choose the 20-observation worked example. Compare the two conditional means with the overall mean, using the X marginal as weights."))
+  shiny::tagList(shiny::tags$ul(lapply(content[[1]],shiny::tags$li)),shiny::tags$p(class="learning-observe",shiny::tags$strong("What to explore: "),content[[2]]))
+}
 learning_table_module_ui <- function(id,title,theory,plot_ids=NULL) {
   ns<-shiny::NS(id)
-  sections<-c("Go to practice"="practice","Table & controls"="workbench","Theory & formulas"="theory")
-  if(!is.null(plot_ids)) sections<-c(sections,"Plots"="plots")
+  sections<-c("Review key ideas"="theory","Explore tables & plots"="explorer","Optional practice"="practice")
   shiny::tags$div(class="learning-module",
-    learning_module_header(ns,title,"Answer the exercise, or load its example into the interactive table to explore.",sections),
-    shiny::tags$div(class="learning-workspace",
-      learning_section(ns,"practice",paste(title,"practice"),learning_practice_ui(ns,NULL),class="learning-practice"),
+    learning_module_header(ns,title,"Review the key ideas, then use the table and visualizations to understand how they work. Self-checks are optional.",sections),
+    learning_section(ns,"theory","1. Review the key ideas",learning_concept_summary(title),
+      shiny::tags$details(class="learning-more-theory",shiny::tags$summary("Definitions and formulas"),
+        shiny::tags$div(class="math-scroll",theory)),class="learning-theory"),
+    shiny::tags$div(id=ns("explorer"),class=if(is.null(plot_ids)) "learning-exploration" else "learning-exploration learning-exploration-pair",tabindex="-1",
       learning_section(ns,"workbench","Interactive probability table",
         shiny::uiOutput(ns("pmf_example_note")),
         shiny::tags$div(class="math-scroll",shiny::withMathJax(shiny::uiOutput(ns("joint_table_html")))),
         shiny::tags$details(class="learning-editor",open=NA,
-          shiny::tags$summary("Edit table / choose a worked example"),shiny::uiOutput(ns("input_panel"))),class="learning-workbench")),
-    shiny::tags$details(id=ns("theory"),class="learning-card learning-theory",tabindex="-1",
-      shiny::tags$summary("Theory and formulas"),shiny::tags$div(class="learning-card-body math-scroll",theory)),
-    if(!is.null(plot_ids)) learning_section(ns,"plots","Explore the distribution",
+          shiny::tags$summary("Edit table / choose a worked example"),shiny::uiOutput(ns("input_panel"))),class="learning-workbench"),
+      if(!is.null(plot_ids)) learning_section(ns,"plots","2. Explore the distribution",
       shiny::tags$h4("2D view"),plotly::plotlyOutput(ns(plot_ids[[1]]),height="320px"),
       shiny::tags$details(class="learning-3d",shiny::tags$summary("3D visualization (optional)"),
-        plotly::plotlyOutput(ns(plot_ids[[2]]),height="380px"))))
+        plotly::plotlyOutput(ns(plot_ids[[2]]),height="380px")))),
+    learning_optional_practice(ns,paste0("3. Optional self-checks — ",title),learning_practice_ui(ns,NULL)))
 }
 learning_practice_ui <- function(ns,title="Practice") {
   shiny::tagList(
@@ -88,7 +112,7 @@ learning_practice_server <- function(input,output,session,questions,module,cours
       "This section has no questions in the selected path. STATS125 joint-table practice is available in STATS125 Core; optional preview questions are in Conditional and Expectation."))
     shiny::tags$div(class="practice-progress",role="status",
       paste0(learning_path_label(path()),": ",completed()," / ",total()," answered correctly."),
-      if(completed()==total()) shiny::tags$p("This section is complete. You can revisit any question; optional paths have separate progress."))
+      if(completed()==total()) shiny::tags$p("All self-checks in this section have been answered correctly. You can revisit them; each scope has separate optional practice progress."))
   })
   output$question_meta<-shiny::renderUI({
     q<-prob();if(is.null(q)) return(NULL)
@@ -96,7 +120,8 @@ learning_practice_server <- function(input,output,session,questions,module,cours
     stage<-switch(q$stage,foundation="Discrete foundations: STATS125 Chapter 5",joint="Joint tables: STATS125 Chapter 7",
                   conditional="First study joint/conditional PMFs; conditional means build on STATS125 Chapter 8")
     shiny::tagList(shiny::tags$p(class="question-path",paste0("Exercise ",position," of ",total()," | Reference ",q$key," | ",learning_path_label(q$track))),
-      shiny::tags$p(class="small-note",if(q$track=="core") stage else "Optional: the concepts and formulas are provided. This question does not count towards STATS125 Core completion."),
+      shiny::tags$p(class="small-note",if(isTRUE(q$legacy)) "Supplementary practice; past-exam source not verified." else "Original self-check example; not a past-exam question."),
+      shiny::tags$p(class="small-note",if(q$track=="core") stage else "Optional self-check: the concepts and formulas are provided, and practice progress is recorded separately."),
       if(!isTRUE(q$legacy)) shiny::tags$h4(q$title))
   })
   output$story_out<-shiny::renderUI({

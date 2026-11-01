@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-01",
+  "total": 2,
+  "passed": 2,
+  "cases": [
+    {
+      "file": "css/learning-layout.css",
+      "status": 200,
+      "sha256": "90015e5c599c9dfd3de84863f944c7987063b4c77ce460f6978d2b1b5ef1b1cc",
+      "passed": true
+    },
+    {
+      "file": "js/learning-layout.js",
+      "status": 200,
+      "sha256": "3cdd15e5d0b0b94d7562c52d08fef06c1ea272d50e376754039a372970b2e7e5",
+      "passed": true
+    }
+  ]
+}
