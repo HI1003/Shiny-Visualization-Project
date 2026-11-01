@@ -12,6 +12,7 @@ pmf_global <- reactiveValues(df_edit=NULL, df_final=NULL, counter=0, has_final=F
 source('Project_PPeek1ng/modules/pmf_helpers.R', encoding='UTF-8')
 source('Project_PPeek1ng/modules/module_conditional.R', encoding='UTF-8')
 
+source('Project_PPeek1ng/modules/past_exam_bank.R',encoding='UTF-8')
 source('Project_PPeek1ng/modules/learning_content.R',encoding='UTF-8')
 source('Project_PPeek1ng/modules/learning_practice.R',encoding='UTF-8')
 make_pmf <- function(xs, ys, probabilities) {

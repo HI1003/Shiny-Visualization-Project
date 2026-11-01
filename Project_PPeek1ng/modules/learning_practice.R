@@ -13,7 +13,7 @@ learning_module_header <- function(ns,title,description,sections) {
 learning_optional_practice <- function(ns,title,...) {
   shiny::tags$details(id=ns("practice"),class="learning-card learning-practice learning-optional-practice",tabindex="-1",
     shiny::tags$summary(title),shiny::tags$div(class="learning-card-body",
-      shiny::tags$p(class="small-note","Optional self-checks. These practice questions are supplementary; past-exam provenance has not been verified."),...))
+      shiny::tags$p(class="small-note","Optional past-exam extracts. Each available question identifies its year, semester, question number and any adaptation. Use the reference answer to check written reasoning; input checks do not assess explanations."),...))
 }
 learning_concept_summary <- function(title) {
   content<-switch(title,
@@ -36,7 +36,7 @@ learning_concept_summary <- function(title) {
 }
 learning_table_module_ui <- function(id,title,theory,plot_ids=NULL) {
   ns<-shiny::NS(id)
-  sections<-c("Review key ideas"="theory","Explore tables & plots"="explorer","Optional practice"="practice")
+  sections<-c("Review key ideas"="theory","Explore tables & plots"="explorer","Past-exam questions (optional)"="practice")
   shiny::tags$div(class="learning-module",
     learning_module_header(ns,title,"Review the key ideas, then use the table and visualizations to understand how they work. Self-checks are optional.",sections),
     learning_section(ns,"theory","1. Review the key ideas",learning_concept_summary(title),
@@ -52,7 +52,7 @@ learning_table_module_ui <- function(id,title,theory,plot_ids=NULL) {
       shiny::tags$h4("2D view"),plotly::plotlyOutput(ns(plot_ids[[1]]),height="320px"),
       shiny::tags$details(class="learning-3d",shiny::tags$summary("3D visualization (optional)"),
         plotly::plotlyOutput(ns(plot_ids[[2]]),height="380px")))),
-    learning_optional_practice(ns,paste0("3. Optional self-checks — ",title),learning_practice_ui(ns,NULL)))
+    learning_optional_practice(ns,paste0("3. Optional past-exam questions — ",title),learning_practice_ui(ns,NULL)))
 }
 learning_practice_ui <- function(ns,title="Practice") {
   shiny::tagList(
@@ -108,8 +108,7 @@ learning_practice_server <- function(input,output,session,questions,module,cours
   total<-shiny::reactive(length(active_indices()))
   output$practice_status<-shiny::renderUI({
     if(!total()) return(shiny::tags$div(class="alert alert-info",
-      if(path()=="core") "No core questions in this section." else
-      "This section has no questions in the selected path. STATS125 joint-table practice is available in STATS125 Core; optional preview questions are in Conditional and Expectation."))
+      "No verified past-exam extract is available in this section for the selected scope. Visual exploration is available without answering questions."))
     shiny::tags$div(class="practice-progress",role="status",
       paste0(learning_path_label(path()),": ",completed()," / ",total()," answered correctly."),
       if(completed()==total()) shiny::tags$p("All self-checks in this section have been answered correctly. You can revisit them; each scope has separate optional practice progress."))
@@ -120,7 +119,12 @@ learning_practice_server <- function(input,output,session,questions,module,cours
     stage<-switch(q$stage,foundation="Discrete foundations: STATS125 Chapter 5",joint="Joint tables: STATS125 Chapter 7",
                   conditional="First study joint/conditional PMFs; conditional means build on STATS125 Chapter 8")
     shiny::tagList(shiny::tags$p(class="question-path",paste0("Exercise ",position," of ",total()," | Reference ",q$key," | ",learning_path_label(q$track))),
-      shiny::tags$p(class="small-note",if(isTRUE(q$legacy)) "Supplementary practice; past-exam source not verified." else "Original self-check example; not a past-exam question."),
+      if(isTRUE(q$is_exam)) shiny::tags$div(class="learning-exam-source",
+        shiny::tags$strong(paste(q$source$course,q$source$year,q$source$semester,q$source_question,sep=" | ")),
+        shiny::tags$p(paste0(if(isTRUE(q$adapted)) "Adapted presentation. " else "Original extract; formatting only. ",q$adaptation_note)),
+        shiny::tags$p(paste0("Question source: ",q$source$question_file,"; page(s) ",paste(unlist(q$source_pages),collapse=", "),
+          ". Reference solution: ",q$source$solution_file,"; page(s) ",paste(unlist(q$solution_pages),collapse=", "),".")))
+      else shiny::tags$p(class="small-note","Historical project question used only by internal regression checks."),
       shiny::tags$p(class="small-note",if(q$track=="core") stage else "Optional self-check: the concepts and formulas are provided, and practice progress is recorded separately."),
       if(!isTRUE(q$legacy)) shiny::tags$h4(q$title))
   })

@@ -20,7 +20,7 @@ try {
   if ($LASTEXITCODE -ne 0) { throw 'PMF input and synchronization regression failed.' }
   & $RscriptPath --vanilla review/scripts/test_remaining.R "review/evidence/${ReportPrefix}_remaining.json"
   if ($LASTEXITCODE -ne 0) { throw 'Remaining module regression failed.' }
-  & $RscriptPath --vanilla review/scripts/test_learning_paths.R "review/evidence/${ReportPrefix}_learning_paths.json"
-  if ($LASTEXITCODE -ne 0) { throw 'Learning path and core exercise checks failed.' }
+  & $RscriptPath --vanilla review/scripts/test_past_exam_bank.R "review/evidence/${ReportPrefix}_past_exams.json"
+  if ($LASTEXITCODE -ne 0) { throw 'Verified local past-exam checks failed.' }
   Write-Output "All regression groups passed; results saved in review/evidence/${ReportPrefix}_*.json."
 } finally { Pop-Location }

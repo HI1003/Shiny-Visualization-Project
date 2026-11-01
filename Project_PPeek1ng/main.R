@@ -15,6 +15,7 @@ library(plotly)
 #  Load all module files
 # =========================================================
 source("modules/pmf_helpers.R")
+source("modules/past_exam_bank.R")
 source("modules/learning_content.R")
 source("modules/learning_practice.R")
 source("modules/module_joint.R")
@@ -56,7 +57,7 @@ ui <- bs4DashPage(
     div(class="learning-path-controls",
       selectInput("learning_path", "Learning path", choices=learning_path_labels, selected="core"),
       helpText("Review concepts and explore the visualizations. Self-checks are optional."),
-      tags$details(class="learning-optional-progress",tags$summary("Optional practice progress"),uiOutput("learning_progress"))
+      tags$details(class="learning-optional-progress",tags$summary("Optional past-exam progress"),uiOutput("learning_progress"))
     ),
     bs4SidebarMenu(
       id = "tabs",
@@ -387,7 +388,7 @@ server <- function(input, output, session) {
   output$learning_progress <- renderUI({
     total <- sum(vapply(practice_modules,function(x) x$total(),numeric(1)))
     complete <- sum(vapply(practice_modules,function(x) x$completed(),numeric(1)))
-    tags$p(role="status",paste0(complete," / ",total," practice exercises correct"))
+    tags$p(role="status",paste0(complete," / ",total," optional past-exam extracts correct"))
   })
   output$learning_path_banner <- renderUI({
     div(class="alert alert-info",strong(learning_path_label(course_path()))," — ",

@@ -1,6 +1,12 @@
 # 模块审查与教学复核
 
-2026-11-01 用户反馈后的当前定位：**知识点回顾 → 图表可视化理解 → 可选自测**。首页先进入概念回顾，四模块均先展示知识要点与观察提示；练习移至末尾并默认收起，侧栏进度也收起。现有 42 题保留：新增 10 题明确为原创自测，原项目 32 题的真题来源未逐题核实，本轮没有新增历年真题。当前本地改版及 65/65 新浏览器检查、695/695 模块与 22/22 可选练习流程见 [最新验证](evidence/concept_first_verification.md)；本轮尚未推送。
+2026-11-01 最新状态：四模块已改为 **知识点回顾 → 可视化 → 可选历年真题**。学生可选题库只含 **4 组经核验的 STATS125 真题节选**，逐题注明年份、学期、题号及改编情况；此前原创 10 题已移除，原项目 32 题仅保留作内部回归。真题内容、PDF 和含题目内容的截图全部本地保存、不提交 Git。来源与本地使用见 [选择记录](PAST_EXAM_SELECTION.md)，当前验证见 [验证记录](evidence/past_exam_verification.md)。本轮仅本地提交，尚未推送或部署。
+
+当前回归入口包含原模块修复检查及 `test_past_exam_bank.R`；后者需要本机私有题库和匹配 PDF，详见选择记录。原 42 题、30/8/4、695 等数字及旧浏览器脚本均为以下历史阶段的结果，不代表当前可选题库。直接加载模块时，按 `pmf_helpers.R`、`past_exam_bank.R`、`learning_content.R`、`learning_practice.R` 顺序加载。
+
+## 早先阶段与首轮审查（历史记录）
+
+2026-11-01 较早一次反馈后的定位（已由上述真题版本替代）：**知识点回顾 → 图表可视化理解 → 可选自测**。首页先进入概念回顾，四模块均先展示知识要点与观察提示；练习移至末尾并默认收起，侧栏进度也收起。现有 42 题保留：新增 10 题明确为原创自测，原项目 32 题的真题来源未逐题核实，本轮没有新增历年真题。当前本地改版及 65/65 新浏览器检查、695/695 模块与 22/22 可选练习流程见 [最新验证](evidence/concept_first_verification.md)；本轮尚未推送。
 
 2026-10-31 教学定位：**服务当前 STATS125 学生，少量内容为后续 STATS210 作可选铺垫。** [教学复核及实施](TEACHING_REVIEW_STATS125.md) 已落实默认核心路径，保留原 32 题、增加 10 道核心练习。实际为 **30 核心 / 8 可选预习 / 4 可选拓展**，各自筛题和计数；条件期望、全期望、离散 E[g(X)] 和方差保留为核心。图形预设可从题目载入，匹配参数和选中的 x。最新结果与限制见 [内容改进验证记录](evidence/content_verification.md)。
 
@@ -14,7 +20,7 @@
 
 2026-10-30 历史结果见 [全量验证记录](evidence/final_verification.md)：R1-04 102/102、R1-05 11/11、R1-06 124/124、本轮 300/300，以及独立有理数核算 10/10、图片资源 13/13。覆盖以各项证据为准，不是所有输入组合或部署验收。
 
-当前复测从仓库根目录运行 `./review/scripts/run_regression.ps1`；新增分层检查已纳入。默认写入 `final_*.json`，使用 `-ReportPrefix content` 可另存本轮结果。应用启动后运行 `./review/scripts/test_assets.ps1`，可用 `-BaseUrl` 与 `-ReportPath` 指定服务/输出。直接调用模块需先加载 `pmf_helpers.R`、`learning_content.R`、`learning_practice.R`；同一学生会话显式传入同一个 `new_pmf_state()`。旧题库专项测试显式使用内部 `legacy` 路径保持原 32 题断言，新增测试另外核验真实应用默认核心；学生界面不能选择 `legacy`。
+当时复测从仓库根目录运行 `./review/scripts/run_regression.ps1`；新增分层检查已纳入。默认写入 `final_*.json`，使用 `-ReportPrefix content` 可另存本轮结果。应用启动后运行 `./review/scripts/test_assets.ps1`，可用 `-BaseUrl` 与 `-ReportPath` 指定服务/输出。直接调用当前模块需先加载 `pmf_helpers.R`、`past_exam_bank.R`、`learning_content.R`、`learning_practice.R`；同一学生会话显式传入同一个 `new_pmf_state()`。旧题库专项测试显式使用内部 `legacy` 路径保持原 32 题断言，新增测试另外核验真实应用默认核心；学生界面不能选择 `legacy`。
 
 R1-04 的 [验证记录](evidence/r1_04_verification.md) 包含 10/10 题有理数复核、102/102 真实练习交互检查，以及 R1-05 11/11、R1-06 124/124 的重跑结果。复现需先运行 `Rscript --vanilla review/scripts/test_r1_04.R`，再运行 `python review/scripts/test_r1_04_math.py`。
 
@@ -53,6 +59,6 @@ R1-06 的 [验证记录](evidence/r1_06_verification.md) 包含三模块输入�
 ./review/scripts/run_regression.ps1
 ```
 
-默认使用本机 R 4.6.1 与 Inkscape 自带 Python，可用 `-RscriptPath`、`-PythonPath` 指定其他安装位置。脚本依赖项目现有 R 包和 Python 标准库，不需要课程 PDF。`test_assets.ps1` 需先运行 `Rscript Start-Shiny.R --no-browser`。
+默认使用本机 R 4.6.1 与 Inkscape 自带 Python，可用 `-RscriptPath`、`-PythonPath` 指定其他安装位置。旧模块检查依赖项目现有 R 包和 Python 标准库；最新真题集成检查另需私有 JSON 与本地 PDF。`test_assets.ps1` 需先运行 `Rscript Start-Shiny.R --no-browser`。
 
 `round1_audit.R` / `round1_joint_audit.py` 保留用于首轮基线 `0f609de` 的复现，包含旧错误表达式。它们不是当前回归入口；不要在当前代码上运行并覆盖 `round1_*` 历史结果。当前模块的共享判题函数已移至 `pmf_helpers.R`，应使用真实模块回归脚本。

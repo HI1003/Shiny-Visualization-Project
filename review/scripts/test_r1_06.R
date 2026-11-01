@@ -6,6 +6,7 @@ args <- commandArgs(trailingOnly=TRUE)
 destination <- if(length(args)) args[1] else 'review/evidence/r1_06_regression.json'
 module_dir <- if(length(args)>1) args[2] else 'Project_PPeek1ng/modules'
 if(file.exists(file.path(module_dir,'pmf_helpers.R'))) source(file.path(module_dir,'pmf_helpers.R'),encoding='UTF-8')
+source('Project_PPeek1ng/modules/past_exam_bank.R',encoding='UTF-8')
 source('Project_PPeek1ng/modules/learning_content.R',encoding='UTF-8')
 source('Project_PPeek1ng/modules/learning_practice.R',encoding='UTF-8')
 results <- new.env(parent=emptyenv()); results$cases <- list()

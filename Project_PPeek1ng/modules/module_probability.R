@@ -14,7 +14,7 @@ prob_UI <- function(id) {
     div(class="learning-module",
       learning_module_header(ns,"Probability Distributions",
         "Review the key ideas, then change parameters and read the plots. Self-check questions are optional.",
-        c("Review key ideas"="theory","Explore plots & parameters"="explorer","Optional practice"="practice")),
+        c("Review key ideas"="theory","Explore plots & parameters"="explorer","Past-exam questions (optional)"="practice")),
       uiOutput(ns("path_description")),
       learning_section(ns,"theory","1. Review the key ideas",
         uiOutput(ns("concept_review")),
@@ -28,7 +28,7 @@ prob_UI <- function(id) {
       div(id=ns("explorer"),class="learning-overview-explorer",tabindex="-1",
         learning_section(ns,"controls","Model and parameters",
           radioButtons(ns("dist_type"),"Distributions in this learning path",c("Discrete"="discrete","Continuous"="continuous"),selected="discrete",inline=TRUE),
-          selectInput(ns("plot_example"),"Example from practice",choices=c("CDF practice: Bernoulli(p=0.4)"="bern04")),
+          selectInput(ns("plot_example"),"Visualization example",choices=c("CDF illustration: Bernoulli(p=0.4)"="bern04")),
           actionButton(ns("load_plot_example"),"Load example",class="btn-primary"),
           helpText("Load applies the selected preset. Moving sliders explores a different model; practice questions keep their stated parameters."),
           uiOutput(ns("example_note")),
@@ -137,7 +137,7 @@ prob_UI <- function(id) {
               div(h4(HTML("CDF: P(X &le; x)")),plotOutput(ns("cdf_plot_cont"),height=320,click=ns("click_cdf_cont")))),
             helpText("Click a graph to select x. For a continuous variable, P(X = x) = 0; a density value is not a point probability."),
             h4("Current Selection"),verbatimTextOutput(ns("sel_text_cont"))),class="learning-overview-plots")),
-      learning_optional_practice(ns,"3. Optional self-checks",uiOutput(ns("practice_section")))))
+      learning_optional_practice(ns,"3. Optional past-exam questions",uiOutput(ns("practice_section")))))
 }
 
 prob_Server <- function(id, course_path=function() "core", plot_request=function() NULL) {
@@ -201,7 +201,7 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
     observeEvent(input$load_plot_example,apply_example(input$plot_example))
     observeEvent(plot_request(),{request <- plot_request();req(request$key);apply_example(request$key)},ignoreNULL=TRUE)
     output$example_note <- renderUI({ex <- current_example();if(is.null(ex)) return(NULL);tags$p(class="alert alert-info",ex$note)})
-    practice_questions <- learning_questions(list(),"overview")
+    practice_questions <- learning_questions(list(),"overview",shiny::isolate(course_path()))
     practice <- learning_practice_server(input,output,session,practice_questions,"overview",course_path,open_plot=apply_example)
     output$concept_review <- renderUI({
       if(path() %in% c("core","legacy")) tagList(
@@ -216,8 +216,8 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
         tags$p(class="learning-observe",tags$strong("What to explore: "),"Compare equal-width Uniform intervals, increase the Exponential rate, and move a Normal mean separately from its standard deviation."))
     })
     output$practice_section <- renderUI({
-      if(path()=="core") learning_practice_ui(session$ns,"Optional CDF self-check")
-      else tags$p("Use the visual exploration prompts above. Supplementary self-checks for this scope are available in Conditional Distribution and Expectation.")
+      if(path()=="core") learning_practice_ui(session$ns,"Selected STATS125 past-exam extract")
+      else learning_practice_ui(session$ns,"Selected STATS125 past-exam extracts")
     })
 
     

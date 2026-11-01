@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-01",
+  "total": 7,
+  "passed": 7,
+  "cases": [
+    {
+      "name": "joint_table_normalisation",
+      "passed": true
+    },
+    {
+      "name": "joint_marginals",
+      "passed": true
+    },
+    {
+      "name": "joint_independence_conclusion",
+      "passed": true
+    },
+    {
+      "name": "conditional_pmf",
+      "passed": true
+    },
+    {
+      "name": "joint_expectation",
+      "passed": true
+    },
+    {
+      "name": "conditional_expectation",
+      "passed": true
+    },
+    {
+      "name": "poisson_event_conversion",
+      "passed": true
+    }
+  ],
+  "scope": "Independent rational arithmetic and Poisson event conversion; expected values remain private."
+}

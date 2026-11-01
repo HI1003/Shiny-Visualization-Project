@@ -162,7 +162,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
         return(tags$div(style="color:#888; padding:10px;", "Initializing table..."))
       }
       tagList(
-        selectInput(ns("pmf_example"), "Worked example", choices = c("Two Ace indicators"="cards", "20 fictional observations"="counts20", "Zero conditioning probability"="zero_x")),
+        selectInput(ns("pmf_example"), "Worked example", choices = learning_pmf_example_choices()),
         actionButton(ns("load_pmf_example"), "Load worked example", class="btn-outline-primary"),
         h4("Input (x, y, p):"),
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
@@ -1125,7 +1125,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
     
     # ==== 题库 ====
     question_bank <- get_condition_question_bank()
-    practice_questions <- learning_questions(question_bank, "conditional")
+    practice_questions <- learning_questions(question_bank, "conditional",shiny::isolate(course_path()))
     practice <- learning_practice_server(input, output, session, practice_questions,
       "conditional", course_path, load_pmf=pmf_actions$load_example, open_plot=open_plot)
     # Stable references also support regression of the unchanged original question library.
