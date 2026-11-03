@@ -240,3 +240,16 @@ GIT-01：按用户要求，将 `review/` 中的审查文档、证据摘要和复
 独立本地提交说明为 `Use compact probability displays without losing precision`，SHA 见 Git 历史；**本轮未推送、未部署**，此前 GitHub `a3a195c` 的同步记录保持。预览继续使用 7130，仅重启本任务拥有的服务，用户外部 Chrome 页面需刷新；独立验证浏览器在收尾关闭。
 
 可核实自动窗口为 **11:35:21–11:49:44 NZDT（14 分 23 秒）**，此前查阅/设计及此后文档、源码/暂存核对和提交收尾未计入。人工实际工时待本人填写，自动时间不计入或扣减 15 小时预算。
+
+
+## 2026-11-04：数值显示改进同步 GitHub
+
+按用户要求，将数值显示改进提交 `ecef621`（`Use compact probability displays without losing precision`）同步至 `origin/main`，目标为 `HI1003/Shiny-Visualization-Project`。未修改 upstream，未部署。
+
+推送前获取远端状态，确认可正常快进；核对完整待推送范围的 **27 个文件路径、27 个文件版本**，逐版本检查未包含课程 PDF、压缩包、私有真题题干/解答或任何本地缓存。此次范围不含截图文件。排除规则核对覆盖 `.local/past-exams/`、`.local/number-format-review/`、本地日志、`.R-library/`、`.playwright-cli/`、`output/playwright/`、`local_reference/`、`.Rhistory` 和 `.RData`；没有被忽略但已跟踪的文件。
+
+本次仅同步与更新记录，没有修改应用代码或重跑功能测试。重新核对既有报告的通过状态及源码 MD5：**689/689 模块与精度、29/29 浏览器、10/10 独立数学、13/13 图片**，对应当前源码；历史 `numbers_*` 结果保持原样。
+
+数值显示改进推送成功后，于 **11:55:40 NZDT** 核验 GitHub main 与本地内容提交均为 `ecef62163f4f4e74c99c989bbe6d4430c84ae26d`。随后更新本日志、HANDOVER 与 review/README 的当前同步状态，作为独立文档提交一并同步；最终 SHA 见 Git 历史，收尾再次核对本地与远端一致和工作区清洁。历史“未推送”条目保留为当时状态。
+
+课程资料、私有真题题库和缓存继续只保留在本机；公开仓库不包含私有真题题干、数据或答案。人工实际工时待本人填写，本次自动同步核验不自动计入或扣减 15 小时预算。
