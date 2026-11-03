@@ -1,0 +1,126 @@
+{
+  "issue": "R1-05",
+  "date": "2026-11-04",
+  "environment": {
+    "R": "R version 4.6.1 (2026-06-24 ucrt)",
+    "shiny": "1.14.0",
+    "dplyr": "1.2.1",
+    "plotly": "4.12.1"
+  },
+  "source_md5": "980086ea1c8c24aae827eaae4218cd98",
+  "total": 11,
+  "passed": 11,
+  "cases": [
+    {
+      "name": "default_Y_given_X0",
+      "passed": true,
+      "expected": [0.92156692811023966, 0.07843307188976037],
+      "displayed": [0.92156692811023966, 0.07843307188976037, 1],
+      "bird": [0.92156692811023966, 0.07843307188976037],
+      "plot3d": [0.92156692811023966, 0.07843307188976037],
+      "table_passed": true,
+      "bird_passed": true,
+      "plot3d_passed": true
+    },
+    {
+      "name": "default_Y_given_X1",
+      "passed": true,
+      "expected": [0.94123764950598032, 0.058762350494019754],
+      "displayed": [0.94123764950598032, 0.058762350494019754, 1],
+      "bird": [0.94123764950598032, 0.058762350494019754],
+      "plot3d": [0.94123764950598032, 0.058762350494019754],
+      "table_passed": true,
+      "bird_passed": true,
+      "plot3d_passed": true
+    },
+    {
+      "name": "default_X_given_Y0",
+      "passed": true,
+      "expected": [0.92156692811023966, 0.07843307188976037],
+      "displayed": [0.92156692811023966, 0.07843307188976037, 1],
+      "bird": [0.92156692811023966, 0.07843307188976037],
+      "plot3d": [0.92156692811023966, 0.07843307188976037],
+      "table_passed": true,
+      "bird_passed": true,
+      "plot3d_passed": true
+    },
+    {
+      "name": "default_X_given_Y1",
+      "passed": true,
+      "expected": [0.94123764950598032, 0.058762350494019754],
+      "displayed": [0.94123764950598032, 0.058762350494019754, 1],
+      "bird": [0.94123764950598032, 0.058762350494019754],
+      "plot3d": [0.94123764950598032, 0.058762350494019754],
+      "table_passed": true,
+      "bird_passed": true,
+      "plot3d_passed": true
+    },
+    {
+      "name": "unequal_Y_given_X0",
+      "passed": true,
+      "expected": [0.33333333333333331, 0.16666666666666666, 0.5],
+      "displayed": [0.33333333333333337, 0.16666666666666669, 0.5, 1],
+      "bird": [0.33333333333333337, 0.16666666666666669, 0.5],
+      "plot3d": [0.33333333333333337, 0.16666666666666669, 0.5],
+      "table_passed": true,
+      "bird_passed": true,
+      "plot3d_passed": true
+    },
+    {
+      "name": "unequal_Y_given_X1",
+      "passed": true,
+      "expected": [0.2857142857142857, 0.42857142857142855, 0.2857142857142857],
+      "displayed": [0.28571428571428575, 0.4285714285714286, 0.28571428571428575, 1],
+      "bird": [0.28571428571428575, 0.4285714285714286, 0.28571428571428575],
+      "plot3d": [0.28571428571428575, 0.4285714285714286, 0.28571428571428575],
+      "table_passed": true,
+      "bird_passed": true,
+      "plot3d_passed": true
+    },
+    {
+      "name": "unequal_X_given_Y0",
+      "passed": true,
+      "expected": [0.33333333333333331, 0.66666666666666663],
+      "displayed": [0.33333333333333331, 0.66666666666666663, 1],
+      "bird": [0.33333333333333331, 0.66666666666666663],
+      "plot3d": [0.33333333333333331, 0.66666666666666663],
+      "table_passed": true,
+      "bird_passed": true,
+      "plot3d_passed": true
+    },
+    {
+      "name": "unequal_X_given_Y1",
+      "passed": true,
+      "expected": [0.14285714285714285, 0.8571428571428571],
+      "displayed": [0.14285714285714288, 0.85714285714285721, 1],
+      "bird": [0.14285714285714288, 0.85714285714285721],
+      "plot3d": [0.14285714285714288, 0.85714285714285721],
+      "table_passed": true,
+      "bird_passed": true,
+      "plot3d_passed": true
+    },
+    {
+      "name": "unequal_X_given_Y2",
+      "passed": true,
+      "expected": [0.42857142857142855, 0.5714285714285714],
+      "displayed": [0.4285714285714286, 0.57142857142857151, 1],
+      "bird": [0.4285714285714286, 0.57142857142857151],
+      "plot3d": [0.4285714285714286, 0.57142857142857151],
+      "table_passed": true,
+      "bird_passed": true,
+      "plot3d_passed": true
+    },
+    {
+      "name": "zero_X_marginal",
+      "passed": true,
+      "expected": "undefined",
+      "message": "Conditional distribution is undefined: P(X = 0) must be positive."
+    },
+    {
+      "name": "zero_Y_marginal",
+      "passed": true,
+      "expected": "undefined",
+      "message": "Conditional distribution is undefined: P(Y = 0) must be positive."
+    }
+  ]
+}

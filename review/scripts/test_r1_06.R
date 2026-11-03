@@ -15,11 +15,8 @@ record <- function(module, name, passed, detail=list()) {
 }
 read_ui <- function(value) tryCatch(if(is.null(value)) '' else value$html, error=function(e) '')
 table_values <- function(html) {
-  cells <- xml2::xml_find_all(xml2::read_html(html), '(//table)[1]/tbody/tr/td')
-  values <- xml2::xml_text(cells)
-  values <- gsub('\\\\[()]', '', values)
-  values <- gsub('\\\\frac\\{([^}]+)\\}\\{([^}]+)\\}', '\\1/\\2', values)
-  vapply(values, parse_user_prob, numeric(1))
+  cells <- xml2::xml_find_all(xml2::read_html(html), '(//table)[1]/tbody/tr/td[@data-number-value]')
+  as.numeric(xml2::xml_attr(cells,'data-number-value'))
 }
 invalid <- list(negative=c('-1','1','1','1'), tiny_negative=c('-.000001','1','1','1'),
   text=c('abc','1','1','1'), zero_denominator=c('1/0','1','1','1'),
@@ -91,7 +88,8 @@ for (module in c('joint','conditional','expectation')) {
         all(abs(actual$p_value-case$expected)<1e-12) && abs(sum(actual$p_value)-1)<1e-12
       input_ok <- all(abs(vapply(actual$p_input,parse_user_prob,numeric(1))-actual$p_value)<1e-14)
       input_ui <- read_ui(output$input_panel)
-      input_ok <- input_ok && all(vapply(actual$p_input,function(p) grepl(p,input_ui,fixed=TRUE),logical(1)))
+      controls <- xml2::xml_find_all(xml2::read_html(input_ui),'//input[contains(@id,"-p_")]')
+      input_ok <- input_ok && identical(unname(xml2::xml_attr(controls,'value')),pmf_editor_value(actual$p_input))
       mat <- xtabs(p_value~x+y,actual)
       expected_table <- rbind(cbind(mat,rowSums(mat)),c(colSums(mat),1))
       displayed <- table_values(read_ui(output$joint_table_html))
@@ -112,8 +110,8 @@ for (module in c('joint','conditional','expectation')) {
         }
       } else {
         text <- read_ui(output$expectation_results)
-        graph_ok <- grepl(sprintf('%.6f',sum(actual$x*actual$p_value)),text,fixed=TRUE) &&
-          grepl(sprintf('%.6f',sum(actual$y*actual$p_value)),text,fixed=TRUE)
+        displayed_results <- as.numeric(xml2::xml_attr(xml2::xml_find_all(xml2::read_html(text),'//p[@data-number-value]'),'data-number-value'))
+        graph_ok <- length(displayed_results)==2 && max(abs(displayed_results-c(sum(actual$x*actual$p_value),sum(actual$y*actual$p_value))))<1e-12
       }
       record(module,paste0('valid_',name),probability_ok && input_ok && table_ok && graph_ok &&
         !nzchar(read_ui(output$input_feedback)),list(probability_passed=probability_ok,

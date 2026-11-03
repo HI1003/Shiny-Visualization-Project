@@ -1,9 +1,10 @@
 # 模块修复与 STATS125 教学复核交接
 
-当前阶段：2026-11-01。面向 STATS125 学生，少量 STATS210 内容仅作可选预习。当前主线是 **知识点回顾 → 可视化探索 → 可选历年真题**；四个模块的练习及侧栏进度默认折叠。
+当前阶段：2026-11-04。面向 STATS125 学生，少量 STATS210 内容仅作可选预习。当前主线是 **知识点回顾 → 可视化探索 → 可选历年真题**；四个模块的练习及侧栏进度默认折叠。
 
 ## 当前结果
 
+- 2026-11-04 按用户体验反馈改进数值显示：侧栏选择 Auto / Short decimals / Simple fractions；表格/条件概率/期望与图形标签使用简洁数字，近似值标注，悬停或 More precision 查看完整值。编辑框缩短显示但保留未经编辑的真实精度；本轮尚未推送。见 [验证记录](evidence/number_display_verification.md)。
 - R1-01–R1-11、R2-01–R2-07 的技术修复及之前教学/布局改进已同步 GitHub，原记录提交 `5063d1d`。概念优先改版 `2eed4f9` 和真题改版 `b94764d` 已于 2026-11-01 同步至用户 GitHub；推送后核验远端 main 与本地内容提交均为 `b94764d412ad16f6420b37092b09243869bf8e36`。本次同步记录另作独立文档提交一并同步，最终 SHA 见 Git 历史。未部署。
 - 当前四模块可选题库只含 4 组经本地试卷及参考解答核实的 STATS125 真题节选。来源、页码和改编情况见 [选择记录](PAST_EXAM_SELECTION.md)；本轮未原创练习。
 - 此前新增 10 题的构建代码已删除，原 32 题保留为内部 legacy 回归依据，学生不能启用。旧 30/8/4、42 题及 695/695 结果为历史阶段记录。通用图表演示、独立游戏与原计算功能保留。
@@ -12,9 +13,9 @@
 
 ## 验证与证据
 
-最新结果、覆盖及限制见 [真题验证](evidence/past_exam_verification.md)。原模块专项检查继续覆盖 R1-04/05/06 与其他修复；新检查覆盖真实默认真题、反馈、进度、题图对应、缺失/损坏题库和路径隔离。旧 `test_learning_paths.R` 和旧 content/layout/concept 浏览器脚本保留用于历史阶段，不是当前入口。
+当前结果见 [数值显示验证](evidence/number_display_verification.md)：689/689 模块/精度、29/29 显示浏览器、10/10 独立数学及 13/13 图片；原 R1-04/05/06 与真题组均重跑。真题来源与上一阶段覆盖见 [真题验证](evidence/past_exam_verification.md)。旧 `test_learning_paths.R` 和旧 content/layout/concept 浏览器脚本保留用于历史阶段，不是当前入口。
 
-当前从仓库根目录运行 `./review/scripts/run_regression.ps1 -ReportPrefix exam`。最后的真题检查需要私有题库与对应 PDF。启动后可运行 `./review/scripts/test_assets.ps1 -BaseUrl http://127.0.0.1:7130`。浏览器复现见选择记录；临时截图、CLI 命令回显和私有输入均不得提交。
+当前从仓库根目录运行 `./review/scripts/run_regression.ps1 -ReportPrefix numbers`，最后加入数值显示/精度专项；其中真题检查需要私有题库与对应 PDF。启动后可运行 `./review/scripts/test_assets.ps1 -BaseUrl http://127.0.0.1:7130`。显示浏览器检查使用 `check_number_display_browser.js`；真题浏览器复现仍见选择记录。临时截图、CLI 命令回显和私有输入均不得提交。
 
 ## 下一步
 

@@ -1,0 +1,450 @@
+{
+  "date": "2026-11-04",
+  "total": 80,
+  "passed": 80,
+  "cases": [
+    {
+      "group": "loader",
+      "name": "local_bank_verified",
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "name": "four_verified_exam_extracts_only",
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "name": "unique_references",
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "name": "no_unverified_or_original_fallback",
+      "passed": true
+    },
+    {
+      "group": "EX26S1Q2",
+      "name": "source_reference",
+      "passed": true
+    },
+    {
+      "group": "EX26S1Q2",
+      "name": "adaptation_disclosed",
+      "passed": true
+    },
+    {
+      "group": "EX25S1Q3",
+      "name": "source_reference",
+      "passed": true
+    },
+    {
+      "group": "EX25S1Q3",
+      "name": "adaptation_disclosed",
+      "passed": true
+    },
+    {
+      "group": "EX24S2Q3",
+      "name": "source_reference",
+      "passed": true
+    },
+    {
+      "group": "EX24S2Q3",
+      "name": "adaptation_disclosed",
+      "passed": true
+    },
+    {
+      "group": "EX26S1Q3",
+      "name": "source_reference",
+      "passed": true
+    },
+    {
+      "group": "EX26S1Q3",
+      "name": "adaptation_disclosed",
+      "passed": true
+    },
+    {
+      "group": "loader",
+      "name": "missing_bank_is_empty",
+      "passed": true
+    },
+    {
+      "group": "loader",
+      "name": "changed_pdf_is_rejected",
+      "passed": true
+    },
+    {
+      "group": "loader",
+      "name": "malformed_bank_is_rejected",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "one_exam_default",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "year_question_and_adaptation_rendered",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "all_entries_accept_reference",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "progress_counts_once",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "missing_entry_rejected",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "feedback_1",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "feedback_2",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "feedback_3",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "no_preview_fallback",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "no_further_fallback",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "return_retains_optional_progress",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "single_question_boundaries",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "load_exact_exam_table",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "exam_caption",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "one_exam_default",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "year_question_and_adaptation_rendered",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "all_entries_accept_reference",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "progress_counts_once",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "missing_entry_rejected",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "feedback_1",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "feedback_2",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "feedback_3",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "no_preview_fallback",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "no_further_fallback",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "return_retains_optional_progress",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "single_question_boundaries",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "load_exact_exam_table",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "exam_caption",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "one_exam_default",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "year_question_and_adaptation_rendered",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "all_entries_accept_reference",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "progress_counts_once",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "missing_entry_rejected",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "feedback_1",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "feedback_2",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "feedback_3",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "no_preview_fallback",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "no_further_fallback",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "return_retains_optional_progress",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "single_question_boundaries",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "load_exact_exam_table",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "exam_caption",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "one_exam_default",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "year_question_and_adaptation_rendered",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "all_entries_accept_reference",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "progress_counts_once",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "missing_entry_rejected",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "feedback_1",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "feedback_2",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "feedback_3",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "no_preview_fallback",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "no_further_fallback",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "return_retains_optional_progress",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "single_question_boundaries",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "paper26s1q2_exact_selected_value",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "paper26s1q2_exact_caption",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "paper26s1q2_exact_pmf_and_cdf",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "paper26s1q2_less_selected_value",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "paper26s1q2_less_caption",
+      "passed": true
+    },
+    {
+      "group": "overview",
+      "name": "paper26s1q2_less_pmf_and_cdf",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "four_optional_exam_extracts",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "legacy_request_cannot_expose_old_questions",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "no_original_preview",
+      "passed": true
+    },
+    {
+      "group": "privacy",
+      "name": "missing_bank_does_not_load_old_questions",
+      "passed": true
+    },
+    {
+      "group": "privacy",
+      "name": "empty_bank_explains_availability",
+      "passed": true
+    }
+  ],
+  "question_references": [
+    {
+      "reference": "EX26S1Q2",
+      "year": 2026,
+      "semester": "S1",
+      "question": "Q2(a)–(d)",
+      "adapted": false
+    },
+    {
+      "reference": "EX25S1Q3",
+      "year": 2025,
+      "semester": "S1",
+      "question": "Q3(c)–(d)",
+      "adapted": false
+    },
+    {
+      "reference": "EX24S2Q3",
+      "year": 2024,
+      "semester": "S2",
+      "question": "Q3(e)",
+      "adapted": false
+    },
+    {
+      "reference": "EX26S1Q3",
+      "year": 2026,
+      "semester": "S1",
+      "question": "Q3(d), (g)",
+      "adapted": true
+    }
+  ],
+  "source_md5": {
+    "Project_PPeek1ng/app.R": "731ef53cae0eb1707056b270b078ed1c",
+    "Project_PPeek1ng/main.R": "6dcc94312746965314eeb128a709fa0d",
+    "Project_PPeek1ng/modules/learning_content.R": "434e49e1ac6fd50ded1de486316906a6",
+    "Project_PPeek1ng/modules/learning_practice.R": "cb26d6c9663a32560887585afbb21ef0",
+    "Project_PPeek1ng/modules/module_conditional.R": "980086ea1c8c24aae827eaae4218cd98",
+    "Project_PPeek1ng/modules/module_expectation.R": "c8fb75f5ac5b2ef4eebf25201e5cf1e4",
+    "Project_PPeek1ng/modules/module_game_discrete.r": "6d9bbb12de3f3314cd64ff61b3df5e8f",
+    "Project_PPeek1ng/modules/module_joint.R": "b39932e34dcdc26a46affac056bddf3d",
+    "Project_PPeek1ng/modules/module_probability.R": "fe2af4af96724f1f35415e4bbca78c90",
+    "Project_PPeek1ng/modules/past_exam_bank.R": "a115eace2399d2a7ab4c781a8062787c",
+    "Project_PPeek1ng/modules/pmf_helpers.R": "18eaf24bb762f3d6467ac623f383f75f"
+  }
+}

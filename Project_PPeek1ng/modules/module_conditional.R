@@ -166,10 +166,11 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
         actionButton(ns("load_pmf_example"), "Load worked example", class="btn-outline-primary"),
         h4("Input (x, y, p):"),
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
+        helpText("Compact values are shown below. Hover for full precision. Unedited entries retain full precision."),
         uiOutput(ns("input_feedback")),
         lapply(seq_len(nrow(df)), function(i) {
           div(class = "pmf-edit-row",
-            div(class = "pmf-edit-prob", textInput(ns(paste0("p_", df$id[i])), "p", value = df$p_input[i])),
+            pmf_probability_input(ns,df$id[i],df$p_input[i]),
             div(class = "pmf-edit-coordinate", numericInput(ns(paste0("x_", df$id[i])), "x", value = df$x[i])),
             div(class = "pmf-edit-coordinate", numericInput(ns(paste0("y_", df$id[i])), "y", value = df$y[i])),
             actionButton(ns(paste0("del_", df$id[i])), "Delete", class = "btn-danger btn-sm")
@@ -191,10 +192,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
         p_in <- input[[paste0("p_", i)]]
         x_in <- input[[paste0("x_", i)]]
         y_in <- input[[paste0("y_", i)]]
-        if (!is.null(p_in)) {
-          df$p_input[df$id == i] <- p_in
-          df$p_value[df$id == i] <- parse_user_prob(p_in)
-        }
+        df <- pmf_read_probability(df,i,p_in)
         if (!is.null(x_in)) df$x[df$id == i] <- as.numeric(x_in)
         if (!is.null(y_in)) df$y[df$id == i] <- as.numeric(y_in)
       }
@@ -237,6 +235,8 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
       })
     })
     
+    display_mode <- reactive(number_mode(pmf_global$number_format))
+
     pmf_actions <- pmf_bind_actions(input, output, session, df_current, pmf_edit,
                      pmf_final, row_counter, pmf_global)
 
@@ -268,19 +268,19 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
             tags$tr(
               tags$th(HTML(paste0("\\(x=", xi, "\\)"))),
               lapply(ys, function(yv) {
-                raw_input <- sub$p_input[sub$y == yv]
-                if (length(raw_input) == 0) raw_input <- "0"
-                tags$td(HTML(paste0("\\(", raw_input, "\\)")))
+                value <- sub$p_value[sub$y == yv]
+                if (!length(value)) value <- 0
+                number_cell(value,display_mode())
               }),
-              tags$td(class = "sumcell", HTML(to_tex_frac(simp_frac(row_tot[i]))))
+              number_cell(row_tot[i],display_mode(),"sumcell")
             )
           }),
           tags$tr(
             tags$th(class = "sumcell", HTML("\\(f_Y(y)\\)")),
             lapply(seq_along(ys), function(j)
-              tags$td(class = "sumcell", HTML(to_tex_frac(simp_frac(col_tot[j]))))
+              number_cell(col_tot[j],display_mode(),"sumcell")
             ),
-            tags$td(class = "sumcell", HTML("\\(1\\)"))
+            number_cell(1,display_mode(),"sumcell")
           )
         )
       )
@@ -350,12 +350,12 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
             lapply(seq_len(nrow(sub)), function(i) {
               tags$tr(
                 tags$td(HTML(paste0("\\(", var_col, "=", sub[[var_col]][i], "\\)"))),
-                tags$td(HTML(sprintf("\\(%.5f\\)", sub$cond_p[i])))
+                number_cell(sub$cond_p[i],display_mode())
               )
             }),
             tags$tr(
               tags$th(class = "sumcell", HTML("\\(\\sum =\\)")),
-              tags$td(class = "sumcell", HTML(sprintf("\\(%.5f\\)", sum(sub$cond_p))))
+              number_cell(sum(sub$cond_p),display_mode(),"sumcell")
             )
           )
         )
@@ -402,7 +402,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
             z = c(0, sub$p[i]),
             line = list(color = "steelblue", width = 8),
             hoverinfo = "text",
-            text = paste0("X=", x0, "<br>Y=", sub$y[i], "<br>f(Y|X)=", round(sub$p[i], 4)),
+            text = paste0("X=", x0, "<br>Y=", sub$y[i], "<br>f(Y|X)=", number_hover(sub$p[i])),
             showlegend = FALSE
           )
         }
@@ -434,7 +434,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
             z = c(0, sub$p[i]),
             line = list(color = "orange", width = 8),
             hoverinfo = "text",
-            text = paste0("X=", sub$x[i], "<br>Y=", y0, "<br>f(X|Y)=", round(sub$p[i], 4)),
+            text = paste0("X=", sub$x[i], "<br>Y=", y0, "<br>f(X|Y)=", number_hover(sub$p[i])),
             showlegend = FALSE
           )
         }
@@ -473,7 +473,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
         plot_ly(
           sub, x = ~y, y = ~p,
           type = "bar", marker = list(color = "steelblue"),
-          text = ~paste0("Y=", y, "<br>f(Y|X=", x0, ")=", round(p, 4)),
+          text = ~paste0("Y=", y, "<br>f(Y|X=", x0, ")=", number_hover(p)),
           hoverinfo = "text"
         ) %>% layout(
           title = paste0("Bird’s-eye View: f(Y|X=", x0, ")"),
@@ -494,7 +494,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
         plot_ly(
           sub, x = ~x, y = ~p,
           type = "bar", marker = list(color = "orange"),
-          text = ~paste0("X=", x, "<br>f(X|Y=", y0, ")=", round(p, 4)),
+          text = ~paste0("X=", x, "<br>f(X|Y=", y0, ")=", number_hover(p)),
           hoverinfo = "text"
         ) %>% layout(
           title = paste0("Bird’s-eye View: f(X|Y=", y0, ")"),

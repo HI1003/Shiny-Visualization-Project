@@ -102,8 +102,8 @@ testServer(expectation_Server, args=list(course_path=function() "legacy"), {
   df$p_input <- as.character(df$p_value); pmf_final(df); session$setInputs(cond_type='yx')
   record('small_marginal','positive_probability_not_zero_fraction',simp_frac(2e-8)!='0/1' && parse_user_prob(simp_frac(2e-8))==2e-8)
   record('small_marginal','sub_tolerance_positive_stays_positive',parse_user_prob(simp_frac(1e-14))>0)
-  record('small_marginal','positive_divisor_not_zero',grepl('0.00000002',html(output$expectation_detail),fixed=TRUE) &&
-    grepl('0.00000001',html(output$expectation_detail),fixed=TRUE) && !grepl('undefined',html(output$expectation_detail),fixed=TRUE))
+  record('small_marginal','positive_divisor_not_zero',grepl('2\\times 10^{-8}',html(output$expectation_detail),fixed=TRUE) &&
+    grepl('1\\times 10^{-8}',html(output$expectation_detail),fixed=TRUE) && !grepl('undefined',html(output$expectation_detail),fixed=TRUE))
 })
 testServer(prob_Server, args=list(course_path=function() "legacy"), {
   session$setInputs(dist='bern',p_bern=.5,n=5,p=.5,r_nb=2,p_nb=.5,pg=.5,lambda=5,

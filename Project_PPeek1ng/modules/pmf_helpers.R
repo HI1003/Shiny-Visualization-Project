@@ -100,17 +100,93 @@ pmf_bind_actions <- function(input, output, session, df_current, pmf_edit,
 }
 # A fresh state is created by the app server for each browser session.
 new_pmf_state <- function() {
-  shiny::reactiveValues(df_edit = NULL, df_final = NULL, counter = 0, has_final = FALSE)
+  shiny::reactiveValues(df_edit = NULL, df_final = NULL, counter = 0, has_final = FALSE, number_format = "auto")
 }
 
-# Keep the usual six-decimal display, but never label a positive divisor as zero.
-display_probability <- function(x) {
-  vapply(x, function(value) {
-    if (is.finite(value) && value != 0 && abs(value) < 0.0000005)
-      format(signif(value, 10), scientific = FALSE, trim = TRUE)
-    else sprintf("%.6f", value)
-  }, character(1), USE.NAMES = FALSE)
+# Presentation is separate from p_input/p_value, which retain round-trip precision.
+number_mode <- function(value) {
+  if(length(value)==1L && !is.na(value) && value %in% c("auto","decimal","fraction")) value else "auto"
 }
+number_same <- function(a,b) {
+  is.finite(a) && is.finite(b) && if(a==0 || b==0) a==b else abs(a-b)<=4*.Machine$double.eps*max(abs(a),abs(b))
+}
+number_full <- function(x) vapply(x,function(v) {
+  if(!is.finite(v))return(as.character(v))
+  short<-as.character(v)
+  if(identical(as.numeric(short),as.numeric(v)))short else sprintf("%.17g",v)
+},character(1),USE.NAMES=FALSE)
+number_decimal <- function(x,digits=4L) vapply(x,function(v) {
+  if(!is.finite(v))return(as.character(v))
+  if(v==0)return("0")
+  if(abs(v)<.5*10^-digits || abs(v)>=1e6) {
+    return(format(signif(v,digits),scientific=TRUE,trim=TRUE))
+  }
+  text<-sprintf(paste0("%.",digits,"f"),v)
+  text<-sub("0+$","",text);text<-sub("[.]$","",text)
+  # printf may round an exact half-way boundary to zero (e.g. 0.00005).
+  if(suppressWarnings(as.numeric(text))==0)return(format(signif(v,digits),scientific=TRUE,trim=TRUE))
+  text
+},character(1),USE.NAMES=FALSE)
+number_fraction <- function(value,max_den=500L) {
+  if(!is.finite(value) || abs(value)>1e12)return(NULL)
+  if(value==round(value))return(number_full(value))
+  for(den in seq_len(max_den)) {
+    num<-round(value*den)
+    if(num!=0 && number_same(num/den,value))return(paste0(number_full(num),"/",den))
+  }
+  NULL
+}
+number_label <- function(x,mode="auto") vapply(x,function(value) {
+  mode<-number_mode(mode);decimal<-number_decimal(value)
+  if(mode=="decimal" || !is.finite(value))return(decimal)
+  if(mode=="auto" && number_same(parse_user_prob(decimal),value))return(decimal)
+  fraction<-number_fraction(value)
+  if(is.null(fraction))decimal else fraction
+},character(1),USE.NAMES=FALSE)
+number_tex <- function(x,mode="auto") vapply(number_label(x,mode),function(text) {
+  if(grepl("/",text,fixed=TRUE)) {
+    parts<-strsplit(text,"/",fixed=TRUE)[[1]]
+    paste0("\\frac{",parts[1],"}{",parts[2],"}")
+  }else if(grepl("e",text,fixed=TRUE)) {
+    parts<-strsplit(text,"e",fixed=TRUE)[[1]]
+    paste0(parts[1],"\\times 10^{",as.integer(parts[2]),"}")
+  }else text
+},character(1),USE.NAMES=FALSE)
+number_relation <- function(x,mode="auto") {
+  shown<-number_label(x,mode)
+  if(all(mapply(number_same,x,vapply(shown,parse_user_prob,numeric(1))))) " = " else " \\approx "
+}
+number_reading <- function(x) paste0(ifelse(mapply(number_same,x,vapply(number_label(x,"decimal"),parse_user_prob,numeric(1))),"= ","\u2248 "),number_label(x,"decimal"))
+number_cell <- function(value,mode="auto",class=NULL) {
+  label<-number_label(value,mode)
+  rounded<-!number_same(value,parse_user_prob(label))
+  shiny::tags$td(class=class,`data-number-value`=number_full(value),`data-number-text`=label,
+    title=paste0("More precision: ",number_decimal(value,6),"; full value: ",number_full(value)),
+    shiny::HTML(paste0("\\(",if(rounded)"\\approx " else "",number_tex(value,mode),"\\)")))
+}
+number_formula <- function(formula,result) {
+  shiny::tags$p(`data-number-value`=number_full(result),title=paste0("Full result: ",number_full(result)),shiny::HTML(formula))
+}
+number_hover <- function(x) paste0(number_label(x,"decimal"),"<br>More precision: ",number_decimal(x,6))
+pmf_editor_value <- function(source) vapply(source,function(text) {
+  value<-parse_user_prob(text)
+  if(is.finite(value))number_label(value) else as.character(text)
+},character(1),USE.NAMES=FALSE)
+pmf_probability_input <- function(ns,id,source) {
+  value<-parse_user_prob(source);shown<-pmf_editor_value(source)
+  rounded<-is.finite(value) && !number_same(value,parse_user_prob(shown))
+  shiny::tags$div(class="pmf-edit-prob",title=paste0("Full value: ",source),
+    shiny::textInput(ns(paste0("p_",id)),if(rounded) "p (approx.)" else "p",value=shown))
+}
+pmf_read_probability <- function(df,id,value) {
+  if(is.null(value))return(df)
+  row<-match(id,df$id)
+  # An unchanged compact input is only a display binding, not a new probability.
+  if(!identical(as.character(value),pmf_editor_value(df$p_input[row])))df$p_input[row]<-as.character(value)
+  df$p_value[row]<-parse_user_prob(df$p_input[row]);df
+}
+# Backward-compatible entry point for formula callers; all new rendering uses number_tex.
+display_probability <- function(x) number_label(x,"decimal")
 
 # Match the complete name, allowing only documented spelling aliases.
 distribution_answer_matches <- function(value, expected) {

@@ -130,13 +130,13 @@ prob_UI <- function(id) {
               div(h4(HTML("PMF: P(X = x)")),plotOutput(ns("pmf_plot"),height=320,click=ns("click_pmf"))),
               div(h4(HTML("CDF: P(X &le; x)")),plotOutput(ns("cdf_plot"),height=320,click=ns("click_cdf")))),
             helpText("Click a graph to select x. The PMF gives its point probability; the CDF includes all outcomes up to x."),
-            h4("Current Selection"),verbatimTextOutput(ns("sel_text"))),
+            h4("Current Selection"),verbatimTextOutput(ns("sel_text")),uiOutput(ns("selection_precision"))),
           conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'continuous'"),
             div(class="learning-plot-pair",
               div(h4("PDF: probability is area"),plotOutput(ns("pdf_plot_cont"),height=320,click=ns("click_pdf_cont"))),
               div(h4(HTML("CDF: P(X &le; x)")),plotOutput(ns("cdf_plot_cont"),height=320,click=ns("click_cdf_cont")))),
             helpText("Click a graph to select x. For a continuous variable, P(X = x) = 0; a density value is not a point probability."),
-            h4("Current Selection"),verbatimTextOutput(ns("sel_text_cont"))),class="learning-overview-plots")),
+            h4("Current Selection"),verbatimTextOutput(ns("sel_text_cont")),uiOutput(ns("selection_precision_cont"))),class="learning-overview-plots")),
       learning_optional_practice(ns,"3. Optional past-exam questions",uiOutput(ns("practice_section")))))
 }
 
@@ -432,8 +432,13 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
         return("You can select any x in the figure to highlight it")
       p <- df$pmf[df$k == k_sel]
       Fk <- df$cdf[df$k == k_sel]
-      sprintf("x = %d\nP(X = %d) = %.6f\nF(%d) = P(X ≤ %d) = %.6f",
-              k_sel, k_sel, p, k_sel, k_sel, Fk)
+      sprintf("x = %d\nP(X = %d) %s\nF(%d) = P(X ≤ %d) %s",
+              k_sel, k_sel, number_reading(p), k_sel, k_sel, number_reading(Fk))
+    })
+    output$selection_precision <- renderUI({
+      df<-dist_df();k<-selected_k();req(k,k %in% df$k)
+      tags$details(class="number-precision",tags$summary("More precision"),
+        tags$pre(paste0("P(X = ",k,") = ",number_full(df$pmf[df$k==k]),"\nF(",k,") = ",number_full(df$cdf[df$k==k]))))
     })
     
     #================================================
@@ -508,12 +513,18 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
       vals <- pdf_cdf_at_cont(x_sel)
       sprintf(
         paste0(
-          "x = %.4f\n",
-          "fX(%.4f) = %.6f\n",
-          "F(%.4f) = P(X ≤ %.4f) = %.6f"
+          "x = %s\n",
+          "fX(%s) %s\n",
+          "F(%s) = P(X ≤ %s) %s"
         ),
-        x_sel, x_sel, vals$pdf, x_sel, x_sel, vals$cdf
+        number_label(x_sel,"decimal"),number_label(x_sel,"decimal"),number_reading(vals$pdf),
+        number_label(x_sel,"decimal"),number_label(x_sel,"decimal"),number_reading(vals$cdf)
       )
+    })
+    output$selection_precision_cont <- renderUI({
+      x<-selected_x_cont();req(!is.null(x));values<-pdf_cdf_at_cont(x)
+      tags$details(class="number-precision",tags$summary("More precision"),
+        tags$pre(paste0("x = ",number_full(x),"\nfX(x) = ",number_full(values$pdf),"\nF(x) = ",number_full(values$cdf))))
     })
     
     #================================================
@@ -544,7 +555,7 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
         g <- g +
           geom_col(data = subset(df, k == k_sel), aes(k, pmf), fill = "#2171b5") +
           annotate("text", x = k_sel, y = p_sel,
-                   label = sprintf("x=%d\nP=%.4f", k_sel, p_sel),
+                   label = sprintf("x=%d\nP %s", k_sel, number_reading(p_sel)),
                    vjust = -0.6, size = 4)
       }
       g
@@ -591,7 +602,7 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
           geom_point(data = subset(df, k == k_sel), aes(x = k, y = cdf),
                      color = "#238b45", size = 3, shape = 16) +
           annotate("text", x = k_sel, y = F_sel,
-                   label = sprintf("F(%d)=%.4f", k_sel, F_sel),
+                   label = sprintf("F(%d) %s", k_sel, number_reading(F_sel)),
                    vjust = -0.8, size = 4, color = "#238b45")
       }
       g

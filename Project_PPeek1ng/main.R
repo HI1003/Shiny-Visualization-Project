@@ -56,6 +56,7 @@ ui <- bs4DashPage(
     
     div(class="learning-path-controls",
       selectInput("learning_path", "Learning path", choices=learning_path_labels, selected="core"),
+      selectInput("number_format", "Probability table display", choices=c("Auto"="auto","Short decimals"="decimal","Simple fractions"="fraction"),selected="auto"),
       helpText("Review concepts and explore the visualizations. Self-checks are optional."),
       tags$details(class="learning-optional-progress",tags$summary("Optional past-exam progress"),uiOutput("learning_progress"))
     ),
@@ -379,6 +380,7 @@ server <- function(input, output, session) {
     bs4Dash::updatebs4TabItems(session, "tabs", "probability")
   }
   shared <- new_pmf_state()
+  observeEvent(input$number_format,{shared$number_format <- number_mode(input$number_format)})
   practice_modules <- list(
     joint=joint_Server("joint1",shared,course_path,open_plot),
     conditional=conditional_Server("cond1",shared,course_path,open_plot),

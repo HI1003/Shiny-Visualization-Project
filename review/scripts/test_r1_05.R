@@ -62,10 +62,14 @@ testServer(conditional_Server, args=list(shared=pmf_global), {
       record <- list(name=case$name, passed=FALSE, error=conditionMessage(rendered))
     } else {
       html <- rendered$html
-      values <- as.numeric(regmatches(html, gregexpr('[0-9]+\\.[0-9]{5}', html))[[1]])
-      expected_display <- c(round(case$expected,5), 1)
-      table_ok <- length(values)==length(expected_display) &&
-        all(abs(values-expected_display)<1e-8)
+      cells <- xml2::xml_find_all(xml2::read_html(html),'//tbody/tr/td[@data-number-value]')
+      values <- as.numeric(xml2::xml_attr(cells,'data-number-value'))
+      labels <- xml2::xml_attr(cells,'data-number-text')
+      displayed <- vapply(labels,parse_user_prob,numeric(1))
+      expected_values <- c(case$expected, 1)
+      table_ok <- length(values)==length(expected_values) &&
+        all(abs(values-expected_values)<1e-10) && all(abs(displayed-expected_values)<=5.1e-5) &&
+        all(nzchar(xml2::xml_attr(cells,'title')))
       # Compare the table with both actual graph outputs, not a copy of their formula.
       bird <- jsonlite::fromJSON(output$plot_bird_cond, simplifyVector=FALSE)$x$data
       bird_values <- unlist(lapply(bird, function(trace) trace$y), use.names=FALSE)

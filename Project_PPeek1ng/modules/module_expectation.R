@@ -154,10 +154,11 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
         actionButton(ns("load_pmf_example"), "Load worked example", class="btn-outline-primary"),
         h4("Input (x, y, p):"),
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
+        helpText("Compact values are shown below. Hover for full precision. Unedited entries retain full precision."),
         uiOutput(ns("input_feedback")),
         lapply(seq_len(nrow(df)), function(i) {
           div(class = "pmf-edit-row",
-            div(class = "pmf-edit-prob", textInput(ns(paste0("p_", df$id[i])), "p", value = df$p_input[i])),
+            pmf_probability_input(ns,df$id[i],df$p_input[i]),
             div(class = "pmf-edit-coordinate", numericInput(ns(paste0("x_", df$id[i])), "x", value = df$x[i])),
             div(class = "pmf-edit-coordinate", numericInput(ns(paste0("y_", df$id[i])), "y", value = df$y[i])),
             actionButton(ns(paste0("del_", df$id[i])), "Delete", class = "btn-danger btn-sm")
@@ -189,10 +190,7 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
         p_in <- input[[paste0("p_", i)]]
         x_in <- input[[paste0("x_", i)]]
         y_in <- input[[paste0("y_", i)]]
-        if (!is.null(p_in)) {
-          df$p_input[df$id == i] <- p_in
-          df$p_value[df$id == i] <- parse_user_prob(p_in)
-        }
+        df <- pmf_read_probability(df,i,p_in)
         if (!is.null(x_in)) df$x[df$id == i] <- as.numeric(x_in)
         if (!is.null(y_in)) df$y[df$id == i] <- as.numeric(y_in)
       }
@@ -238,6 +236,8 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
       })
     })
     
+    display_mode <- reactive(number_mode(pmf_global$number_format))
+
     pmf_actions <- pmf_bind_actions(input, output, session, df_current, pmf_edit,
                      pmf_final, row_counter, pmf_global)
 
@@ -269,19 +269,19 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
             tags$tr(
               tags$th(HTML(paste0("\\(x=", xi, "\\)"))),
               lapply(ys, function(yv) {
-                raw_input <- sub$p_input[sub$y == yv]
-                if (length(raw_input) == 0) raw_input <- "0"
-                tags$td(HTML(paste0("\\(", raw_input, "\\)")))
+                value <- sub$p_value[sub$y == yv]
+                if (!length(value)) value <- 0
+                number_cell(value,display_mode())
               }),
-              tags$td(class = "sumcell", HTML(to_tex_frac(simp_frac(row_tot[i]))))
+              number_cell(row_tot[i],display_mode(),"sumcell")
             )
           }),
           tags$tr(
             tags$th(class = "sumcell", HTML("\\(f_Y(y)\\)")),
             lapply(seq_along(ys), function(j)
-              tags$td(class = "sumcell", HTML(to_tex_frac(simp_frac(col_tot[j]))))
+              number_cell(col_tot[j],display_mode(),"sumcell")
             ),
-            tags$td(class = "sumcell", HTML("\\(1\\)"))
+            number_cell(1,display_mode(),"sumcell")
           )
         )
       )
@@ -322,20 +322,20 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
       EY <- sum(fy$y * fy$py)
       
       ex_formula <- paste0(
-        "\\(E[X] = \\sum_x x f_X(x) = ",
-        paste0(fx$x, "\\cdot ", display_probability(fx$px), collapse = " + "),
-        " = ", sprintf("%.6f", EX), "\\)"
+        "\\(E[X] = \\sum_x x f_X(x)",number_relation(fx$px,display_mode()),
+        paste0(fx$x, "\\cdot ", number_tex(fx$px,display_mode()), collapse = " + "),
+        number_relation(c(fx$px,EX),display_mode()), number_tex(EX,display_mode()), "\\)"
       )
       ey_formula <- paste0(
-        "\\(E[Y] = \\sum_y y f_Y(y) = ",
-        paste0(fy$y, "\\cdot ", display_probability(fy$py), collapse = " + "),
-        " = ", sprintf("%.6f", EY), "\\)"
+        "\\(E[Y] = \\sum_y y f_Y(y)",number_relation(fy$py,display_mode()),
+        paste0(fy$y, "\\cdot ", number_tex(fy$py,display_mode()), collapse = " + "),
+        number_relation(c(fy$py,EY),display_mode()), number_tex(EY,display_mode()), "\\)"
       )
       
       withMathJax(
         tagList(
-          tags$p(HTML(ex_formula)),
-          tags$p(HTML(ey_formula))
+          number_formula(ex_formula,EX),
+          number_formula(ey_formula,EY)
         )
       )
     })
@@ -350,28 +350,28 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
         formulas <- lapply(xvals, function(x0) {
           sub <- df[df$x == x0, c("y","p_value")]
           den <- sum(sub$p_value)
-          num_expr <- paste0(sub$y, "\\cdot ", display_probability(sub$p_value), collapse = " + ")
+          num_expr <- paste0(sub$y, "\\cdot ", number_tex(sub$p_value,display_mode()), collapse = " + ")
           if (den <= 0) return(tags$p(paste0("Conditional expectation is undefined: P(X = ", x0, ") = 0.")))
           val <- if (den > 0) sum(sub$y * sub$p_value) / den else NA
           formula <- paste0(
-            "\\(E[Y | X=", x0, "] = \\frac{", num_expr, "}{", display_probability(den), "} = ",
-            sprintf("%.6f", val), "\\)"
+            "\\(E[Y | X=", x0, "]",number_relation(c(sub$p_value,den),display_mode()),"\\frac{", num_expr, "}{", number_tex(den,display_mode()), "}",
+            number_relation(c(sub$p_value,den,val),display_mode()), number_tex(val,display_mode()), "\\)"
           )
-          tags$p(HTML(formula))
+          number_formula(formula,val)
         })
       } else {
         yvals <- sort(unique(df$y))
         formulas <- lapply(yvals, function(y0) {
           sub <- df[df$y == y0, c("x","p_value")]
           den <- sum(sub$p_value)
-          num_expr <- paste0(sub$x, "\\cdot ", display_probability(sub$p_value), collapse = " + ")
+          num_expr <- paste0(sub$x, "\\cdot ", number_tex(sub$p_value,display_mode()), collapse = " + ")
           if (den <= 0) return(tags$p(paste0("Conditional expectation is undefined: P(Y = ", y0, ") = 0.")))
           val <- if (den > 0) sum(sub$x * sub$p_value) / den else NA
           formula <- paste0(
-            "\\(E[X | Y=", y0, "] = \\frac{", num_expr, "}{", display_probability(den), "} = ",
-            sprintf("%.6f", val), "\\)"
+            "\\(E[X | Y=", y0, "]",number_relation(c(sub$p_value,den),display_mode()),"\\frac{", num_expr, "}{", number_tex(den,display_mode()), "}",
+            number_relation(c(sub$p_value,den,val),display_mode()), number_tex(val,display_mode()), "\\)"
           )
-          tags$p(HTML(formula))
+          number_formula(formula,val)
         })
       }
       

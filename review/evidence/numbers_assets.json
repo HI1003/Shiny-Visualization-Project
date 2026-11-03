@@ -1,0 +1,97 @@
+{
+  "date": "2026-11-04T11:48:16.5042975+13:00",
+  "total": 13,
+  "passed": 13,
+  "cases": [
+    {
+      "file": "1.png",
+      "status": 200,
+      "content_type": "image/png",
+      "passed": true
+    },
+    {
+      "file": "10.png",
+      "status": 200,
+      "content_type": "image/png",
+      "passed": true
+    },
+    {
+      "file": "11.png",
+      "status": 200,
+      "content_type": "image/png",
+      "passed": true
+    },
+    {
+      "file": "12.png",
+      "status": 200,
+      "content_type": "image/png",
+      "passed": true
+    },
+    {
+      "file": "2.png",
+      "status": 200,
+      "content_type": "image/png",
+      "passed": true
+    },
+    {
+      "file": "3.jpg",
+      "status": 200,
+      "content_type": "image/jpeg",
+      "passed": true
+    },
+    {
+      "file": "4.png",
+      "status": 200,
+      "content_type": "image/png",
+      "passed": true
+    },
+    {
+      "file": "5.png",
+      "status": 200,
+      "content_type": "image/png",
+      "passed": true
+    },
+    {
+      "file": "6.jpg",
+      "status": 200,
+      "content_type": "image/jpeg",
+      "passed": true
+    },
+    {
+      "file": "7.png",
+      "status": 200,
+      "content_type": "image/png",
+      "passed": true
+    },
+    {
+      "file": "8.png",
+      "status": 200,
+      "content_type": "image/png",
+      "passed": true
+    },
+    {
+      "file": "9.png",
+      "status": 200,
+      "content_type": "image/png",
+      "passed": true
+    },
+    {
+      "file": "logo.png",
+      "status": 200,
+      "content_type": "image/png",
+      "passed": true
+    }
+  ],
+  "source_sha256": [
+    {
+      "Algorithm": "SHA256",
+      "Hash": "F68109880D61069E87E29A601E57A578F7999BFEB6961F3EEDE1EA45126AB458",
+      "Path": "C:\\GitHubProject\\Shiny-Visualization-Project-main\\Start-Shiny.R"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "A21E3E1F4C1AD353B438F7AEB0723EF56CAAC7EB53369830E2A06F333EFB5F7D",
+      "Path": "C:\\GitHubProject\\Shiny-Visualization-Project-main\\Project_PPeek1ng\\app.R"
+    }
+  ]
+}

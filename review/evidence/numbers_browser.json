@@ -1,0 +1,270 @@
+{
+  "date": "2026-11-03T22:47:38.157Z",
+  "passed": 29,
+  "total": 29,
+  "cases": [
+    {
+      "name": "auto_short_decimals_without_trailing_zeroes",
+      "passed": true
+    },
+    {
+      "name": "joint_fraction_mode",
+      "passed": true
+    },
+    {
+      "name": "conditional_inherits_shared_fraction_mode",
+      "passed": true
+    },
+    {
+      "name": "conditional_probability_uses_simple_fraction",
+      "passed": true
+    },
+    {
+      "name": "expectation_inherits_shared_fraction_mode",
+      "passed": true
+    },
+    {
+      "name": "decimal_mode_drops_unnecessary_zeroes",
+      "passed": true
+    },
+    {
+      "name": "complex_probability_is_compact",
+      "passed": true
+    },
+    {
+      "name": "rounded_cell_has_approximation_mark",
+      "passed": true
+    },
+    {
+      "name": "editor_compact_value",
+      "passed": true
+    },
+    {
+      "name": "editor_explains_approximation",
+      "passed": true
+    },
+    {
+      "name": "full_precision_hover_available",
+      "passed": true
+    },
+    {
+      "name": "repeated_generate_does_not_commit_rounded_values",
+      "passed": true
+    },
+    {
+      "name": "small_nonzero_probability_is_not_displayed_as_zero",
+      "passed": true
+    },
+    {
+      "name": "intentional_edit_is_applied",
+      "passed": true
+    },
+    {
+      "name": "joint_1600_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "joint_1266_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "joint_900_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "joint_390_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "conditional_1600_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "conditional_1266_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "conditional_900_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "conditional_390_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "expectation_1600_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "expectation_1266_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "expectation_900_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "expectation_390_compact_readable_layout",
+      "passed": true
+    },
+    {
+      "name": "overview_current_selection_uses_four_decimals",
+      "passed": true
+    },
+    {
+      "name": "overview_more_precision_is_available",
+      "passed": true
+    },
+    {
+      "name": "overview_narrow_precision_panel_fits",
+      "passed": true
+    }
+  ],
+  "measurements": [
+    {
+      "module": "joint",
+      "viewport": 1600,
+      "pageWidth": 1600,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    },
+    {
+      "module": "joint",
+      "viewport": 1266,
+      "pageWidth": 1266,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    },
+    {
+      "module": "joint",
+      "viewport": 900,
+      "pageWidth": 900,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    },
+    {
+      "module": "joint",
+      "viewport": 390,
+      "pageWidth": 390,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    },
+    {
+      "module": "conditional",
+      "viewport": 1600,
+      "pageWidth": 1600,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    },
+    {
+      "module": "conditional",
+      "viewport": 1266,
+      "pageWidth": 1266,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    },
+    {
+      "module": "conditional",
+      "viewport": 900,
+      "pageWidth": 900,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    },
+    {
+      "module": "conditional",
+      "viewport": 390,
+      "pageWidth": 390,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    },
+    {
+      "module": "expectation",
+      "viewport": 1600,
+      "pageWidth": 1600,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    },
+    {
+      "module": "expectation",
+      "viewport": 1266,
+      "pageWidth": 1266,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    },
+    {
+      "module": "expectation",
+      "viewport": 900,
+      "pageWidth": 900,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    },
+    {
+      "module": "expectation",
+      "viewport": 390,
+      "pageWidth": 390,
+      "inputLengths": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "clippedLabels": 0
+    }
+  ],
+  "screenshots": "Generic application examples only; screenshots remain in ignored output/playwright."
+}

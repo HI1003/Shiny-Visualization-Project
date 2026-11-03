@@ -22,5 +22,7 @@ try {
   if ($LASTEXITCODE -ne 0) { throw 'Remaining module regression failed.' }
   & $RscriptPath --vanilla review/scripts/test_past_exam_bank.R "review/evidence/${ReportPrefix}_past_exams.json"
   if ($LASTEXITCODE -ne 0) { throw 'Verified local past-exam checks failed.' }
+  & $RscriptPath --vanilla review/scripts/test_number_display.R "review/evidence/${ReportPrefix}_precision.json"
+  if ($LASTEXITCODE -ne 0) { throw 'Number display and full-precision preservation checks failed.' }
   Write-Output "All regression groups passed; results saved in review/evidence/${ReportPrefix}_*.json."
 } finally { Pop-Location }
