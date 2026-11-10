@@ -66,12 +66,12 @@ run_module<-function(module,server_fn) {
   })
 }
 run_module('joint',joint_Server);run_module('conditional',conditional_Server);run_module('expectation',expectation_Server);run_module('overview',prob_Server)
-# Actual application scopes and global progress cannot enable the hidden old library.
+# Actual application scopes cannot enable the hidden old library.
 previous<-getwd();setwd('Project_PPeek1ng');app<-new.env(parent=globalenv());sys.source('main.R',app);setwd(previous)
 testServer(app$server,{
-  record('application','four_optional_exam_extracts',grepl('0 / 4',html(output$learning_progress),fixed=TRUE))
+  record('application','four_optional_exam_extracts',sum(vapply(practice_modules,function(x)x$total(),numeric(1)))==4)
   session$setInputs(learning_path='legacy');record('application','legacy_request_cannot_expose_old_questions',course_path()=='core'&&all(vapply(practice_modules,function(x)isTRUE(x$prob()$is_exam),logical(1))))
-  session$setInputs(learning_path='preview');record('application','no_original_preview',grepl('0 / 0',html(output$learning_progress),fixed=TRUE))
+  session$setInputs(learning_path='preview');record('application','no_original_preview',sum(vapply(practice_modules,function(x)x$total(),numeric(1)))==0)
 })
 saved_bank<-local_exam_bank;local_exam_bank<-read_local_exam_bank('.local/exam-selection/missing-bank.json')
 testServer(joint_Server,{

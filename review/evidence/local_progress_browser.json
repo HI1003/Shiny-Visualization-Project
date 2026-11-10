@@ -1,0 +1,370 @@
+{
+  "date": "2026-11-10T09:12:07.872Z",
+  "passed": 66,
+  "total": 66,
+  "cases": [
+    {
+      "name": "overview_practice_closed_by_default",
+      "passed": true
+    },
+    {
+      "name": "overview_concepts_then_visuals_then_optional",
+      "passed": true
+    },
+    {
+      "name": "overview_verified_year_question_source_and_adaptation",
+      "passed": true
+    },
+    {
+      "name": "overview_one_verified_extract_only",
+      "passed": true
+    },
+    {
+      "name": "overview_feedback_stage_1",
+      "passed": true
+    },
+    {
+      "name": "overview_feedback_stage_2",
+      "passed": true
+    },
+    {
+      "name": "overview_feedback_stage_3",
+      "passed": true
+    },
+    {
+      "name": "overview_reference_answer_accepted_in_browser",
+      "passed": true
+    },
+    {
+      "name": "overview_repeat_does_not_increment",
+      "passed": true
+    },
+    {
+      "name": "overview_paper26s1q2_exact_linked_parameters",
+      "passed": true
+    },
+    {
+      "name": "overview_paper26s1q2_exact_linked_selected_point",
+      "passed": true
+    },
+    {
+      "name": "overview_paper26s1q2_less_linked_parameters",
+      "passed": true
+    },
+    {
+      "name": "overview_paper26s1q2_less_linked_selected_point",
+      "passed": true
+    },
+    {
+      "name": "overview_1600_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "overview_1266_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "overview_900_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "overview_390_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "joint_practice_closed_by_default",
+      "passed": true
+    },
+    {
+      "name": "joint_concepts_then_visuals_then_optional",
+      "passed": true
+    },
+    {
+      "name": "joint_verified_year_question_source_and_adaptation",
+      "passed": true
+    },
+    {
+      "name": "joint_one_verified_extract_only",
+      "passed": true
+    },
+    {
+      "name": "joint_feedback_stage_1",
+      "passed": true
+    },
+    {
+      "name": "joint_feedback_stage_2",
+      "passed": true
+    },
+    {
+      "name": "joint_feedback_stage_3",
+      "passed": true
+    },
+    {
+      "name": "joint_reference_answer_accepted_in_browser",
+      "passed": true
+    },
+    {
+      "name": "joint_repeat_does_not_increment",
+      "passed": true
+    },
+    {
+      "name": "joint_exam_table_caption_matches",
+      "passed": true
+    },
+    {
+      "name": "joint_exact_exam_table_rendered",
+      "passed": true
+    },
+    {
+      "name": "joint_1600_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "joint_1266_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "joint_900_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "joint_390_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "conditional_practice_closed_by_default",
+      "passed": true
+    },
+    {
+      "name": "conditional_concepts_then_visuals_then_optional",
+      "passed": true
+    },
+    {
+      "name": "conditional_verified_year_question_source_and_adaptation",
+      "passed": true
+    },
+    {
+      "name": "conditional_one_verified_extract_only",
+      "passed": true
+    },
+    {
+      "name": "conditional_feedback_stage_1",
+      "passed": true
+    },
+    {
+      "name": "conditional_feedback_stage_2",
+      "passed": true
+    },
+    {
+      "name": "conditional_feedback_stage_3",
+      "passed": true
+    },
+    {
+      "name": "conditional_reference_answer_accepted_in_browser",
+      "passed": true
+    },
+    {
+      "name": "conditional_repeat_does_not_increment",
+      "passed": true
+    },
+    {
+      "name": "conditional_exam_table_caption_matches",
+      "passed": true
+    },
+    {
+      "name": "conditional_exact_exam_table_rendered",
+      "passed": true
+    },
+    {
+      "name": "conditional_1600_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "conditional_1266_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "conditional_900_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "conditional_390_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "expectation_practice_closed_by_default",
+      "passed": true
+    },
+    {
+      "name": "expectation_concepts_then_visuals_then_optional",
+      "passed": true
+    },
+    {
+      "name": "expectation_verified_year_question_source_and_adaptation",
+      "passed": true
+    },
+    {
+      "name": "expectation_one_verified_extract_only",
+      "passed": true
+    },
+    {
+      "name": "expectation_feedback_stage_1",
+      "passed": true
+    },
+    {
+      "name": "expectation_feedback_stage_2",
+      "passed": true
+    },
+    {
+      "name": "expectation_feedback_stage_3",
+      "passed": true
+    },
+    {
+      "name": "expectation_reference_answer_accepted_in_browser",
+      "passed": true
+    },
+    {
+      "name": "expectation_repeat_does_not_increment",
+      "passed": true
+    },
+    {
+      "name": "expectation_exam_table_caption_matches",
+      "passed": true
+    },
+    {
+      "name": "expectation_exact_exam_table_rendered",
+      "passed": true
+    },
+    {
+      "name": "expectation_1600_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "expectation_1266_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "expectation_900_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "expectation_390_source_and_answers_fit",
+      "passed": true
+    },
+    {
+      "name": "preview_does_not_fall_back_to_original_questions",
+      "passed": true
+    },
+    {
+      "name": "per_module_progress_retained_without_extra_home_or_sidebar_controls",
+      "passed": true
+    },
+    {
+      "name": "private_bank_not_available_as_static_download",
+      "passed": true
+    },
+    {
+      "name": "overview_preview_has_valid_empty_practice_panel",
+      "passed": true
+    }
+  ],
+  "measurements": [
+    {
+      "module": "overview",
+      "viewport": 1600,
+      "pageWidth": 1600,
+      "clipped": 0
+    },
+    {
+      "module": "overview",
+      "viewport": 1266,
+      "pageWidth": 1266,
+      "clipped": 0
+    },
+    {
+      "module": "overview",
+      "viewport": 900,
+      "pageWidth": 900,
+      "clipped": 0
+    },
+    {
+      "module": "overview",
+      "viewport": 390,
+      "pageWidth": 390,
+      "clipped": 0
+    },
+    {
+      "module": "joint",
+      "viewport": 1600,
+      "pageWidth": 1600,
+      "clipped": 0
+    },
+    {
+      "module": "joint",
+      "viewport": 1266,
+      "pageWidth": 1266,
+      "clipped": 0
+    },
+    {
+      "module": "joint",
+      "viewport": 900,
+      "pageWidth": 900,
+      "clipped": 0
+    },
+    {
+      "module": "joint",
+      "viewport": 390,
+      "pageWidth": 390,
+      "clipped": 0
+    },
+    {
+      "module": "conditional",
+      "viewport": 1600,
+      "pageWidth": 1600,
+      "clipped": 0
+    },
+    {
+      "module": "conditional",
+      "viewport": 1266,
+      "pageWidth": 1266,
+      "clipped": 0
+    },
+    {
+      "module": "conditional",
+      "viewport": 900,
+      "pageWidth": 900,
+      "clipped": 0
+    },
+    {
+      "module": "conditional",
+      "viewport": 390,
+      "pageWidth": 390,
+      "clipped": 0
+    },
+    {
+      "module": "expectation",
+      "viewport": 1600,
+      "pageWidth": 1600,
+      "clipped": 0
+    },
+    {
+      "module": "expectation",
+      "viewport": 1266,
+      "pageWidth": 1266,
+      "clipped": 0
+    },
+    {
+      "module": "expectation",
+      "viewport": 900,
+      "pageWidth": 900,
+      "clipped": 0
+    },
+    {
+      "module": "expectation",
+      "viewport": 390,
+      "pageWidth": 390,
+      "clipped": 0
+    }
+  ],
+  "screenshotPolicy": "Exam screenshots remain in ignored output/playwright only."
+}

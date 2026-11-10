@@ -18,14 +18,19 @@ async page => {
   };
   const nav=async(name)=>{
     const link=page.getByRole('link',{name,exact:true});
+    if(name==='lightbulb icon Overview'&&!await link.isVisible()){
+      const group=page.getByRole('link',{name:/^percent icon Probability Distribution/});
+      if(!await group.isVisible())await page.getByRole('link',{name:'bars icon',exact:true}).click();
+      await group.click();
+    }
     if(!await link.isVisible())await page.getByRole('link',{name:'bars icon',exact:true}).click();
     await link.click();
   };
   const modules=[['overview','prob1',null],['joint','joint1','chart-area icon Joint Distribution'],
     ['conditional','cond1','chart-bar icon Conditional Distribution'],['expectation','exp1','chart-line icon Expectation']];
   await page.goto('http://127.0.0.1:7130/');await page.setViewportSize({width:1266,height:900});
-  await page.getByRole('button',{name:'play icon Review STATS125 concepts',exact:true}).click();
-  await page.waitForFunction(()=>document.activeElement.id==='prob1-theory');
+  await nav('lightbulb icon Overview');
+  await page.locator('#prob1-theory').waitFor();
   for(const [module,prefix,link] of modules){
     await page.setViewportSize({width:1266,height:900});await settle();if(link)await nav(link);
     await page.locator('#'+prefix+'-theory').waitFor();await settle();
@@ -58,10 +63,22 @@ async page => {
       await page.locator('#'+prefix+'-explore_example').click();await settle();
       await page.waitForFunction(({prefix,note})=>document.getElementById(prefix+'-pmf_example_note').innerText.includes(note),{prefix,note:q.tableNote});
       check(module+'_exam_table_caption_matches',(await page.locator('#'+prefix+'-pmf_example_note').innerText()).includes(q.tableNote));
-      check(module+'_exact_exam_table_rendered',await page.locator('#'+prefix+'-workbench').evaluate((n,rows)=>{
-        const text=n.innerText;
-        return rows.every(r=>text.includes(String(r.x))&&text.includes(String(r.y)));
-      },q.rows));
+      await page.waitForFunction(({prefix,rows})=>{
+        const table=document.querySelector('#'+prefix+'-joint_table_html table');if(!table)return false;
+        const mathText=n=>{
+          const scripts=Array.from(n.querySelectorAll('script[type^="math/tex"]'));
+          return (scripts.length?scripts.map(s=>s.textContent).join(''):n.textContent).replace(/\u2212/g,'-').replace(/\s/g,'');
+        };
+        const ys=Array.from(table.querySelectorAll('thead th')).slice(1).map(n=>/^y=([-\d.]+)$/.exec(mathText(n))).filter(Boolean).map(m=>Number(m[1]));
+        const actual=[];
+        for(const tr of table.querySelectorAll('tbody tr')){
+          const header=tr.querySelector('th'),match=header&&/^x=([-\d.]+)$/.exec(mathText(header));if(!match)continue;
+          const cells=Array.from(tr.querySelectorAll('td[data-number-value]'));
+          ys.forEach((y,i)=>{if(cells[i])actual.push({x:Number(match[1]),y,p:Number(cells[i].dataset.numberValue)});});
+        }
+        return actual.length===rows.length&&rows.every(r=>actual.some(a=>a.x===r.x&&a.y===r.y&&Math.abs(a.p-r.p_value)<1e-12));
+      },{prefix,rows:q.rows});
+      check(module+'_exact_exam_table_rendered',true);
     }else{
       for(const graph of expected.graphs){
         await page.locator('#'+prefix+'-plot_choice_'+q.reference).evaluate((n,v)=>n.selectize.setValue(v),graph.key);
@@ -87,12 +104,18 @@ async page => {
   await page.locator('#learning_path').evaluate(n=>n.selectize.setValue('preview'));await settle();
   check('preview_does_not_fall_back_to_original_questions',(await page.locator('#exp1-practice_status').innerText()).includes('No verified past-exam extract'));
   await page.locator('#learning_path').evaluate(n=>n.selectize.setValue('core'));await settle();
-  await page.locator('.learning-optional-progress > summary').click();
-  await page.waitForFunction(()=>document.getElementById('learning_progress').innerText.includes('4 / 4'));
-  check('core_progress_retained',(await page.locator('#learning_progress').innerText()).includes('4 / 4'));
+  let retained=true;
+  for(const [module,prefix,link] of modules){
+    if(link)await nav(link);
+    else {await nav('house icon Home');await nav('lightbulb icon Overview');}
+    await page.getByRole('link',{name:'Past-exam questions (optional)',exact:true}).click();
+    await page.waitForFunction(id=>document.getElementById(id+'-practice_status').innerText.includes('1 / 1'),prefix);
+    retained=retained&&(await page.locator('#'+prefix+'-practice_status').innerText()).includes('1 / 1');
+  }
+  check('per_module_progress_retained_without_extra_home_or_sidebar_controls',retained&&await page.locator('#learning_progress,.learning-optional-progress,#start_core_practice,#start_joint_practice').count()===0);
   const response=await page.request.get('http://127.0.0.1:7130/.local/past-exams/bank.json');
   check('private_bank_not_available_as_static_download',response.status()===404);
-  await nav('house icon Home');await page.getByRole('button',{name:'play icon Review STATS125 concepts',exact:true}).click();
+  await nav('house icon Home');await nav('lightbulb icon Overview');
   await page.locator('#learning_path').evaluate(n=>n.selectize.setValue('preview'));await settle();
   await page.getByRole('link',{name:'Past-exam questions (optional)',exact:true}).click();
   await page.waitForFunction(()=>document.getElementById('prob1-practice_status').innerText.includes('No verified past-exam extract'));

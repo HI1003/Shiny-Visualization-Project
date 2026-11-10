@@ -14,12 +14,17 @@ async page => {
   };
   const nav=async(name)=>{
     const link=page.getByRole('link',{name,exact:true});
+    if(name==='lightbulb icon Overview'&&!await link.isVisible()){
+      const group=page.getByRole('link',{name:/^percent icon Probability Distribution/});
+      if(!await group.isVisible())await page.getByRole('link',{name:'bars icon',exact:true}).click();
+      await group.click();
+    }
     if(!await link.isVisible())await page.getByRole('link',{name:'bars icon',exact:true}).click();
     await link.click();await settle();
   };
   const firstLabel=prefix=>page.locator('#'+prefix+'-joint_table_html td[data-number-text]').first().getAttribute('data-number-text');
   await page.goto('http://127.0.0.1:7130/');await page.setViewportSize({width:1266,height:900});
-  await page.getByRole('button',{name:'Explore joint probability',exact:true}).click();await settle();
+  await nav('chart-area icon Joint Distribution');
   check('display_selector_removed',await page.locator('#number_format').count()===0);
   await page.waitForFunction(()=>document.querySelector('#joint1-joint_table_html td[data-number-text]')?.dataset.numberText==='188/221');
   check('auto_keeps_simple_fractions',await firstLabel('joint1')==='188/221');
@@ -74,7 +79,7 @@ async page => {
     }
   }
   await page.setViewportSize({width:1266,height:900});await settle();await nav('house icon Home');
-  await page.getByRole('button',{name:'play icon Review STATS125 concepts',exact:true}).click();await settle();
+  await nav('lightbulb icon Overview');await settle();
   await page.locator('#prob1-plot_example').evaluate(n=>n.selectize.setValue('eggs_cloudy'));
   await page.locator('#prob1-load_plot_example').click();
   await page.waitForFunction(()=>document.getElementById('prob1-sel_text')?.innerText.includes('0.3472'));await settle();

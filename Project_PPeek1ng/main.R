@@ -56,8 +56,7 @@ ui <- bs4DashPage(
     
     div(class="learning-path-controls",
       selectInput("learning_path", "Learning path", choices=learning_path_labels, selected="core"),
-      helpText("Review concepts and explore the visualizations. Self-checks are optional."),
-      tags$details(class="learning-optional-progress",tags$summary("Optional past-exam progress"),uiOutput("learning_progress"))
+      helpText("Review concepts and explore the visualizations. Self-checks are optional.")
     ),
     bs4SidebarMenu(
       id = "tabs",
@@ -230,9 +229,6 @@ ui <- bs4DashPage(
     # ---------- Tab 内容 ----------
     tabItems(
       tabItem(tabName = "home",
-              div(class="learning-home-actions",
-                actionButton("start_core_practice","Review STATS125 concepts",icon=icon("play"),class="btn-primary"),
-                actionButton("start_joint_practice","Explore joint probability",class="btn-outline-primary")),
               fluidRow(
                 column(width = 12,
                        box(
@@ -362,16 +358,6 @@ server <- function(input, output, session) {
     if(length(value)!=1 || is.na(value) || !value %in% unname(learning_path_labels)) "core" else value
   })
   plot_request <- reactiveVal(NULL)
-  observeEvent(input$start_core_practice, {
-    updateSelectInput(session,"learning_path",selected="core")
-    bs4Dash::updatebs4TabItems(session,"tabs","probability")
-    session$sendCustomMessage("learning-focus",list(id="prob1-theory"))
-  })
-  observeEvent(input$start_joint_practice, {
-    updateSelectInput(session,"learning_path",selected="core")
-    bs4Dash::updatebs4TabItems(session,"tabs","joint")
-    session$sendCustomMessage("learning-focus",list(id="joint1-theory"))
-  })
   plot_counter <- 0L
   open_plot <- function(key) {
     plot_counter <<- plot_counter+1L
@@ -385,11 +371,6 @@ server <- function(input, output, session) {
     expectation=expectation_Server("exp1",shared,course_path,open_plot),
     overview=prob_Server("prob1",course_path,plot_request)
   )
-  output$learning_progress <- renderUI({
-    total <- sum(vapply(practice_modules,function(x) x$total(),numeric(1)))
-    complete <- sum(vapply(practice_modules,function(x) x$completed(),numeric(1)))
-    tags$p(role="status",paste0(complete," / ",total," optional past-exam extracts correct"))
-  })
   output$learning_path_banner <- renderUI({
     div(class="alert alert-info",strong(learning_path_label(course_path()))," — ",
       switch(course_path(),core="Review discrete probability, joint/conditional PMFs, expectation and variance, then explore them with tables and plots.",
