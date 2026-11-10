@@ -86,8 +86,8 @@ ui <- bs4DashPage(
     
     # ---------- 全局样式 ----------
     tags$head(
-      tags$link(rel="stylesheet",href="css/learning-layout.css"),
-      tags$script(src="js/learning-layout.js",defer=NA),
+      tags$link(rel="stylesheet",href=paste0("css/learning-layout.css?v=",unname(tools::md5sum("www/css/learning-layout.css")))),
+      tags$script(src=paste0("js/learning-layout.js?v=",unname(tools::md5sum("www/js/learning-layout.js"))),defer=NA),
       tags$style(HTML("
         .learning-path-controls {padding:12px;}
         .learning-path-controls .shiny-input-container {width:100%;}

@@ -1,0 +1,182 @@
+{
+  "date": "2026-11-10",
+  "scope": "Overview layout and versioned learning assets; no numerical or question-bank changes",
+  "browser": {
+    "passed": 19,
+    "total": 19,
+    "cases": [
+      {
+        "name": "one_numbered_exploration_section",
+        "passed": true
+      },
+      {
+        "name": "css_content_version",
+        "passed": true
+      },
+      {
+        "name": "js_content_version",
+        "passed": true
+      },
+      {
+        "name": "versioned_css_served",
+        "passed": true
+      },
+      {
+        "name": "versioned_js_served",
+        "passed": true
+      },
+      {
+        "name": "1600_structural_heading",
+        "passed": true
+      },
+      {
+        "name": "1600_correct_columns",
+        "passed": true
+      },
+      {
+        "name": "1600_no_page_overflow",
+        "passed": true
+      },
+      {
+        "name": "1266_structural_heading",
+        "passed": true
+      },
+      {
+        "name": "1266_correct_columns",
+        "passed": true
+      },
+      {
+        "name": "1266_no_page_overflow",
+        "passed": true
+      },
+      {
+        "name": "900_structural_heading",
+        "passed": true
+      },
+      {
+        "name": "900_correct_columns",
+        "passed": true
+      },
+      {
+        "name": "900_no_page_overflow",
+        "passed": true
+      },
+      {
+        "name": "390_structural_heading",
+        "passed": true
+      },
+      {
+        "name": "390_correct_columns",
+        "passed": true
+      },
+      {
+        "name": "390_no_page_overflow",
+        "passed": true
+      },
+      {
+        "name": "example_loader_and_numeric_reading_work",
+        "passed": true
+      },
+      {
+        "name": "preview_keeps_section_structure",
+        "passed": true
+      }
+    ],
+    "layouts": [
+      {
+        "width": 1600,
+        "containerWidth": 1305,
+        "titleOutsideGrid": true,
+        "onlyTwoGridChildren": true,
+        "headingFullWidth": true,
+        "headingAboveBoth": true,
+        "sameTitleSize": true,
+        "sideBySide": true,
+        "stacked": false,
+        "contentFits": true,
+        "panelWidths": [
+          356,
+          891
+        ]
+      },
+      {
+        "width": 1266,
+        "containerWidth": 971,
+        "titleOutsideGrid": true,
+        "onlyTwoGridChildren": true,
+        "headingFullWidth": true,
+        "headingAboveBoth": true,
+        "sameTitleSize": true,
+        "sideBySide": true,
+        "stacked": false,
+        "contentFits": true,
+        "panelWidths": [
+          261,
+          652
+        ]
+      },
+      {
+        "width": 900,
+        "containerWidth": 855,
+        "titleOutsideGrid": true,
+        "onlyTwoGridChildren": true,
+        "headingFullWidth": true,
+        "headingAboveBoth": true,
+        "sameTitleSize": true,
+        "sideBySide": true,
+        "stacked": false,
+        "contentFits": true,
+        "panelWidths": [
+          250,
+          547
+        ]
+      },
+      {
+        "width": 390,
+        "containerWidth": 345,
+        "titleOutsideGrid": true,
+        "onlyTwoGridChildren": true,
+        "headingFullWidth": true,
+        "headingAboveBoth": true,
+        "sameTitleSize": true,
+        "sideBySide": false,
+        "stacked": true,
+        "contentFits": true,
+        "panelWidths": [
+          319,
+          319
+        ]
+      }
+    ],
+    "assets": {
+      "css": "http://127.0.0.1:7130/css/learning-layout.css?v=6da6abda924958db7ff25a83a5cb32bb",
+      "js": "http://127.0.0.1:7130/js/learning-layout.js?v=cc4344afd9850bef49fa06db90ee26ff"
+    }
+  },
+  "existing_browser_before": {
+    "width": 1536,
+    "cssHref": "http://127.0.0.1:7130/css/learning-layout.css",
+    "hasHeadingRule": false,
+    "heading": {
+      "font": "28px",
+      "gridColumn": "auto"
+    }
+  },
+  "existing_browser_after": {
+    "width": 1536,
+    "cssHref": "http://127.0.0.1:7130/css/learning-layout.css?v=6da6abda924958db7ff25a83a5cb32bb",
+    "hasCurrentStyle": true,
+    "title": "2. Explore plots and parameters",
+    "font": "18.4px",
+    "headingOutsideGrid": true,
+    "headingAboveBoth": true,
+    "twoColumns": true,
+    "noOverflow": true,
+    "onlyTwoGridItems": true
+  },
+  "source_sha256": {
+    "Project_PPeek1ng/main.R": "6c6de68f60b6450613da2c492a71fb4ac7520fb49d7c4c9435ed4261b6929884",
+    "Project_PPeek1ng/modules/module_probability.R": "ccfc8dde5e52f0d017c23f96a0f7a8029acc7f7de76f552fa742ddb6df88a091",
+    "Project_PPeek1ng/www/css/learning-layout.css": "5e9ab744c5db1eebed061b9706f2b8d3e7d32b3514811d7c8c4764f722f1bcab"
+  }
+}

@@ -25,8 +25,8 @@ prob_UI <- function(id) {
           tags$details(class="learning-more-theory",tags$summary("Optional mathematical formulas"),
             withMathJax(HTML("For a continuous model: \\(F(x)=\\int_{-\\infty}^x f(t)dt\\) and \\(f(x)=F'(x)\\) where differentiable.")),
             withMathJax(uiOutput(ns("formula_cont"))))),class="learning-theory"),
-      div(id=ns("explorer"),class="learning-overview-explorer",tabindex="-1",
-        tags$h3(id=ns("explorer-title"),class="learning-overview-explorer-heading","2. Explore plots and parameters"),
+      learning_section(ns,"explorer","2. Explore plots and parameters",
+        div(class="learning-overview-explorer",
         learning_section(ns,"controls","Model and parameters",
           radioButtons(ns("dist_type"),"Distributions in this learning path",c("Discrete"="discrete","Continuous"="continuous"),selected="discrete",inline=TRUE),
           selectInput(ns("plot_example"),"Visualization example",choices=c("CDF illustration: Bernoulli(p=0.4)"="bern04")),
@@ -137,7 +137,7 @@ prob_UI <- function(id) {
               div(h4("PDF: probability is area"),plotOutput(ns("pdf_plot_cont"),height=320,click=ns("click_pdf_cont"))),
               div(h4(HTML("CDF: P(X &le; x)")),plotOutput(ns("cdf_plot_cont"),height=320,click=ns("click_cdf_cont")))),
             helpText("Click a graph to select x. For a continuous variable, P(X = x) = 0; a density value is not a point probability."),
-            h4("Current Selection"),verbatimTextOutput(ns("sel_text_cont")),uiOutput(ns("selection_precision_cont"))),class="learning-overview-plots")),
+            h4("Current Selection"),verbatimTextOutput(ns("sel_text_cont")),uiOutput(ns("selection_precision_cont"))),class="learning-overview-plots")),class="learning-overview-section"),
       learning_optional_practice(ns,"3. Optional past-exam questions",uiOutput(ns("practice_section")))))
 }
 
