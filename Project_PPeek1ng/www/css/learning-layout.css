@@ -64,6 +64,7 @@ body.layout-navbar-fixed .learning-card,body.layout-navbar-fixed .learning-overv
 .learning-module [id$='qtext'],.learning-module [id$='story_out'],.learning-module [id$='given_out'],.learning-module [id$='table_out'],.learning-module [id$='feedback'] { min-width:0; max-width:100%; overflow-x:auto; }
 .learning-module pre { white-space:pre-wrap; overflow-wrap:anywhere; }
 .learning-overview-explorer { display:grid; grid-template-columns:minmax(0,1fr); gap:20px; align-items:start; }
+.learning-overview-explorer-heading { grid-column:1 / -1; margin:0; font-size:1.15rem; font-weight:650; }
 .learning-overview-controls,.learning-overview-plots { min-width:0; }
 .learning-overview-plots { container-type:inline-size; }
 .learning-plot-pair { display:grid; grid-template-columns:minmax(0,1fr); gap:18px; }

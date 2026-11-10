@@ -26,6 +26,7 @@ prob_UI <- function(id) {
             withMathJax(HTML("For a continuous model: \\(F(x)=\\int_{-\\infty}^x f(t)dt\\) and \\(f(x)=F'(x)\\) where differentiable.")),
             withMathJax(uiOutput(ns("formula_cont"))))),class="learning-theory"),
       div(id=ns("explorer"),class="learning-overview-explorer",tabindex="-1",
+        tags$h3(id=ns("explorer-title"),class="learning-overview-explorer-heading","2. Explore plots and parameters"),
         learning_section(ns,"controls","Model and parameters",
           radioButtons(ns("dist_type"),"Distributions in this learning path",c("Discrete"="discrete","Continuous"="continuous"),selected="discrete",inline=TRUE),
           selectInput(ns("plot_example"),"Visualization example",choices=c("CDF illustration: Bernoulli(p=0.4)"="bern04")),
