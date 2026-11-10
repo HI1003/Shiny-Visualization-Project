@@ -4,8 +4,8 @@
 
 ## 当前结果
 
-- 2026-11-10 按用户反馈移除侧栏 Optional past-exam progress 汇总，以及首页 Review STATS125 concepts / Explore joint probability 两个快捷按钮；模块菜单、模块内进度和答题反馈保留。现有浏览器检查已改用侧栏导航和逐模块进度核验；本轮尚未推送。
-- 2026-11-10 按用户反馈移除 Probability table display 选择器，所有学生页面统一自动显示简洁分数/短小数；计算精度和更多精度入口保留。测试中仍核对内部格式函数，但学生界面不再切换模式；本轮及今天两次布局改动尚未推送。
+- 2026-11-10 按用户反馈移除侧栏 Optional past-exam progress 汇总，以及首页 Review STATS125 concepts / Explore joint probability 两个快捷按钮；模块菜单、模块内进度和答题反馈保留。现有浏览器检查已改用侧栏导航和逐模块进度核验；本轮已同步至用户 GitHub，远端内容提交核验为 `ba353d5c058ae0de2d191cf63260888001312845`，同步记录另作独立文档提交一并同步。
+- 2026-11-10 按用户反馈移除 Probability table display 选择器，所有学生页面统一自动显示简洁分数/短小数；计算精度和更多精度入口保留。测试中仍核对内部格式函数，但学生界面不再切换模式；本轮及今天两次布局改动均已同步，未部署。
 - 2026-11-04 按用户体验反馈改进数值显示：侧栏选择 Auto / Short decimals / Simple fractions；表格/条件概率/期望与图形标签使用简洁数字，近似值标注，悬停或 More precision 查看完整值。编辑框缩短显示但保留未经编辑的真实精度。改进提交 `ecef621` 已同步至用户 GitHub，远端内容 SHA 已核验为 `ecef62163f4f4e74c99c989bbe6d4430c84ae26d`；同步记录另作独立文档提交一并同步，最终 SHA 见 Git 历史。未部署。见 [验证记录](evidence/number_display_verification.md) 及 [工作日志](WORKLOG.md)。
 - R1-01–R1-11、R2-01–R2-07 的技术修复及之前教学/布局改进已同步 GitHub，原记录提交 `5063d1d`。概念优先改版 `2eed4f9` 和真题改版 `b94764d` 已于 2026-11-01 同步至用户 GitHub；推送后核验远端 main 与本地内容提交均为 `b94764d412ad16f6420b37092b09243869bf8e36`。本次同步记录另作独立文档提交一并同步，最终 SHA 见 Git 历史。未部署。
 - 当前四模块可选题库只含 4 组经本地试卷及参考解答核实的 STATS125 真题节选。来源、页码和改编情况见 [选择记录](PAST_EXAM_SELECTION.md)；本轮未原创练习。
@@ -15,7 +15,9 @@
 
 ## 验证与证据
 
-当前结果见 [数值显示验证](evidence/number_display_verification.md)：689/689 模块/精度、29/29 显示浏览器、10/10 独立数学及 13/13 图片；原 R1-04/05/06 与真题组均重跑。真题来源与上一阶段覆盖见 [真题验证](evidence/past_exam_verification.md)。旧 `test_learning_paths.R` 和旧 content/layout/concept 浏览器脚本保留用于历史阶段，不是当前入口。
+2026-11-10 界面调整后的相关验证为 **80/80 模块及应用、66/66 浏览器流程**，见 `local_progress_*`；当前 11 个应用 R 文件的 MD5 已重新核对一致。移除显示选项时的 `auto_display_*`（72/72、29/29）及布局修正记录（19/19）分别对应 `d2dc5da`、`ff8c390` 阶段，保留原指纹。以下 `numbers_*` 为此前完整数值回归证据，不能据此声称已对最新界面重跑全套检查。
+
+此前完整数值回归结果见 [数值显示验证](evidence/number_display_verification.md)：689/689 模块/精度、29/29 显示浏览器、10/10 独立数学及 13/13 图片；原 R1-04/05/06 与真题组均重跑。真题来源与上一阶段覆盖见 [真题验证](evidence/past_exam_verification.md)。旧 `test_learning_paths.R` 和旧 content/layout/concept 浏览器脚本保留用于历史阶段，不是当前入口。
 
 当前从仓库根目录运行 `./review/scripts/run_regression.ps1 -ReportPrefix numbers`，最后加入数值显示/精度专项；其中真题检查需要私有题库与对应 PDF。启动后可运行 `./review/scripts/test_assets.ps1 -BaseUrl http://127.0.0.1:7130`。显示浏览器检查使用 `check_number_display_browser.js`；真题浏览器复现仍见选择记录。临时截图、CLI 命令回显和私有输入均不得提交。
 
