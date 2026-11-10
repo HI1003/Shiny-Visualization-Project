@@ -56,13 +56,12 @@ for(module in c('joint','conditional','expectation')){
     record(module,'negative_edit_rejected_without_rounding_to_zero',max(abs(pmf_final()$p_value-expected))<2e-15&&grepl('non-negative',html(output$input_feedback),fixed=TRUE))
   })
 }
-# The real application preference is shared by all three table modules.
+# The application always uses auto; the removed control cannot change it.
 previous<-getwd();setwd('Project_PPeek1ng');app<-new.env(parent=globalenv());sys.source('main.R',app);setwd(previous)
 testServer(app$server,{
+  record('application','automatic_display_is_default',shared$number_format=='auto')
   session$setInputs(number_format='fraction')
-  record('application','shared_fraction_setting',shared$number_format=='fraction')
-  session$setInputs(number_format='invalid')
-  record('application','invalid_setting_uses_auto',shared$number_format=='auto')
+  record('application','removed_setting_cannot_override_auto',shared$number_format=='auto')
 })
 args<-commandArgs(trailingOnly=TRUE)
 report<-list(date=format(Sys.time(),'%Y-%m-%d',tz='Pacific/Auckland'),total=length(cases),passed=sum(vapply(cases,`[[`,logical(1),'passed')),cases=cases,

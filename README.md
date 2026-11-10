@@ -7,7 +7,7 @@ The current teaching revision defaults to **STATS125 Core**, with separate **Opt
 
 The selected extracts are from 2026 S1 Q2(a)–(d), 2025 S1 Q3(c)–(d), 2024 S2 Q3(e), and 2026 S1 Q3(d), (g). Each identifies its source and adaptation status and can load the corresponding table or plot parameters. **Exam content and source PDFs are local-only:** a public clone still runs the visualizations but shows no exam questions until a private bank and its matching local PDFs are available. There is no fallback to original exercises. See [selection and local setup](review/PAST_EXAM_SELECTION.md) and [current verification](review/evidence/past_exam_verification.md). Older teaching/layout reports describe earlier revisions.
 
-Probability tables now offer **Auto**, **Short decimals**, and **Simple fractions** through the sidebar. Ordinary decimals use at most four decimal places without trailing zeroes; very small nonzero values use scientific notation, and approximate entries are marked. Hover for more precision or expand **More precision** in Overview. Compact editor bindings preserve the original value until an entry is edited. See [number-display verification](review/evidence/number_display_verification.md).
+Probability tables automatically use short decimals and simple fractions. Ordinary decimals use at most four decimal places without trailing zeroes; very small nonzero values use scientific notation, and approximate entries are marked. Hover for more precision or expand **More precision** in Overview. Compact editor bindings preserve the original value until an entry is edited. See [number-display verification](review/evidence/number_display_verification.md).
 
 ## Project Overview
 

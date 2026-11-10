@@ -1,0 +1,380 @@
+{
+  "date": "2026-11-10",
+  "total": 72,
+  "passed": 72,
+  "cases": [
+    {
+      "group": "format",
+      "name": "auto_0.2",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "auto_1/3",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "auto_1/6",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "auto_16/221",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "auto_0.1235",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "auto_0",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "auto_1",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "fraction_mode",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "decimal_mode",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "approximate_decimal_not_invented_fraction",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "rounded_value_has_approximation_mark",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "exact_value_not_marked_approximate",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "small_1e-08",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "small_1e-14",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "small_1e-100",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "small_-1e-08",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "near_one_is_not_exact_one",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "large_weights_remain_compact",
+      "passed": true
+    },
+    {
+      "group": "format",
+      "name": "rounding_boundaries_stay_positive",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "display_bindings_keep_exact_source",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "editor_is_compact",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "eight_repeated_generates_keep_precision",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "decimal_table_uses_requested_format",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "decimal_format_does_not_change_data",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "decimal_full_precision_available",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "fraction_table_uses_requested_format",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "fraction_format_does_not_change_data",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "fraction_full_precision_available",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "auto_table_uses_requested_format",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "auto_format_does_not_change_data",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "auto_full_precision_available",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "real_edit_is_recognised",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "real_edit_is_committed",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "normalise_retains_committed_result",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "generate_after_normalise_preserves_precision",
+      "passed": true
+    },
+    {
+      "group": "joint",
+      "name": "negative_edit_rejected_without_rounding_to_zero",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "display_bindings_keep_exact_source",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "editor_is_compact",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "eight_repeated_generates_keep_precision",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "decimal_table_uses_requested_format",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "decimal_format_does_not_change_data",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "decimal_full_precision_available",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "fraction_table_uses_requested_format",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "fraction_format_does_not_change_data",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "fraction_full_precision_available",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "auto_table_uses_requested_format",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "auto_format_does_not_change_data",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "auto_full_precision_available",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "real_edit_is_recognised",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "real_edit_is_committed",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "normalise_retains_committed_result",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "generate_after_normalise_preserves_precision",
+      "passed": true
+    },
+    {
+      "group": "conditional",
+      "name": "negative_edit_rejected_without_rounding_to_zero",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "display_bindings_keep_exact_source",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "editor_is_compact",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "eight_repeated_generates_keep_precision",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "decimal_table_uses_requested_format",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "decimal_format_does_not_change_data",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "decimal_full_precision_available",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "fraction_table_uses_requested_format",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "fraction_format_does_not_change_data",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "fraction_full_precision_available",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "auto_table_uses_requested_format",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "auto_format_does_not_change_data",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "auto_full_precision_available",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "real_edit_is_recognised",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "real_edit_is_committed",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "normalise_retains_committed_result",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "generate_after_normalise_preserves_precision",
+      "passed": true
+    },
+    {
+      "group": "expectation",
+      "name": "negative_edit_rejected_without_rounding_to_zero",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "automatic_display_is_default",
+      "passed": true
+    },
+    {
+      "group": "application",
+      "name": "removed_setting_cannot_override_auto",
+      "passed": true
+    }
+  ],
+  "source_md5": {
+    "Project_PPeek1ng/app.R": "731ef53cae0eb1707056b270b078ed1c",
+    "Project_PPeek1ng/main.R": "fba0e24a37a63fc75adaa655505582ae",
+    "Project_PPeek1ng/modules/learning_content.R": "434e49e1ac6fd50ded1de486316906a6",
+    "Project_PPeek1ng/modules/learning_practice.R": "cb26d6c9663a32560887585afbb21ef0",
+    "Project_PPeek1ng/modules/module_conditional.R": "980086ea1c8c24aae827eaae4218cd98",
+    "Project_PPeek1ng/modules/module_expectation.R": "c8fb75f5ac5b2ef4eebf25201e5cf1e4",
+    "Project_PPeek1ng/modules/module_game_discrete.r": "6d9bbb12de3f3314cd64ff61b3df5e8f",
+    "Project_PPeek1ng/modules/module_joint.R": "b39932e34dcdc26a46affac056bddf3d",
+    "Project_PPeek1ng/modules/module_probability.R": "70ad9ecad292ddca778b64f1e80fe8eb",
+    "Project_PPeek1ng/modules/past_exam_bank.R": "a115eace2399d2a7ab4c781a8062787c",
+    "Project_PPeek1ng/modules/pmf_helpers.R": "18eaf24bb762f3d6467ac623f383f75f"
+  }
+}
