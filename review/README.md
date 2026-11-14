@@ -1,6 +1,6 @@
 # 模块审查与教学复核
 
-2026-11-14 当前界面已完成参数输入、步长刻度和联动读数改进，以及 Joint/Conditional/Expectation 的布局与数值一致性整理。Joint 使用分数热力图，Joint/Conditional 的 3D 图已移除，无真题时隐藏练习区。最新检查与本次发布范围见 [工作日志](WORKLOG.md)。下方证据文件与描述保留各自日期的验证范围，当前浏览器入口包括 `check_distribution_hover_browser.js`、`check_continuous_query_browser.js` 和 `check_parameter_inputs_browser.js`；早期 content/layout/concept 脚本属于历史流程。
+2026-11-14 当前界面已完成参数输入、步长刻度和联动读数改进，以及 Joint/Conditional/Expectation 的布局与数值一致性整理。Joint 使用分数热力图，Joint/Conditional 的 3D 图已移除，Expectation 展示条件均值乘边际概率、再将贡献相加的计算流程，无真题时隐藏练习区。仅含版本控制文件的副本已完成首次依赖安装、启动和全流程复核，详见 [交付结论与限制](HANDOVER.md) 和 [工作日志](WORKLOG.md)。下方证据文件与描述保留各自日期的验证范围，当前浏览器入口包括 `check_distribution_hover_browser.js`、`check_continuous_query_browser.js` 和 `check_parameter_inputs_browser.js`；早期 content/layout/concept 脚本属于历史流程。
 
 2026-11-13 Overview 图表改为悬停查看数值并联动同一 x，触屏点击保留读数；离散和连续分布均移除 Current Selection 重复读数区，保留离散 CDF 的空心/实心端点。此次也统一移除定义后的探索任务提示。其他模块保留有教学作用的表格与分解数值。当前验证见 [图表交互记录](evidence/distribution_hover_20261113.json) 和 [工作日志](WORKLOG.md)；本轮尚未提交或推送。
 

@@ -9,7 +9,7 @@ The selected extracts are from 2026 S1 Q2(a)–(d), 2025 S1 Q3(c)–(d), 2024 S2
 
 Probability tables automatically use short decimals and simple fractions. Joint tables and heatmaps prefer simple fractions. Conditional and Expectation charts follow their corresponding table formats. Ordinary decimals use at most four decimal places without trailing zeroes; very small nonzero values use scientific notation, and approximate entries are marked. Compact editor bindings preserve the original value until an entry is edited. See [number-display verification](review/evidence/number_display_verification.md).
 
-Distribution parameters support synchronized sliders and numeric inputs, with range and integer checks. Overview plots use linked hover or touch readings. Continuous plots choose an x query step for the current axis scale and calculate both the PDF and CDF at that x. Joint uses a numerical heatmap, Conditional uses a bar chart, and Expectation shows marginally weighted conditional means. Optional exam sections and their navigation appear when verified questions are available for the selected scope. Current changes and validation are recorded in the [work log](review/WORKLOG.md).
+Distribution parameters support synchronized sliders and numeric inputs, with range and integer checks. Overview plots use linked hover or touch readings. Continuous plots choose an x query step for the current axis scale and calculate both the PDF and CDF at that x. Joint uses a numerical heatmap and Conditional uses a bar chart. Expectation shows each conditional mean multiplied by its marginal probability, then adds the contributions to obtain the overall mean. Optional exam sections and their navigation appear when verified questions are available for the selected scope. Current delivery checks and limitations are recorded in the [handover](review/HANDOVER.md); individual changes are recorded in the [work log](review/WORKLOG.md).
 
 ## Project Overview
 
@@ -32,10 +32,9 @@ Users can interactively manipulate parameters, visualize how probability functio
 
 ## Included Resources
 
-The packaged file `Project_PPeek1ng.zip` includes:
-- All R source files listed above  
-- Image and visualization assets used across modules  
-- A structured directory ready for deployment on RStudio or Shiny Server
+The current application is in the versioned `Project_PPeek1ng/` directory, with its R modules and bundled images. `Start-Shiny.R` launches that directory. Review records and regression scripts are in `review/`.
+
+`Project_PPeek1ng.zip` preserves the original project snapshot. For the reviewed version, download the full current repository using **Code → Download ZIP**, or clone it using the instructions below.
 
 ---
 
@@ -43,9 +42,9 @@ The packaged file `Project_PPeek1ng.zip` includes:
 
 1. Download or clone this repository:
    ```bash
-   git clone https://github.com/D1OK1NG/Shiny-Visualization-Project.git
+   git clone https://github.com/HI1003/Shiny-Visualization-Project.git
    ```
-2. Unzip `Project_PPeek1ng.zip` if the `Project_PPeek1ng` folder is not already present.
+2. For a GitHub ZIP download, extract the downloaded repository ZIP. The extracted repository includes the current `Project_PPeek1ng` folder and `Start-Shiny.R`.
 3. Open the repository folder in VS Code. R and `Rscript` must be available on your PATH.
 4. Open the integrated terminal and run:
    ```powershell
@@ -62,7 +61,8 @@ In RStudio, set the working directory to the repository root and run
 
 Review status and reproducible checks are recorded in [review/README.md](review/README.md).
 Run `./review/scripts/run_regression.ps1` from the repository root to check the modules;
-with the app running, `./review/scripts/test_assets.ps1` checks its image resources.
+the past-exam checks additionally require the private bank and matching source PDFs.
+With the app running, `./review/scripts/test_assets.ps1` checks its image resources.
 
 ---
 
@@ -82,16 +82,15 @@ For detailed methodology, educational design, and system architecture, please re
 ```
 Shiny-Visualization-Project/
 │
-├── Project_PPeek1ng.zip          # Full Shiny project archive
-├── README.md                     # Project documentation
-└── (unzipped folder contents)
-    ├── main.R
-    ├── module_probability.R
-    ├── module_game_discrete.r
-    ├── module_joint.R
-    ├── module_conditional.R
-    ├── module_expectation.R
-    └── images/
+├── Start-Shiny.R                 # Launcher and dependency setup
+├── Project_PPeek1ng/             # Current application
+│   ├── app.R
+│   ├── main.R
+│   ├── modules/
+│   └── www/                      # Images, styles and browser interaction
+├── review/                      # Review records and validation scripts
+├── README.md
+└── Project_PPeek1ng.zip          # Original project snapshot
 ```
 
 ---
