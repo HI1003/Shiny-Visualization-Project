@@ -53,13 +53,14 @@ for(module in c('joint','conditional','expectation')){
         weighted<-weighted_mean_data()
         rows<-xml2::xml_find_all(xml2::read_html(html(output$total_expectation_breakdown)),'//tbody/tr')
         rows<-rows[weighted$groups$weight>0]
-        bars<-jsonlite::fromJSON(output$total_expectation_plot,simplifyVector=FALSE)$x$data
-        matching<-length(bars)==length(rows)&&all(vapply(seq_along(bars),function(i) {
+        flow<-xml2::read_html(html(output$total_expectation_flow))
+        products<-xml2::xml_find_all(flow,'//*[contains(@class,"expectation-flow-product")]')
+        matching<-length(products)==length(rows)&&all(vapply(seq_along(products),function(i) {
           labels<-xml2::xml_attr(xml2::xml_find_all(rows[[i]],'td[@data-number-text]'),'data-number-text')
-          identical(as.character(sub('^≈ ','',unlist(bars[[i]]$text))),labels[3])&&
-            all(vapply(labels,function(label)grepl(label,unlist(bars[[i]]$hovertext),fixed=TRUE),logical(1)))
+          flow_labels<-xml2::xml_attr(xml2::xml_find_all(products[[i]],'.//*[@data-number-text]'),'data-number-text')
+          identical(flow_labels,labels)
         },logical(1)))
-        record(module,paste0(mode,'_chart_uses_table_labels'),matching)
+        record(module,paste0(mode,'_flow_uses_table_labels'),matching)
       }
     }
     first<-pmf_edit()$id[1];do.call(session$setInputs,setNames(list('0.3'),paste0('p_',first)))

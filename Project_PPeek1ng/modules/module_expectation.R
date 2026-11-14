@@ -416,41 +416,68 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
       ))
     })
 
-    output$total_expectation_plot <- renderPlotly({
-      values <- weighted_mean_data(); groups <- values$groups
-      groups <- groups[groups$weight > 0, ]
-      plot <- plot_ly()
-      for (i in seq_len(nrow(groups))) {
-        plot <- add_trace(plot, type = "bar", orientation = "h",
-          x = groups$contribution[i], y = "Overall mean",
-          name = paste0(values$conditioning, " = ", as.character(groups$condition_value[i])),
-          marker = list(color = groups$colour[i]),
-          text = sub("^= ","",number_reading(groups$contribution[i],display_mode())),
-          textposition = "inside", textangle = 0, textfont = list(size = 13),
-          hoverinfo = "text", hovertext = paste0(
-            values$conditioning, "=", as.character(groups$condition_value[i]),
-            "<br>Conditional mean ", number_reading(groups$conditional_mean[i],display_mode()),
-            "<br>Marginal probability ", number_reading(groups$weight[i],display_mode()),
-            "<br>Contribution ", number_reading(groups$contribution[i],display_mode())))
+    output$total_expectation_flow <- renderUI({
+      values <- weighted_mean_data()
+      groups <- values$groups
+      positive <- which(groups$weight > 0)
+      mode <- display_mode()
+
+      value_box <- function(value,label,class="") {
+        reading <- number_reading(value,mode)
+        shown <- number_label(value,mode)
+        compact_number <- !grepl("/",shown,fixed=TRUE) &&
+          (nchar(shown)>=6L || grepl("e",shown,fixed=TRUE))
+        tex <- paste0("\\(\\displaystyle ",if(startsWith(reading,"\u2248")) "\\approx " else "",
+                      number_tex(value,mode),"\\)")
+        div(class=paste("expectation-flow-value",class),
+          tags$span(class="expectation-flow-label",label),
+          tags$span(class=paste("expectation-flow-number",if(compact_number) "expectation-flow-number-long" else ""),
+            `data-number-value`=number_full(value),`data-number-text`=shown,HTML(tex)))
       }
-      plot %>% layout(
-        title = list(text = "Weighted contributions", font = list(size = 15)),
-        barmode = "relative", showlegend = TRUE,
-        uniformtext = list(minsize = 11, mode = "hide"),
-        xaxis = list(title = "",
-                     rangemode = "tozero", zeroline = TRUE, automargin = TRUE, fixedrange = TRUE),
-        yaxis = list(title = "", showticklabels = FALSE, fixedrange = TRUE),
-        legend = list(orientation = "h", x = 0, y = -.3),
-        shapes = list(list(type = "line", xref = "x", yref = "paper",
-          x0 = values$weighted_mean, x1 = values$weighted_mean, y0 = 0, y1 = 1,
-          line = list(color = "#243447", dash = "dash", width = 2))),
-        annotations = list(list(x = 1, y = 1.12, xref = "paper", yref = "paper",
-          text = paste0("E[", values$target, "] ", number_reading(values$weighted_mean,display_mode())),
-          showarrow = FALSE, xanchor = "right")),
-        font = list(color = "#243447"), paper_bgcolor = "#ffffff", plot_bgcolor = "#ffffff",
-        margin = list(l = 15, r = 15, t = 75, b = 70)) %>%
-        config(displaylogo=FALSE,
-          modeBarButtonsToRemove=c("select2d","lasso2d","autoScale2d","resetScale2d"))
+      relation_symbol <- function(numbers) {
+        if(grepl("approx",number_relation(numbers,mode),fixed=TRUE)) "\u2248" else "="
+      }
+
+      withMathJax(tags$figure(class="expectation-flow",
+        `aria-label`="Multiply conditional means by marginal probabilities, then add the contributions",
+        `data-weighted-mean`=number_full(values$weighted_mean),
+        `data-direct-mean`=number_full(values$direct_mean),
+        `data-target`=values$target,`data-conditioning`=values$conditioning,
+        tags$figcaption(class="expectation-flow-heading","Multiply within each group"),
+        lapply(seq_len(nrow(groups)),function(i) {
+          condition <- paste0(values$conditioning," = ",groups$condition_value[i])
+          div(class="expectation-flow-group",style=paste0("--group-colour:",groups$colour[i],";"),
+            `data-condition`=number_full(groups$condition_value[i]),
+            tags$strong(class="expectation-flow-condition",condition),
+            if(groups$weight[i] > 0) div(class="expectation-flow-product",
+              value_box(groups$conditional_mean[i],"Conditional mean","expectation-flow-mean"),
+              tags$span(class="expectation-flow-operator","\u00d7"),
+              value_box(groups$weight[i],"Marginal probability","expectation-flow-weight"),
+              tags$span(class="expectation-flow-operator",
+                relation_symbol(c(groups$conditional_mean[i],groups$weight[i],groups$contribution[i]))),
+              value_box(groups$contribution[i],"Contribution","expectation-flow-contribution"))
+            else tagList(
+              p(class="small-note","This group has probability 0. Its conditional mean is undefined."),
+              div(class="expectation-flow-zero",
+                value_box(0,"Marginal probability","expectation-flow-weight"),
+                value_box(0,"Contribution","expectation-flow-contribution"))))
+        }),
+        div(class="expectation-flow-sum",
+          tags$h5(class="expectation-flow-heading","Add the contributions"),
+          div(class="expectation-flow-addition",
+            lapply(seq_along(positive),function(j) {
+              i <- positive[j]
+              div(class="expectation-flow-term",style=paste0("--group-colour:",groups$colour[i],";"),
+                if(j>1) tags$span(class="expectation-flow-plus","+"),
+                value_box(groups$contribution[i],
+                  paste0(values$conditioning," = ",groups$condition_value[i]),"expectation-flow-summand"))
+            }),
+            div(class="expectation-flow-term expectation-flow-total-term",
+              tags$span(class="expectation-flow-plus",
+                relation_symbol(c(groups$contribution[positive],values$weighted_mean))),
+              value_box(values$weighted_mean,paste0("Overall mean E[",values$target,"]"),
+                "expectation-flow-total"))))
+      ))
     })
     # ========================== 期望计算 ============================
     # ============================================================

@@ -123,13 +123,22 @@ for (module in c('joint','conditional','expectation')) {
           session$setInputs(cond_type=direction)
           weighted <- weighted_mean_data()
           expected_mean <- sum(actual[[if(direction=='yx') 'y' else 'x']]*actual$p_value)
-          bars <- jsonlite::fromJSON(output$total_expectation_plot,simplifyVector=FALSE)$x$data
+          flow <- xml2::read_html(read_ui(output$total_expectation_flow))
+          products <- xml2::xml_find_all(flow,'//*[contains(@class,"expectation-flow-product")]')
+          products_ok <- all(vapply(products,function(product) {
+            numbers<-as.numeric(xml2::xml_attr(xml2::xml_find_all(product,'.//*[@data-number-value]'),'data-number-value'))
+            length(numbers)==3L && abs(numbers[1]*numbers[2]-numbers[3])<1e-12 &&
+              grepl('×',xml2::xml_text(product),fixed=TRUE)
+          },logical(1)))
+          contributions <- as.numeric(xml2::xml_attr(xml2::xml_find_all(flow,
+            '//*[contains(@class,"expectation-flow-summand")]//*[@data-number-value]'),'data-number-value'))
           equation <- xml2::xml_find_first(xml2::read_html(read_ui(output$total_expectation_breakdown)),
             '//*[@data-weighted-mean]')
           record(module,paste0('total_expectation_',name,'_',direction),
             abs(weighted$weighted_mean-expected_mean)<1e-12 &&
             abs(weighted$direct_mean-expected_mean)<1e-12 &&
-            abs(sum(unlist(lapply(bars,function(bar)bar$x)))-expected_mean)<1e-12 &&
+            products_ok && length(products)==sum(weighted$groups$weight>0) &&
+            abs(sum(contributions)-expected_mean)<1e-12 &&
             abs(as.numeric(xml2::xml_attr(equation,'data-weighted-mean'))-expected_mean)<1e-12 &&
             all(is.na(weighted$groups$conditional_mean[weighted$groups$weight==0])))
         }
@@ -176,8 +185,9 @@ for (module in c('joint','conditional','expectation')) {
       for(direction in c('yx','xy')) {
         session$setInputs(cond_type=direction)
         weighted <- weighted_mean_data()
-        bars <- jsonlite::fromJSON(output$total_expectation_plot,simplifyVector=FALSE)$x$data
-        contributions <- unlist(lapply(bars,function(bar)bar$x))
+        flow <- xml2::read_html(read_ui(output$total_expectation_flow))
+        contributions <- as.numeric(xml2::xml_attr(xml2::xml_find_all(flow,
+          '//*[contains(@class,"expectation-flow-summand")]//*[@data-number-value]'),'data-number-value'))
         expected_mean <- if(direction=='yx') -1 else -.5
         record(module,paste0('total_expectation_signed_',direction),
           abs(weighted$weighted_mean-expected_mean)<1e-12 &&

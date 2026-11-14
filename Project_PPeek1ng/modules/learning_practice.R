@@ -75,7 +75,7 @@ learning_table_module_ui <- function(id,title,theory,plot_ids=NULL) {
         shiny::tags$h4("From conditional means to the overall mean"),
         shiny::tags$div(class="expectation-total-grid",
           shiny::tags$div(class="expectation-total-breakdown",shiny::uiOutput(ns("total_expectation_breakdown"))),
-          plotly::plotlyOutput(ns("total_expectation_plot"),height="300px"))),
+          shiny::uiOutput(ns("total_expectation_flow")))),
       class="learning-table-section"),
     learning_optional_practice(ns,paste0("3. Optional past-exam questions — ",title),learning_practice_ui(ns,NULL)))
 }

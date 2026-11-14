@@ -49,10 +49,36 @@ body.dark-mode .pmf-calculation-panel h5 { color:inherit !important; }
 .expectation-total-table th:last-child { width:29%; }
 .expectation-total-table th { white-space:normal; font-size:.9rem; overflow-wrap:anywhere; hyphens:auto; }
 .expectation-total-equation { font-size:1.1rem; line-height:2; margin-top:12px; padding:4px 0; overflow-y:hidden; }
+.expectation-flow { margin:0; padding:14px; border:1px solid var(--learning-border); border-radius:10px; background:var(--learning-surface); min-width:0; }
+.expectation-flow-heading { margin:0 0 12px; font-size:1rem; font-weight:600; }
+.expectation-flow-group { border-left:4px solid var(--group-colour); padding:0 0 0 10px; margin-bottom:16px; }
+.expectation-flow-condition { display:block; margin-bottom:6px; font-size:.9rem; }
+.expectation-flow-product { display:grid; grid-template-columns:minmax(0,1fr) 18px minmax(0,1fr) 18px minmax(0,1fr); gap:5px; }
+.expectation-flow-value { min-width:0; padding:8px 6px; border:1px solid var(--learning-border); border-radius:7px; background:rgba(23,101,186,.035); text-align:center; }
+.expectation-flow-label { display:block; min-height:2.7em; font-size:.75rem; line-height:1.35; color:var(--learning-muted); overflow-wrap:break-word; }
+.expectation-flow-number { display:flex; align-items:center; justify-content:center; min-height:56px; font-size:1.2rem; }
+.expectation-flow-operator { display:flex; align-items:center; justify-content:center; align-self:end; height:74px; font-size:1.25rem; color:var(--learning-muted); }
+.expectation-flow-contribution,.expectation-flow-summand { border:2px solid var(--group-colour); }
+.expectation-flow-zero { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.expectation-flow-sum { border-top:1px solid var(--learning-border); padding-top:14px; }
+.expectation-flow-addition { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+.expectation-flow-term { display:flex; align-items:center; gap:10px; }
+.expectation-flow-summand { min-width:64px; }
+.expectation-flow-summand .expectation-flow-label { min-height:0; }
+.expectation-flow-summand .expectation-flow-number { min-height:42px; }
+.expectation-flow-plus { font-size:1.2rem; color:var(--learning-muted); }
+.expectation-flow-total { border:2px solid var(--learning-accent); background:rgba(23,101,186,.09); min-width:108px; }
+.expectation-flow-total .expectation-flow-label { color:var(--learning-accent); }
 @container (min-width:780px) {
   .expectation-total-grid { grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); }
 }
 @container (max-width:420px) {
+  .expectation-flow { padding:10px; }
+  .expectation-flow-group { padding-left:7px; }
+  .expectation-flow-product { grid-template-columns:minmax(0,1fr) 14px minmax(0,1fr) 14px minmax(0,1fr); gap:3px; }
+  .expectation-flow-value { padding:6px 3px; }
+  .expectation-flow-label { font-size:.7rem; }
+  .expectation-flow-number-long { font-size:.85rem; }
   .learning-card .expectation-total-table .pmf-table th,
   .learning-card .expectation-total-table .pmf-table td { padding:4px; }
   .expectation-total-table th { font-size:.75rem; }
