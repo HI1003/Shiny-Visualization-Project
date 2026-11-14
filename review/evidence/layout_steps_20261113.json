@@ -1,0 +1,63 @@
+{
+  "date": "2026-11-13",
+  "scope": "Learning-step numbering, available paragraph width, heading/image bounds and responsive layout.",
+  "browser_groups": [
+    {
+      "group": "exams_browser",
+      "passed": 88,
+      "total": 88
+    },
+    {
+      "group": "general",
+      "passed": 55,
+      "total": 55
+    }
+  ],
+  "r_bank_checks": {
+    "passed": 87,
+    "total": 87
+  },
+  "verified": {
+    "learning_modules": [
+      "Overview",
+      "Joint",
+      "Conditional",
+      "Expectation"
+    ],
+    "learning_steps": [
+      1,
+      2,
+      3
+    ],
+    "module_widths": [
+      1600,
+      1266,
+      900,
+      390
+    ],
+    "general_pages": [
+      "Home",
+      "All seven core discrete models",
+      "Three preview continuous models",
+      "Eight further continuous models",
+      "Game introduction, seven chapters, feedback and ending"
+    ],
+    "general_widths": [
+      1600,
+      900,
+      390
+    ],
+    "wide_descriptions": "One line at 1600 CSS pixels, with paragraph width equal to its header container.",
+    "narrow_descriptions": "Natural wrapping within the available width.",
+    "google_chrome_preview": "Expectation table and weighted-mean plot loaded, headings 1, 2 and 3 present."
+  },
+  "source_sha256": {
+    "Project_PPeek1ng/modules/learning_practice.R": "adc9f1ab7bb0bab10652c485aefbeb1d88ce2af71b790aedf956811208594fd7",
+    "Project_PPeek1ng/www/css/learning-layout.css": "b9309a978a429cf3e98bbed38502bdc5c95562590cc416b903c8045c4c0f0391",
+    "Project_PPeek1ng/main.R": "7e708ef3d68807bedcbc165b3b64fbdc200f5820db57bfae18ceb76795654af6",
+    "Project_PPeek1ng/www/js/learning-layout.js": "3cdd15e5d0b0b94d7562c52d08fef06c1ea272d50e376754039a372970b2e7e5",
+    "review/scripts/check_past_exam_browser.js": "851db8bec81c2c66c8aee150277e8f3b569cb3fb1a71fc7c5ef8a9f100e4f0f1"
+  },
+  "privacy": "Only check counts, generic scope and source hashes exported. Private exam fixtures, raw output and screenshots remain ignored.",
+  "publication": "No new commit or push in this task."
+}

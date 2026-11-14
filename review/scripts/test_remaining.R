@@ -114,8 +114,9 @@ testServer(prob_Server, args=list(course_path=function() "legacy"), {
     session$setInputs(dist=d); df <- dist_df()
     record('distributions',paste(d,'valid'),all(is.finite(as.matrix(df))) && all(df$pmf>=0) &&
       all(diff(df$cdf)>=0) && all(df$cdf>=0 & df$cdf<=1) && sum(df$pmf)>.998)
-    k <- df$k[1]; session$setInputs(click_pmf=list(x=k+.05))
-    record('distributions',paste(d,'click'),identical(selected_k(),k) && grepl('P(X =',output$sel_text,fixed=TRUE))
+    trace <- jsonlite::fromJSON(output$pmf_plot,simplifyVector=FALSE)$x$data[[1]]
+    record('distributions',paste(d,'hover_values'),length(trace$x)==nrow(df) &&
+      all(grepl('P(X =',unlist(trace$hovertext),fixed=TRUE)))
   }
   for(d in c('geom','nbinom')) for(p in c(.01,.5,.99,1)) {
     session$setInputs(dist=d,pg=p,p_nb=p,r_nb=20); df <- dist_df()
@@ -133,8 +134,8 @@ testServer(prob_Server, args=list(course_path=function() "legacy"), {
     session$setInputs(dist_cont=d); df <- dist_df_cont()
     record('distributions',paste(d,'continuous_valid'),all(is.finite(df$pdf)) && all(df$pdf>=0) &&
       all(is.finite(df$cdf)) && all(diff(df$cdf)>=-1e-12) && all(df$cdf>=0 & df$cdf<=1))
-    session$setInputs(click_pdf_cont=list(x=mean(range(df$x))))
-    record('distributions',paste(d,'density_click'),grepl('fX(',output$sel_text_cont,fixed=TRUE))
+    trace <- jsonlite::fromJSON(output$pdf_plot_cont,simplifyVector=FALSE)$x$data[[1]]
+    record('distributions',paste(d,'density_hover'),all(grepl('Density is not P(X = x).',unlist(trace$hovertext),fixed=TRUE)))
     # Evaluate actual renderers to detect singular/degenerate plotting errors.
     record('plots',d,!inherits(try(output$pdf_plot_cont,silent=TRUE),'try-error') &&
       !inherits(try(output$cdf_plot_cont,silent=TRUE),'try-error'))
@@ -153,6 +154,9 @@ testServer(prob_Server, args=list(course_path=function() "legacy"), {
 })
 testServer(game_discrete_Server, {
   session$setInputs(startBtn=1)
+  session$setInputs(submit1=1)
+  record('game','empty_choice_has_feedback_without_penalty',
+    grepl('Choose a distribution',html(output$feedback1),fixed=TRUE) && all(score_table()$Errors==0))
   for(i in seq_len(7)) {
     record('game',paste(i,'chapter'),step()==i && grepl(paste0('Chapter ',i,'/7'),html(output$mainUI),fixed=TRUE))
     correct <- stories[[i]]$correct

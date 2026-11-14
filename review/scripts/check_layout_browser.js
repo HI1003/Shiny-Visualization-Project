@@ -79,16 +79,6 @@ async page => {
     check(module+'_visible_math_has_measured_width',true);
     await page.screenshot({path:'output/playwright/layout_'+module+'_theory.png'});
     await page.locator('#'+prefix+'-theory > summary').click();
-    if(module!=='expectation') {
-      const disclosure=page.locator('#'+prefix+'-plots .learning-3d');
-      check(module+'_3d_initially_collapsed',!await disclosure.evaluate(n=>n.open));
-      await page.getByRole('link',{name:'Plots',exact:true}).click();
-      await disclosure.locator('summary').click();
-      const plotId=prefix+(module==='joint'?'-plot3d':'-plot3d_cond');
-      await page.waitForFunction(id=>{const n=document.getElementById(id);return n&&n._fullLayout&&n._fullLayout.width>100;},plotId);
-      check(module+'_3d_renders_after_expanding',true);
-      await disclosure.locator('summary').click();
-    }
   }
   await page.setViewportSize({width:1266,height:900});await settle();await visibleLink('house icon Home');
   await page.getByRole('button',{name:'play icon Start STATS125 core practice',exact:true}).click();

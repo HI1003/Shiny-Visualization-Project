@@ -7,9 +7,28 @@ for(f in c('pmf_helpers.R','past_exam_bank.R','learning_content.R','learning_pra
 cases<-list()
 record<-function(group,name,passed){cases[[length(cases)+1L]]<<-list(group=group,name=name,passed=isTRUE(passed));if(!isTRUE(passed))cat('FAIL:',group,name,'\n')}
 html<-function(x)if(is.null(x))''else x$html
+preview_models<-unname(learning_continuous_choices('preview'))
+further_models<-unname(learning_continuous_choices('further'))
+record('paths','preview_has_three_introductory_models',setequal(preview_models,c('unif','exp','norm')))
+record('paths','further_has_five_additional_models',setequal(further_models,c('gamma','beta','chisq','t','f')))
+record('paths','continuous_paths_do_not_overlap',length(intersect(preview_models,further_models))==0&&
+  setequal(c(preview_models,further_models),unname(learning_continuous_choices('legacy'))))
+record('paths','legacy_keeps_all_eight_continuous_models',length(learning_continuous_choices('legacy'))==8)
+examples<-learning_graph_examples()
+record('paths','examples_belong_to_their_path_models',all(vapply(examples,function(example){
+  paths<-intersect(example$paths,c('core','preview','further'))
+  all(vapply(paths,function(path)if(example$type=='discrete')path=='core' else
+    example$dist %in% learning_continuous_choices(path),logical(1)))
+},logical(1))))
 record('loader','local_bank_verified',local_exam_bank$status=='verified')
 stopifnot(local_exam_bank$status=='verified')
 all_questions<-unlist(lapply(c('overview','joint','conditional','expectation'),exam_questions),recursive=FALSE)
+for (module in c('joint','conditional','expectation')) {
+  choices <- learning_pmf_example_choices(module)
+  keys <- unlist(lapply(exam_questions(module), `[[`, 'pmf_example'), use.names=FALSE)
+  record('catalog',paste0(module,'_table_examples_are_grouped_and_scoped'),
+    identical(unname(choices$Demonstrations),c('cards','counts20','zero_x'))&&setequal(unname(choices[['Past exam']]),keys))
+}
 record('catalog','four_verified_exam_extracts_only',length(all_questions)==4&&all(vapply(all_questions,function(q)isTRUE(q$is_exam),logical(1))))
 record('catalog','unique_references',!anyDuplicated(vapply(all_questions,`[[`,character(1),'key')))
 record('catalog','no_unverified_or_original_fallback',length(learning_questions(list(),'overview'))==1&&all(vapply(all_questions,function(q)!isTRUE(q$legacy),logical(1))))
@@ -53,12 +72,17 @@ run_module<-function(module,server_fn) {
       record(module,'load_exact_exam_table',max(abs(pmf_final()$p_value-learning_pmf_example(q$pmf_example)$p_value))<1e-12)
       record(module,'exam_caption',grepl(learning_pmf_notes[[q$pmf_example]],html(output$pmf_example_note),fixed=TRUE))
     }else{
+      session$setInputs(dist='binom',n=5,p=.2)
+      overview_ui<-as.character(prob_UI('overview_check'))
+      record(module,'distribution_presets_and_note_removed',!grepl('plot_example|example_controls|example_note',overview_ui))
+      session$setInputs(plot_example='corn10')
+      record(module,'obsolete_preset_input_does_not_overwrite_parameters',input$n==5&&input$p==.2)
+      record(module,'exam_load_button_retained',grepl('explore_example',html(output$example_action),fixed=TRUE))
       for(key in q$plot_examples){
         graph<-local_exam_bank$graphs[[key]];apply_example(key)
         do.call(session$setInputs,c(graph$inputs,list(dist_type=graph$type,dist=graph$dist)))
         session$flushReact()
-        record(module,paste0(key,'_selected_value'),identical(as.numeric(selected_k()),as.numeric(graph$x)))
-        record(module,paste0(key,'_caption'),grepl(graph$note,html(output$example_note),fixed=TRUE))
+        record(module,paste0(key,'_example_x_on_plot'),graph$x %in% dist_df()$k)
         row<-dist_df()[dist_df()$k==graph$x,]
         record(module,paste0(key,'_pmf_and_cdf'),nrow(row)==1&&abs(row$pmf-dpois(graph$x,graph$inputs$lambda))<1e-12&&abs(row$cdf-ppois(graph$x,graph$inputs$lambda))<1e-12)
       }
@@ -70,13 +94,15 @@ run_module('joint',joint_Server);run_module('conditional',conditional_Server);ru
 previous<-getwd();setwd('Project_PPeek1ng');app<-new.env(parent=globalenv());sys.source('main.R',app);setwd(previous)
 testServer(app$server,{
   record('application','four_optional_exam_extracts',sum(vapply(practice_modules,function(x)x$total(),numeric(1)))==4)
-  session$setInputs(learning_path='legacy');record('application','legacy_request_cannot_expose_old_questions',course_path()=='core'&&all(vapply(practice_modules,function(x)isTRUE(x$prob()$is_exam),logical(1))))
-  session$setInputs(learning_path='preview');record('application','no_original_preview',sum(vapply(practice_modules,function(x)x$total(),numeric(1)))==0)
+  session$setInputs(`prob1-learning_path`='legacy');record('application','legacy_request_cannot_expose_old_questions',course_path()=='core'&&all(vapply(practice_modules,function(x)isTRUE(x$prob()$is_exam),logical(1))))
+  session$setInputs(`prob1-learning_path`='preview')
+  record('application','overview_preview_does_not_hide_other_modules_practice',
+    practice_modules$overview$total()==0&&all(vapply(practice_modules[c('joint','conditional','expectation')],function(x)x$total()==1,logical(1))))
 })
 saved_bank<-local_exam_bank;local_exam_bank<-read_local_exam_bank('.local/exam-selection/missing-bank.json')
 testServer(joint_Server,{
   record('privacy','missing_bank_does_not_load_old_questions',practice$total()==0&&is.null(practice$prob()))
-  record('privacy','empty_bank_explains_availability',grepl('No verified past-exam extract',html(output$practice_status),fixed=TRUE))
+  record('privacy','empty_bank_hides_practice',output$practice_available=='false'&&html(output$practice_status)=='')
 })
 local_exam_bank<-saved_bank
 args<-commandArgs(trailingOnly=TRUE)

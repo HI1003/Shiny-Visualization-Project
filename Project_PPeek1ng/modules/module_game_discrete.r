@@ -61,6 +61,10 @@ game_discrete_Server <- function(id) {
     step <- reactiveVal(0)
   
   total_steps <- 7
+
+  observeEvent(step(), {
+    session$sendCustomMessage("learning-focus", list(id = ns("mainUI")))
+  }, ignoreInit = TRUE)
   
   # ---- Score Tracker ----
   score_tracker <- reactiveValues(
@@ -132,7 +136,7 @@ Conclusion: Poisson — models rare events occurring randomly but with a constan
       correct="Discrete Uniform",
       reason="This case involves a finite set of possible outcomes, each with exactly the same probability of occurring. In other words, if there are N hiding spots, each one has probability 1/N of being chosen — precisely the situation modeled by the Discrete Uniform distribution.",
       transition="The harbor at night is vast and complex:<br><img src='img/5.png' style='display:block; margin:auto; width:60%; max-width:600px;'><br> Stacked containers, warehouses filled with cargo, docked fishing boats, and the lighthouse by the shore — all could serve as temporary hiding spots. With no further clues, you and your superior decide to begin searching from the nearest warehouse district.",
-      analysis="X ~ DU(N)<br>
+      analysis="X follows a Discrete Uniform (DU) distribution, written as X ~ DU(N).<br>
 - Random variable X: The index of the hiding spot, chosen from {1, 2, …, N}.<br>  
 - Parameter N: The total number of possible hiding spots.<br>  
 - Probability: Each outcome has probability 1/N, equally likely.<br>  
@@ -365,7 +369,7 @@ Conclusion: Binomial — counts the number of successes in n independent Bernoul
 Your superior let out a long breath, relief softening his voice:<br>
 “Well done. Thanks to your reasoning, we neither wasted precious reagents nor missed the critical window for evidence collection.”<br><br>
 As the cap of the final vial snapped shut, the night wind over the harbor carried with it, at last, a touch of calm.",
-      analysis="X ~ NegBin(k, p)<br>
+      analysis="X follows a Negative Binomial (NegBin) distribution, written as X ~ NegBin(k, p).<br>
 - Random variable X: The number of failures before the k-th success.<br>  
 - Parameters: k = target successes, p = probability of success on each trial.<br>  
 - Detective’s insight: The Negative Binomial extends the Geometric distribution. Geometric counts failures before the first success (k=1), while Negative Binomial counts failures before the k-th success.<br><br>
@@ -596,7 +600,13 @@ Lifting your head with confidence, you declare to your superior:
         req(step() == n)
         chosen <- input[[dist_id]]
         correct <- stories[[n]]$correct
-        if(is.null(chosen)) return(NULL)
+        if(is.null(chosen) || !nzchar(chosen)) {
+          output[[feedback_id]] <- renderUI(
+            div(class = "alert alert-info", role = "status",
+                "Choose a distribution before checking your answer.")
+          )
+          return(NULL)
+        }
         
         cnt <- isolate(wrongCounts[[key]])
         if(is.null(cnt)) cnt <- 0
@@ -606,9 +616,9 @@ Lifting your head with confidence, you declare to your superior:
           output[[feedback_id]] <- renderUI({
             div(style="max-width:800px; margin:auto;", 
                 tagList(
-                  div(style="color:green;font-weight:bold;",
+                  div(style="color:#6ee7b7;font-weight:bold;",
                       paste("✅ Correct! This is", correct, "Distribution"),
-                      br(), span(style="color:gray;", stories[[n]]$reason)),
+                      br(), span(style="color:#cbd5e1;", stories[[n]]$reason)),
                   if(!is.null(stories[[n]]$transition) && nchar(stories[[n]]$transition) > 0){
                     wellPanel(HTML(stories[[n]]$transition))
                   },
@@ -641,7 +651,7 @@ Lifting your head with confidence, you declare to your superior:
             })
           } else if(cnt == 2 && !is.null(hint_set) && !is.null(hint_set$hint2)){
             output[[feedback_id]] <- renderUI({
-              div(style="max-width:800px; margin:auto; color:#cc7a00;font-weight:bold;",
+              div(style="max-width:800px; margin:auto; color:#fbbf24;font-weight:bold;",
                   paste("⚠️ Hint 2:", hint_set$hint2))
             })
           } else {
@@ -649,9 +659,9 @@ Lifting your head with confidence, you declare to your superior:
             output[[feedback_id]] <- renderUI({
               div(style="max-width:800px; margin:auto;", 
                   tagList(
-                    div(style="color:red;font-weight:bold;",
+                    div(style="color:#fca5a5;font-weight:bold;",
                         paste("❌ The correct one is", correct)),
-                    div(style="color:gray;", stories[[n]]$reason),
+                    div(style="color:#cbd5e1;", stories[[n]]$reason),
                     if(!is.null(stories[[n]]$transition) && nchar(stories[[n]]$transition) > 0){
                       wellPanel(h4("Then"), HTML(stories[[n]]$transition))
                     },
@@ -693,12 +703,14 @@ Lifting your head with confidence, you declare to your superior:
   
   # ---- Compute Score Table ----
   score_table <- reactive({
-    dists <- c("Poisson","DU","Bernoulli","Geometric","Hypergeo","Binomial","NegBin")
-    errors <- sapply(dists, function(d) score_tracker[[d]])
+    distributions <- c(Poisson = "Poisson", "Discrete Uniform" = "DU", Bernoulli = "Bernoulli",
+                       Geometric = "Geometric", Hypergeometric = "Hypergeo", Binomial = "Binomial",
+                       "Negative Binomial" = "NegBin")
+    errors <- sapply(distributions, function(key) score_tracker[[key]])
     scores <- pmax(0, 3 - errors)
     total <- sum(scores)
     data.frame(
-      Distribution = dists,
+      Distribution = names(distributions),
       Errors = as.integer(errors),  
       Score = as.integer(scores),   
       stringsAsFactors = FALSE
@@ -719,7 +731,7 @@ Lifting your head with confidence, you declare to your superior:
         tableOutput(ns("scoreTbl"))
       ),
       div(
-        style="text-align:center; font-size:14px; color:gray; margin-top:8px;",
+        style="text-align:center; font-size:14px; color:#cbd5e1; margin-top:8px;",
         "Full score: 21 points. Each question is worth 3 points. One mistake deducts 1 point. After 3 mistakes, the score for that question is 0."
       )
     )

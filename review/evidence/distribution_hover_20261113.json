@@ -1,0 +1,393 @@
+{
+  "date": "2026-11-13",
+  "scope": "Overview paired hover and touch inspection; numeric display regression in the other three modules. Generic browser examples only. No course or private exam content is included.",
+  "browser_interaction": {
+    "passed": 54,
+    "total": 54,
+    "cases": [
+      {
+        "name": "duplicate_readouts_removed",
+        "passed": true
+      },
+      {
+        "name": "pmf_links_cdf",
+        "passed": true
+      },
+      {
+        "name": "bernoulli_correct_tooltips",
+        "passed": true
+      },
+      {
+        "name": "bar_highlight",
+        "passed": true
+      },
+      {
+        "name": "mouse_leave_clears_both",
+        "passed": true
+      },
+      {
+        "name": "cdf_links_pmf",
+        "passed": true
+      },
+      {
+        "name": "open_endpoint_does_not_show_lower_value",
+        "passed": true
+      },
+      {
+        "name": "cdf_retains_open_and_closed_endpoints",
+        "passed": true
+      },
+      {
+        "name": "bern_hover_links",
+        "passed": true
+      },
+      {
+        "name": "bern_compact_values",
+        "passed": true
+      },
+      {
+        "name": "binom_hover_links",
+        "passed": true
+      },
+      {
+        "name": "binom_compact_values",
+        "passed": true
+      },
+      {
+        "name": "geom_hover_links",
+        "passed": true
+      },
+      {
+        "name": "geom_compact_values",
+        "passed": true
+      },
+      {
+        "name": "nbinom_hover_links",
+        "passed": true
+      },
+      {
+        "name": "nbinom_compact_values",
+        "passed": true
+      },
+      {
+        "name": "hyper_hover_links",
+        "passed": true
+      },
+      {
+        "name": "hyper_compact_values",
+        "passed": true
+      },
+      {
+        "name": "dunifd_hover_links",
+        "passed": true
+      },
+      {
+        "name": "dunifd_compact_values",
+        "passed": true
+      },
+      {
+        "name": "pois_hover_links",
+        "passed": true
+      },
+      {
+        "name": "pois_compact_values",
+        "passed": true
+      },
+      {
+        "name": "Uniform_density_links_cdf",
+        "passed": true
+      },
+      {
+        "name": "Uniform_density_not_point_probability",
+        "passed": true
+      },
+      {
+        "name": "Uniform_cdf_links_density",
+        "passed": true
+      },
+      {
+        "name": "Exponential_density_links_cdf",
+        "passed": true
+      },
+      {
+        "name": "Exponential_density_not_point_probability",
+        "passed": true
+      },
+      {
+        "name": "Exponential_cdf_links_density",
+        "passed": true
+      },
+      {
+        "name": "Normal_density_links_cdf",
+        "passed": true
+      },
+      {
+        "name": "Normal_density_not_point_probability",
+        "passed": true
+      },
+      {
+        "name": "Normal_cdf_links_density",
+        "passed": true
+      },
+      {
+        "name": "Gamma_density_links_cdf",
+        "passed": true
+      },
+      {
+        "name": "Gamma_density_not_point_probability",
+        "passed": true
+      },
+      {
+        "name": "Gamma_cdf_links_density",
+        "passed": true
+      },
+      {
+        "name": "Beta_density_links_cdf",
+        "passed": true
+      },
+      {
+        "name": "Beta_density_not_point_probability",
+        "passed": true
+      },
+      {
+        "name": "Beta_cdf_links_density",
+        "passed": true
+      },
+      {
+        "name": "Chi-Squared_density_links_cdf",
+        "passed": true
+      },
+      {
+        "name": "Chi-Squared_density_not_point_probability",
+        "passed": true
+      },
+      {
+        "name": "Chi-Squared_cdf_links_density",
+        "passed": true
+      },
+      {
+        "name": "Student's t_density_links_cdf",
+        "passed": true
+      },
+      {
+        "name": "Student's t_density_not_point_probability",
+        "passed": true
+      },
+      {
+        "name": "Student's t_cdf_links_density",
+        "passed": true
+      },
+      {
+        "name": "F_density_links_cdf",
+        "passed": true
+      },
+      {
+        "name": "F_density_not_point_probability",
+        "passed": true
+      },
+      {
+        "name": "F_cdf_links_density",
+        "passed": true
+      },
+      {
+        "name": "parameter_change_clears_stale_hover",
+        "passed": true
+      },
+      {
+        "name": "updated_parameter_in_both_tooltips",
+        "passed": true
+      },
+      {
+        "name": "layout_1600",
+        "passed": true
+      },
+      {
+        "name": "layout_900",
+        "passed": true
+      },
+      {
+        "name": "layout_390",
+        "passed": true
+      },
+      {
+        "name": "touch_tap_0",
+        "passed": true
+      },
+      {
+        "name": "touch_tap_1",
+        "passed": true
+      },
+      {
+        "name": "no_visible_errors",
+        "passed": true
+      }
+    ]
+  },
+  "browser_numeric_regression": {
+    "passed": 33,
+    "total": 33,
+    "cases": [
+      {
+        "name": "display_selector_removed",
+        "passed": true
+      },
+      {
+        "name": "auto_keeps_simple_fractions",
+        "passed": true
+      },
+      {
+        "name": "plot_hover_stops_at_four_decimals",
+        "passed": true
+      },
+      {
+        "name": "table_has_no_high_precision_tooltips",
+        "passed": true
+      },
+      {
+        "name": "auto_short_decimals_without_trailing_zeroes",
+        "passed": true
+      },
+      {
+        "name": "conditional_uses_auto",
+        "passed": true
+      },
+      {
+        "name": "conditional_probability_uses_short_decimal",
+        "passed": true
+      },
+      {
+        "name": "expectation_uses_auto",
+        "passed": true
+      },
+      {
+        "name": "complex_probability_is_compact",
+        "passed": true
+      },
+      {
+        "name": "rounded_cell_has_approximation_mark",
+        "passed": true
+      },
+      {
+        "name": "editor_compact_value",
+        "passed": true
+      },
+      {
+        "name": "editor_explains_approximation",
+        "passed": true
+      },
+      {
+        "name": "high_precision_editor_tooltip_removed",
+        "passed": true
+      },
+      {
+        "name": "repeated_generate_does_not_commit_rounded_values",
+        "passed": true
+      },
+      {
+        "name": "small_nonzero_probability_is_not_displayed_as_zero",
+        "passed": true
+      },
+      {
+        "name": "intentional_edit_is_applied",
+        "passed": true
+      },
+      {
+        "name": "joint_1600_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "joint_1266_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "joint_900_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "joint_390_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "conditional_1600_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "conditional_1266_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "conditional_900_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "conditional_390_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "expectation_1600_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "expectation_1266_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "expectation_900_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "expectation_390_compact_readable_layout",
+        "passed": true
+      },
+      {
+        "name": "overview_hover_uses_four_decimals",
+        "passed": true
+      },
+      {
+        "name": "overview_has_no_precision_disclosure",
+        "passed": true
+      },
+      {
+        "name": "manual_parameter_change_clears_preset",
+        "passed": true
+      },
+      {
+        "name": "same_preset_can_be_reselected_after_manual_edit",
+        "passed": true
+      },
+      {
+        "name": "overview_narrow_readout_fits",
+        "passed": true
+      }
+    ]
+  },
+  "r_checks": {
+    "models": {
+      "passed": 301,
+      "total": 301
+    },
+    "bank": {
+      "passed": 92,
+      "total": 92
+    },
+    "numbers": {
+      "passed": 76,
+      "total": 76
+    }
+  },
+  "source_sha256": {
+    "Project_PPeek1ng/modules/module_probability.R": "1bcc6a1da0bcf1de673331c45cd8e9450d352d4a1825c60e93906170b5132d58",
+    "Project_PPeek1ng/www/js/learning-layout.js": "ea5004b4bdd8d599b153f840639dee28265d7f6299487c52597a83b556f54f7a",
+    "review/scripts/check_distribution_hover_browser.js": "e091dff42685bebc8576f2f535e675d5f78ef75e724457301a61ca415697ffb6",
+    "review/scripts/check_number_display_browser.js": "9034149e89f80496f217881b3e30b4201c6179fbd2764ad56e8965f35e94efc5",
+    "review/scripts/test_remaining.R": "2a9dfed3ab3d036aa143f070d4f3919de543f8bd44e40dc34d4412615a848d95",
+    "review/scripts/test_past_exam_bank.R": "f9498b9795aed00222fe4a9149caaa0a9a7b1cbcfd8b59c99fbe270679e09cec",
+    "review/scripts/check_past_exam_browser.js": "2f082162b84182c7dd9fffac84ded71e3ad8c601104e9f44999a71531c26728e"
+  },
+  "limits": [
+    "Touch tested with Chrome touch emulation, not a physical handset.",
+    "Not a complete keyboard or screen-reader audit.",
+    "No deployment or Git push in this task."
+  ],
+  "local_evidence": ".local/hover-review/ and output/playwright/ are ignored."
+}

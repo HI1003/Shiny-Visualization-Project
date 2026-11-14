@@ -7,137 +7,169 @@ library(shiny)
 library(ggplot2)
 library(latex2exp)
 
+# Use the existing slider as the parameter value shared by both controls.
+prob_parameter_input <- function(inputId, label, min, max, value, step, description,
+                                 integer = step == 1) {
+  div(class = "learning-parameter",
+    sliderInput(inputId, label, min = min, max = max, value = value, step = step),
+    div(class = "learning-parameter-number-control",
+      tags$input(type = "number", class = "form-control learning-parameter-number",
+        value = value, min = min, max = max, step = "any",
+        `data-parameter-slider` = inputId, `data-parameter-step` = step,
+        `data-parameter-integer` = tolower(as.character(integer)),
+        `aria-labelledby` = paste0(inputId, "-label"),
+        `aria-describedby` = paste(paste0(inputId, "-description"), paste0(inputId, "-error"))),
+      div(class = "learning-parameter-steppers",
+        tags$button(type = "button", `data-parameter-direction` = 1,
+          `aria-label` = paste("Increase", label), tags$span(`aria-hidden` = "true", "▴")),
+        tags$button(type = "button", `data-parameter-direction` = -1,
+          `aria-label` = paste("Decrease", label), tags$span(`aria-hidden` = "true", "▾")))),
+    tags$p(id = paste0(inputId, "-description"), class = "learning-parameter-description", description),
+    tags$small(id = paste0(inputId, "-error"), class = "learning-parameter-error",
+      role = "status", `aria-live` = "polite", hidden = NA))
+}
+
 # ---- UI Module Definition ----
 prob_UI <- function(id) {
   ns<-NS(id)
+  continuous_path <- sprintf("['preview', 'further'].includes(input['%s'])", ns("learning_path"))
+  discrete_path <- paste0("!", continuous_path)
+  continuous_selector_ready <- sprintf("%s && output['%s'] === input['%s']",
+    continuous_path, ns("continuous_selector_path"), ns("learning_path"))
   tagList(
     div(class="learning-module",
       learning_module_header(ns,"Probability Distributions",
-        "Review the key ideas, then change parameters and read the plots. Self-check questions are optional.",
+        "Choose a distribution, review its key ideas, then change its parameters and read the plots. Self-check questions are optional.",
         c("Review key ideas"="theory","Explore plots & parameters"="explorer","Past-exam questions (optional)"="practice")),
+      div(class="learning-overview-selectors",
+        selectInput(ns("learning_path"), "Learning path", choices = learning_path_labels, selected = "core"),
+        conditionalPanel(condition=discrete_path,
+          selectInput(ns("dist"), "Choose discrete distribution", choices=c(
+            "Bernoulli"="bern", "Binomial"="binom", "Geometric"="geom", "Negative Binomial"="nbinom",
+            "Hypergeometric"="hyper", "Discrete Uniform"="dunifd", "Poisson"="pois"
+          ), selected="bern")),
+        conditionalPanel(condition=continuous_selector_ready,
+          selectInput(ns("dist_cont"), "Choose continuous distribution",
+            choices=learning_continuous_choices("preview"), selected="unif"))),
       uiOutput(ns("path_description")),
       learning_section(ns,"theory","1. Review the key ideas",
+        conditionalPanel(condition=discrete_path, uiOutput(ns("dist_desc"))),
+        conditionalPanel(condition=continuous_path, uiOutput(ns("dist_desc_cont"))),
         uiOutput(ns("concept_review")),
-        conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'discrete'"),
-          uiOutput(ns("dist_desc")),tags$details(class="learning-more-theory",tags$summary("Model formulas"),withMathJax(uiOutput(ns("formula"))))),
-        conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'continuous'"),
-          uiOutput(ns("dist_desc_cont")),
+        conditionalPanel(condition=discrete_path,
+          tags$details(class="learning-more-theory",tags$summary("Model formulas"),withMathJax(uiOutput(ns("formula"))))),
+        conditionalPanel(condition=continuous_path,
           tags$details(class="learning-more-theory",tags$summary("Optional mathematical formulas"),
             withMathJax(HTML("For a continuous model: \\(F(x)=\\int_{-\\infty}^x f(t)dt\\) and \\(f(x)=F'(x)\\) where differentiable.")),
             withMathJax(uiOutput(ns("formula_cont"))))),class="learning-theory"),
       learning_section(ns,"explorer","2. Explore plots and parameters",
         div(class="learning-overview-explorer",
-        learning_section(ns,"controls","Model and parameters",
-          radioButtons(ns("dist_type"),"Distributions in this learning path",c("Discrete"="discrete","Continuous"="continuous"),selected="discrete",inline=TRUE),
-          selectInput(ns("plot_example"),"Visualization example",choices=c("CDF illustration: Bernoulli(p=0.4)"="bern04")),
-          actionButton(ns("load_plot_example"),"Load example",class="btn-primary"),
-          helpText("Load applies the selected preset. Moving sliders explores a different model; practice questions keep their stated parameters."),
-          uiOutput(ns("example_note")),
-          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'discrete'"),
-            selectInput(ns("dist"), "Choose discrete distribution", c(
-            "Bernoulli" = "bern",
-            "Binomial" = "binom",
-            "Negative Binomial" = "nbinom",
-            "Geometric" = "geom",
-            "Poisson" = "pois",
-            "Hypergeometric" = "hyper",
-            "Discrete Uniform" = "dunifd"
-          ), selected = "bern"),
-          
+        learning_section(ns,"controls","Parameters",
+          conditionalPanel(condition=discrete_path,
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'bern'"),
-            sliderInput(ns("p_bern"), "p", min = 0, max = 1, value = 0.40, step = 0.01)
+            prob_parameter_input(ns("p_bern"), "Success probability (p)", min = 0, max = 1, value = 0.40, step = 0.1,
+              description = "Chance of success in one trial. Success is coded as 1.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'binom'"),
-            sliderInput(ns("n"), "n", min = 1, max = 20, value = 5, step = 1),
-            sliderInput(ns("p"), "p", min = 0, max = 1, value = 0.5, step = 0.01)
+            prob_parameter_input(ns("n"), "Number of trials (n)", min = 1, max = 20, value = 5, step = 1,
+              description = "Fixed number of independent trials. Must be a whole number."),
+            prob_parameter_input(ns("p"), "Success probability (p)", min = 0, max = 1, value = 0.5, step = 0.1,
+              description = "The same success probability applies to every independent trial.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'nbinom'"),
-            sliderInput(ns("r_nb"), "k", min = 1, max = 20, value = 5, step = 1),
-            sliderInput(ns("p_nb"), "p", min = 0.01, max = 1, value = 0.5, step = 0.01)
+            prob_parameter_input(ns("r_nb"), "Target number of successes (k)", min = 1, max = 20, value = 5, step = 1,
+              description = "Stop at the kth success. X counts the failures before it."),
+            prob_parameter_input(ns("p_nb"), "Success probability (p)", min = 0.01, max = 1, value = 0.5, step = 0.1,
+              description = "Success probability on each independent trial. p must be positive.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'geom'"),
-            sliderInput(ns("pg"), "p", min = 0.01, max = 1, value = 0.50, step = 0.01)
+            prob_parameter_input(ns("pg"), "Success probability (p)", min = 0.01, max = 1, value = 0.50, step = 0.1,
+              description = "Success probability per trial. X counts failures before the first success.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'pois'"),
-            sliderInput(ns("lambda"), "λ (mean count over the stated interval)", min = 0.01, max = 30, value = 5, step = 0.1)
+            prob_parameter_input(ns("lambda"), "λ (mean count over the stated interval)", min = 0.01, max = 30, value = 5, step = 0.1,
+              description = "Expected number of events over the full time or space interval.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'hyper'"),
-            sliderInput(ns("n_hy"), "n (sample size)", min = 1, max = 30, value = 10, step = 1),
-            sliderInput(ns("M_hy"), "M (successes in population)", min = 1, max = 30, value = 10, step = 1),
-            sliderInput(ns("N_hy"), "N (population size)", min = 10, max = 30, value = 20, step = 1)
+            prob_parameter_input(ns("n_hy"), "n (sample size)", min = 1, max = 30, value = 10, step = 1,
+              description = "Number of items drawn without replacement. Whole number, n ≤ N."),
+            prob_parameter_input(ns("M_hy"), "M (successes in population)", min = 1, max = 30, value = 10, step = 1,
+              description = "Number of population items counted as successes. Whole number, M ≤ N."),
+            prob_parameter_input(ns("N_hy"), "N (population size)", min = 10, max = 30, value = 20, step = 1,
+              description = "Total number of items in the population before sampling. Whole number.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist'), "'] == 'dunifd'"),
-            sliderInput(ns("N_du"), "N", min = 1, max = 5, value = 1, step = 1)
+            prob_parameter_input(ns("N_du"), "Number of possible values (N)", min = 1, max = 5, value = 1, step = 1,
+              description = "Each integer from 1 to N is equally likely. N must be a whole number.")
           )),
-          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'continuous'"),
-            selectInput(ns("dist_cont"), "Choose continuous distribution", c(
-            "Uniform" = "unif",
-            "Exponential" = "exp",
-            "Gamma" = "gamma",
-            "Normal" = "norm",
-            "Beta" = "beta",
-            "Chi-Squared" = "chisq",
-            "Student's t" = "t",
-            "F" = "f"
-          ), selected = "unif"),
-          
+          conditionalPanel(condition=continuous_path,
           conditionalPanel(
             condition = paste0("input['", ns('dist_cont'), "'] == 'unif'"),
-            sliderInput(ns("a_unif"), "a", min = -10, max = 0,  value = -5, step = 0.01),
-            sliderInput(ns("b_unif"), "b", min =   0, max = 200, value =  5, step = 0.01)
+            prob_parameter_input(ns("a_unif"), "Lower bound (a)", min = -10, max = 0, value = -5, step = 0.1,
+              description = "Smallest possible value. a must be less than b."),
+            prob_parameter_input(ns("b_unif"), "Upper bound (b)", min = 0, max = 200, value = 5, step = 0.1,
+              description = "Largest possible value. b must be greater than a.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist_cont'), "'] == 'exp'"),
-            sliderInput(ns("rate_exp"), "Rate (λ)", min = 0.01, max = 10, value = 1, step = 0.01)
+            prob_parameter_input(ns("rate_exp"), "Rate (λ)", min = 0.01, max = 10, value = 1, step = 0.1,
+              description = "Average event rate. The mean waiting time is 1/λ.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist_cont'), "'] == 'gamma'"),
-            sliderInput(ns("shape_gam"), "Shape (k)", min = 0.01, max = 10, value = 1, step = 0.01),
-            sliderInput(ns("rate_gam"),  "Rate  (λ)", min = 0.01, max = 10,  value = 1, step = 0.01)
+            prob_parameter_input(ns("shape_gam"), "Shape (k)", min = 0.01, max = 10, value = 1, step = 0.1,
+              description = "Controls the shape and skewness. k must be positive."),
+            prob_parameter_input(ns("rate_gam"),  "Rate  (λ)", min = 0.01, max = 10,  value = 1, step = 0.1,
+              description = "Rate parameter. The mean is k/λ, so increasing λ reduces the mean.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist_cont'), "'] == 'norm'"),
-            sliderInput(ns("mean_norm"), "μ", min = -100, max = 100, value = 0, step = 0.01),
-            sliderInput(ns("sd_norm"),   "σ",   min = 0.01, max = 5, value = 1, step = 0.01)
+            prob_parameter_input(ns("mean_norm"), "Mean (μ)", min = -100, max = 100, value = 0, step = 0.1,
+              description = "Sets the centre of the distribution."),
+            prob_parameter_input(ns("sd_norm"), "Standard deviation (σ)", min = 0.01, max = 5, value = 1, step = 0.1,
+              description = "Larger σ gives a wider curve. The variance is σ².")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist_cont'), "'] == 'beta'"),
-            sliderInput(ns("alpha_beta"), "α", min = 0.01, max = 5, value = 1, step = 0.01),
-            sliderInput(ns("beta_beta"),  "β", min = 0.01, max = 5, value = 1, step = 0.01)
+            prob_parameter_input(ns("alpha_beta"), "First shape parameter (α)", min = 0.01, max = 5, value = 1, step = 0.1,
+              description = "With β fixed, increasing α shifts probability towards 1."),
+            prob_parameter_input(ns("beta_beta"), "Second shape parameter (β)", min = 0.01, max = 5, value = 1, step = 0.1,
+              description = "With α fixed, increasing β shifts probability towards 0.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist_cont'), "'] == 'chisq'"),
-            sliderInput(ns("df_chi"), "ν", min = 1, max = 20, value = 5, step = 1)
+            prob_parameter_input(ns("df_chi"), "Degrees of freedom (ν)", min = 1, max = 20, value = 5, step = 1, integer = FALSE,
+              description = "Controls the shape. The mean is ν and the variance is 2ν.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist_cont'), "'] == 't'"),
-            sliderInput(ns("df_t"), "ν", min = 1, max = 20, value = 5, step = 1)
+            prob_parameter_input(ns("df_t"), "Degrees of freedom (ν)", min = 1, max = 20, value = 5, step = 1, integer = FALSE,
+              description = "Controls tail heaviness. Smaller ν gives heavier tails.")
           ),
           conditionalPanel(
             condition = paste0("input['", ns('dist_cont'), "'] == 'f'"),
-            sliderInput(ns("df1_f"), "d1", min = 1, max = 20, value = 5, step = 1),
-            sliderInput(ns("df2_f"), "d2", min = 1, max = 20, value = 5, step = 1)
+            prob_parameter_input(ns("df1_f"), "Numerator degrees of freedom (d₁)", min = 1, max = 20, value = 5, step = 1, integer = FALSE,
+              description = "Degrees of freedom of the numerator chi-squared variable."),
+            prob_parameter_input(ns("df2_f"), "Denominator degrees of freedom (d₂)", min = 1, max = 20, value = 5, step = 1, integer = FALSE,
+              description = "Degrees of freedom of the denominator chi-squared variable.")
           )),class="learning-overview-controls"),
-        learning_section(ns,"plots","Plots and selected value",
-          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'discrete'"),
+        learning_section(ns,"plots","Distribution plots",
+          conditionalPanel(condition=discrete_path,
             div(class="learning-plot-pair",
-              div(h4(HTML("PMF: P(X = x)")),plotOutput(ns("pmf_plot"),height=320,click=ns("click_pmf"))),
-              div(h4(HTML("CDF: P(X &le; x)")),plotOutput(ns("cdf_plot"),height=320,click=ns("click_cdf")))),
-            helpText("Click a graph to select x. The PMF gives its point probability; the CDF includes all outcomes up to x."),
-            h4("Current Selection"),verbatimTextOutput(ns("sel_text")),uiOutput(ns("selection_precision"))),
-          conditionalPanel(condition=paste0("input['",ns("dist_type"),"'] == 'continuous'"),
+              div(h4(HTML("PMF: P(X = x)")),plotly::plotlyOutput(ns("pmf_plot"),height=320)),
+              div(h4(HTML("CDF: P(X &le; x)")),plotly::plotlyOutput(ns("cdf_plot"),height=320)))),
+          conditionalPanel(condition=continuous_path,
             div(class="learning-plot-pair",
-              div(h4("PDF: probability is area"),plotOutput(ns("pdf_plot_cont"),height=320,click=ns("click_pdf_cont"))),
-              div(h4(HTML("CDF: P(X &le; x)")),plotOutput(ns("cdf_plot_cont"),height=320,click=ns("click_cdf_cont")))),
-            helpText("Click a graph to select x. For a continuous variable, P(X = x) = 0; a density value is not a point probability."),
-            h4("Current Selection"),verbatimTextOutput(ns("sel_text_cont")),uiOutput(ns("selection_precision_cont"))),class="learning-overview-plots")),class="learning-overview-section"),
+              div(h4("PDF: probability is area"),plotly::plotlyOutput(ns("pdf_plot_cont"),height=320)),
+              div(h4(HTML("CDF: P(X &le; x)")),plotly::plotlyOutput(ns("cdf_plot_cont"),height=320))),
+            helpText("A density value is not a point probability.")),class="learning-overview-plots")),class="learning-overview-section"),
       learning_optional_practice(ns,"3. Optional past-exam questions",uiOutput(ns("practice_section")))))
 }
 
@@ -145,7 +177,6 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
   moduleServer(id, function(input, output, session) {
     path <- reactive(learning_path(course_path()))
     examples <- learning_graph_examples()
-    requested_example <- reactiveVal(NULL)
     allowed_examples <- reactive(names(examples)[vapply(examples,function(ex) path() %in% ex$paths,logical(1))])
     discrete_key <- reactive({
       req(path() %in% c("core","legacy"), input$dist)
@@ -157,64 +188,46 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
       if(input$dist_cont %in% allowed) input$dist_cont else unname(allowed[1])
     })
     observeEvent(path(), {
-      kind <- if(path()=="core") "discrete" else if(path()=="legacy") isolate(input$dist_type) else "continuous"
-      if(is.null(kind)) kind <- "discrete"
-      choices <- if(path()=="core") c("Discrete (STATS125)"="discrete") else if(path()=="legacy") c("Discrete"="discrete","Continuous"="continuous") else c("Continuous (optional)"="continuous")
-      updateRadioButtons(session,"dist_type",choices=choices,selected=kind)
       allowed <- learning_continuous_choices(path())
       if(length(allowed)) {
         previous <- isolate(input$dist_cont)
         selected <- if(!is.null(previous) && previous %in% allowed) previous else unname(allowed[1])
         updateSelectInput(session,"dist_cont",choices=allowed,selected=selected)
       }
-      keys <- allowed_examples()
-      updateSelectInput(session,"plot_example",choices=stats::setNames(keys,vapply(examples[keys],`[[`,character(1),"label")),selected=keys[1])
-      requested_example(NULL)
     })
+    # Wait for the server to refresh the choices before accepting another model selection.
+    output$continuous_selector_path <- renderText(path())
+    outputOptions(output, "continuous_selector_path", suspendWhenHidden = FALSE)
     output$path_description <- renderUI(tags$p(class="small-note",switch(path(),
-      core="STATS125 Core: review the seven discrete models and explore their PMFs and CDFs. Self-check questions are optional.",
-      preview="Optional STATS210 preview: explore density as area, waiting times, and location/scale. Calculus and formula memorisation are not prerequisites for these observations.",
-      further="Optional further exploration: additional continuous models and mathematical formulas.",
+      core="STATS125 Core: review the seven discrete models and explore their graphs. Self-check questions are optional.",
+      preview="Optional STATS210 preview: Uniform, Exponential and Normal distributions. Explore density as area, waiting times, and location/scale.",
+      further="Further exploration: Gamma, Beta, Chi-Squared, Student's t and F distributions, with optional mathematical formulas.",
       "Original distribution library for reference checks.")))
-    current_example <- reactive({
-      key <- requested_example()
-      if(is.null(key) || !key %in% allowed_examples()) return(NULL)
-      ex <- examples[[key]]
-      distribution <- if(ex$type=="discrete") discrete_key() else continuous_key()
-      if(!identical(distribution,ex$dist)) return(NULL)
-      matches <- vapply(names(ex$inputs),function(name) {
-        actual <- input[[name]];expected <- ex$inputs[[name]]
-        length(actual)==1L && is.finite(actual) && abs(actual-expected)<1e-12
-      },logical(1))
-      if(all(matches)) ex else NULL
-    })
+    # Past-exam actions can still load the question's model and parameters.
     apply_example <- function(key) {
       if(is.null(key) || !key %in% allowed_examples()) return(invisible(NULL))
       ex <- examples[[key]]
-      updateRadioButtons(session,"dist_type",selected=ex$type)
       updateSelectInput(session,if(ex$type=="discrete") "dist" else "dist_cont",selected=ex$dist)
-      updateSelectInput(session,"plot_example",selected=key)
       for(name in names(ex$inputs)) updateSliderInput(session,name,value=ex$inputs[[name]])
-      requested_example(key)
       session$sendCustomMessage("learning-focus",list(id=session$ns("explorer")))
       invisible(NULL)
     }
-    observeEvent(input$load_plot_example,apply_example(input$plot_example))
     observeEvent(plot_request(),{request <- plot_request();req(request$key);apply_example(request$key)},ignoreNULL=TRUE)
-    output$example_note <- renderUI({ex <- current_example();if(is.null(ex)) return(NULL);tags$p(class="alert alert-info",ex$note)})
     practice_questions <- learning_questions(list(),"overview",shiny::isolate(course_path()))
     practice <- learning_practice_server(input,output,session,practice_questions,"overview",course_path,open_plot=apply_example)
     output$concept_review <- renderUI({
-      if(path() %in% c("core","legacy")) tagList(
-        tags$ul(tags$li("A PMF gives point probabilities; supported values have non-negative probabilities summing to 1."),
-          tags$li("The CDF F(x)=P(X<=x) includes its endpoint. For integer-valued X, P(X>=k)=1-F(k-1)."),
-          tags$li("Define the outcome being counted, its support, model assumptions and parameters before interpreting a distribution.")),
-        tags$p(class="learning-observe",tags$strong("What to explore: "),"Move the Bernoulli probability from 0.2 to 0.8. Compare the mass at 1 with the CDF at 0; then explore a count model such as Binomial."))
-      else tagList(tags$ul(
-        tags$li("A density is not a point probability: probabilities are areas over intervals, and P(X=x)=0 for a continuous model."),
-        tags$li("The CDF is the probability up to x. A tail probability is one minus that CDF."),
-        tags$li("Distinguish a Normal standard deviation from its variance, and an Exponential rate from its mean waiting time.")),
-        tags$p(class="learning-observe",tags$strong("What to explore: "),"Compare equal-width Uniform intervals, increase the Exponential rate, and move a Normal mean separately from its standard deviation."))
+      discrete <- path() %in% c("core", "legacy")
+      key <- if (discrete) discrete_key() else continuous_key()
+      concepts <- if (discrete) tags$ul(
+        tags$li("A probability mass function (PMF) gives the probability of each possible value. These probabilities are non-negative and sum to 1."),
+        tags$li(if(key=="bern")
+          "The cumulative distribution function (CDF) gives F(x) = P(X ≤ x). Here, F(0) = P(X = 0) = 1 − p, because 0 is the only outcome at or below 0."
+          else "The cumulative distribution function (CDF) gives F(x) = P(X ≤ x). For integer-valued X, P(X ≥ k) = 1 − F(k − 1).")
+      ) else tags$ul(
+        tags$li("The probability density function (PDF) gives interval probabilities through areas under the curve. The probability at a single point is zero."),
+        tags$li("The cumulative distribution function (CDF) gives the probability up to and including x. The probability above x is one minus the CDF at x.")
+      )
+      concepts
     })
     output$practice_section <- renderUI({
       if(path()=="core") learning_practice_ui(session$ns,"Selected STATS125 past-exam extract")
@@ -279,8 +292,9 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
         #================================================
         # Data frame
         #================================================
-        dist_df <- reactive({
+        discrete_data <- function(extra=0) {
           rng <- default_range()
+          rng[2] <- rng[2]+extra
           
           if (discrete_key() == "bern") {
             k <- 0:1
@@ -335,7 +349,8 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
           df <- data.frame(k = k, pmf = pmf, cdf = pmin(1, cdf), mean = mean_val)
           validate(need(nrow(df) > 0, "There is no valid support set for the parameter combination. Please adjust the parameters."))
           df
-        })
+        }
+        dist_df <- reactive(discrete_data())
         
         dist_df_cont <- reactive({
           rng <- default_range_cont()
@@ -376,29 +391,8 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
         
     
     #================================================
-    # Define interaction variables and click logic
+    # Keep hypergeometric population and sample parameters consistent
     #================================================
-    
-    # Store the currently highlighted discrete value
-    selected_k <- reactiveVal(NULL)
-    observeEvent(list(dist_df(),requested_example()), ignoreInit = TRUE, {
-      df <- dist_df();ex <- current_example()
-      selected_k(if(!is.null(ex) && ex$type=="discrete") df$k[which.min(abs(df$k-ex$x))] else df$k[which.max(df$pmf)])
-    })
-    
-    nearest_k <- function(x_click, ks) {
-      if (is.null(x_click)) return(NULL)
-      ks[which.min(abs(ks - x_click))]
-    }
-    
-    observeEvent(input$click_pmf, {
-      k_new <- nearest_k(input$click_pmf$x, dist_df()$k)
-      if (!is.null(k_new)) selected_k(k_new)
-    })
-    observeEvent(input$click_cdf, {
-      k_new <- nearest_k(input$click_cdf$x, dist_df()$k)
-      if (!is.null(k_new)) selected_k(k_new)
-    })
     
     observeEvent(input$N_hy, {
       req(input$N_hy)
@@ -410,7 +404,7 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
       M <- isolate(input$M_hy); n <- isolate(input$n_hy)
       if (!is.null(M)) updateSliderInput(session, "M_hy", value = max(0, min(M, N)))
       if (!is.null(n)) updateSliderInput(session, "n_hy", value = max(0, min(n, N)))
-    }, ignoreInit = TRUE)
+    })
     
     observeEvent(list(input$M_hy, input$n_hy, input$N_hy), {
       req(input$N_hy, input$M_hy, input$n_hy)
@@ -418,29 +412,6 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
       if (M < 0 || M > N) updateSliderInput(session, "M_hy", value = max(0, min(M, N)))
       if (n < 0 || n > N) updateSliderInput(session, "n_hy", value = max(0, min(n, N)))
     }, ignoreInit = TRUE)
-    
-    selected_x_cont <- reactiveVal(NULL)
-    
-    observeEvent(list(dist_df_cont(),requested_example()), ignoreInit = TRUE, {
-      rng <- default_range_cont();ex <- current_example()
-      selected_x_cont(if(!is.null(ex) && ex$type=="continuous") ex$x else mean(rng))
-    })
-    
-    output$sel_text <- renderText({
-      df <- dist_df()
-      k_sel <- selected_k()
-      if (is.null(k_sel) || !(k_sel %in% df$k))
-        return("You can select any x in the figure to highlight it")
-      p <- df$pmf[df$k == k_sel]
-      Fk <- df$cdf[df$k == k_sel]
-      sprintf("x = %d\nP(X = %d) %s\nF(%d) = P(X ≤ %d) %s",
-              k_sel, k_sel, number_reading(p), k_sel, k_sel, number_reading(Fk))
-    })
-    output$selection_precision <- renderUI({
-      df<-dist_df();k<-selected_k();req(k,k %in% df$k)
-      tags$details(class="number-precision",tags$summary("More precision"),
-        tags$pre(paste0("P(X = ",k,") = ",number_full(df$pmf[df$k==k]),"\nF(",k,") = ",number_full(df$cdf[df$k==k]))))
-    })
     
     #================================================
     # Calculate the PDF/CDF of the current continuous distribution
@@ -489,180 +460,148 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
       list(pdf = out_pdf, cdf = out_cdf)
     }
     
-    #================================================
-    # Continuous: Click interaction logic
-    #================================================
-    
-    # Continuous: Click on PDF plot
-    observeEvent(input$click_pdf_cont, {
-      x_new <- input$click_pdf_cont$x
-      if (!is.null(x_new)) selected_x_cont(x_new)
-    })
-    
-    # Continuous: Click on CDF plot
-    observeEvent(input$click_cdf_cont, {
-      x_new <- input$click_cdf_cont$x
-      if (!is.null(x_new)) selected_x_cont(x_new)
-    })
-    
-    # Continuous: Current selection reading
-    output$sel_text_cont <- renderText({
-      x_sel <- selected_x_cont()
-      if (is.null(x_sel)) {
-        return("You can select any x in the figure to highlight it")
-      }
-      vals <- pdf_cdf_at_cont(x_sel)
-      sprintf(
-        paste0(
-          "x = %s\n",
-          "fX(%s) %s\n",
-          "F(%s) = P(X ≤ %s) %s"
-        ),
-        number_label(x_sel,"decimal"),number_label(x_sel,"decimal"),number_reading(vals$pdf),
-        number_label(x_sel,"decimal"),number_label(x_sel,"decimal"),number_reading(vals$cdf)
-      )
-    })
-    output$selection_precision_cont <- renderUI({
-      x<-selected_x_cont();req(!is.null(x));values<-pdf_cdf_at_cont(x)
-      tags$details(class="number-precision",tags$summary("More precision"),
-        tags$pre(paste0("x = ",number_full(x),"\nfX(x) = ",number_full(values$pdf),"\nF(x) = ",number_full(values$cdf))))
-    })
-    
-    #================================================
-    # Distribution plot
-    #================================================
-    
-    # Discrete PMF plot
-    output$pmf_plot <- renderPlot({
-      df <- dist_df()
-      k_sel <- selected_k()
-      p_sel <- if (!is.null(k_sel) && k_sel %in% df$k) df$pmf[df$k == k_sel] else NA_real_
-      
-      rng <- default_range()
-      x_min <- if (discrete_key() == "bern") -1 else -3
-      
-      g <- ggplot(df, aes(k, pmf)) +
-        geom_col(width = 0.9, fill = "#9ecae1") +
-        scale_x_continuous(
-          limits = c(x_min, rng[2] + 1.5),
-          breaks = unique(round(pretty(c(max(x_min, rng[1]), rng[2]), n = 8)))
-        ) +
-        scale_y_continuous(limits = c(0, 1)) +
-        labs(x = "x", y = "Probability") +
-        theme_minimal(base_size = 13) +
-        theme(panel.grid.minor = element_blank())
-      
-      if (!is.null(k_sel) && k_sel %in% df$k) {
-        g <- g +
-          geom_col(data = subset(df, k == k_sel), aes(k, pmf), fill = "#2171b5") +
-          annotate("text", x = k_sel, y = p_sel,
-                   label = sprintf("x=%d\nP %s", k_sel, number_reading(p_sel)),
-                   vjust = -0.6, size = 4)
-      }
-      g
-    })
-    
-    # Discrete CDF plot
-    output$cdf_plot <- renderPlot({
-      df <- dist_df()
-      k_sel <- selected_k()
-      F_sel <- if (!is.null(k_sel) && k_sel %in% df$k) df$cdf[df$k == k_sel] else NA_real_
-      
-      rng <- default_range()
-      x_min <- if (discrete_key() == "bern") -1 else -3
-      
-      seg_df <- data.frame(
-        x_start = c(x_min, df$k),
-        x_end   = c(df$k, df$k[length(df$k)] + 1),
-        y       = c(0, df$cdf)
-      )
-      
-      g <- ggplot() +
-        geom_segment(
-          data = seg_df,
-          aes(x = x_start, xend = x_end, y = y, yend = y),
-          color = "#238b45", linewidth = 1
-        ) +
-        geom_point(data = df,
-                   aes(x = k, y = dplyr::lag(cdf, default = 0)),
-                   shape = 1, size = 2, color = "#238b45") +
-        geom_point(data = df,
-                   aes(x = k, y = cdf),
-                   shape = 16, size = 2, color = "#238b45") +
-        scale_x_continuous(
-          limits = c(x_min, rng[2] + 1.5),
-          breaks = unique(round(pretty(c(max(x_min, rng[1]), rng[2]), n = 8)))
-        ) +
-        coord_cartesian(ylim = c(0, 1)) +
-        labs(x = "x", y = "Cumulative probability") +
-        theme_minimal(base_size = 13) +
-        theme(panel.grid.minor = element_blank())
-      
-      if (!is.null(k_sel) && k_sel %in% df$k) {
-        g <- g +
-          geom_point(data = subset(df, k == k_sel), aes(x = k, y = cdf),
-                     color = "#238b45", size = 3, shape = 16) +
-          annotate("text", x = k_sel, y = F_sel,
-                   label = sprintf("F(%d) %s", k_sel, number_reading(F_sel)),
-                   vjust = -0.8, size = 4, color = "#238b45")
-      }
-      g
-    })
-    
-    # ---- Continuous PDF plot ----
-    output$pdf_plot_cont <- renderPlot({
-      df <- dist_df_cont()
+    # Keep smooth drawing points separate from readable, shared query positions.
+    continuous_query <- reactive({
       rng <- default_range_cont()
-      
+      raw_step <- diff(rng) / 100
+      scale <- 10^floor(log10(raw_step))
+      factors <- c(1, 2, 5, 10)
+      step <- scale * factors[which(factors >= raw_step / scale - 1e-10)[1]]
+      digits <- max(0L, as.integer(-floor(log10(step))))
+      first <- ceiling(rng[1] / step - 1e-9)
+      last <- floor(rng[2] / step + 1e-9)
+      x <- round(seq(first, last) * step, digits = digits)
+      x[x == 0] <- 0
+      values <- pdf_cdf_at_cont(x)
+      labels <- trimws(formatC(x, format = "f", digits = digits, drop0trailing = TRUE))
+      # Matching signatures prevent linking two different parameter revisions.
+      signature <- paste(continuous_key(), paste(format(c(x, values$pdf, values$cdf),
+        digits = 17, scientific = TRUE, trim = TRUE), collapse = "|"), sep = "|")
+      list(x = x, pdf = values$pdf, cdf = values$cdf, labels = labels,
+        reading = list(step = step, digits = digits, signature = signature,
+          x = as.list(x), labels = as.list(labels),
+          density = as.list(ifelse(is.finite(values$pdf), values$pdf, NA_real_)),
+          cumulative = as.list(values$cdf),
+          densityText = as.list(number_reading(values$pdf)),
+          cumulativeText = as.list(number_reading(values$cdf))))
+    })
+
+    # Native browser hover links the two plots without a server round trip.
+    linked_plot <- function(p, peer, kind, color, xrange, ylabel, probability=TRUE,reading=NULL) {
+      axis_color <- "#687b8e"
+      xaxis <- list(title="x",range=xrange,zeroline=FALSE,tickformat=".4~f",
+        showline=TRUE,linecolor=axis_color,linewidth=1,
+        ticks="outside",tickcolor=axis_color,ticklen=4,nticks=5,automargin=TRUE,fixedrange=TRUE)
+      if(kind %in% c("bar","point")) {
+        # Discrete outcomes use readable integer ticks at every model size.
+        ticks <- unique(round(pretty(xrange,n=5)))
+        xaxis$tickmode <- "array"
+        xaxis$tickvals <- ticks[ticks>=xrange[1] & ticks<=xrange[2]]
+      }
+      if(kind == "curve" && !is.null(reading$digits)) {
+        xaxis$tickformat <- paste0(".", reading$digits, "~f")
+        # Continuous hover is handled by the paired browser queries.
+        p <- plotly::event_unregister(p, "plotly_hover")
+        p <- plotly::event_unregister(p, "plotly_unhover")
+        p <- plotly::event_unregister(p, "plotly_click")
+      }
+      yaxis <- list(title=ylabel,rangemode="tozero",zeroline=FALSE,tickformat=".4~f",
+        showline=TRUE,linecolor=axis_color,linewidth=1,
+        ticks="outside",tickcolor=axis_color,ticklen=4,automargin=TRUE,fixedrange=TRUE)
+      if(probability) {
+        yaxis$range <- c(0,1.05)
+        yaxis$tickmode <- "array"
+        yaxis$tickvals <- seq(0,1,by=.2)
+      }
+      p <- plotly::layout(p, showlegend=FALSE, hovermode="x", hoverdistance=-1,
+        dragmode=FALSE, margin=list(l=62,r=18,t=18,b=48),
+        xaxis=xaxis,yaxis=yaxis,
+        paper_bgcolor="rgba(0,0,0,0)",plot_bgcolor="rgba(0,0,0,0)",
+        hoverlabel=list(namelength=0))
+      p <- plotly::config(p,displayModeBar=FALSE,scrollZoom=FALSE,doubleClick=FALSE,responsive=TRUE)
+      htmlwidgets::onRender(p,
+        "function(el,x,data){window.learningLinkDistributionPlot(el,data);}",
+        data=list(peerId=session$ns(peer),kind=kind,color=color,reading=reading,probability=probability))
+    }
+    discrete_plot_range <- reactive({
+      rng <- default_range()
+      c(rng[1]-1,rng[2]+1)
+    })
+    continuous_plot_range <- reactive({
+      rng <- default_range_cont()
+      padding <- diff(rng)*.06
+      rng+c(-padding,padding)
+    })
+    continuous_curve <- reactive({
+      curve <- dist_df_cont(); query <- continuous_query()
+      inside <- query$x >= min(curve$x) & query$x <= max(curve$x)
+      extra <- data.frame(x = query$x[inside], pdf = query$pdf[inside], cdf = query$cdf[inside])
+      curve <- rbind(curve, extra)
+      curve <- curve[!duplicated(curve$x), ]
+      curve[order(curve$x), ]
+    })
+    output$pmf_plot <- plotly::renderPlotly({
+      df <- dist_df()
+      p <- plotly::add_trace(plotly::plot_ly(),x=df$k,y=df$pmf,type="bar",width=.9,
+        marker=list(color="#9ecae1"),
+        hovertext=paste0("x = ",df$k,"<br>P(X = ",df$k,") ",number_reading(df$pmf)),
+        hoverinfo="text")
+      linked_plot(p,"cdf_plot","bar","#9ecae1",discrete_plot_range(),"Probability")
+    })
+    output$cdf_plot <- plotly::renderPlotly({
+      # Include the next integer so reading the right plot boundary is exact.
+      df <- discrete_data(extra=1);rng <- discrete_plot_range()
+      # The hoverable trace contains only included (closed) CDF endpoints.
+      # Open endpoints are visual aids and must never report F(k-1) as F(k).
+      p <- plotly::plot_ly(x=df$k,y=df$cdf,type="scatter",mode="markers",
+        marker=list(size=6,color="#238b45"),cliponaxis=FALSE,
+        hovertext=paste0("x = ",df$k,"<br>F(",df$k,") = P(X ≤ ",df$k,") ",number_reading(df$cdf)),
+        hoverinfo="text")
+      starts <- c(rng[1],df$k);ends <- c(df$k,rng[2]);heights <- c(0,df$cdf)
+      p <- plotly::add_trace(p,x=as.vector(rbind(starts,ends,NA_real_)),
+        y=as.vector(rbind(heights,heights,NA_real_)),type="scatter",mode="lines",
+        line=list(color="#238b45",width=2),hoverinfo="skip",inherit=FALSE)
+      p <- plotly::add_trace(p,x=df$k,y=c(0,head(df$cdf,-1)),type="scatter",mode="markers",
+        marker=list(size=6,color="#238b45",symbol="circle-open"),cliponaxis=FALSE,hoverinfo="skip",inherit=FALSE)
+      reading <- list(k=as.list(df$k),probability=as.list(df$pmf),cumulative=as.list(df$cdf),
+        probabilityText=as.list(number_reading(df$pmf)),cumulativeText=as.list(number_reading(df$cdf)))
+      linked_plot(p,"pmf_plot","point","#238b45",rng,"Cumulative probability",reading=reading)
+    })
+    output$pdf_plot_cont <- plotly::renderPlotly({
+      df <- continuous_curve(); rng <- default_range_cont(); query <- continuous_query()
+      values <- ifelse(is.finite(df$pdf), df$pdf, NA_real_)
+      finite <- is.finite(query$pdf)
+      p <- plotly::plot_ly(x = query$x[finite], y = query$pdf[finite], type = "scatter", mode = "markers",
+        marker = list(color = "#d88b00", size = 6, opacity = 0),
+        hovertext = paste0("x = ", query$labels[finite], "<br>Density f(x) ", number_reading(query$pdf[finite]),
+          "<br>Density is not P(X = x)."), hoverinfo = "text")
+      p <- plotly::add_trace(p, x = df$x, y = values, type = "scatter", mode = "lines",
+        line = list(color = "#d88b00", width = 2),
+        fill = "tozeroy", fillcolor = "rgba(255,184,28,.2)", hoverinfo = "skip", inherit = FALSE)
       if (continuous_key() == "unif") {
-        a <- input$a_unif
-        b <- input$b_unif
-        h <- 1 / (b - a)
-        
-        rect_df <- data.frame(x = c(a, a, b, b), y = c(0, h, h, 0))
-        
-        g <- ggplot(rect_df, aes(x, y)) +
-          geom_area(fill = "#ffb81c", alpha = 0.3) +
-          geom_line(color = "#ffb81c", linewidth = 1.2) +
-          annotate("segment", x = a, xend = a, y = 0, yend = h, color = "#ffb81c", linewidth = 1) +
-          annotate("segment", x = b, xend = b, y = 0, yend = h, color = "#ffb81c", linewidth = 1) +
-          scale_x_continuous(limits = c(rng[1]-1, rng[2]+1),
-                             breaks = pretty(c(rng[1], rng[2]), n = 8)) +
-          # 不强行限制到 1，避免高密度被截掉
-          scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
-          labs(x = "x", y = "Density") +
-          theme_minimal(base_size = 13) +
-          theme(panel.grid.minor = element_blank())
-      } else {
-        g <- ggplot(df[is.finite(df$pdf), ], aes(x, pdf)) +
-          geom_area(fill = "#ffb81c", alpha = 0.3) +
-          geom_line(color = "#ffb81c", linewidth = 1.2) +
-          scale_x_continuous(limits = c(rng[1] - 1, rng[2] + 1),
-                             breaks = pretty(c(rng[1], rng[2]), n = 8)) +
-          scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
-          labs(x = "x", y = "Density") +
-          theme_minimal(base_size = 13) +
-          theme(panel.grid.minor = element_blank())
+        p <- plotly::add_trace(p, x = c(rng[1], rng[1], NA, rng[2], rng[2]),
+          y = c(0, values[1], NA, tail(values, 1), 0), type = "scatter", mode = "lines",
+          line = list(color = "#d88b00", width = 2), hoverinfo = "skip", inherit = FALSE)
       }
-      if (any(!is.finite(df$pdf))) g <- g + labs(caption =
-        "Density is unbounded at a support endpoint; that endpoint is omitted.\nFinite sampling may not resolve a sharp peak. Use the CDF for probabilities.")
-      g
+      p <- linked_plot(p, "cdf_plot_cont", "curve", "#d88b00", continuous_plot_range(), "Density", FALSE,
+        reading = query$reading)
+      if (any(!is.finite(df$pdf))) p <- plotly::layout(p, margin = list(l=62,r=18,t=18,b=82),
+        annotations = list(list(x=0,y=-.23,xref="paper",yref="paper",showarrow=FALSE,xanchor="left",
+          text="Unbounded endpoint density is omitted.<br>Use the CDF to read probabilities.",font=list(size=10))))
+      p
     })
-    
-    # ---- Continuous CDF plot ----
-    output$cdf_plot_cont <- renderPlot({
-      df <- dist_df_cont()
-      rng <- default_range_cont()
-      ggplot(df, aes(x, cdf)) +
-        geom_line(color = "#ff5722", linewidth = 1) +
-        scale_x_continuous(limits = c(rng[1] - 1, rng[2] + 1),
-                           breaks = pretty(c(rng[1], rng[2]), n = 8)) +
-        coord_cartesian(ylim = c(0, 1)) +
-        labs(x = "x", y = "Cumulative probability") +
-        theme_minimal(base_size = 13) +
-        theme(panel.grid.minor = element_blank())
+    output$cdf_plot_cont <- plotly::renderPlotly({
+      df <- continuous_curve(); query <- continuous_query()
+      p <- plotly::plot_ly(x = query$x, y = query$cdf, type = "scatter", mode = "markers",
+        marker = list(color = "#d94b26", size = 6, opacity = 0),
+        hovertext = paste0("x = ", query$labels, "<br>F(x) = P(X ≤ x) ",
+          number_reading(query$cdf)), hoverinfo = "text")
+      p <- plotly::add_trace(p, x = df$x, y = df$cdf, type = "scatter", mode = "lines",
+        line = list(color = "#d94b26", width = 2), hoverinfo = "skip", inherit = FALSE)
+      linked_plot(p, "pdf_plot_cont", "curve", "#d94b26", continuous_plot_range(), "Cumulative probability",
+        reading = query$reading)
     })
-    
+
     #================================================
     # Distribution description
     #================================================
@@ -672,13 +611,13 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
       if (discrete_key() == "bern") {
         HTML("
         <b>Bernoulli Distribution</b><br>
-        A random variable Y is called a <b>Bernoulli</b> random variable if it has only two possible values, 0 and 1.<br>
-        Y ~ Bernoulli(p) means P(Y = 1) = p and P(Y = 0) = 1 − p, where p is the parameter of the distribution.")
+        A <b>Bernoulli</b> random variable X has only two possible values, 0 (failure) and 1 (success).<br>
+        X ~ Bernoulli(p) means P(X = 1) = p and P(X = 0) = 1 − p, where p is the success probability.")
       } else if (discrete_key() == "binom") {
         HTML("
         <b>Binomial Distribution</b><br>
         Let <em>X</em> be the number of successes in <em>n</em> independent Bernoulli trials,
-        each with success probability <em>p</em>. Then <em>X</em> has the <b>Binomial</b> distribution
+        each with success probability <em>p</em>. Then <em>X</em> has the <b>Binomial</b> (Bin) distribution
         with parameters <em>n</em> and <em>p</em>. We write
         <em>X ~ Binomial(n, p)</em> (or <em>X ~ Bin(n, p)</em>).<br>
         Thus, the binomial distribution counts the number of successes in a fixed number of Bernoulli trials.
@@ -688,7 +627,7 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
         <b>Negative Binomial Distribution</b><br>
         Let <em>X</em> be the number of failures before the <em>k</em>-th success occurs 
         in a sequence of independent Bernoulli trials, each with success probability <em>p</em>. 
-        Then <em>X</em> has the <b>Negative Binomial</b> distribution with parameters <em>k</em> and <em>p</em>, 
+        Then <em>X</em> has the <b>Negative Binomial</b> (NegBin) distribution with parameters <em>k</em> and <em>p</em>,
         and we write <em>X ~ NegBin(k, p)</em>.<br>
         ")
       } else if (discrete_key() == "geom") {
@@ -713,7 +652,7 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
         <b>Hypergeometric Distribution</b><br>
         Let <em>X</em> be the number of “successes” in <em>n</em> draws without replacement 
         from a finite population of size <em>N</em>, of which <em>M</em> are “successes”. 
-        Then <em>X</em> has the <b>Hypergeometric</b> distribution with parameters 
+        Then <em>X</em> has the <b>Hypergeometric</b> (HYP) distribution with parameters
         <em>n</em>, <em>M</em>, and <em>N</em>, and we write <em>X ~ HYP(n, M, N)</em> 
         (or <em>X ~ Hypergeometric(n, M, N)</em>).<br><br>
         The support is <em>x = max(0, n - N + M), ..., min(n, M)</em>.
@@ -721,12 +660,8 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
       } else if (discrete_key() == "dunifd") {
         HTML("
         <b>Discrete Uniform Distribution</b><br>
-        Suppose <em>X</em> is equally likely to take any integer value from 
-        <em>a</em> to <em>b</em>. Then <em>X</em> has a 
-        <b>discrete uniform</b> distribution on {a, a+1, …, b}, 
-        and we write <em>X ~ DU(a, b)</em>.<br><br>
-        Each outcome in the set has the same probability, 
-        and the support is {a, a+1, …, b}.
+        Here <em>N</em> is the number of possible values. The <b>discrete uniform</b> (DU) distribution
+        <em>X ~ DU(N)</em> assigns probability <em>1/N</em> to each integer in {1, 2, …, N}.
         ")
       }
     })
@@ -739,22 +674,22 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
       if (continuous_key() == "unif") {
         HTML("
         <b>Uniform Distribution</b><br>
-        A random variable <em>X</em> is said to have a <b>Uniform distribution</b> 
-        on the interval <em>(a, b)</em> if it is equally likely to take any value in that interval.<br>
+        A continuous <b>Uniform distribution</b> has constant density between the lower bound <em>a</em>
+        and upper bound <em>b</em>, with <em>a &lt; b</em>.<br>
         We write <em>X ~ Uniform(a, b)</em> (or <em>X ~ U(a, b)</em>).<br>
-        The pdf is constant over the interval and zero otherwise. Equal-length subintervals have equal probability; every individual point has probability zero.
+        The density is zero outside the interval. Equal-length subintervals within the bounds have equal probability.
         ")
       } else if (continuous_key() == "exp") {
         HTML("
         <b>Exponential Distribution</b><br>
-        A random variable <em>X</em> has an <b>Exponential distribution</b> with rate parameter 
-        <em>λ > 0</em> if it models the waiting time between independent events occurring at rate λ.<br>
-        We write <em>X ~ Exp(λ)</em>.<br>
+        An <b>Exponential distribution</b> models the waiting time between successive events in a Poisson process.
+        The rate <em>λ &gt; 0</em> is the expected event count per unit time, and the mean waiting time is <em>1/λ</em>.
+        We write <em>X ~ Exp(λ)</em>.
         ")
       } else if (continuous_key() == "gamma") {
         HTML("
         <b>Gamma Distribution</b><br>
-        The <b>Gamma(k, λ)</b> distribution is a flexible family of distributions.<br><br>
+        The <b>Gamma(k, λ)</b> distribution has shape <em>k &gt; 0</em> and rate <em>λ &gt; 0</em>.<br><br>
         For a positive integer shape <em>k</em>, it is the sum of <em>k</em> independent Exponential(λ) random variables. The Gamma density also permits any real shape k &gt; 0:<br>
         If <em>X<sub>1</sub>, …, X<sub>k</sub> ~ Exponential(λ)</em> are independent, then<br>
         <em>X<sub>1</sub> + X<sub>2</sub> + ··· + X<sub>k</sub> ~ Gamma(k, λ)</em>.<br><br>
@@ -763,15 +698,15 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
       } else if (continuous_key() == "norm") {
         HTML("
         <b>Normal Distribution</b><br>
-        A random variable <em>X</em> is said to have a <b>Normal distribution</b> 
-        with mean <em>μ</em> and variance <em>σ²</em> if its pdf is bell-shaped and symmetric about μ.<br>
-        We write <em>X ~ Normal(μ, σ²)</em>.<br>
+        The <b>Normal distribution</b> has a bell-shaped density centred at the mean <em>μ</em>.
+        The standard deviation <em>σ &gt; 0</em> controls the spread, and <em>σ²</em> is the variance.<br>
+        We write <em>X ~ Normal(μ, σ²)</em>.
         ")
       } else if (continuous_key() == "beta") {
         HTML("
         <b>Beta Distribution</b><br>
-        A random variable <em>X</em> has a <b>Beta distribution</b> with parameters 
-        <em>α > 0</em> and <em>β > 0</em> if it is supported on (0,1) with pdf proportional to 
+        A random variable <em>X</em> has a <b>Beta distribution</b> with shape parameters
+        <em>α &gt; 0</em> and <em>β &gt; 0</em> if it is supported on (0,1) with density proportional to
         <em>x<sup>α−1</sup>(1−x)<sup>β−1</sup></em>.<br>
         We write <em>X ~ Beta(α, β)</em>.<br>
         ")
@@ -808,21 +743,21 @@ prob_Server <- function(id, course_path=function() "core", plot_request=function
     output$formula <- renderUI({
       spec <- list(
         bern = "<ul>
-  <li><b>PMF</b>: $$f_Y(y)=\\begin{cases}
-      p, & y=1 \\\\
-      1-p, & y=0 \\\\
+  <li><b>PMF</b>: $$f_X(x)=\\begin{cases}
+      p, & x=1 \\\\
+      1-p, & x=0 \\\\
       0, & \\text{otherwise}
     \\end{cases}$$</li>
 
-  <li><b>CDF</b>: $$F_Y(y)=\\begin{cases}
-      0, & y<0 \\\\
-      1-p, & 0 \\le y < 1 \\\\
-      1, & y \\ge 1
+  <li><b>CDF</b>: $$F_X(x)=\\begin{cases}
+      0, & x<0 \\\\
+      1-p, & 0 \\le x < 1 \\\\
+      1, & x \\ge 1
     \\end{cases}$$</li>
 
-  <li><b>Mean</b>: $$\\mathbb{E}[Y]=0\\times(1-p)+1\\times p = p$$</li>
+  <li><b>Mean</b>: $$\\mathbb{E}[X]=0\\times(1-p)+1\\times p = p$$</li>
 
-  <li><b>Variance</b>: $$\\text{Var}(Y)=\\mathbb{E}[Y^2]-(\\mathbb{E}[Y])^2
+  <li><b>Variance</b>: $$\\text{Var}(X)=\\mathbb{E}[X^2]-(\\mathbb{E}[X])^2
       =0^2\\times(1-p)+1^2\\times p - p^2 = p - p^2 = p(1-p)$$</li>
 </ul>"
         ,

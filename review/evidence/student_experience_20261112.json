@@ -1,0 +1,132 @@
+{
+  "date": "2026-11-12",
+  "method": "Agent-operated real Chromium walkthrough; not a real-student study.",
+  "regression_groups": [
+    {
+      "group": "test_r1_04",
+      "passed": 102,
+      "total": 102
+    },
+    {
+      "group": "test_r1_05",
+      "passed": 11,
+      "total": 11
+    },
+    {
+      "group": "test_r1_06",
+      "passed": 124,
+      "total": 124
+    },
+    {
+      "group": "test_remaining",
+      "passed": 301,
+      "total": 301
+    },
+    {
+      "group": "test_past_exam_bank",
+      "passed": 87,
+      "total": 87
+    },
+    {
+      "group": "test_number_display",
+      "passed": 76,
+      "total": 76
+    },
+    {
+      "group": "joint_math",
+      "passed": 10,
+      "total": 10
+    },
+    {
+      "group": "assets",
+      "passed": 13,
+      "total": 13
+    }
+  ],
+  "browser_walkthrough_groups": [
+    {
+      "group": "overview_core_preview_and_layout",
+      "passed": 29,
+      "total": 29
+    },
+    {
+      "group": "tables_directions_zero_condition_and_3d",
+      "passed": 11,
+      "total": 11
+    },
+    {
+      "group": "game_seven_chapters_and_navigation",
+      "passed": 20,
+      "total": 20
+    },
+    {
+      "group": "editor_operations_and_error_recovery",
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "group": "number_display_browser",
+      "passed": 33,
+      "total": 33
+    },
+    {
+      "group": "private_exam_browser",
+      "passed": 68,
+      "total": 68
+    },
+    {
+      "group": "eight_further_continuous_models",
+      "passed": 8,
+      "total": 8
+    },
+    {
+      "group": "dark_calculation_headings_and_mobile_page_width",
+      "passed": 2,
+      "total": 2
+    }
+  ],
+  "source_sha256": {
+    "Project_PPeek1ng/app.R": "a21e3e1f4c1ad353b438f7aeb0723ef56caac7eb53369830e2a06f333efb5f7d",
+    "Project_PPeek1ng/main.R": "7e708ef3d68807bedcbc165b3b64fbdc200f5820db57bfae18ceb76795654af6",
+    "Project_PPeek1ng/modules/learning_content.R": "984c8174feef5d6e4a1a273ab650f9b11aba771f598e5785c90a58001d401c35",
+    "Project_PPeek1ng/modules/learning_practice.R": "cb4385aae5c8ef6adf1b9de015a945c8335ed082311fde2f1c64386cd0688fd7",
+    "Project_PPeek1ng/modules/module_conditional.R": "34b977b77fe20088ac92e321fa376c5f4bc9832fef351bfef38f4382575921d8",
+    "Project_PPeek1ng/modules/module_expectation.R": "dd3132c42624a6059f3248a2e6a05214f9c52197ee22f2a03461526f8446041a",
+    "Project_PPeek1ng/modules/module_game_discrete.r": "6c38325d8494d9e7790fe13ae49e291ad653c755815c5c394204befaece912ff",
+    "Project_PPeek1ng/modules/module_joint.R": "bd90cbdfbf3c3f454f45cf9bb080c56aa6437d315da1a2e9dfcfbe1a04cf481d",
+    "Project_PPeek1ng/modules/module_probability.R": "f5c1d4c236f11609c8cf82b4e7e6cb6a7b0df8393cfe5c14ccf3e215507376cd",
+    "Project_PPeek1ng/modules/past_exam_bank.R": "1d4f5f11fb27ddb3442bead694de7dd93b278d7270fc38f556c594db09082dee",
+    "Project_PPeek1ng/modules/pmf_helpers.R": "e2bd69498c77e20b4bcbea1edbbb2dab25d4972a19d469856f157398759c8dc2",
+    "Project_PPeek1ng/www/css/learning-layout.css": "ba3d860ec73c7603e9669362fac9e3e9ad77f7372cc27b9dd1a906997edccd15",
+    "Project_PPeek1ng/www/js/learning-layout.js": "3cdd15e5d0b0b94d7562c52d08fef06c1ea272d50e376754039a372970b2e7e5",
+    "review/scripts/check_past_exam_browser.js": "ce48341988d821b44423654c3ff34a4296e2524e760c77cabd96cfef42757a6c",
+    "review/scripts/check_number_display_browser.js": "9c8813dd602be4d1cb6ef9131a539d9f5078ac66407fc59e417191ece562825e",
+    "review/scripts/test_remaining.R": "993a6b81f333a9b5a12d6afda76bada4745ec722fd9a41edce72c91f4d45ac67"
+  },
+  "fixed_issue_ids": [
+    "UX-01",
+    "UX-02",
+    "UX-03",
+    "UX-04",
+    "UX-05",
+    "UX-06"
+  ],
+  "remaining_priorities": [
+    "Encode joint probability magnitude in the main 2D plot",
+    "Show total expectation as weighted conditional means",
+    "Reduce default editing and prose",
+    "Clarify learning-path overlap and optional-exam coverage",
+    "Decide static reference-solution rounding policy",
+    "Confirm cold-start and very fast navigation behaviour"
+  ],
+  "limitations": [
+    "Chromium only",
+    "No real student or teacher acceptance",
+    "No comprehensive screen-reader audit",
+    "Not every parameter combination or game back branch was manually exercised",
+    "Earlier transient blank output recovered after re-entering tab; final checks wait for connection and actual output updates",
+    "Overview and game walkthroughs preceded final isolated dark-theme heading CSS change"
+  ],
+  "privacy": "Only counts, generic check scope and source hashes exported. Course PDFs, private exam payloads, raw logs and screenshots stay local.",
+  "publication": "No commit, push or deployment in this review."
+}

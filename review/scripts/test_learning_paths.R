@@ -127,18 +127,16 @@ testServer(prob_Server,args=list(course_path=function()path_state()),{
     ex<-examples[[key]]
     session$setInputs(dist='pois',lambda=ex$inputs$lambda)
     apply_example(key);session$flushReact()
-    record('overview',paste(key,'parameters'),identical(current_example()$inputs$lambda,ex$inputs$lambda))
-    record('overview',paste(key,'highlight'),selected_k()==ex$x)
+    record('overview',paste(key,'example_point_on_plot'),ex$x %in% dist_df()$k)
     record('overview',paste(key,'CDF'),abs(dist_df()$cdf[dist_df()$k==ex$x]-ppois(ex$x,ex$inputs$lambda))<1e-12)
   }
   session$setInputs(lambda=13)
-  record('overview','custom_parameters_remove_example_label',is.null(current_example()) && is.null(output$example_note))
+  record('overview','custom_parameter_updates_distribution',abs(dist_df()$pmf[1]-dpois(0,13))<1e-12)
   path_state('preview');session$flushReact()
   record('overview','preview_no_core_score',practice$total()==0 && practice$completed()==0)
   for(key in c('normal65','uniform140','rain')) {
     ex<-examples[[key]];values<-ex$inputs;values$dist_cont<-ex$dist
     do.call(session$setInputs,values);apply_example(key);session$flushReact()
-    record('overview',paste(key,'highlight'),selected_x_cont()==ex$x)
     expected<-switch(key,normal65=pnorm(70,65,3),uniform140=5/14,rain=1-exp(-1))
     record('overview',paste(key,'CDF'),abs(pdf_cdf_at_cont(ex$x)$cdf-expected)<1e-12)
   }

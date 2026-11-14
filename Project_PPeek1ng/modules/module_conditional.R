@@ -102,7 +102,7 @@ conditional_UI <- function(id) {
                    p("If all conditional PMFs are identical for different conditioning values, then X and Y are independent."),
                    p("Later modules will build on this to compare joint and conditional distributions more deeply.")
                  )
-               ),plot_ids=c("plot_bird_cond","plot3d_cond")))
+               ),plot_ids="plot_bird_cond"))
 }
 # =====================================================================
 #  SERVER
@@ -162,11 +162,8 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
         return(tags$div(style="color:#888; padding:10px;", "Initializing table..."))
       }
       tagList(
-        selectInput(ns("pmf_example"), "Worked example", choices = learning_pmf_example_choices()),
-        actionButton(ns("load_pmf_example"), "Load worked example", class="btn-outline-primary"),
-        h4("Input (x, y, p):"),
+        h4("Outcomes and probabilities"),
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
-        helpText("Compact values are shown below. Hover for full precision. Unedited entries retain full precision."),
         uiOutput(ns("input_feedback")),
         lapply(seq_len(nrow(df)), function(i) {
           div(class = "pmf-edit-row",
@@ -238,7 +235,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
     display_mode <- reactive(number_mode(pmf_global$number_format))
 
     pmf_actions <- pmf_bind_actions(input, output, session, df_current, pmf_edit,
-                     pmf_final, row_counter, pmf_global)
+                     pmf_final, row_counter, pmf_global, module = "conditional")
 
     # ---- Joint + Conditional Probability Table ----
     output$joint_table_html <- renderUI({
@@ -285,31 +282,15 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
         )
       )
       
-      # --- 条件控件 ---
-      cond_panel <- tagList(
-        div(style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;",
-          div(style="flex:1 1 220px; min-width:0;",
-            selectInput(ns("cond_type"), "Conditional slice:",
-              choices = c("f(Y | X = x0)", "f(X | Y = y0)"), width = "100%")
-          ),
-          div(style="flex:1 1 160px; min-width:0;", uiOutput(ns("cond_value_select")))
-        ),
-        uiOutput(ns("cond_table_html"))
-      )
-      
-      # --- 输出组合 ---
       tagList(
         withMathJax(),
-        div(class = "pmf-table-layout",
-          div(class = "pmf-table-scroll", joint_html,
-            tags$p(HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)"))),
-          div(class = "pmf-calculation-panel", cond_panel)
-        )
+        joint_html,
+        tags$p(class="small-note",HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)"))
       )
     })
     # ==========================输入逻辑与概率表===========================================    
     # ==========================条件概率表===========================================
-    output$cond_table_html <- renderUI({
+    conditional_slice <- reactive({
       df <- pmf_final()
       req(input$cond_type)
       
@@ -337,19 +318,25 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
         var_col <- "x"
       }
       
+      list(data=sub,title=title,variable=var_col)
+    })
+
+    output$cond_table_html <- renderUI({
+      slice <- conditional_slice()
+      sub <- slice$data
       withMathJax(
         tags$table(
           class = "pmf-table",
           tags$thead(
             tags$tr(
-              tags$th(HTML(paste0("\\(", title, "\\)"))),
+              tags$th(HTML(paste0("\\(", slice$title, "\\)"))),
               tags$th(HTML("\\(Probability\\)"))
             )
           ),
           tags$tbody(
             lapply(seq_len(nrow(sub)), function(i) {
               tags$tr(
-                tags$td(HTML(paste0("\\(", var_col, "=", sub[[var_col]][i], "\\)"))),
+                tags$td(HTML(paste0("\\(", slice$variable, "=", sub[[slice$variable]][i], "\\)"))),
                 number_cell(sub$cond_p[i],display_mode())
               )
             }),
@@ -366,146 +353,50 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
     output$cond_value_select <- renderUI({
       df <- pmf_final()
       req(input$cond_type)
-      if (input$cond_type == "f(Y | X = x0)") {
-        selectInput(ns("x0"), "x0 =", choices = sort(unique(df$x)))
-      } else {
-        selectInput(ns("y0"), "y0 =", choices = sort(unique(df$y)))
-      }
+      by_x <- input$cond_type == "f(Y | X = x0)"
+      id <- if (by_x) "x0" else "y0"
+      values <- sort(unique(if (by_x) df$x else df$y))
+      selected <- intersect(as.character(isolate(input[[id]])), as.character(values))
+      selectInput(ns(id), if (by_x) "x0 =" else "y0 =", choices = values,
+                  selected = if (length(selected)) selected[1] else values[1])
     })
     # ========================== 生成条件值选择==========================================  
-    # ==== 3D Conditional PMF ====
-    output$plot3d_cond <- renderPlotly({
-      req(pmf_global$df_final)
-      df <- pmf_global$df_final
-      if (is.null(df) || nrow(df) == 0) return(NULL)
-      if (!"p" %in% names(df)) df$p <- df$p_value
-      
-      type <- input$cond_type
-      if (is.null(type)) return(NULL)
-      
-      p <- plot_ly()
-      
-      if (type == "f(Y | X = x0)") {
-        req(input$x0)
-        x0 <- as.numeric(input$x0)
-        sub <- df[df$x == x0, c("y", "p")]
-        denom <- sum(sub$p)
-        if (denom <= 0) return(NULL)
-        sub$p <- sub$p / denom
-        sub <- sub[order(sub$y), ]
-        
-        for (i in seq_len(nrow(sub))) {
-          p <- add_trace(
-            p, type = "scatter3d", mode = "lines",
-            x = c(x0, x0),
-            y = c(sub$y[i], sub$y[i]),
-            z = c(0, sub$p[i]),
-            line = list(color = "steelblue", width = 8),
-            hoverinfo = "text",
-            text = paste0("X=", x0, "<br>Y=", sub$y[i], "<br>f(Y|X)=", number_hover(sub$p[i])),
-            showlegend = FALSE
-          )
-        }
-        
-        p %>% layout(
-          title = "3D Conditional PMF (Y|X)",
-          scene = list(
-            xaxis = list(title = "X"),
-            yaxis = list(title = "Y"),
-            zaxis = list(title = "𝑓₍Y|X₎(y|x)")
-          ),
-          margin = list(l = 0, r = 0, b = 0, t = 40)
-        )
-        
-      } else if (type == "f(X | Y = y0)") {
-        req(input$y0)
-        y0 <- as.numeric(input$y0)
-        sub <- df[df$y == y0, c("x", "p")]
-        denom <- sum(sub$p)
-        if (denom <= 0) return(NULL)
-        sub$p <- sub$p / denom
-        sub <- sub[order(sub$x), ]
-        
-        for (i in seq_len(nrow(sub))) {
-          p <- add_trace(
-            p, type = "scatter3d", mode = "lines",
-            x = c(sub$x[i], sub$x[i]),
-            y = c(y0, y0),
-            z = c(0, sub$p[i]),
-            line = list(color = "orange", width = 8),
-            hoverinfo = "text",
-            text = paste0("X=", sub$x[i], "<br>Y=", y0, "<br>f(X|Y)=", number_hover(sub$p[i])),
-            showlegend = FALSE
-          )
-        }
-        
-        p %>% layout(
-          title = "3D Conditional PMF (X|Y)",
-          scene = list(
-            xaxis = list(title = "X"),
-            yaxis = list(title = "Y"),
-            zaxis = list(title = "𝑓₍X|Y₎(x|y)")
-          ),
-          margin = list(l = 0, r = 0, b = 0, t = 40)
-        )
-      }
-    })
-    # ==== 3D Conditional PMF ====
-    
-    # ==== Bird’s-eye Conditional View ====
+    # Use the same conditional slice and number format as the probability table.
     output$plot_bird_cond <- renderPlotly({
-      req(pmf_global$df_final)
-      df <- pmf_global$df_final
-      if (is.null(df) || nrow(df) == 0) return(NULL)
-      if (!"p" %in% names(df)) df$p <- df$p_value
-      
-      type <- input$cond_type
-      if (is.null(type)) return(NULL)
-      
-      if (type == "f(Y | X = x0)") {
-        req(input$x0)
-        x0 <- as.numeric(input$x0)
-        sub <- df[df$x == x0, c("y", "p")]
-        denom <- sum(sub$p)
-        if (denom <= 0) return(NULL)
-        sub$p <- sub$p / denom
-        
-        plot_ly(
-          sub, x = ~y, y = ~p,
-          type = "bar", marker = list(color = "steelblue"),
-          text = ~paste0("Y=", y, "<br>f(Y|X=", x0, ")=", number_hover(p)),
-          hoverinfo = "text"
-        ) %>% layout(
-          title = paste0("Bird’s-eye View: f(Y|X=", x0, ")"),
-          xaxis = list(title = "Y"),
-          yaxis = list(title = "𝑓₍Y|X₎(y|x)", range = c(0, 1)),
-          plot_bgcolor = "#f9f9f9",
-          paper_bgcolor = "#f9f9f9"
-        )
-        
-      } else if (type == "f(X | Y = y0)") {
-        req(input$y0)
-        y0 <- as.numeric(input$y0)
-        sub <- df[df$y == y0, c("x", "p")]
-        denom <- sum(sub$p)
-        if (denom <= 0) return(NULL)
-        sub$p <- sub$p / denom
-        
-        plot_ly(
-          sub, x = ~x, y = ~p,
-          type = "bar", marker = list(color = "orange"),
-          text = ~paste0("X=", x, "<br>f(X|Y=", y0, ")=", number_hover(p)),
-          hoverinfo = "text"
-        ) %>% layout(
-          title = paste0("Bird’s-eye View: f(X|Y=", y0, ")"),
-          xaxis = list(title = "X"),
-          yaxis = list(title = "𝑓₍X|Y₎(x|y)", range = c(0, 1)),
-          plot_bgcolor = "#f9f9f9",
-          paper_bgcolor = "#f9f9f9"
-        )
-      }
+      slice <- tryCatch(conditional_slice(),validation=identity)
+      if(inherits(slice,"validation")) return(
+        plot_ly(x=numeric(0),y=numeric(0),type="bar") %>% layout(
+          xaxis=list(visible=FALSE),yaxis=list(visible=FALSE),
+          annotations=list(list(text="Undefined for this condition",x=.5,y=.5,
+            xref="paper",yref="paper",showarrow=FALSE,font=list(size=14))),
+          plot_bgcolor="#ffffff",paper_bgcolor="#ffffff",showlegend=FALSE))
+      sub <- slice$data
+      labels <- number_label(sub$cond_p,display_mode())
+      exact <- mapply(number_same,sub$cond_p,vapply(labels,parse_user_prob,numeric(1)))
+      labels <- paste0(ifelse(exact,"","\u2248 "),labels)
+      hover_text <- paste0(slice$variable,"=",sub[[slice$variable]],
+                           "<br>",slice$title," = ",labels)
+      plot_width <- session$clientData[[paste0("output_",ns("plot_bird_cond"),"_width")]]
+      if(is.null(plot_width) || plot_width<=0) plot_width <- 600
+      label_size <- min(13,floor(((plot_width-75)/nrow(sub)-6)/(max(nchar(labels))*.6)))
+      plot_ly(
+        x=sub[[slice$variable]],y=sub$cond_p,type="bar",
+        marker=list(color=if(slice$variable=="y") "steelblue" else "#d87819"),
+        text=labels,texttemplate="%{text}",textposition=if(label_size>=10) "outside" else "none",
+        textfont=list(size=max(8,label_size)),cliponaxis=FALSE,
+        hovertext=hover_text,hoverinfo="text"
+      ) %>% layout(
+        title=list(text=slice$title,font=list(size=14)),
+        xaxis=list(title=toupper(slice$variable),tickmode="array",tickvals=sub[[slice$variable]],
+                   fixedrange=TRUE),
+        yaxis=list(title="Conditional probability",range=c(0,1.12),
+                   tickvals=c(0,.25,.5,.75,1),fixedrange=TRUE),
+        margin=list(l=60,r=15,b=45,t=40),
+        plot_bgcolor="#ffffff",paper_bgcolor="#ffffff",showlegend=FALSE
+      ) %>% config(displaylogo=FALSE,
+        modeBarButtonsToRemove=c("select2d","lasso2d","autoScale2d","resetScale2d"))
     })
-    # ==== Bird’s-eye Conditional View ====
+
     # ============================================================
     # 题库 
     # ============================================================

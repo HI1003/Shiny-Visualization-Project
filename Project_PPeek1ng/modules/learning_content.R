@@ -29,18 +29,38 @@ learning_pmf_notes <- c(
   counts20="Worked example: 20 fictional observations. Rows X=0/1 and columns Y=0/1 have counts 6,4 / 2,8. X and Y are binary indicators; these are not real student data.",
   zero_x="Boundary example: P(X=0)=0. Conditioning on X=0 is undefined; conditioning on X=1 gives probabilities 1/4 and 3/4.")
 learning_pmf_notes<-c(learning_pmf_notes,exam_pmf_notes())
-learning_pmf_example_choices<-function() c("Two Ace indicators"="cards","20 fictional observations"="counts20","Zero conditioning probability"="zero_x",
-  stats::setNames(names(local_exam_bank$tables),vapply(local_exam_bank$tables,`[[`,character(1),"label")))
-learning_pmf_caption <- function(df) {
-  if(is.null(df) || nrow(df)==0L) return("Custom joint PMF: define what X, Y and their units represent before interpreting the table.")
+learning_pmf_example_choices <- function(module = NULL) {
+  choices <- list("Current table" = "", "Demonstrations" = c(
+    "Cards — two draws without replacement" = "cards",
+    "Counts — 20 fictional observations" = "counts20",
+    "Boundary case — zero-probability condition" = "zero_x"
+  ))
+  keys <- names(local_exam_bank$tables)
+  if (!is.null(module)) {
+    questions <- Filter(function(question) identical(question$module, module), local_exam_bank$questions)
+    keys <- intersect(keys, unlist(lapply(questions, `[[`, "pmf_example"), use.names = FALSE))
+  }
+  if (length(keys)) {
+    choices[["Past exam"]] <- stats::setNames(keys,
+      vapply(local_exam_bank$tables[keys], `[[`, character(1), "label"))
+  }
+  choices
+}
+learning_pmf_example_key <- function(df) {
+  if(is.null(df) || nrow(df)==0L) return(NULL)
   for(key in names(learning_pmf_notes)) {
     target<-learning_pmf_example(key)
     target<-target[order(target$x,target$y),]
     if(nrow(df)!=nrow(target))next
     a<-df[order(df$x,df$y),c("x","y","p_value")]
     if(identical(as.numeric(a$x),as.numeric(target$x)) && identical(as.numeric(a$y),as.numeric(target$y)) &&
-       all(abs(a$p_value-target$p_value)<1e-12)) return(unname(learning_pmf_notes[key]))
+       all(abs(a$p_value-target$p_value)<1e-12)) return(key)
   }
+  NULL
+}
+learning_pmf_caption <- function(df) {
+  key <- learning_pmf_example_key(df)
+  if (!is.null(key)) return(unname(learning_pmf_notes[key]))
   "Custom joint PMF: define what X, Y and their units represent before interpreting the table."
 }
 learning_table <- function(counts=FALSE,zero=FALSE) {
@@ -72,38 +92,39 @@ learning_indices <- function(questions,module,path) {
   keep
 }
 learning_graph_examples <- function() c(list(
-  bern04=list(label="CDF illustration: Bernoulli(p=0.4)",paths=c("core","legacy"),type="discrete",dist="bern",inputs=list(p_bern=.4),x=0,
+  bern04=list(label="Success indicator — p = 0.4",paths=c("core","legacy"),type="discrete",dist="bern",inputs=list(p_bern=.4),x=0,
     note="P(X=0)=0.6 and P(X=1)=0.4. The CDF at 0 includes X=0; compare strict and inclusive inequalities."),
-  corn5=list(label="Corn: Binomial(n=5,p=0.2)",paths=c("core","legacy"),type="discrete",dist="binom",inputs=list(n=5,p=.2),x=0,
+  corn5=list(label="Corn inspection — n = 5, p = 0.2",paths=c("core","legacy"),type="discrete",dist="binom",inputs=list(n=5,p=.2),x=0,
     note="Given 5 inspected plants, Y is Binomial(5,0.2). P(Y>=1)=1-F(0)=0.67232."),
-  corn10=list(label="Corn: Binomial(n=10,p=0.2), mean 2",paths=c("core","legacy"),type="discrete",dist="binom",inputs=list(n=10,p=.2),x=2,
+  corn10=list(label="Corn inspection — n = 10, p = 0.2",paths=c("core","legacy"),type="discrete",dist="binom",inputs=list(n=10,p=.2),x=2,
     note="With 10 independent inspected plants, the expected count is np=10*0.2=2."),
-  novice=list(label="Novice: Geometric(p=0.2), failures Z",paths=c("core","legacy"),type="discrete",dist="geom",inputs=list(pg=.2),x=1,
+  novice=list(label="Failures before first success — p = 0.2",paths=c("core","legacy"),type="discrete",dist="geom",inputs=list(pg=.2),x=1,
     note="Z counts failures before success, and attempts Y=Z+1. P(Y>=3)=P(Z>=2)=1-F_Z(1)=0.64."),
-  du5=list(label="Second moments: Discrete Uniform on 1,...,5",paths=c("core","legacy"),type="discrete",dist="dunifd",inputs=list(N_du=5),x=3,
-    note="DU(5) has mean 3. Averaging squared outcomes gives E[Z^2]=11; variance=11-9=2."),
-  tokens=list(label="Red tokens: Hypergeometric(n=5,M=8,N=20)",paths=c("core","legacy"),type="discrete",dist="hyper",inputs=list(n_hy=5,M_hy=8,N_hy=20),x=2,
+  du5=list(label="Equal probabilities — values 1 to 5",paths=c("core","legacy"),type="discrete",dist="dunifd",inputs=list(N_du=5),x=3,
+    note="The discrete uniform distribution on 1 through 5 has mean 3. Averaging squared outcomes gives E[Z^2]=11; variance=11-9=2."),
+  tokens=list(label="Red tokens — sample 5 from 20, including 8 red",paths=c("core","legacy"),type="discrete",dist="hyper",inputs=list(n_hy=5,M_hy=8,N_hy=20),x=2,
     note="Draw 5 tokens without replacement from 20, including 8 red. The conditional mean is nM/N=2."),
-  worker_nb=list(label="Worker: Negative Binomial(k=2,p=1/4)",paths=c("core","legacy"),type="discrete",dist="nbinom",inputs=list(r_nb=2,p_nb=.25),x=6,
+  worker_nb=list(label="Wait for 2 successes — p = 0.25",paths=c("core","legacy"),type="discrete",dist="nbinom",inputs=list(r_nb=2,p_nb=.25),x=6,
     note="Y counts failures before the second success in independent trials. Its mean is k(1-p)/p=6."),
-  eggs_cloudy=list(label="Cloudy eggs: Poisson(12), P(Y <= 10)",paths=c("core","legacy"),type="discrete",dist="pois",inputs=list(lambda=12),x=10,
+  eggs_cloudy=list(label="Egg counts, cloudy day — mean 12",paths=c("core","legacy"),type="discrete",dist="pois",inputs=list(lambda=12),x=10,
     note="Cloudy: 2 eggs/hour for 6 hours gives lambda=12. The highlighted CDF at 10 is P(Y <= 10), about 0.3472."),
-  eggs_sunny=list(label="Sunny eggs: Poisson(24), mean 24",paths=c("core","legacy"),type="discrete",dist="pois",inputs=list(lambda=24),x=24,
+  eggs_sunny=list(label="Egg counts, sunny day — mean 24",paths=c("core","legacy"),type="discrete",dist="pois",inputs=list(lambda=24),x=24,
     note="Sunny: 4 eggs/hour for 6 hours gives lambda=24. The count mean is 24; the rate per hour is 4."),
-  rain=list(label="Rain waiting time: Exponential(rate=0.5)",paths=c("preview","further","legacy"),type="continuous",dist="exp",inputs=list(rate_exp=.5),x=2,
+  rain=list(label="Wait for rain — rate 0.5 per hour",paths=c("preview","legacy"),type="continuous",dist="exp",inputs=list(rate_exp=.5),x=2,
     note="Cloudy rain model: rate=0.5 per hour, mean waiting time=2 hours. The CDF at 2 is about 0.6321."),
-  normal65=list(label="Strawberries: Normal(mean=65, sd=3)",paths=c("preview","further","legacy"),type="continuous",dist="norm",inputs=list(mean_norm=65,sd_norm=3),x=70,
+  normal65=list(label="Strawberries — mean 65, standard deviation 3",paths=c("preview","legacy"),type="continuous",dist="norm",inputs=list(mean_norm=65,sd_norm=3),x=70,
     note="For fertility X=3, the mean is 65 and the variance is 9 (standard deviation 3). The tail above 70 is 1-F(70), about 0.0478."),
-  uniform140=list(label="Grazing: Uniform(0,140)",paths=c("preview","further","legacy"),type="continuous",dist="unif",inputs=list(a_unif=0,b_unif=140),x=50,
+  uniform140=list(label="Grazing distance — interval 0 to 140",paths=c("preview","legacy"),type="continuous",dist="unif",inputs=list(a_unif=0,b_unif=140),x=50,
     note="At W=2, the assumed upper bound is 140. P(Y>50)=1-F(50)=90/140=9/14; a single point still has probability zero."),
-  uniform100=list(label="Grazing: Uniform(0,100)",paths=c("further","legacy"),type="continuous",dist="unif",inputs=list(a_unif=0,b_unif=100),x=50,
+  uniform100=list(label="Grazing distance — interval 0 to 100",paths=c("preview","legacy"),type="continuous",dist="unif",inputs=list(a_unif=0,b_unif=100),x=50,
     note="The optional second-moment exercise uses Uniform(0,100). The density is 1/100 and E[X^2]=10000/3."),
-  normal50=list(label="Strawberries: Normal(mean=50, sd=3)",paths=c("preview","further","legacy"),type="continuous",dist="norm",inputs=list(mean_norm=50,sd_norm=3),x=50,
+  normal50=list(label="Strawberries — mean 50, standard deviation 3",paths=c("preview","legacy"),type="continuous",dist="norm",inputs=list(mean_norm=50,sd_norm=3),x=50,
     note="Mean 50, variance 9, standard deviation 3. The expected squared deviation from the mean is the variance."),
-  exp2=list(label="Waiting time: Exponential(rate=2)",paths=c("further","legacy"),type="continuous",dist="exp",inputs=list(rate_exp=2),x=.5,
+  exp2=list(label="Waiting time — rate 2 per unit time",paths=c("preview","legacy"),type="continuous",dist="exp",inputs=list(rate_exp=2),x=.5,
     note="The optional second-moment illustration uses rate 2; the mean is 1/2 and E[X^2]=1/2.")),exam_graph_examples())
 
 learning_continuous_choices <- function(path) {
   choices<-c("Uniform"="unif","Exponential"="exp","Gamma"="gamma","Normal"="norm", "Beta"="beta","Chi-Squared"="chisq","Student's t"="t","F"="f")
-  switch(learning_path(path),core=character(0),preview=choices[choices %in% c("unif","exp","norm")],choices)
+  preview <- choices %in% c("unif","exp","norm")
+  switch(learning_path(path),core=character(0),preview=choices[preview],further=choices[!preview],choices)
 }

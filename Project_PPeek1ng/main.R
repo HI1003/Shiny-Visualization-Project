@@ -54,10 +54,6 @@ ui <- bs4DashPage(
       tags$span("Navigation", style = "font-weight:600; color:#1a73e8;")
     ),
     
-    div(class="learning-path-controls",
-      selectInput("learning_path", "Learning path", choices=learning_path_labels, selected="core"),
-      helpText("Review concepts and explore the visualizations. Self-checks are optional.")
-    ),
     bs4SidebarMenu(
       id = "tabs",
       bs4SidebarMenuItem("Home", tabName = "home", icon = icon("home")),
@@ -80,15 +76,12 @@ ui <- bs4DashPage(
   
   bs4DashBody(
     useShinyjs(),
-    uiOutput("learning_path_banner"),
     
     # ---------- 全局样式 ----------
     tags$head(
       tags$link(rel="stylesheet",href=paste0("css/learning-layout.css?v=",unname(tools::md5sum("www/css/learning-layout.css")))),
       tags$script(src=paste0("js/learning-layout.js?v=",unname(tools::md5sum("www/js/learning-layout.js"))),defer=NA),
       tags$style(HTML("
-        .learning-path-controls {padding:12px;}
-        .learning-path-controls .shiny-input-container {width:100%;}
         .practice-progress, .question-path {font-weight:600; margin:10px 0;}
         .practice-question {margin:12px 0; line-height:1.6;}
         .pmf-edit-row {display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; border-bottom:1px solid #ddd; padding-bottom:12px; margin-bottom:12px;}
@@ -268,13 +261,13 @@ ui <- bs4DashPage(
 
   <ul>
     <li><b>Probability Distribution:</b> Introduces the fundamental ideas of discrete and continuous random variables, 
-    visualizing PMF/PDF and CDF curves with parameter controls for direct comparison.</li>
+    visualizing probability mass functions (PMFs), probability density functions (PDFs), and cumulative distribution functions (CDFs) with adjustable parameters.</li>
 
     <li><b>Game: Discrete:</b> Applies probability reasoning in a scenario-based environment where each story 
     represents an underlying probability model. This helps reinforce abstract ideas through contextual learning.</li>
 
     <li><b>Joint Distribution:</b> Demonstrates the relationship between two random variables via a joint probability 
-    table and 2D/3D visualizations. Users can observe marginal probabilities 
+    table and a heatmap with matching numerical values. Users can observe marginal probabilities
     <i>f<sub>X</sub>(x)</i> and <i>f<sub>Y</sub>(y)</i> directly.</li>
 
     <li><b>Conditional Distribution:</b> Explores how probability changes when conditioning on a known variable, 
@@ -300,14 +293,24 @@ ui <- bs4DashPage(
     ensuring all values are valid before rendering updated plots.</li>
   </ul>
 
-  <p style='color:#555; font-style:italic; margin-top:20px;'>
-    <b>STATS125 learning route:</b> Check your event, conditional probability and independence basics (Chapters 2–4).
-    Start with discrete PMFs, CDFs, means and variances (Chapter 5), then the seven discrete models (Chapter 6).
-    Use <b>Game: Discrete</b> after learning those models. Continue with joint/marginal tables and conditional PMFs (Chapter 7),
-    then conditional means and total expectation (Chapter 8). <b>E[g(X)], variance and total expectation are part of STATS125.</b>
-    The sidebar defaults to <b>STATS125 Core</b>. Uniform, Exponential and Normal provide a separate optional preview for later STATS210 study.
-    Formal continuous-distribution calculations are in <b>Further exploration</b>. Begin with key ideas and visual exploration; self-checks are optional.
-  </p>
+  <section id='home-learning-route'>
+    <h4>STATS125 learning route</h4>
+    <ol>
+      <li><b>Review the basics</b> — events, conditional probability and independence (Chapters 2–4).</li>
+      <li><b>Probability Distribution → Overview</b> — choose STATS125 Core to review discrete distributions, means and variances (Chapters 5–6).</li>
+      <li><b>Joint Distribution → Conditional Distribution</b> — explore joint, marginal and conditional probabilities (Chapter 7).</li>
+      <li><b>Expectation</b> — connect conditional means with the overall mean through total expectation (Chapter 8).</li>
+    </ol>
+    <p>After the discrete models, you can try Game: Discrete. Past-exam questions are optional.</p>
+    <details>
+      <summary>Optional STATS210 preview and further exploration</summary>
+      <p>Choose these under Learning path in Probability Distribution → Overview:</p>
+      <ul>
+        <li><b>Optional STATS210 preview</b> — Uniform, Exponential and Normal distributions.</li>
+        <li><b>Further exploration</b> — Gamma, Beta, Chi-Squared, Student's t and F distributions, with optional mathematical formulas.</li>
+      </ul>
+    </details>
+  </section>
   <details><summary>Before you start: symbols, units and conditions</summary>
     <ul>
       <li><b>X, Y:</b> define what is measured or counted, its units and its possible values (support).</li>
@@ -354,7 +357,7 @@ ui <- bs4DashPage(
 server <- function(input, output, session) {
   
   course_path <- reactive({
-    value <- input$learning_path
+    value <- input[[NS("prob1", "learning_path")]]
     if(length(value)!=1 || is.na(value) || !value %in% unname(learning_path_labels)) "core" else value
   })
   plot_request <- reactiveVal(NULL)
@@ -366,19 +369,11 @@ server <- function(input, output, session) {
   }
   shared <- new_pmf_state()
   practice_modules <- list(
-    joint=joint_Server("joint1",shared,course_path,open_plot),
-    conditional=conditional_Server("cond1",shared,course_path,open_plot),
-    expectation=expectation_Server("exp1",shared,course_path,open_plot),
+    joint=joint_Server("joint1",shared,open_plot=open_plot),
+    conditional=conditional_Server("cond1",shared,open_plot=open_plot),
+    expectation=expectation_Server("exp1",shared,open_plot=open_plot),
     overview=prob_Server("prob1",course_path,plot_request)
   )
-  output$learning_path_banner <- renderUI({
-    div(class="alert alert-info",strong(learning_path_label(course_path()))," — ",
-      switch(course_path(),core="Review discrete probability, joint/conditional PMFs, expectation and variance, then explore them with tables and plots.",
-        preview="Optional preparation for later STATS210 study: review the needed ideas, then explore continuous models visually.",
-        further="Optional further exploration of additional models and mathematical formulas."),
-      tags$small(" Practice and the discrete game are optional."))
-  })
-
   output$game_module_ui <- renderUI(game_discrete_UI("game1"))
   game_discrete_Server("game1")
 

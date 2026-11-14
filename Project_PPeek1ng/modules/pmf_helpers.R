@@ -41,7 +41,7 @@ pmf_prepare <- function(df, merge_duplicates = FALSE, uniform = FALSE) {
 }
 
 pmf_bind_actions <- function(input, output, session, df_current, pmf_edit,
-                             pmf_final, row_counter, shared) {
+                             pmf_final, row_counter, shared, module = NULL) {
   error_message <- shiny::reactiveVal(NULL)
   output$input_feedback <- shiny::renderUI({
     message <- error_message()
@@ -94,7 +94,17 @@ pmf_bind_actions <- function(input, output, session, df_current, pmf_edit,
     error_message(NULL)
     invisible(NULL)
   }
-  shiny::observeEvent(input$load_pmf_example,load_example(input$pmf_example))
+  example_keys <- unname(unlist(learning_pmf_example_choices(module), use.names = FALSE))
+  shiny::observeEvent(input$pmf_example, {
+    key <- input$pmf_example
+    shiny::req(nzchar(key), key %in% example_keys)
+    if (!identical(key, learning_pmf_example_key(pmf_final()))) load_example(key)
+  }, ignoreInit = TRUE)
+  shiny::observeEvent(pmf_final(), {
+    key <- learning_pmf_example_key(pmf_final())
+    if (is.null(key) || !key %in% example_keys) key <- ""
+    if (!identical(input$pmf_example, key)) shiny::updateSelectInput(session, "pmf_example", selected = key)
+  })
   output$pmf_example_note <- shiny::renderUI(shiny::tags$p(class="small-note",learning_pmf_caption(pmf_final())))
   list(load_example=load_example)
 }
@@ -156,18 +166,21 @@ number_relation <- function(x,mode="auto") {
   shown<-number_label(x,mode)
   if(all(mapply(number_same,x,vapply(shown,parse_user_prob,numeric(1))))) " = " else " \\approx "
 }
-number_reading <- function(x) paste0(ifelse(mapply(number_same,x,vapply(number_label(x,"decimal"),parse_user_prob,numeric(1))),"= ","\u2248 "),number_label(x,"decimal"))
+number_reading <- function(x,mode="decimal") {
+  labels <- number_label(x,mode)
+  exact <- mapply(number_same,x,vapply(labels,parse_user_prob,numeric(1)))
+  paste0(ifelse(exact,"= ","\u2248 "),labels)
+}
 number_cell <- function(value,mode="auto",class=NULL) {
   label<-number_label(value,mode)
   rounded<-!number_same(value,parse_user_prob(label))
   shiny::tags$td(class=class,`data-number-value`=number_full(value),`data-number-text`=label,
-    title=paste0("More precision: ",number_decimal(value,6),"; full value: ",number_full(value)),
     shiny::HTML(paste0("\\(",if(rounded)"\\approx " else "",number_tex(value,mode),"\\)")))
 }
 number_formula <- function(formula,result) {
-  shiny::tags$p(`data-number-value`=number_full(result),title=paste0("Full result: ",number_full(result)),shiny::HTML(formula))
+  shiny::tags$p(`data-number-value`=number_full(result),shiny::HTML(formula))
 }
-number_hover <- function(x) paste0(number_label(x,"decimal"),"<br>More precision: ",number_decimal(x,6))
+number_hover <- function(x) number_label(x,"decimal")
 pmf_editor_value <- function(source) vapply(source,function(text) {
   value<-parse_user_prob(text)
   if(is.finite(value))number_label(value) else as.character(text)
@@ -175,7 +188,7 @@ pmf_editor_value <- function(source) vapply(source,function(text) {
 pmf_probability_input <- function(ns,id,source) {
   value<-parse_user_prob(source);shown<-pmf_editor_value(source)
   rounded<-is.finite(value) && !number_same(value,parse_user_prob(shown))
-  shiny::tags$div(class="pmf-edit-prob",title=paste0("Full value: ",source),
+  shiny::tags$div(class="pmf-edit-prob",
     shiny::textInput(ns(paste0("p_",id)),if(rounded) "p (approx.)" else "p",value=shown))
 }
 pmf_read_probability <- function(df,id,value) {

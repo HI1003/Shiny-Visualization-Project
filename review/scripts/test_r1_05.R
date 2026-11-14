@@ -57,7 +57,10 @@ testServer(conditional_Server, args=list(shared=pmf_global), {
     if (is.null(case$expected)) {
       message <- if(inherits(rendered,'error')) conditionMessage(rendered) else ''
       passed <- inherits(rendered,'validation') && grepl('undefined', message, ignore.case=TRUE)
-      record <- list(name=case$name, passed=passed, expected='undefined', message=message)
+      empty_chart <- jsonlite::fromJSON(output$plot_bird_cond,simplifyVector=FALSE)$x
+      cleared <- sum(vapply(empty_chart$data,function(trace) length(trace[["y"]]),integer(1)))==0L
+      record <- list(name=case$name, passed=passed&&cleared, expected='undefined', message=message,
+        chart_cleared=cleared)
     } else if (inherits(rendered,'error')) {
       record <- list(name=case$name, passed=FALSE, error=conditionMessage(rendered))
     } else {
@@ -69,19 +72,17 @@ testServer(conditional_Server, args=list(shared=pmf_global), {
       expected_values <- c(case$expected, 1)
       table_ok <- length(values)==length(expected_values) &&
         all(abs(values-expected_values)<1e-10) && all(abs(displayed-expected_values)<=5.1e-5) &&
-        all(nzchar(xml2::xml_attr(cells,'title')))
-      # Compare the table with both actual graph outputs, not a copy of their formula.
+        all(is.na(xml2::xml_attr(cells,'title')))
+      # Compare the actual chart values and labels with the displayed table.
       bird <- jsonlite::fromJSON(output$plot_bird_cond, simplifyVector=FALSE)$x$data
       bird_values <- unlist(lapply(bird, function(trace) trace$y), use.names=FALSE)
-      plot3d <- jsonlite::fromJSON(output$plot3d_cond, simplifyVector=FALSE)$x$data
-      plot3d_values <- vapply(plot3d, function(trace) tail(unlist(trace$z),1), numeric(1))
       bird_ok <- length(bird_values)==length(case$expected) &&
         all(abs(bird_values-case$expected)<1e-10)
-      plot3d_ok <- length(plot3d_values)==length(case$expected) &&
-        all(abs(plot3d_values-case$expected)<1e-10)
-      record <- list(name=case$name, passed=table_ok && bird_ok && plot3d_ok,
-        expected=case$expected, displayed=values, bird=bird_values, plot3d=plot3d_values,
-        table_passed=table_ok, bird_passed=bird_ok, plot3d_passed=plot3d_ok)
+      graph_labels <- sub('^≈ ','',unlist(bird[[1]]$text))
+      labels_ok <- identical(unname(graph_labels),unname(labels[-length(labels)]))
+      record <- list(name=case$name, passed=table_ok && bird_ok && labels_ok,
+        expected=case$expected, displayed=values, bird=bird_values,
+        table_passed=table_ok, bird_passed=bird_ok, labels_passed=labels_ok)
     }
     results$records[[length(results$records)+1L]] <- record
   }

@@ -83,7 +83,7 @@ joint_UI <- function(id) {
               p("Tabulating or plotting the joint PMF helps us visualize how X and Y vary together."),
               p("High probability cells indicate likely combinations of (x, y), while low probability cells show rare outcomes.")
             )
-          ),plot_ids=c("plot_bird","plot3d")))
+          ),plot_ids="plot_bird"))
 }
 
 # =========================================================
@@ -148,11 +148,8 @@ joint_Server <- function(id, shared = new_pmf_state(), course_path = function() 
         return(tags$div(style="color:#888; padding:10px;", "Initializing table..."))
       }
       tagList(
-        selectInput(ns("pmf_example"), "Worked example", choices = learning_pmf_example_choices()),
-        actionButton(ns("load_pmf_example"), "Load worked example", class="btn-outline-primary"),
-        h4("Input (x, y, p):"),
+        h4("Outcomes and probabilities"),
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
-        helpText("Compact values are shown below. Hover for full precision. Unedited entries retain full precision."),
         uiOutput(ns("input_feedback")),
         lapply(seq_len(nrow(df)), function(i) {
           div(class = "pmf-edit-row",
@@ -222,11 +219,14 @@ joint_Server <- function(id, shared = new_pmf_state(), course_path = function() 
       pmf_global$counter <- new_id
     })
     
-    display_mode <- reactive(number_mode(pmf_global$number_format))
+    display_mode <- reactive({
+      mode <- number_mode(pmf_global$number_format)
+      if(mode=="auto") "fraction" else mode
+    })
 
     # Shared validation and draft/commit actions
     pmf_actions <- pmf_bind_actions(input, output, session, df_current, pmf_edit,
-                     pmf_final, row_counter, pmf_global)
+                     pmf_final, row_counter, pmf_global, module = "joint")
     
     
     # ==========================================================
@@ -304,63 +304,56 @@ joint_Server <- function(id, shared = new_pmf_state(), course_path = function() 
     })
     # ==========================输入逻辑与概率表===========================================
 
-    # ==== 3D Joint PMF Plot ====
-    output$plot3d <- renderPlotly({
-      req(pmf_global$df_final)   # 🔁 从全局同步
-      df <- pmf_global$df_final
-      if (is.null(df) || nrow(df) == 0) return(NULL)
-      
-      # 确保字段名一致（有些版本用 p_value）
-      if (!"p" %in% names(df)) df$p <- df$p_value
-      
-      p <- plot_ly()
-      for (i in seq_len(nrow(df))) {
-        p <- add_trace(
-          p, type = "scatter3d", mode = "lines",
-          x = c(df$x[i], df$x[i]),
-          y = c(df$y[i], df$y[i]),
-          z = c(0, df$p[i]),
-          line = list(color = "steelblue", width = 8),
-          hoverinfo = "text",
-          text = paste0("X=", df$x[i], "<br>Y=", df$y[i], "<br>P=", number_hover(df$p[i])),
-          showlegend = FALSE
-        )
-      }
-      
-      p %>% layout(
-        title = "3D Joint PMF",
-        scene = list(
-          xaxis = list(title = "X"),
-          yaxis = list(title = "Y"),
-          zaxis = list(title = "f₍X,Y₎(x,y)")
-        ),
-        margin = list(l = 0, r = 0, b = 0, t = 40)
-      )
-    })
-    # ==== 3D Joint PMF Plot ====
-    # ==== Bird’s-eye View ====
+    # Match the table: X runs down the rows and Y across the columns.
     output$plot_bird <- renderPlotly({
       req(pmf_global$df_final)
       df <- pmf_global$df_final
       if (is.null(df) || nrow(df) == 0) return(NULL)
-      
-      if (!"p" %in% names(df)) df$p <- df$p_value
-      
+
+      probabilities <- unclass(xtabs(p_value ~ x + y, data = df))
+      xs <- rownames(probabilities)
+      ys <- colnames(probabilities)
+      values <- as.vector(probabilities)
+      labels <- number_label(values,display_mode())
+      exact <- mapply(number_same,values,vapply(labels,parse_user_prob,numeric(1)))
+      labels <- matrix(paste0(ifelse(exact,"","\u2248 "),labels),
+                       nrow = length(xs), ncol = length(ys))
+      hover_text <- matrix(paste0(
+        "X=", rep(xs, times = length(ys)),
+        "<br>Y=", rep(ys, each = length(xs)),
+        "<br>P", number_reading(values)),
+        nrow = length(xs), ncol = length(ys))
+      plot_width <- session$clientData[[paste0("output_", ns("plot_bird"), "_width")]]
+      if (is.null(plot_width) || plot_width <= 0) plot_width <- 600
+      # Reserve space for axes and the colour bar, then fit labels inside each cell.
+      cell_width <- max(1, plot_width - 120) / length(ys)
+      label_size <- max(1, min(14, floor((cell_width - 6) / (max(nchar(labels)) * .6)),
+                               floor(210 / length(xs))))
+
       plot_ly(
-        df, x = ~x, y = ~y,
-        type = "scatter", mode = "markers",
-        text = ~paste0("X=", x, "<br>Y=", y, "<br>P=", number_hover(p)),
-        hoverinfo = "text"
+        x = ys, y = xs, z = probabilities, type = "heatmap",
+        zmin = 0, zmax = 1, zauto = FALSE,
+        colorscale = list(c(0, "#f7fbff"), c(.25, "#c6dbef"), c(.5, "#6baed6"),
+                          c(.75, "#2171b5"), c(1, "#08306b")),
+        text = labels, texttemplate = "%{text}", textfont = list(size = label_size),
+        hovertext = hover_text, hoverinfo = "text",
+        xgap = 3, ygap = 3,
+        colorbar = list(title = list(text = "Probability", side = "top", font = list(size = 11)),
+                        tickvals = c(0, .25, .5, .75, 1), tickfont = list(size = 10),
+                        thickness = 12, len = .9)
       ) %>%
         layout(
-          title = "Bird’s-eye View (2D)",
-          xaxis = list(title = "X"),
-          yaxis = list(title = "Y"),
-          plot_bgcolor = "#f9f9f9",
-          paper_bgcolor = "#f9f9f9"
+          xaxis = list(title = "Y", type = "category", categoryorder = "array",
+                       categoryarray = ys, tickmode = "array", tickvals = ys,
+                       fixedrange = TRUE, showgrid = FALSE, zeroline = FALSE),
+          yaxis = list(title = "X", type = "category", categoryorder = "array",
+                       categoryarray = xs, tickmode = "array", tickvals = xs,
+                       autorange = "reversed", fixedrange = TRUE,
+                       showgrid = FALSE, zeroline = FALSE),
+          margin = list(l = 45, r = 75, b = 45, t = 20),
+          plot_bgcolor = "#ffffff", paper_bgcolor = "#ffffff"
         )
     })
-    # ==== Bird’s-eye View ====
     # ============================================================
     # 📘 Joint PMF Question Bank
     # ============================================================

@@ -97,9 +97,16 @@ for (module in c('joint','conditional','expectation')) {
         all(abs(displayed-as.vector(t(expected_table)))<1.1e-5)
       graph_ok <- TRUE
       if(module=='joint') {
-        traces <- jsonlite::fromJSON(output$plot3d,simplifyVector=FALSE)$x$data
-        z <- vapply(traces,function(trace) tail(unlist(trace$z),1),numeric(1))
-        graph_ok <- length(z)==nrow(actual) && all(abs(z-actual$p_value)<1e-12)
+        heatmap <- jsonlite::fromJSON(output$plot_bird,simplifyVector=FALSE)$x$data[[1]]
+        graph_ok <- length(unlist(heatmap$z))==length(mat) &&
+          max(abs(unlist(heatmap$z)-as.vector(t(mat))))<1e-12
+        record(module,paste0('heatmap_',name),heatmap$type=='heatmap' &&
+          identical(as.character(unlist(heatmap$x)),colnames(mat)) &&
+          identical(as.character(unlist(heatmap$y)),rownames(mat)) &&
+          length(unlist(heatmap$z))==length(mat) &&
+          max(abs(unlist(heatmap$z)-as.vector(t(mat))))<1e-12 &&
+          identical(as.character(unlist(heatmap$text)),
+                    number_label(as.vector(t(mat)),'fraction')))
       } else if(module=='conditional') {
         session$setInputs(cond_type='f(Y | X = x0)',x0='0'); session$flushReact()
         sub <- actual[actual$x==0,]; expected_cond <- sub$p_value/sum(sub$p_value)
@@ -112,6 +119,20 @@ for (module in c('joint','conditional','expectation')) {
         text <- read_ui(output$expectation_results)
         displayed_results <- as.numeric(xml2::xml_attr(xml2::xml_find_all(xml2::read_html(text),'//p[@data-number-value]'),'data-number-value'))
         graph_ok <- length(displayed_results)==2 && max(abs(displayed_results-c(sum(actual$x*actual$p_value),sum(actual$y*actual$p_value))))<1e-12
+        for(direction in c('yx','xy')) {
+          session$setInputs(cond_type=direction)
+          weighted <- weighted_mean_data()
+          expected_mean <- sum(actual[[if(direction=='yx') 'y' else 'x']]*actual$p_value)
+          bars <- jsonlite::fromJSON(output$total_expectation_plot,simplifyVector=FALSE)$x$data
+          equation <- xml2::xml_find_first(xml2::read_html(read_ui(output$total_expectation_breakdown)),
+            '//*[@data-weighted-mean]')
+          record(module,paste0('total_expectation_',name,'_',direction),
+            abs(weighted$weighted_mean-expected_mean)<1e-12 &&
+            abs(weighted$direct_mean-expected_mean)<1e-12 &&
+            abs(sum(unlist(lapply(bars,function(bar)bar$x)))-expected_mean)<1e-12 &&
+            abs(as.numeric(xml2::xml_attr(equation,'data-weighted-mean'))-expected_mean)<1e-12 &&
+            all(is.na(weighted$groups$conditional_mean[weighted$groups$weight==0])))
+        }
       }
       record(module,paste0('valid_',name),probability_ok && input_ok && table_ok && graph_ok &&
         !nzchar(read_ui(output$input_feedback)),list(probability_passed=probability_ok,
@@ -140,6 +161,30 @@ for (module in c('joint','conditional','expectation')) {
     do.call(session$setInputs,setNames(list('1'),paste0('p_',new_id)))
     click('generate')
     record(module,'regenerate_after_empty',nrow(pmf_final())==1L && pmf_final()$p_value==1)
+    if(module=='joint') {
+      single <- jsonlite::fromJSON(output$plot_bird,simplifyVector=FALSE)$x$data[[1]]
+      record(module,'heatmap_single_outcome',length(unlist(single$z))==1 && unlist(single$z)==1)
+      draft(c('1','2'),x=c(-2,9),y=c(-10,100));click('generate')
+      sparse <- jsonlite::fromJSON(output$plot_bird,simplifyVector=FALSE)$x$data[[1]]
+      record(module,'heatmap_sparse_irregular_coordinates',
+        identical(as.character(unlist(sparse$x)),c('-10','100')) &&
+        identical(as.character(unlist(sparse$y)),c('-2','9')) &&
+        max(abs(unlist(sparse$z)-c(1/3,0,0,2/3)))<1e-12)
+    }
+    if(module=='expectation') {
+      draft(c('4','1','1','4'),x=c(-1,-1,0,0),y=c(-4,2,-4,2));click('generate')
+      for(direction in c('yx','xy')) {
+        session$setInputs(cond_type=direction)
+        weighted <- weighted_mean_data()
+        bars <- jsonlite::fromJSON(output$total_expectation_plot,simplifyVector=FALSE)$x$data
+        contributions <- unlist(lapply(bars,function(bar)bar$x))
+        expected_mean <- if(direction=='yx') -1 else -.5
+        record(module,paste0('total_expectation_signed_',direction),
+          abs(weighted$weighted_mean-expected_mean)<1e-12 &&
+          abs(sum(contributions)-expected_mean)<1e-12 &&
+          (direction=='xy' || (any(contributions<0) && any(contributions>0))))
+      }
+    }
   })
 }
 pmf_global <- reactiveValues(df_edit=NULL,df_final=NULL,counter=0,has_final=FALSE)
@@ -175,7 +220,7 @@ testServer(function(input,output,session) {
   session$flushReact()
   record('integration','expectation_commit_updates_three_views',check_views(rep(.25,4)))
 })
-stopifnot(length(results$cases)==124L)
+stopifnot(length(results$cases)==146L)
 report <- list(issue='R1-06',date=format(Sys.time(),'%Y-%m-%d',tz='Pacific/Auckland'),
   environment=list(R=R.version.string,shiny=as.character(packageVersion('shiny'))),
   source_md5=as.list(tools::md5sum(list.files(module_dir,pattern='(module_(joint|conditional|expectation)|pmf_helpers)\\.R$',full.names=TRUE))),

@@ -36,13 +36,13 @@ async page => {
   for(const id of ['C15','C01','C02','C03','C04']) {
     await page.locator('#cond1-next_q').click();await page.getByText(new RegExp('Reference '+id+' \\| STATS125 Core')).waitFor();
   }
-  await page.getByRole('button',{name:'Open this example in Overview',exact:true}).click();
+  await page.getByRole('button',{name:'Load question parameters into plots',exact:true}).click();
   await page.getByText('Cloudy: 2 eggs/hour for 6 hours gives lambda=12.',{exact:false}).waitFor();
   await page.getByText('F(10) = P(X ≤ 10) = 0.347229',{exact:false}).waitFor();
   check('question_preset_poisson12_x10',await page.locator('#prob1-lambda').inputValue()==='12');
   check('plot_selector_matches_question',await page.locator('#prob1-plot_example').inputValue()==='eggs_cloudy');
   await page.getByRole('link',{name:'Optional practice',exact:true}).click();
-  await page.getByRole('button',{name:'Open this example in Overview',exact:true}).click();
+  await page.getByRole('button',{name:'Load question parameters into plots',exact:true}).click();
   await page.getByText('P(X=0)=0.6 and P(X=1)=0.4.',{exact:false}).waitFor();
   check('CDF_question_loads_bernoulli04',true);
   for(const [name,value] of [['F(0)','3/5'],['P(X < 1)','3/5'],['P(X >= 1)','2/5'],['P(X > 1)','0']])await page.getByRole('textbox',{name,exact:true}).fill(value);

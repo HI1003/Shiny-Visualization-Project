@@ -3,15 +3,23 @@ body.dark-mode { --learning-surface:#273546; --learning-border:#526171; --learni
 .content-wrapper .content { padding:18px 22px 32px; }
 .learning-module { container-type:inline-size; min-width:0; }
 .learning-module-heading h2 { font-size:1.65rem; line-height:1.25; margin:0 0 8px; }
-.learning-module-heading p { color:var(--learning-muted); margin:0 0 12px; max-width:95ch; }
+.learning-module-heading p { color:var(--learning-muted); margin:0 0 12px; }
 .learning-section-nav { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
 .learning-section-nav .btn { white-space:normal; text-align:left; }
 .learning-workspace { display:grid; grid-template-columns:minmax(0,1fr); gap:20px; align-items:start; }
 .learning-exploration { display:grid; grid-template-columns:minmax(0,1fr); gap:20px; align-items:start; scroll-margin-top:20px; }
+.learning-table-section .learning-exploration > .learning-card { margin-bottom:0; }
+.learning-condition-controls { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(90px,.6fr); gap:12px; margin-bottom:8px; }
+.learning-conditional-result { display:grid; grid-template-columns:minmax(0,1fr); gap:12px; align-items:start; }
+@container (min-width:1100px) {
+  .learning-conditional-result { grid-template-columns:minmax(130px,.7fr) minmax(0,1.3fr); }
+}
+@container (max-width:600px) {
+  .learning-condition-controls { grid-template-columns:minmax(0,1fr); gap:0; }
+}
 @container (min-width:900px) {
   .learning-exploration-pair { grid-template-columns:minmax(340px,1fr) minmax(0,1.45fr); }
 }
-.learning-observe { padding:10px 12px; background:rgba(23,101,186,.07); border-left:3px solid var(--learning-accent); }
 .learning-more-theory { border-top:1px solid var(--learning-border); margin-top:12px; }
 .learning-more-theory > summary { padding-left:0; }
 .learning-optional-practice > summary { color:var(--learning-muted); font-weight:500; }
@@ -30,17 +38,36 @@ body.dark-mode { --learning-surface:#273546; --learning-border:#526171; --learni
 .learning-card summary:focus-visible,.learning-section-nav a:focus-visible { outline:3px solid #1765ba; outline-offset:3px; }
 .learning-theory .learning-card-body { border-top:1px solid var(--learning-border); }
 .learning-card,.learning-overview-explorer { scroll-margin-top:20px; }
+body.dark-mode .pmf-calculation-panel h5 { color:inherit !important; }
+.expectation-total { border-top:1px solid var(--learning-border); margin-top:18px; padding-top:18px; }
+.expectation-total h4 { margin:0 0 12px; }
+.expectation-total-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:18px; align-items:start; }
+.expectation-total-grid > div { min-width:0; }
+.expectation-total-table { overflow-x:auto; }
+.expectation-total-table table { width:100%; table-layout:fixed; }
+.expectation-total-table th:first-child { width:21%; }
+.expectation-total-table th:last-child { width:29%; }
+.expectation-total-table th { white-space:normal; font-size:.9rem; overflow-wrap:anywhere; hyphens:auto; }
+.expectation-total-equation { font-size:1.1rem; line-height:2; margin-top:12px; padding:4px 0; overflow-y:hidden; }
+@container (min-width:780px) {
+  .expectation-total-grid { grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); }
+}
+@container (max-width:420px) {
+  .learning-card .expectation-total-table .pmf-table th,
+  .learning-card .expectation-total-table .pmf-table td { padding:4px; }
+  .expectation-total-table th { font-size:.75rem; }
+  .expectation-total-table td { font-size:.9rem; }
+  .expectation-total-equation { font-size:.9rem; }
+}
 body.layout-navbar-fixed .learning-card,body.layout-navbar-fixed .learning-overview-explorer { scroll-margin-top:78px; }
 .learning-card:focus { outline:none; }
 .learning-editor { border-top:1px solid var(--learning-border); margin-top:16px; }
 .learning-editor summary { padding:12px 0; }
-.learning-3d { margin-top:12px; border-top:1px solid var(--learning-border); }
-.learning-3d summary { padding-left:0; }
 .learning-card .form-group,.learning-overview-controls .form-group { max-width:100%; }
 .learning-card .shiny-input-container,.learning-overview-controls .shiny-input-container { width:100%; min-width:0; }
 .learning-card label,.learning-overview-controls label { white-space:normal; overflow-wrap:break-word; }
-.learning-module .selectize-input,.learning-path-controls .selectize-input { padding-right:30px !important; }
-.learning-module .selectize-input > .item,.learning-path-controls .selectize-input > .item { max-width:100%; white-space:normal; overflow-wrap:anywhere; }
+.learning-module .selectize-input { padding-right:30px !important; }
+.learning-module .selectize-input > .item { max-width:100%; white-space:normal; overflow-wrap:anywhere; }
 .learning-card .help-block,.learning-overview-controls .help-block { display:block; margin:8px 0 12px; color:var(--learning-muted); }
 .learning-card .small-note,.learning-module .small-note { color:var(--learning-muted); }
 .learning-card .pmf-table { max-width:100%; margin:10px 0; }
@@ -61,14 +88,57 @@ body.layout-navbar-fixed .learning-card,body.layout-navbar-fixed .learning-overv
 .learning-module .MathJax_Display,.learning-module .MathJax_SVG_Display { max-width:100%; overflow-x:auto; overflow-y:hidden; padding-bottom:4px; }
 .learning-module [id$='qtext'],.learning-module [id$='story_out'],.learning-module [id$='given_out'],.learning-module [id$='table_out'],.learning-module [id$='feedback'] { min-width:0; max-width:100%; overflow-x:auto; }
 .learning-module pre { white-space:pre-wrap; overflow-wrap:anywhere; }
+.learning-overview-selectors { display:grid; grid-template-columns:minmax(0,1fr); column-gap:16px; max-width:640px; }
+.learning-overview-selectors > div { min-width:0; }
+.learning-overview-selectors .shiny-input-container { width:100%; max-width:100%; }
+@container (min-width:520px) {
+  .learning-overview-selectors { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
 .learning-overview-explorer { display:grid; grid-template-columns:minmax(0,1fr); gap:20px; align-items:start; }
 .learning-overview-section .learning-overview-controls { margin-bottom:0; background:rgba(23,101,186,.035); }
 .learning-overview-section .learning-overview-plots { margin-bottom:0; border:0; background:transparent; }
 .learning-overview-section .learning-overview-controls > .learning-card-title,.learning-overview-section .learning-overview-plots > .learning-card-title { font-size:1.05rem; }
 .learning-overview-controls,.learning-overview-plots { min-width:0; }
+.learning-parameter { position:relative; margin-bottom:20px; }
+.learning-parameter > .shiny-input-container { margin-bottom:0; }
+.learning-parameter > .shiny-input-container > label {
+  display:block; min-height:38px; padding-right:108px;
+}
+.learning-parameter-number-control {
+  position:absolute; top:0; right:0; width:98px; height:36px;
+}
+.learning-overview-controls .learning-parameter-number {
+  width:100%; height:36px; padding:5px 24px 5px 8px;
+  font-variant-numeric:tabular-nums; appearance:textfield; -moz-appearance:textfield;
+}
+.learning-parameter-number::-webkit-inner-spin-button,
+.learning-parameter-number::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+.learning-parameter-steppers { position:absolute; right:1px; top:1px; bottom:1px; width:20px; display:flex; flex-direction:column; }
+.learning-parameter-steppers button { flex:1; min-height:0; padding:0; border:0; background:transparent; color:var(--learning-muted); font-size:13px; line-height:1; }
+.learning-parameter-steppers button:hover { background:rgba(23,101,186,.1); }
+.learning-parameter-steppers button:focus-visible { outline:2px solid var(--learning-accent); outline-offset:-2px; }
+.learning-parameter .irs-grid > .irs-grid-pol,
+.learning-parameter .irs-grid > .irs-grid-text { visibility:hidden !important; }
+.learning-parameter-ticks { position:absolute; inset:0; pointer-events:none; }
+.learning-parameter-ticks .irs-grid-text { transform:translateX(-50%); }
+.learning-parameter-number[aria-invalid='true'] { border-color:#b42318; }
+.learning-parameter-description { color:var(--learning-muted); font-size:.85rem; line-height:1.4; margin:6px 0 0; }
+.learning-parameter-error { display:block; color:#b42318; margin-top:8px; line-height:1.4; }
+.learning-parameter-error[hidden] { display:none; }
+body.dark-mode .learning-parameter-error { color:#ffb4ab; }
 .learning-overview-plots { container-type:inline-size; }
 .learning-plot-pair { display:grid; grid-template-columns:minmax(0,1fr); gap:18px; }
 .learning-plot-pair > div { min-width:0; }
+.learning-plot-pair .js-plotly-plot { position:relative; }
+.learning-distribution-readout {
+  position:absolute; z-index:5; pointer-events:none; white-space:pre-line;
+  width:max-content; max-width:calc(100% - 12px); padding:5px 7px; border-radius:3px;
+  color:#fff; font:13px/1.35 "Source Sans Pro",sans-serif;
+}
+.learning-distribution-cursor {
+  position:absolute; z-index:4; pointer-events:none; width:8px; height:8px;
+  border:1px solid #fff; border-radius:50%; transform:translate(-50%,-50%);
+}
 .learning-module .shiny-plot-output { max-width:100%; }
 .learning-module .shiny-plot-output img { max-width:100%; height:auto; }
 .learning-plot-pair h4 { font-size:1.05rem; min-height:2.6em; }
@@ -79,15 +149,8 @@ body.layout-navbar-fixed .learning-card,body.layout-navbar-fixed .learning-overv
 @container (min-width:520px) {
   .learning-plot-pair { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
-.learning-path-controls { padding:14px 12px; border-bottom:1px solid var(--learning-border); }
-.learning-path-controls .selectize-control,.learning-path-controls .selectize-input { max-width:100%; }
-.learning-path-controls .selectize-input { white-space:normal; }
-.learning-path-controls label,.learning-path-controls p { white-space:normal; overflow-wrap:break-word; }
 .main-sidebar .nav-sidebar .nav-link p { white-space:normal; padding-right:12px; }
 .main-sidebar .nav-sidebar .nav-link { min-height:40px; }
-@media (min-width:992px) {
-  .sidebar-mini.sidebar-collapse .main-sidebar:not(:hover) .learning-path-controls { display:none; }
-}
 @media (max-width:575px) {
   .content-wrapper .content { padding:14px 10px 24px; }
   .learning-card-body { padding:12px; }

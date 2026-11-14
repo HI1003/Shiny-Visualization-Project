@@ -150,11 +150,8 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
         return(tags$div(style="color:#888; padding:10px;", "Initializing table..."))
       }
       tagList(
-        selectInput(ns("pmf_example"), "Worked example", choices = learning_pmf_example_choices()),
-        actionButton(ns("load_pmf_example"), "Load worked example", class="btn-outline-primary"),
-        h4("Input (x, y, p):"),
+        h4("Outcomes and probabilities"),
         helpText("Enter non-negative probabilities or weights. Generate Table merges repeated outcomes and normalizes the total to 1. Normalize changes the draft inputs only."),
-        helpText("Compact values are shown below. Hover for full precision. Unedited entries retain full precision."),
         uiOutput(ns("input_feedback")),
         lapply(seq_len(nrow(df)), function(i) {
           div(class = "pmf-edit-row",
@@ -239,9 +236,9 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
     display_mode <- reactive(number_mode(pmf_global$number_format))
 
     pmf_actions <- pmf_bind_actions(input, output, session, df_current, pmf_edit,
-                     pmf_final, row_counter, pmf_global)
+                     pmf_final, row_counter, pmf_global, module = "expectation")
 
-    # ---- 联合概率表 + 右侧计算区 ----
+    # ---- Joint probability table ----
     output$joint_table_html <- renderUI({
       df <- pmf_final()
       if (is.null(df) || nrow(df) == 0) return(NULL)
@@ -286,26 +283,10 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
         )
       )
       
-      # 右侧：计算控件 + 输出
-      cond_panel <- tagList(
-        tags$h5("Expectation Calculation", style = "color:#444; margin-bottom:8px;"),
-        selectInput(
-          ns("cond_type"), "Type:",
-          choices = c("E[Y | X]" = "yx", "E[X | Y]" = "xy")
-        ),
-        tags$hr(style="margin:8px 0;"),
-        uiOutput(ns("expectation_results")),
-        tags$hr(style="margin:8px 0;"),
-        uiOutput(ns("expectation_detail"))
-      )
-      
       tagList(
         withMathJax(),
-        div(class = "pmf-table-layout",
-          div(class = "pmf-table-scroll", joint_html,
-            tags$p(HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)"))),
-          div(class = "pmf-calculation-panel", cond_panel)
-        )
+        joint_html,
+        tags$p(class="small-note",HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)"))
       )
     })
     # ========================== 输入逻辑与概率表 ============================
@@ -377,10 +358,99 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
       
       withMathJax(
         tagList(
-          tags$h5(if (type == "yx") "E[Y | X=x]" else "E[X | Y=y]", style="margin:0 0 8px; color:#444;"),
           formulas
         )
       )
+    })
+    weighted_mean_data <- reactive({
+      df <- pmf_final(); req(nrow(df) > 0)
+      conditioning <- if (is.null(input$cond_type) || input$cond_type == "yx") "x" else "y"
+      target <- if (conditioning == "x") "y" else "x"
+      groups <- df %>%
+        group_by(condition_value = .data[[conditioning]]) %>%
+        summarise(weight = sum(p_value),
+                  contribution = sum(.data[[target]] * p_value), .groups = "drop") %>%
+        arrange(condition_value)
+      positive <- groups$weight > 0
+      groups$conditional_mean <- NA_real_
+      groups$conditional_mean[positive] <- groups$contribution[positive] / groups$weight[positive]
+      groups$colour <- grDevices::hcl.colors(nrow(groups), "Dark3")
+      list(groups = groups, conditioning = toupper(conditioning), target = toupper(target),
+           weighted_mean = sum(groups$contribution[positive]),
+           direct_mean = sum(df[[target]] * df$p_value))
+    })
+
+    output$total_expectation_breakdown <- renderUI({
+      values <- weighted_mean_data(); groups <- values$groups
+      positive <- groups$weight > 0
+      terms <- paste0("(", number_tex(groups$conditional_mean[positive], display_mode()),
+                      ") \\times ", number_tex(groups$weight[positive], display_mode()))
+      equation <- paste0("\\(E[", values$target, "]",
+        number_relation(c(groups$conditional_mean[positive], groups$weight[positive]), display_mode()),
+        paste(terms, collapse = " + "),
+        number_relation(c(groups$conditional_mean[positive], groups$weight[positive],
+                          values$weighted_mean), display_mode()),
+        number_tex(values$weighted_mean, display_mode()), "\\)")
+      withMathJax(tagList(
+        p("Multiply each conditional mean by its marginal probability, then add the contributions."),
+        div(class = "expectation-total-table",
+          tags$table(class = "pmf-table", lang = "en",
+            tags$thead(tags$tr(tags$th("Condition"), tags$th("Conditional mean"),
+                               tags$th("Marginal probability"), tags$th("Contribution"))),
+            tags$tbody(lapply(seq_len(nrow(groups)), function(i) {
+              tags$tr(`data-condition` = number_full(groups$condition_value[i]),
+                tags$th(style = paste0("border-left:4px solid ", groups$colour[i]),
+                  paste0(values$conditioning, " = ", as.character(groups$condition_value[i]))),
+                if (positive[i]) number_cell(groups$conditional_mean[i], display_mode())
+                  else tags$td("Undefined"),
+                number_cell(groups$weight[i], display_mode()),
+                number_cell(groups$contribution[i], display_mode()))
+            }))
+          )
+        ),
+        if (any(!positive)) p(class = "small-note",
+          "A zero-probability group has no conditional mean and contributes zero to the total."),
+        div(class = "math-scroll expectation-total-equation",
+          `data-weighted-mean` = number_full(values$weighted_mean),
+          `data-direct-mean` = number_full(values$direct_mean), HTML(equation))
+      ))
+    })
+
+    output$total_expectation_plot <- renderPlotly({
+      values <- weighted_mean_data(); groups <- values$groups
+      groups <- groups[groups$weight > 0, ]
+      plot <- plot_ly()
+      for (i in seq_len(nrow(groups))) {
+        plot <- add_trace(plot, type = "bar", orientation = "h",
+          x = groups$contribution[i], y = "Overall mean",
+          name = paste0(values$conditioning, " = ", as.character(groups$condition_value[i])),
+          marker = list(color = groups$colour[i]),
+          text = sub("^= ","",number_reading(groups$contribution[i],display_mode())),
+          textposition = "inside", textangle = 0, textfont = list(size = 13),
+          hoverinfo = "text", hovertext = paste0(
+            values$conditioning, "=", as.character(groups$condition_value[i]),
+            "<br>Conditional mean ", number_reading(groups$conditional_mean[i],display_mode()),
+            "<br>Marginal probability ", number_reading(groups$weight[i],display_mode()),
+            "<br>Contribution ", number_reading(groups$contribution[i],display_mode())))
+      }
+      plot %>% layout(
+        title = list(text = "Weighted contributions", font = list(size = 15)),
+        barmode = "relative", showlegend = TRUE,
+        uniformtext = list(minsize = 11, mode = "hide"),
+        xaxis = list(title = "",
+                     rangemode = "tozero", zeroline = TRUE, automargin = TRUE, fixedrange = TRUE),
+        yaxis = list(title = "", showticklabels = FALSE, fixedrange = TRUE),
+        legend = list(orientation = "h", x = 0, y = -.3),
+        shapes = list(list(type = "line", xref = "x", yref = "paper",
+          x0 = values$weighted_mean, x1 = values$weighted_mean, y0 = 0, y1 = 1,
+          line = list(color = "#243447", dash = "dash", width = 2))),
+        annotations = list(list(x = 1, y = 1.12, xref = "paper", yref = "paper",
+          text = paste0("E[", values$target, "] ", number_reading(values$weighted_mean,display_mode())),
+          showarrow = FALSE, xanchor = "right")),
+        font = list(color = "#243447"), paper_bgcolor = "#ffffff", plot_bgcolor = "#ffffff",
+        margin = list(l = 15, r = 15, t = 75, b = 70)) %>%
+        config(displaylogo=FALSE,
+          modeBarButtonsToRemove=c("select2d","lasso2d","autoScale2d","resetScale2d"))
     })
     # ========================== 期望计算 ============================
     # ============================================================

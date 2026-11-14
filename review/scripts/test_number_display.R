@@ -11,6 +11,7 @@ for(pair in list(list(.2,'0.2'),list(1/3,'1/3'),list(1/6,'1/6'),list(16/221,'16/
 }
 record('format','fraction_mode',number_label(.25,'fraction')=='1/4')
 record('format','decimal_mode',number_label(1/3,'decimal')=='0.3333')
+record('format','hover_uses_only_four_decimals',identical(number_hover(c(188/221,1/3,.123456789)),c('0.8507','0.3333','0.1235')))
 record('format','approximate_decimal_not_invented_fraction',number_label(.333333333333)=='0.3333')
 record('format','rounded_value_has_approximation_mark',grepl('approx',as.character(number_cell(.123456789)),fixed=TRUE))
 record('format','exact_value_not_marked_approximate',!grepl('approx',as.character(number_cell(.25)),fixed=TRUE))
@@ -21,6 +22,10 @@ record('format','rounding_boundaries_stay_positive',all(vapply(number_decimal(c(
 for(module in c('joint','conditional','expectation')){
   state<-new_pmf_state();server_fn<-get(paste0(module,'_Server'))
   testServer(server_fn,args=list(shared=state),{
+    session$flushReact()
+    session$setInputs(pmf_example='counts20')
+    record(module,'example_selection_loads_table_automatically',max(abs(pmf_final()$p_value-c(.3,.2,.1,.4)))<2e-15)
+    session$setInputs(pmf_example='cards')
     probabilities<-c(1/3,1/7,1/11,1-1/3-1/7-1/11)
     frame<-data.frame(x=c(0,0,1,1),y=c(0,1,0,1),p_input=number_full(probabilities),p_value=probabilities,id=row_counter()+1:4)
     pmf_edit(frame);row_counter(max(frame$id));state$df_edit<-frame;state$counter<-row_counter();session$flushReact()
@@ -40,9 +45,22 @@ for(module in c('joint','conditional','expectation')){
       cells<-xml2::xml_find_all(xml2::read_html(html(output$joint_table_html)),'//td[@data-number-value]')
       values<-as.numeric(xml2::xml_attr(cells,'data-number-value'))
       labels<-xml2::xml_attr(cells,'data-number-text')
-      record(module,paste0(mode,'_table_uses_requested_format'),identical(unname(labels),number_label(values,mode)))
+      expected_mode<-if(module=='joint'&&mode=='auto')'fraction'else mode
+      record(module,paste0(mode,'_table_uses_requested_format'),identical(unname(labels),number_label(values,expected_mode)))
       record(module,paste0(mode,'_format_does_not_change_data'),identical(pmf_final(),baseline)&&identical(pmf_edit()$id,before_ids))
-      record(module,paste0(mode,'_full_precision_available'),all(nzchar(xml2::xml_attr(cells,'title'))))
+      record(module,paste0(mode,'_no_high_precision_tooltips'),all(is.na(xml2::xml_attr(cells,'title'))))
+      if(module=='expectation') {
+        weighted<-weighted_mean_data()
+        rows<-xml2::xml_find_all(xml2::read_html(html(output$total_expectation_breakdown)),'//tbody/tr')
+        rows<-rows[weighted$groups$weight>0]
+        bars<-jsonlite::fromJSON(output$total_expectation_plot,simplifyVector=FALSE)$x$data
+        matching<-length(bars)==length(rows)&&all(vapply(seq_along(bars),function(i) {
+          labels<-xml2::xml_attr(xml2::xml_find_all(rows[[i]],'td[@data-number-text]'),'data-number-text')
+          identical(as.character(sub('^≈ ','',unlist(bars[[i]]$text))),labels[3])&&
+            all(vapply(labels,function(label)grepl(label,unlist(bars[[i]]$hovertext),fixed=TRUE),logical(1)))
+        },logical(1)))
+        record(module,paste0(mode,'_chart_uses_table_labels'),matching)
+      }
     }
     first<-pmf_edit()$id[1];do.call(session$setInputs,setNames(list('0.3'),paste0('p_',first)))
     record(module,'real_edit_is_recognised',df_current()$p_value[1]==.3)

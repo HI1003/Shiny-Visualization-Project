@@ -63,7 +63,8 @@ async page => {
     const provenance=await page.locator('#'+prefix+'-question_meta').innerText();
     check(module+'_source_label_honest',provenance.includes(module==='expectation'?'past-exam source not verified':'Original self-check example; not a past-exam question'));
     await page.locator('#'+prefix+'-practice > summary').click();
-    if(module==='joint'||module==='conditional')check(module+'_3d_optional',!await page.locator('#'+prefix+'-plots .learning-3d').evaluate(n=>n.open));
+    if(module==='joint')check('joint_3d_removed',await page.locator('#joint1-plots .learning-3d').count()===0);
+    if(module==='conditional')check('conditional_3d_removed',await page.locator('#cond1-plots .learning-3d').count()===0);
   }
   await nav('house icon Home');
   await page.getByRole('button',{name:'Explore joint probability',exact:true}).click();

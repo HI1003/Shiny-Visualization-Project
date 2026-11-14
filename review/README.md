@@ -1,5 +1,11 @@
 # 模块审查与教学复核
 
+2026-11-14 当前界面已完成参数输入、步长刻度和联动读数改进，以及 Joint/Conditional/Expectation 的布局与数值一致性整理。Joint 使用分数热力图，Joint/Conditional 的 3D 图已移除，无真题时隐藏练习区。最新检查与本次发布范围见 [工作日志](WORKLOG.md)。下方证据文件与描述保留各自日期的验证范围，当前浏览器入口包括 `check_distribution_hover_browser.js`、`check_continuous_query_browser.js` 和 `check_parameter_inputs_browser.js`；早期 content/layout/concept 脚本属于历史流程。
+
+2026-11-13 Overview 图表改为悬停查看数值并联动同一 x，触屏点击保留读数；离散和连续分布均移除 Current Selection 重复读数区，保留离散 CDF 的空心/实心端点。此次也统一移除定义后的探索任务提示。其他模块保留有教学作用的表格与分解数值。当前验证见 [图表交互记录](evidence/distribution_hover_20261113.json) 和 [工作日志](WORKLOG.md)；本轮尚未提交或推送。
+
+2026-11-12 完成 [学生视角完整流程走查](STUDENT_EXPERIENCE_REVIEW_20261112.md)：覆盖四个学习模块、四组可选真题、七章游戏、表格编辑、窄屏和明暗主题；修复载入真题后的定位、条件方向重置、游戏空提交/翻页定位及文字对比问题。下一轮优先改进 Joint 二维图和全期望的直观展示，验证摘要见 [本轮证据](evidence/student_experience_20261112.json)。本轮尚未提交或推送；此前未提交的界面改动仍保留，旧同步条目仅表示当时状态。
+
 2026-11-10 页面精简：侧栏不再展示真题总进度，首页不再提供两个重复的模块快捷按钮；从侧栏进入模块，进度和反馈留在各模块可选题区。本次四个界面提交已同步至用户 GitHub，远端内容提交核验为 `ba353d5`；同步检查见 [工作日志](WORKLOG.md)。
 
 2026-11-10 使用反馈：已移除侧栏 **Probability table display** 选项及其设置入口，统一使用自动简洁显示，保留完整计算精度、悬停提示和 Overview 的 More precision。旧显示模式说明保留为历史记录；本轮验证见 `auto_display_*`，详见 [工作日志](WORKLOG.md)。本轮已随上述界面提交同步，未部署。
