@@ -1,10 +1,11 @@
-# The distributable app contains no examination text, tables or answers.
-# A local, ignored JSON bank is verified against the local source PDFs at startup.
+# The bundled exam bank is verified against its matching source PDFs at startup.
+# An explicit environment override also supports separately configured materials.
 exam_bank_path <- function() {
   configured<-Sys.getenv("STATS125_EXAM_BANK",unset="")
   if(nzchar(configured)) return(configured)
   roots<-c(getwd(),dirname(getwd()))
-  candidates<-file.path(roots,".local","past-exams","bank.json")
+  candidates<-c(file.path(roots,"exam-materials","bank.json"),
+                file.path(roots,".local","past-exams","bank.json"))
   found<-candidates[file.exists(candidates)]
   if(length(found)) found[1] else candidates[1]
 }
@@ -13,11 +14,19 @@ read_local_exam_bank <- function(path=exam_bank_path()) {
   if(!file.exists(path)) return(empty)
   tryCatch({
     bank_file<-normalizePath(path,winslash="/",mustWork=TRUE)
-    if(grepl("/www/",bank_file,ignore.case=TRUE)) stop("Private bank must not be web-served")
+    if(grepl("/www/",bank_file,ignore.case=TRUE)) stop("The exam bank must be outside the web-served asset directory")
     bank<-jsonlite::read_json(path,simplifyVector=FALSE)
     stopifnot(identical(bank$schema_version,1L)||identical(bank$schema_version,1),length(bank$sources)>0,
       is.list(bank$questions),is.list(bank$tables),is.list(bank$graphs))
-    for(source in bank$sources) {
+    for(source_id in names(bank$sources)) {
+      for(kind in c("question","solution")) {
+        field<-paste0(kind,"_path")
+        pdf_path<-path.expand(bank$sources[[source_id]][[field]])
+        if(!grepl("^(/|[A-Za-z]:[/\\\\]|\\\\\\\\)",pdf_path))
+          pdf_path<-file.path(dirname(bank_file),pdf_path)
+        bank$sources[[source_id]][[field]]<-normalizePath(pdf_path,winslash="/",mustWork=TRUE)
+      }
+      source<-bank$sources[[source_id]]
       stopifnot(identical(source$course,"STATS125"),identical(source$document_type,"final_exam"),
         file.exists(source$question_path),file.exists(source$solution_path),
         identical(unname(tools::md5sum(source$question_path)),source$question_md5),

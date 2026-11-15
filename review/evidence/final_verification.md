@@ -1,66 +1,64 @@
-# 2026-10-30 全量核对与修复验证
+# Full verification and fixes on 2026-10-30
 
-本轮基线：`e99d6e7`（前三项修复后的本地 main）。修复首轮剩余 8 项，复查原先 3 项，并补充处理 R2-01–R2-07。**首轮 11 项与本轮 7 组确认问题均已修复并验证，待教师复核。** 本轮未推送 GitHub、未部署。
+Baseline `e99d6e7`, after the first three local fixes. This round fixed the remaining eight first-round issues, reran the previous three and addressed R2-01–R2-07. **All 11 first-round issues and seven additional groups were fixed and verified, awaiting teacher review.** The round was unpushed and undeployed at that stage.
 
-## 主要结果
+## Main results
 
-| 范围 | 修改后的行为 |
+| Area | Resulting behaviour |
 |---|---|
-| Conditional 13 题 | Q4 正确约 .3472；Q10 正确约 .0478；数值使用全精度基准，展示才舍入；名称按完整受控别名匹配，错误分布和否定句拒绝 |
-| Geometric 约定 | 失败数 Z=Y−1 从 0 开始；尝试数 Y 从 1 开始。Q6 的原事件 P(Y≥3)=.64 保留 |
-| Expectation 9 题 | Q4 精确分数和允许的两位小数均接受；Q8 两个标注字段同时判断，并指出错误的条件；零边际显示未定义 |
-| 联合/条件/期望表 | 每个浏览器会话独立状态，同一会话三模块继续同步；非法输入不覆盖有效结果；极小正边际不显示成零分数或零分母 |
-| Overview | Geometric/NegBin p=1 不再被替换；Uniform a=b 明确提示并可恢复；奇异密度保留其数学含义、绘图省略无限端点并说明；密度与点概率区分 |
-| Game 7 章 | 明确 DU、Poisson/Geometric 的模型假设；超几何为固定四人样本、N=7/M=1；二项为 10 个独立仓库、p=.5，总成功数事先未知；重启重置状态而不重复注册模块 |
-| 启动与界面 | 标准 app.R 入口恢复 www 图片；表与控件可换行、卡片内滚动；深色表头可读，导航保留手动主题 |
+| Thirteen Conditional questions | Q4 approximately .3472, Q10 approximately .0478. Full-precision checking with rounded display. Complete controlled name aliases reject wrong models and negations. |
+| Geometric convention | Failures Z=Y−1 start at 0. Attempts Y start at 1. Q6 retains P(Y≥3)=.64. |
+| Nine Expectation questions | Q4 accepts exact fractions and permitted two-place decimals. Q8 checks both labelled fields and identifies the wrong condition. Zero marginals are undefined. |
+| Joint/Conditional/Expectation tables | Session-local state with within-session synchronisation. Invalid input retains valid results. Tiny positive values avoid zero fractions or denominators. |
+| Overview | Geometric/NegBin p=1 retained, invalid Uniform a=b reported with recovery, infinite-density endpoints omitted from sampled plots with explanations, density distinguished from point probability. |
+| Seven game chapters | Explicit model assumptions. Hypergeometric uses a fixed sample of four with N=7/M=1. Binomial uses ten independent warehouses, p=.5 and an unknown success total. Restart resets state without registering the module again. |
+| Launcher/interface | Standard app.R serves www images. Wrapping table/controls and card-local scrolling prevent overlap. Dark headers are readable and navigation retains the theme. |
 
-完整改动及每条状态见 [ISSUES.md](../ISSUES.md)。新增 `app.R` 只是标准入口；仍通过原 `main.R` 组装应用，原压缩包未重新打包。
+Details are in [ISSUES.md](../ISSUES.md). `app.R` is a standard entry point using the existing `main.R`. The original archive was unchanged at that stage.
 
-## 自动验证
+## Automated verification
 
-| 测试 | 通过 / 总数 | 证据 |
+| Test | Passed / total | Evidence |
 |---|---|---|
-| Joint 真实练习模块 | 102/102 | [final_r1_04_ui.json](final_r1_04_ui.json) |
-| Joint 表/事件/提示/解答独立有理数复算 | 10/10 | [final_r1_04_math.json](final_r1_04_math.json) |
-| Conditional 表、3D、俯视图 | 11/11 | [final_r1_05.json](final_r1_05.json) |
-| 三模块输入与同会话同步 | 124/124 | [final_r1_06.json](final_r1_06.json) |
-| 本轮剩余问题、边界、全部练习/游戏、双会话 | 300/300 | [final_remaining.json](final_remaining.json) |
-| 本地应用的全部图片 HTTP / MIME | 13/13 | [final_assets.json](final_assets.json) |
+| Joint exercise module | 102/102 | [final_r1_04_ui.json](final_r1_04_ui.json) |
+| Independent rational table/event/hint/solution calculations | 10/10 | [final_r1_04_math.json](final_r1_04_math.json) |
+| Conditional table, 3D and bird's-eye outputs | 11/11 | [final_r1_05.json](final_r1_05.json) |
+| Three-module input and within-session synchronisation | 124/124 | [final_r1_06.json](final_r1_06.json) |
+| Remaining issues, boundaries, exercises/game and two sessions | 300/300 | [final_remaining.json](final_remaining.json) |
+| Image HTTP / MIME resources | 13/13 | [final_assets.json](final_assets.json) |
 
-模块和交互合计 **537/537**；有理数与资源检查另列，避免混淆测试粒度。原 R1-04/05/06 的案例和标准保留，测试初始化改为显式传入当前会话状态。历史 `round1_*` 及前三次修复证据未覆盖。
+Module/interaction checks totalled **537/537**, with rational calculations and assets recorded separately. Earlier R1-04/05/06 assertions were retained with explicit session-state initialisation. Historical evidence was preserved.
 
-300 例覆盖：Conditional 全 13 题的正反例与三级反馈；7 道分布名题的大小写、后缀、错误名和否定句；Expectation 全 9 题（Q8 以双值组检查）、精确/近似精度和空/非法输入；两方向零边际及极小正概率；7 种离散和 8 种连续分布的典型参数、点选输出；15 个离散/Uniform 边界案例；8 个连续绘图和 4 个奇异端点绘图；Game 全 7 章错误提示、正确反馈、评分、三轮重启；两个实际 app server 的 mock 会话同时存活、各自提交数据互不覆盖。
+The 300 checks covered all 13 Conditional questions and three feedback levels, seven distribution-name questions with case/suffix/wrong-name/negation inputs, all nine Expectation questions including Q8 pairs, exact/approximate inputs, zero/tiny marginals, representative parameters for seven discrete and eight continuous models, plot selection, 15 discrete/Uniform boundaries, eight continuous plots and four singular endpoints. They also covered all seven game chapters, hints, scoring, three restart rounds and two simultaneously live app-server mock sessions with independent submitted data.
 
-环境：Windows、R 4.6.1、Shiny 1.14.0、现有项目包与 Python 标准库，无本轮新增依赖。报告记录源码 MD5；静态资源记录启动入口 SHA-256。R 启动有原环境 locale 提示，测试显式使用 UTF-8，结果退出码为 0。
-
-复现从仓库根目录运行：
+The environment was Windows, R 4.6.1 and Shiny 1.14.0, using existing project packages and Python's standard library. Reports contain source MD5 and launcher/resource SHA-256 values. Tests explicitly used UTF-8 and exited with code 0 despite existing startup locale messages.
 
 ```powershell
 ./review/scripts/run_regression.ps1
 ```
 
-应用启动后再检查资源：
+Start the app before checking resources in a second terminal.
 
 ```powershell
 Rscript Start-Shiny.R --no-browser
-# 在另一个终端中
+# In another terminal
 ./review/scripts/test_assets.ps1
 ```
 
-## 浏览器验证
+## Browser verification
 
-实际操作和页面结果保存在 [final_browser.json](final_browser.json)，截图对应本地应用，不含课程原文。
+Actual actions and results are in [final_browser.json](final_browser.json). Screenshots show the local app.
 
-- Conditional：Negative Binomial 对 Binomial 题被拒绝；Q4 的 .347229417554172 通过，解答约 .3472、34.72%。
-- Expectation：`10000/3` 通过；Sunny=24、Cloudy=13 被拒绝并指出 Cloudy；改为 12 后同时通过。
-- 两标签页：A 生成 `.1,.2,.3,.4`；B 初始仍为默认分数表，B 生成均匀表后 A 仍保持原数据。与 R 的两个同时存在的 server 会话检查相互补充。
-- Game：7 章正确路径完整走通，最终 21 分；Restart 回开始页。错误分支和多次重启由真实模块测试覆盖。
-- 布局：核对实际 1266×800 与 900×800 的表/控件区域，互不遮挡，长理论公式在卡片内部滚动。未据此宣称手机端或无障碍全量检查。
-- 启动：浏览器 Logo 与开场图片实际加载，全部 13 个资源由 HTTP 检查补齐。
-- 主题：深色表头为浅字深底、内容背景为深色；导航到其他模块后保留主题，返回浅色正常。
+- Conditional rejected Negative Binomial for a Binomial question. Q4 accepted .347229417554172 and showed approximately .3472, 34.72%.
+- Expectation accepted `10000/3`. Sunny=24, Cloudy=13 identified Cloudy as wrong. Changing it to 12 passed both fields.
+- Tab A submitted `.1,.2,.3,.4`. Tab B retained its default fractions, then generated a uniform table while A retained its own values.
+- All seven game chapters completed with 21 points. Restart returned to the start. Wrong-answer branches and repeated restarts were covered by module tests.
+- Layouts at 1266×800 and 900×800 showed separate table/control regions and internal scrolling for long formulas.
+- The logo and opening image loaded visibly, with all 13 assets covered by HTTP checks.
+- Dark headers used readable light text on a dark background. The theme survived navigation and returned to light mode correctly.
 
-![双条件期望同时通过](final_expectation_pair.jpg)
+![Both conditional expectations accepted](final_expectation_pair.jpg)
 
-## 仍需复核的边界
+## Remaining review scope
 
-这次已处理所有目前确认的问题，不代表穷尽所有潜在缺陷。未执行所有滑块组合、所有屏幕/浏览器/键盘/屏幕阅读器组合，未做目标部署环境的多人压力测试；连续密度使用有限采样，线性坐标下极尖峰可能难以分辨，界面已有说明。课程覆盖与游戏场景偏好由教师判断；STATS210 所用下载手册仍为 2024 版。人工实际工时待本人填写，自动运行时间单列。
+The checks cover the confirmed issues and specified inputs. All slider/device/browser/keyboard/screen-reader combinations and production multi-user load testing remained outside this run. Continuous densities use finite samples, and sharp peaks can be difficult to distinguish on linear axes. Teachers still need to review course suitability and scenario choices. The downloaded STATS210 source was the 2024 edition. Automated runtime was recorded separately from human effort.

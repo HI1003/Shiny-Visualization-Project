@@ -1,82 +1,78 @@
-# 学生视角完整流程审查（2026-11-12）
+# Student-task walkthrough on 2026-11-12
 
-2026-11-14 实施状态补充：本文提出的 Joint 概率大小展示及全期望加权展示已落实。Joint/Conditional 的 3D 图已移除，图表读数与表格格式已对齐，编辑区默认折叠，Overview 路径及参数交互也已整理。最新实施、验证和同步范围见 [工作日志](WORKLOG.md)。下文保留 11 月 12 日走查时的观察与建议。
+**Implementation update on 2026-11-14.** Joint probability encoding and total-expectation weighting were implemented after this review. Joint/Conditional 3D views were removed, plot/table formats aligned, editors collapsed and Overview paths/parameters simplified. See [WORKLOG](WORKLOG.md). The observations and recommendations below describe 12 November.
 
-本轮用真实 Chromium 浏览器操作本地当前版本，按“选择分布 → 回顾概念 → 改参数/读图 → 可选真题”的顺序体验，再检查 Joint、Conditional、Expectation 和七章离散分布游戏。检查了桌面、平板及手机宽度、明暗主题和错误输入恢复。这里的“学生视角”是代理按学生任务走查，不代表已经完成真实学生试用或教师教学验收。
+A real Chromium browser followed distribution selection → concept review → parameter/plot exploration → optional exams, then Joint, Conditional, Expectation and all seven game chapters. Checks covered desktop/tablet/phone widths, light/dark themes and invalid-input recovery. This was an agent walkthrough of student tasks. Teacher/student trials remained pending.
 
-## 结论
+## Findings at that stage
 
-主要学习流程已能连贯使用，原有计算回归也通过。当前最需要继续改进的是**让图形直接表达概率大小、让条件均值与总体均值的关系更直观**。继续扩充练习题不是本轮优先事项。
+The main route was usable and calculation regression passed. Priorities were directly encoding probability magnitude in graphics and making the relation between conditional and overall means clearer. Additional exercises were lower priority.
 
-## 本轮已修复
+## Fixes completed in this round
 
-| ID | 实际观察 | 修改与复核 |
+| ID | Observation | Change and verification |
 |---|---|---|
-| UX-01 | 在 Joint、Conditional、Expectation 真题区点击载入例子，表格会更新，但人仍停在页面下方 | 成功载入后把视口和键盘焦点移到该模块探索区。四模块真题浏览器流程中检查了三处返回焦点 |
-| UX-02 | Conditional 和 Expectation 更换表格例子后，条件方向回到默认值，不利于比较 | 重绘时保留原方向；Conditional 的条件值仍存在于新表时保留，否则使用有效的新值。用非默认方向切换例子复测 |
-| UX-03 | 游戏未选择分布就点 Determine，没有任何反馈 | 显示先选择分布的提示；不扣分、不推进关卡。R 回归确认空提交没有计入错误次数 |
-| UX-04 | 游戏点击 NEXT 后有时停在新章节中间，题干标题不在视口内 | 开始、下一章、返回和重新开始统一定位到当前游戏内容顶部；实际走完七章，逐次检查新标题在视口中 |
-| UX-05 | 游戏深色底上的灰色解析、深绿色正确提示较难阅读 | 调亮正确/揭示答案提示、解析文字、第二级提示和计分说明；检查实际渲染页面。未做全站颜色对比度认证 |
-| UX-06 | 深色模式下 Expectation 的计算标题和条件均值标题仍为深灰色 | 用限定在计算面板的主题规则继承浅色文字，实际检查两处标题并目视复核 |
+| UX-01 | Joint/Conditional/Expectation exam loading updated data but left the student at the page bottom | Successful loading moves viewport and keyboard focus to the exploration section, checked in all three table modules |
+| UX-02 | Changing table examples reset conditioning direction | Direction retained, with an existing Conditional value retained or replaced by a valid new value. Tested using nondefault directions. |
+| UX-03 | Determine with no model selected gave no feedback | Selection prompt, unchanged score/chapter, with empty submissions excluded from wrong-attempt counts |
+| UX-04 | NEXT sometimes left the new chapter heading out of view | Start/next/back/restart position at the current chapter top. All seven chapters checked. |
+| UX-05 | Grey explanations and dark-green success text were difficult to read | Brighter success/reveal/analysis/hint/scoring text, reviewed on rendered pages |
+| UX-06 | Expectation calculation and conditional-mean headings remained dark grey in dark mode | Scoped calculation-panel theme inheritance, both headings checked and visually reviewed |
 
-这些改动保留现有计算和真题内容；没有增加原创练习、改变课程定位或重新开放用户已移除的界面控件。
+The changes retained calculation and question contents, course scope and the user's existing interface choices.
 
-## 仍建议修改的内容（按优先顺序）
+## Recommendations in priority order
 
-### 1. Joint 的二维图应该直接显示概率大小
+### 1. Encode Joint probability magnitude in the main 2D view
 
-2026-11-13 已按用户要求落实为带数值的热力图，行列与左侧概率表对齐，使用固定 0–1 色标和简洁概率读数，并针对窄屏缩放格内字号。本节以下保留为改动前的发现与建议，实施验证见工作日志 2026-11-13 条目。
+Implemented on 2026-11-13 as a numerical heatmap aligned with the table, fixed 0–1 colour scale, compact labels and narrow-screen font sizing. See that date's work-log entry. The following describes the preceding design.
 
-当前二维图把每个 (x,y) 画成外观相同的点，概率只在悬停时出现。修改概率后坐标不变，学生很难一眼看出分布发生了什么变化。3D 的高度能表达概率，但它默认折叠，也不能替代清楚的二维主图。
+Identical points at every (x,y) exposed probability only on hover. Changing probabilities left the point appearance unchanged. The optional 3D view used height but was initially collapsed. The recommended main view was a numerical heatmap with a legend. An alternative scatter view would need probability-proportional areas and an area legend. Zero probabilities and absent combinations needed clear interpretation. The table retained exact readings and existing generic examples were sufficient.
 
-建议把主图改为**带数值的热力图**，颜色深浅表达概率、格内显示简洁数值，并附明确图例；若保留散点图，应让圆的面积表达概率并提供面积图例。零概率与缺失组合要区分解释。表格继续提供准确读数，3D 保留为可选补充。改图时用现有通用示例即可，不需要新增练习。
+### 2. Show weighted conditional means producing the overall mean
 
-### 2. Expectation 缺少“把条件均值加权还原总体均值”的操作展示
+Implemented on 2026-11-13 as a linked decomposition table, weighted formula and stacked contribution bar, supporting both directions and zero-weight groups. The 2026-11-14 flow subsequently made multiplication/addition explicit. The following describes the original gap.
 
-2026-11-13 已按用户要求落实为联动的分组计算表、加权算式和贡献堆叠条形图，支持两个条件方向及零概率组，实施验证见工作日志的“全期望加权展示”条目。本节以下保留为改动前的发现与建议。
+The page explained E[g(X)], conditional means and total expectation, but the controls primarily returned E[X], E[Y] and conditional means. Students had to connect each conditional mean × marginal probability and the final sum themselves. The recommendation was a linked decomposition that updates means, weights and the overall result together. Further transformation/variance controls would be needed before describing those as interactive capabilities on Home.
 
-页面说明包含 E[g(X)]、条件均值与全期望，但实际操作主要给出 E[X]、E[Y] 和两个方向的条件均值。学生仍需自己连接“每个条件均值 × 对应边际概率，再相加”的过程。
+### 3. Reduce initial reading and control load
 
-建议先增加一个清楚的加权分解展示，让改变表格时，条件均值、权重和最终总均值同步变化；若要把方差或变量变换列为可操作能力，再补相应控件。首页能力描述应与实际能操作的功能一致。
+- Home mixed an introduction, operating guidance, course route and authorship. Shorten the initial student text and retain expandable details and author credits.
+- Collapse table editors initially so students first see the example and plots.
+- Consider a simple frequency example as the default and cards as another choice. This suggestion was not implemented in this review.
+- Keep the seven-chapter game optional. If shortened later, foreground variables, assumptions and reasons for model choice.
 
-### 3. 简化默认学习界面，减少阅读负担
+### 4. Align paths, optional exams and number presentation
 
-- 首页说明较长，混合项目介绍、操作手册、课程路线和作者信息。建议缩短学生首先看到的内容，把详细操作说明折叠保存；保留原作者署名。
-- 三个表格模块的 Edit table 默认展开，四行输入和按钮占据较多空间。建议默认折叠，先读例子和图；只有自定义时再展开。
-- 初学者的默认演示可考虑使用简单的观察次数表，再把抽牌分数表作为另一个例子。该建议尚未实施。
-- 游戏七章可以完成，但情节和分析文字偏长。保留可选定位；若精简，应优先突出随机变量、假设和模型选择理由。
+- Preview's three models also appeared in further exploration. Clarify the additional continuous-distribution route while retaining STATS125 as default.
+- Four verified question groups were available. Overview's question was fixed rather than changing with every selected distribution. Clarify that it uses its own model or scope it to the matching distribution. Preserve the verified-source requirement.
+- Static source solutions still contained long decimals while interactive values used compact display. Any later rounding should use a presentation layer and approximation marks while preserving source values/checking precision. This round left static solutions intact.
+- The top ? and sun toggles needed clearer functional names. Home's October 2025 date needed distinction from the revision date at delivery.
 
-### 4. 路径、可选真题与数字呈现仍可再统一
+## Behaviour needing further confirmation
 
-- STATS210 preview 的三个模型也包含在 Further exploration 中；后者容易被理解成第三门课。建议明确“拓展连续分布”的含义，继续默认进入 STATS125。
-- 当前只有四组已核实真题；Overview 中的可选题是固定题，不会随当前分布自动换题。题源已经标注，但仍建议更明确提示“这道题使用自己的模型”，或仅在对应模型下显示。没有来源时保持无题，不补原创题。
-- 动态图表与计算值已使用简洁显示，**原题静态参考解答中仍有长小数**。这是现有保留原始解答的行为。若统一四位小数，应另加显示层并使用约等号，保留私有原始内容和判题精度；本轮未直接改写真题解答。
-- 顶栏 ? 与太阳开关仅凭图标不易理解，可补清楚的功能名称。首页 October 2025 仍是旧版本信息，正式交付时应区分原版本日期与此次修订日期。
+An immediate post-connect navigation and an unsettled dynamic update each produced a temporary blank region that recovered on revisiting the menu. Stable runs passed. Test scripts were corrected to wait for actual feedback updates. Daily-use Chrome cold starts/rapid navigation remained a delivery follow-up, including consideration of clearer initialisation feedback.
 
-## 需要进一步确认的现象
+## Actual coverage
 
-在一次自动化首次加载后立即切页，以及一次尚未稳定的动态页面更新中，出现过局部空白，返回菜单重新进入后恢复。浏览器连接和初始布局稳定后重走流程可以通过。本轮修正了检查脚本过早读取反馈的问题，改为等待实际反馈更新；**这不等于已证明产品的所有首次加载时序都没有问题**。建议正式交付前在日常 Chrome 中复核冷启动和快速切页，并考虑增加明确的初始化反馈。
+- Overview covered seven discrete definitions/formulas/plots/examples, three preview models and each of the eight legacy continuous models, with actual plot selection.
+- Joint covered automatic example loading, 2D hover, optional 3D, editing/deletion, Uniform/Normalize/Generate and retained valid state after negative/all-zero input.
+- Conditional covered both directions, conditioning values, zero-probability feedback/recovery and shared tables.
+- Expectation covered overall/conditional means, both directions, zero-probability handling, retained direction and themes.
+- Exams covered four groups' source/adaptation metadata, progressive feedback, answers, count-once progress, table/plot loading and retained module progress. The JSON HTTP path returned 404. Raw question/answer/browser contents were excluded from this report.
+- Game covered empty/wrong selection, seven correct answers/explanations, positioning, ending/restart and phone layout. Shared back-button positioning code was covered without counting every chapter's back branch as a separate manual step.
+- Main modules/exam sections used 1600/1266/900/390px. Overview additionally used 1440/1024/768/390px. Selected Home/Overview/table/expectation/game/phone/theme screenshots were visually checked.
 
-## 实际覆盖与验证
+R results were R1-04 **102/102**, R1-05 **11/11**, R1-06 **124/124**, remaining modules **301/301**, local exams/app **87/87**, display/precision **76/76**, independent mathematics **10/10** and images **13/13**. See the [dated summary and fingerprints](evidence/student_experience_20261112.json). Counts identify checks performed.
 
-- Overview：七种离散模型的概念、展开公式、图形及现有例子；三个预习模型；单独逐个打开八种拓展连续分布；实际点击图形选择值。
-- Joint：演示例子自动加载、2D 悬停、可选 3D 展开；加/删行、Uniform、Normalize、Generate Table；非法负值和全零输入拒绝后保留最后有效表。
-- Conditional：两个条件方向、不同条件值、零概率条件的明确提示、改用有效条件后的恢复，以及跨模块共享表。
-- Expectation：共享表的总体/条件均值、两个方向、零概率条件说明、换例子时方向保留、明暗主题。
-- 可选真题：四组题的来源/改编标记、分级反馈、参考答案判定、重复提交不重复计数、载入表/图、模块进度保留；私有 JSON 静态 URL 返回 404。原始题干、答案与浏览器回显不进入本报告。
-- 游戏：未选择提示、错误提示、七章正确答案与解析、章节顶部定位、结局、重新开始；手机布局。返回按钮的同一顶部定位代码已覆盖，未把每章所有返回分支都列为独立人工步骤。
-- 布局：主要模块与真题区域检查 1600/1266/900/390px；Overview 另检查 1440/1024/768/390px。已目视检查首页、Overview、表格/期望、游戏及部分窄屏/主题截图，未逐一目视审阅每种模型的所有参数组合。
+Course scope followed the existing [teaching review](TEACHING_REVIEW_STATS125.md) and [mapping](COURSE_MAP.md), without a new page-by-page coursebook review. Teacher/student trials, cross-browser acceptance, complete keyboard/screen-reader review and deployment remained pending.
 
-现有 R 检查：R1-04 **102/102**、R1-05 **11/11**、R1-06 **124/124**、其余模块 **301/301**、私有真题/应用 **87/87**、数字显示/精度 **76/76**；R1-04 独立精确数学 **10/10**，图片资源 **13/13**。浏览器及走查结果、源码指纹见 [本轮验证摘要](evidence/student_experience_20261112.json)。这些数字是检查项数量，不能解释为独立学生人数或教学效果。
+## Plot-reading update on 2026-11-13
 
-课程定位沿用既有 [教学复核](TEACHING_REVIEW_STATS125.md) 和 [课程映射](COURSE_MAP.md)，本轮没有重新逐页审阅讲义。尚未进行真实学生/教师试用、跨浏览器验收、完整键盘/读屏器无障碍审查或正式部署。
+All 15 distributions gained hover/touch readings with linked PMF/PDF and CDF at the same x. Permanent plot annotations and Current Selection were removed, and the heading became Distribution plots. CDF open/closed endpoints remain, with open endpoints excluded from point readings. Continuous plots retain the density explanation. Exploration prompts after definitions were removed throughout the distribution and table modules.
 
-## 2026-11-13：图表读数交互更新
+Joint's numerical heatmap and Expectation's decomposition/contributions remain visible for comparisons and calculation relationships. See [interaction evidence](evidence/distribution_hover_20261113.json). Earlier click-selection/path descriptions retain their original dates.
 
-Overview 的十五种分布已统一改用悬停提示，两图联动显示同一 x 的 PMF/PDF 与 CDF 值；触屏点击保留提示。删除图上常驻数值标注及下方 Current Selection，标题改为 Distribution plots。CDF 保留空心/实心端点，空心端点不参与读数，避免把跳跃前的值当作 F(x)。连续模型保留“密度不是点概率”的说明。定义后的探索任务提示已在各分布及三个表格模块中统一移除。
+## Historical record/material boundaries
 
-Joint 热力图的单元格数值、Expectation 的加权分解表和贡献数值继续保留，用于直接比较与说明计算关系。最新交互验证记录见 [本轮证据](evidence/distribution_hover_20261113.json)；前文的点击选择和旧路径覆盖范围为当时的检查记录。
-
-## 记录与资料边界
-
-课程 PDF 仍在 G 盘；私有真题、临时检查脚本/原始日志、浏览器缓存和截图只留在忽略目录。本报告和公开验证摘要不包含题干、答案、原题表格或课程摘录。本轮没有提交、推送 GitHub 或改动原始对比版本；此前尚未提交的界面修改继续保留。人工实际工时由本人填写，不把自动运行时间记成 15 小时预算的实际工作时间。
+At this stage course PDFs remained on G:, with the private bank, temporary fixtures/logs, browser state and screenshots under ignored folders. This report and public summary excluded question text, answers, original tables and course extracts. The round was uncommitted/unpushed and left the original comparison version intact. Human effort was separately recorded from the automatic runtime and 15-hour budget. The later user clarification removed the timesheet task, and the selected bank/PDF publication was authorised on 2026-11-16.

@@ -1,51 +1,51 @@
-# R1-05 修复验证
+# R1-05 fix verification
 
-日期：2026-10-30（Pacific/Auckland）。修复前基线：`a5eabad`；应用源码与原审查基线 `0f609de` 一致。状态：**已修复、已验证，待教师复核**。
+Date 2026-10-30, Pacific/Auckland. Before-fix baseline `a5eabad`, whose app source matched audit baseline `0f609de`. **Fixed and verified, awaiting teacher review.**
 
-## 修改
+## Change
 
-`module_conditional.R` 原先用标量条件调用 `ifelse`，只返回第一个概率，随后 `mutate` 将其重复。现在在两个方向先验证边际概率为正且有限，再对全部单元格直接做向量除法。零边际输出“Conditional distribution is undefined”提示，不再生成伪全零条件分布。
+`module_conditional.R` originally passed a scalar condition to `ifelse`, returning the first probability, which `mutate` repeated. Both conditioning directions now validate a positive finite marginal and divide the complete vector by it. Zero marginals produce “Conditional distribution is undefined”.
 
-## 模块输出回归
+## Module-output regression
 
-脚本：[test_r1_05.R](../scripts/test_r1_05.R)。使用真实 `conditional_Server` 的 `shiny::testServer`，读取 `cond_table_html`、`plot3d_cond`、`plot_bird_cond` 输出，与独立预期值比较。表格验证五位小数显示与合计；两个图形按未舍入值比较。
+[test_r1_05.R](../scripts/test_r1_05.R) runs the real `conditional_Server` with `shiny::testServer`, reading `cond_table_html`, `plot3d_cond` and `plot_bird_cond`. The historical table assertions use five-place display values and totals, while plot assertions use unrounded values.
 
-| 案例 | 预期显示/行为 | 修复后 |
+| Case | Expected display/behaviour | Fixed result |
 |---|---|---|
-| 默认 Y\|X=0、X\|Y=0 | .92157、.07843；合计 1.00000 | 两例通过 |
-| 默认 Y\|X=1、X\|Y=1 | .94124、.05876；合计 1.00000 | 两例通过 |
-| 非均匀 2×3 表，X=0、1 | 分别为 (1/3,1/6,1/2)、(2/7,3/7,2/7) | 两例通过 |
-| 同一非均匀表，Y=0、1、2 | 分别为 (1/3,2/3)、(1/7,6/7)、(3/7,4/7) | 三例通过 |
-| 零 X 边际、零 Y 边际 | validation 提示未定义，无概率表 | 两例通过 |
+| Default Y\|X=0 and X\|Y=0 | .92157, .07843, total 1.00000 | Both pass |
+| Default Y\|X=1 and X\|Y=1 | .94124, .05876, total 1.00000 | Both pass |
+| Nonuniform 2×3 table, X=0 and 1 | (1/3,1/6,1/2) and (2/7,3/7,2/7) | Both pass |
+| Same table, Y=0, 1 and 2 | (1/3,2/3), (1/7,6/7), (3/7,4/7) | All three pass |
+| Zero X or Y marginal | Undefined validation message, with no probability table | Both pass |
 
-结果：修复前 **0/11**，修复后 **11/11**。9 个有效切片均核对两个实际图形输出；2 个零边际案例核对 validation 类型与提示文字。默认表沿用原输入解析器的五位小数；逐项显示的舍入和可能差 0.00001，总和由未舍入概率计算。
+Before **0/11**, after **11/11**. Nine valid slices were compared with both plot outputs. Two zero-marginal cases checked the validation type and message. The default input parser then used five-place values. Individually rounded entries can differ from 1 by 0.00001, while the total uses unrounded probabilities.
 
-- [修复前结果](r1_05_before.json)：默认表 `.92157,.92157`，合计 `1.84313`；图形值原本正确，表图不一致。
-- [修复后结果及源码 MD5](r1_05_regression.json)：11 例均通过，默认表 `.92157,.07843`，合计 `1.00000`。
+- [Before](r1_05_before.json), the table showed `.92157,.92157`, total `1.84313`, while the plots were correct.
+- [After, with source MD5](r1_05_regression.json), all 11 pass and the default table shows `.92157,.07843`, total `1.00000`.
 
-复现命令（仓库根目录）：
+Run from the repository root.
 
 ```powershell
-& 'C:\Program Files\R\R-4.6.1\bin\Rscript.exe' --vanilla review/scripts/test_r1_05.R
+& 'C:Program FilesRR-4.6.1inRscript.exe' --vanilla review/scripts/test_r1_05.R
 ```
 
-当前 R 为 4.6.1，原记录中的 R 4.6.0 路径已不可用。项目 `.R-library/` 缺少 Shiny，本次从 CRAN 安装 Shiny 及缺失依赖；依赖目录仍被 Git 忽略。测试中的 R locale 启动警告未阻止运行。
+The available R version was 4.6.1. The former 4.6.0 path was unavailable. Shiny and missing dependencies were installed from CRAN into ignored `.R-library/`. Existing locale startup warnings did not prevent the tests.
 
-## 浏览器验证
+## Browser verification
 
-使用本地 `Start-Shiny.R --no-browser`，在应用内浏览器访问 `http://127.0.0.1:7125/`，通过实际选择控件与输入框操作：
+`Start-Shiny.R --no-browser` served the app at `http://127.0.0.1:7125/`, using actual selectors and input fields.
 
-1. 进入 Conditional，确认默认 `f(Y|X=0)` 为 `.92157,.07843`，合计 `1.00000`。
-2. 切换 `f(X|Y=0)`，确认同样的两个概率；切换 Y=1，确认为 `.94124,.05876`，合计 `1.00000`。
-3. 将 (0,0)、(1,0) 的概率设为 0，其余两格保持正值，Generate 后选择 `f(X|Y=0)`：显示 `Conditional distribution is undefined: P(Y = 0) must be positive.`。
-4. 恢复原四个分数并 Generate，结束边界测试。
+1. Conditional's default `f(Y|X=0)` displayed `.92157,.07843`, total `1.00000`.
+2. `f(X|Y=0)` gave the same pair. Switching to Y=1 gave `.94124,.05876`, total `1.00000`.
+3. Setting (0,0) and (1,0) to zero, leaving the other cells positive, generating and choosing `f(X|Y=0)` showed `Conditional distribution is undefined: P(Y = 0) must be positive.`
+4. The original four fractions were restored and generated.
 
-浏览器零边际只实际操作了 Y 方向；另一方向由模块回归验证。非均匀 2×3 全切片和图形逐项比对属于模块输出测试，没有宣称全部在浏览器逐一点击。现有布局遮挡仍属于 R1-10，本次未修改。
+The browser zero-marginal check used Y. The opposite direction and every nonuniform 2×3 slice were covered by module tests. The existing R1-10 layout issue remained outside this patch.
 
-![默认条件表修复后](r1_05_default.jpg)
+![Fixed default conditional table](r1_05_default.jpg)
 
-![零边际提示](r1_05_zero_marginal.jpg)
+![Zero-marginal feedback](r1_05_zero_marginal.jpg)
 
-## 范围与交付状态
+## Delivery scope at that stage
 
-应用修改限于 R1-05 的条件表计算和分母提示；首轮题库、答案判定、PMF 输入校验和会话隔离未改动。没有上传课程资料，没有部署。修复与验证记录将纳入本次独立本地提交，提交说明为 `Fix R1-05 conditional probability table normalization`，SHA 可从 Git 历史查得；尚未推送 GitHub。
+The patch covered conditional-table calculations and denominator feedback. Question banks, answer checking, PMF input validation and session isolation retained their baseline implementations. The local commit title was `Fix R1-05 conditional probability table normalization`, with SHA available in Git history. No course files were uploaded, and the patch was unpushed and undeployed at that stage.

@@ -1,39 +1,39 @@
-# 2026-11-01：STATS125 可选真题验证
+# Optional STATS125 exam verification on 2026-11-01
 
-本轮按用户“不需要原创练习，只需要历年真题”的要求，将四模块的可选练习替换为本地核验的 4 组原题节选。知识点回顾、可视化和折叠式可选入口保持。来源与改编说明见 [选择记录](../PAST_EXAM_SELECTION.md)，仅含元数据的 [来源索引](exam_source_index.json) 不包含题干、表格或答案。
+The user requested past-exam questions only. Four locally verified extracts replaced the optional question panels, retaining concept review, visualisation and initially collapsed questions. See [selection/adaptation](../PAST_EXAM_SELECTION.md) and the metadata-only [source index](exam_source_index.json). This document records the local-only arrangement at that date. Publication of the selected bank/PDFs was subsequently authorised on 2026-11-16.
 
-## 本轮结果
+## Results
 
-| 检查 | 结果 | 证据 |
+| Group | Result | Evidence |
 |---|---|---|
-| R1-04 旧联合题库回归 | 102/102 | [UI/判题](exam_r1_04_ui.json) |
-| R1-05 条件概率表 | 11/11 | [模块输出](exam_r1_05.json) |
-| R1-06 输入校验、归一化和共享状态 | 124/124 | [三模块回归](exam_r1_06.json) |
-| 其他数值、边界及会话修复 | 300/300 | [其他模块](exam_remaining.json) |
-| 新真题题库及实际应用 | 80/80 | [真题检查](exam_past_exams.json) |
-| 旧联合题库独立有理数核算 | 10/10 | [独立复算](exam_r1_04_math.json) |
-| 所选真题独立数学检查 | 7/7 | [不含答案的摘要](exam_independent_math.json) |
-| Chrome 真实页面、图题联动及响应式布局 | 66/66 | [浏览器报告](exam_browser.json) |
-| 图片资源 HTTP 检查 | 13/13 | [资源报告](exam_assets.json) |
+| R1-04 original Joint regression | 102/102 | [UI/checking](exam_r1_04_ui.json) |
+| R1-05 conditional table | 11/11 | [Outputs](exam_r1_05.json) |
+| R1-06 validation, normalisation and shared state | 124/124 | [Modules](exam_r1_06.json) |
+| Other numerical, boundary and session fixes | 300/300 | [Modules](exam_remaining.json) |
+| New exam bank and actual app | 80/80 | [Exam checks](exam_past_exams.json) |
+| Original Joint rational mathematics | 10/10 | [Independent calculations](exam_r1_04_math.json) |
+| Selected exam mathematics | 7/7 | [Answer-free summary](exam_independent_math.json) |
+| Chrome pages, question/plot loading and layouts | 66/66 | [Browser](exam_browser.json) |
+| Image-resource HTTP | 13/13 | [Assets](exam_assets.json) |
 
-当前模块/交互检查共 **537 + 80 = 617/617**；独立数学检查分别为旧库 10 项、所选真题 7 项。此前 695/695 包含已撤下的原创/未核实来源题库检查，不能作为当前题库的验证结果。完整回归执行后，进一步补充了真题图形所选位置、PMF/CDF 和情境说明的 6 项检查，再单独重跑真题组至 80/80；随后清理 Overview 预习页多余的段落容器，重跑真题 80 项和新增预习页检查后的 66 项浏览器流程。旧模块组的计算/服务器逻辑没有变化，未为重复计数再次运行。`exam_remaining.json` 的源码指纹记录容器清理之前的版本；当前完整 R 源码指纹以 `exam_past_exams.json` 为准，未改写旧报告的哈希来伪造重跑。
+Module/interaction checks totalled **537 + 80 = 617/617**. Independent mathematics comprised ten original-bank and seven selected-exam cases. The earlier 695 total included withdrawn original/unverified exercises. Six plot-position/PMF/CDF/caption checks were added after the full run and the exam group rerun to 80/80. Overview preview paragraph containers were then cleaned up and the 80 exam checks and expanded 66-case browser suite rerun. `exam_remaining.json` retains the pre-container-cleanup fingerprint. Current-at-that-stage full R fingerprints are in `exam_past_exams.json`.
 
-## 覆盖与修正
+## Coverage and fixes
 
-- 真题默认入口、年份/卷别/题号/改编说明、所有作答字段、两级提示与解答、重复答对只计一次、单题导航边界、切换路径后保留可选进度。
-- 三模块载入原题 PMF，逐项核验已提交概率表；修正本轮接入时发现的整数/浮点坐标类型差异，防止正确原题表被错误标为自定义例子。
-- 两个 Overview 真题情境核对模型参数、所选位置、PMF/CDF 和说明；浏览器实际验证按钮与答案提交。交互检查等待对应输出更新，避免只等页面尺寸稳定就读取上一次服务器结果。页面默认隐藏的进度需主动展开后验证。
-- 题库缺失、JSON 损坏、PDF 指纹改变时不启用真题；内部 legacy 不能通过学生路径输入开启，preview/further 无可用真题时不回退到旧题；私有 JSON 静态请求返回 404。
-- Chrome 在 1600、1266、900、390px 检查四模块：未发现整页横向溢出或题目来源/答案标签文字遮挡。另目视检查宽屏和窄屏截图；所有含真题的截图留在忽略目录，未复制入审查证据目录。
+- Default exam entry, year/semester/question/adaptation metadata, all answer fields, two hints and solution, count-once progress, single-question boundaries and retained progress across routes.
+- Exact question PMFs loaded into all three table modules. Integer/double coordinate mismatches in example recognition were fixed.
+- Two Overview scenarios checked model parameters, selected x, PMF/CDF and explanations, with actual browser loading/submission. Assertions waited for updated outputs and explicitly expanded hidden progress.
+- Missing bank, malformed JSON and changed PDF fingerprints disabled questions. Student inputs could not enable legacy, preview/further had no fallback, and the private JSON HTTP route returned 404.
+- Four modules at 1600/1266/900/390px showed no page-wide overflow or clipped source/answer labels. Wide/phone screenshots were visually checked and held in ignored folders.
 
-选题时已对照原题页面与参考解答，独立有理数核算概率表、边际、独立性结论、条件分布及两种期望，另核对 Poisson 严格不等式的事件转换。源码 MD5 与 6 份选中来源 PDF 的 SHA-256 已重新核对；题库加载另核对 PDF 的 MD5。检查结果不包含真题数值答案。
+Selected source pages and solutions were compared, with independent rational calculations for tables, marginals, independence, conditional distributions and both expectation directions. Poisson strict-inequality conversion was checked. R source MD5 and six PDF SHA-256 values were rechecked, with PDF MD5 also checked by the loader. Public result summaries omitted numerical exam answers.
 
-## 存储、复现与限制
+## Historical storage, reproduction and limits
 
-题干、数据、答案、私有测试输入及来源 PDF 均为本地材料；仓库只包含通用加载/测试逻辑、来源元数据和通过摘要。截图、浏览器原始 CLI 回显、全文抽取和构建脚本不提交。排除范围还包括 `.R-library/`、`.playwright-cli/`、`.Rhistory`、`.RData` 和本地课程参考目录；提交前执行选择性暂存和完整待推送历史的路径/文件版本核对。
+At this stage, question text/data/answers, test fixtures and PDFs were local. General loaders/tests, metadata and pass summaries were versioned. Screenshots, raw CLI output, extracted text and build scripts remained excluded, along with .R-library/, .playwright-cli/, .Rhistory, .RData and course-reference directories. Publication reviews checked selected staged files and the complete outgoing history.
 
-复现入口为 `./review/scripts/run_regression.ps1 -ReportPrefix exam`；最后一组需要已存在的私有题库与原 PDF，缺失时会报错，而应用本身仍可运行可视化。浏览器私有输入的生成和运行方式见选择记录。原始 ZIP、旧报告及原游戏保留；未重新手动走完游戏全章，原游戏自动回归通过。
+Run `./review/scripts/run_regression.ps1 -ReportPrefix exam`. At this historical stage the final group required the local bank/source PDFs and failed explicitly if they were absent, while the visualisation app still ran. Browser fixture preparation is described in the selection record. The original ZIP, old reports and game were retained. Game automated regression passed without a new full manual walkthrough.
 
-本轮为独立本地提交（SHA 见 Git 历史），**未推送、未部署**。本地预览保留在 `http://127.0.0.1:7130`，需刷新页面；原 7125 服务未干预。公共仓库本身不包含真题内容，不能仅凭克隆还原本机题库。教师/学生教学效果验收、另一电脑私有材料移交及正式分享仍待后续安排。
+This local commit was unpushed and undeployed. Preview stayed at `http://127.0.0.1:7130`, with the earlier 7125 service untouched. A public clone then omitted exam contents, and teacher/student evaluation and another-computer materials handover remained pending.
 
-可核实自动窗口截至测试结果和来源指纹复核为 **14:56:54–15:24:30 NZDT（27 分 36 秒）**，不含后续文档、排除检查和提交收尾。人工实际工时待本人填写，自动窗口不自动计入或扣减 15 小时预算。
+The verifiable automatic window ended after test/source checking at **14:56:54–15:24:30 NZDT, 27 minutes 36 seconds**, excluding later documentation/exclusion/commit work. Human effort was separately recorded against the historical 15-hour budget.

@@ -1,34 +1,34 @@
-# STATS125 可选历年真题：来源与本地使用
+# Optional STATS125 past-exam questions and source materials
 
-日期：2026-11-01。当前对象为 STATS125 学生；知识点回顾和可视化仍为主线，真题节选默认折叠且不要求完成。**四个模块的可选题库只使用下列核实过的历年真题，不新增原创题。**
+Updated on 2026-11-16. Current users are STATS125 students. The main route is concept review followed by visual exploration. Exam extracts are optional and initially collapsed. **The four module question panels use the verified past-exam extracts listed below.**
 
-| 模块 | 年份、学期及原题号 | 配合可视化的用途 | 是否改编 |
+| Module | Year, semester and original question | Visualisation purpose | Adaptation |
 |---|---|---|---|
-| Probability Overview | 2026 S1 Q2(a)–(d) | 比较计数模型的 PMF、CDF，区分严格与包含端点的不等式 | 否；原题节选，只调整网页排版、符号显示和答案输入方式 |
-| Joint Distribution | 2025 S1 Q3(c)–(d) | 联合表的行列求和与独立性 | 否；沿用原卷表格及对应小问，调整网页排版和输入方式 |
-| Conditional Distribution | 2024 S2 Q3(e) | 固定条件后的重新归一化及条件 PMF | 否；沿用原卷表格及对应小问，调整网页排版和输入方式 |
-| Expectation | 2026 S1 Q3(d), (g) | 联合期望与条件期望，关联表格和图形 | 是，仅呈现方式；原卷分段 PMF 转为等价表格并显式显示零项，变量、数据和任务不变 |
+| Probability Overview | 2026 S1 Q2(a)–(d) | Compare the count model's PMF and CDF, including strict and inclusive inequalities | Original extract with web layout, notation rendering and answer-entry changes. |
+| Joint Distribution | 2025 S1 Q3(c)–(d) | Row/column marginal sums and independence | Original table and selected subparts with web layout and answer-entry changes. |
+| Conditional Distribution | 2024 S2 Q3(e) | Restrict to a condition, renormalise and read the conditional PMF | Original table and selected subpart with web layout and answer-entry changes. |
+| Expectation | 2026 S1 Q3(d), (g) | Connect joint and conditional expectations to tables and plots | Presentation adaptation only. The original piecewise PMF is shown as an equivalent table with explicit zero entries. Variables, numerical data and tasks are preserved. |
 
-来源均在本地 `G:\STATS\STATS125\2026_S2\10_历年考试与答案`：2026 S1 使用 `2026S1 previous exam scripts` 下的 final 试卷/解答，2025 S1 和 2024 S2 使用 `Uploaded Media` 下的试卷/解答。所用文件名、PDF 页码、SHA-256 和题号见 [不含题目内容的来源索引](evidence/exam_source_index.json)。页码从 PDF 第一页起计。
+The original sources were downloaded into the local STATS125 2026 S2 exam directory. The 2026 S1 final question and solution files came from `2026S1 previous exam scripts`. The 2025 S1 and 2024 S2 files came from `Uploaded Media`. Filenames, one-based PDF pages, SHA-256 fingerprints and question references are in the [source index](evidence/exam_source_index.json).
 
-本轮初筛 2024 S1、2024 S2、2025 S1、2026 S1 的四组试卷/解答，选中后三组中的四组小问；逐题核对所选题目的原页、表格、公式和参考解答，并独立复算。没有逐份审查整个历年目录；没有使用 draft、答案不明确的题目或 `very old exams _ not for students` 中的材料。
+Initial screening covered question/solution pairs from 2024 S1, 2024 S2, 2025 S1 and 2026 S1. Four groups of subparts were selected from the last three sessions. Their original pages, tables, formulas and reference solutions were checked and independently calculated. Drafts, ambiguous answers and the `very old exams _ not for students` directory were excluded from that selection.
 
-题干和数据来自原题。网页标题、提示、图表观察说明及输入反馈为辅助呈现，解答按原卷参考答案核对后重新排版，不把这些辅助文字冒称为原卷逐字文本。分布假设、独立性的论证等书面部分应自行对照参考答案；自动反馈只核验分布名称、数值和选择结论。
+Question wording and numerical data come from the original questions. Web titles, hints, plotting guidance and input feedback support their presentation. Reference solutions were checked and reformatted. Written assumptions and independence arguments require comparison with the reference solution. Automated feedback checks distribution names, numerical fields and selected conclusions.
 
-## 本地题库与 Git 边界
+## Bundled materials and portable loading
 
-题干、数据、答案和来源路径保存在被忽略的 `.local/past-exams/bank.json`；PDF 保留在 G 盘，抽取文本、原页图片和私有构建脚本留在 `.local/exam-selection/`。含真题内容的浏览器截图留在被忽略的 `output/playwright/`。这些文件均不提交；仓库只保存加载逻辑、题号/来源索引和不含真题内容的验证摘要。
+On 2026-11-16 the user explicitly requested that the four question groups and their six matching source PDFs be included in the public GitHub repository, so a clone can offer the complete reviewed experience. They are stored in `exam-materials/bank.json` and `exam-materials/pdfs/`. The bank uses paths relative to its own directory. The loader resolves these paths on the receiving computer and verifies the source PDF fingerprints at startup.
 
-应用从仓库根目录或其下的应用目录启动时自动查找该私有题库，也可通过环境变量 `STATS125_EXAM_BANK` 指定私有 JSON 路径。加载时核对本地题目及解答 PDF 的 MD5、题目字段和概率表的有效性。文件缺失、损坏或来源指纹不匹配时，四模块可视化仍可使用，可选题区提示没有可用真题，不启用旧题作为替代。题库必须位于 `www` 之外，也没有静态下载接口。
+Run `Rscript Start-Shiny.R` from the repository root. The launcher installs missing R packages. The bundled bank is discovered from either the repository root or the app directory. `STATS125_EXAM_BANK` remains available as an explicit override, and the earlier `.local/past-exams/bank.json` location remains a fallback. An absent, damaged or fingerprint-mismatched bank yields an empty optional question collection while the core visualisations remain available. The bank and source PDFs stay outside `www/`.
 
-因此，**仅同步 GitHub 不会把真题内容交付给其他电脑**。本机题库已可使用；后续如需让教师在另一电脑使用，应另行移交获授权的私有题库和匹配 PDF。原始 ZIP 未重新打包。
+The original 32 project questions remain in internal `legacy` regression coverage. Students cannot select that route. The earlier construction code for 10 original exercises was removed. Generic plot demonstrations and the separate game retain their functions.
 
-原 32 道项目题仅保留为内部 `legacy` 回归依据，学生界面的路径选择不能启用它们；此前新增的 10 道原创题构建代码已移除。通用示例用于调参演示，独立游戏仍保留原功能，本轮没有把游戏改造成考试题库。
+## Verification and reproduction
 
-## 验证与复现
+Run `./review/scripts/run_regression.ps1 -ReportPrefix exam` for the module checks. `test_past_exam_bank.R` verifies the available bank and matching PDFs. The older `test_learning_paths.R`, content/layout/concept browser scripts and their 42-question counts describe earlier revisions.
 
-当前完整检查：`./review/scripts/run_regression.ps1 -ReportPrefix exam`。前五组检查旧模块及历史修复；最后一组 `test_past_exam_bank.R` 需要本机私有题库和匹配 PDF。缺失时最后一组明确报错，不将“未运行真题检查”记作通过。旧 `test_learning_paths.R`、content/layout/concept 浏览器脚本及对应 42 题结果保留为历史证据，不是当前入口。
+`prepare_past_exam_browser.py` prepares a browser fixture from the bank under `.local/exam-selection/browser_private.js`. Execute that fixture through Playwright CLI `run-code --filename` against the local preview. Temporary CLI output and screenshots remain under the ignored working directories. See the [verification record](evidence/past_exam_verification.md) for the historical results and their limits. Teacher/student evaluation of the teaching experience remains pending.
 
-浏览器检查使用 `prepare_past_exam_browser.py` 从私有 JSON 生成 `.local/exam-selection/browser_private.js`，再通过已打开本地预览的 Playwright CLI `run-code --filename` 运行。原始 CLI 输出也包含私有输入，只能保存在 `.local/`；提交报告仅提取 `### Result` 的通过项与尺寸测量，不能提交命令回显或截图。
+## Historical storage arrangement
 
-当前结果与限制见 [验证记录](evidence/past_exam_verification.md)。教师/学生对实际教学效果的验收仍待进行。
+From 2026-11-01 until the explicit publication request on 2026-11-16, the bank and six PDFs were local-only. The bank was held under `.local/past-exams/`, source PDFs on G:, and extracted text, page images and browser fixtures under ignored folders. Earlier reports describe that arrangement. The 2026-11-16 request authorises the selected bundled exam materials. Other local course-reference files and working caches retain their existing storage rules.

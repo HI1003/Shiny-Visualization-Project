@@ -5,6 +5,7 @@ suppressPackageStartupMessages({library(shiny);library(shinyjs);library(plotly);
 for(f in c('pmf_helpers.R','past_exam_bank.R','learning_content.R','learning_practice.R','module_joint.R','module_conditional.R','module_expectation.R','module_probability.R'))
   source(file.path('Project_PPeek1ng/modules',f),encoding='UTF-8')
 cases<-list()
+dir.create('.local/exam-selection',recursive=TRUE,showWarnings=FALSE)
 record<-function(group,name,passed){cases[[length(cases)+1L]]<<-list(group=group,name=name,passed=isTRUE(passed));if(!isTRUE(passed))cat('FAIL:',group,name,'\n')}
 html<-function(x)if(is.null(x))''else x$html
 preview_models<-unname(learning_continuous_choices('preview'))
@@ -22,6 +23,34 @@ record('paths','examples_belong_to_their_path_models',all(vapply(examples,functi
 },logical(1))))
 record('loader','local_bank_verified',local_exam_bank$status=='verified')
 stopifnot(local_exam_bank$status=='verified')
+record('loader','bundled_bank_discovered_from_repository_root',
+  identical(normalizePath(exam_bank_path()),normalizePath('exam-materials/bank.json')))
+previous_dir<-getwd();setwd('Project_PPeek1ng')
+record('loader','bundled_bank_discovered_from_application_directory',
+  identical(normalizePath(exam_bank_path()),normalizePath('../exam-materials/bank.json')))
+setwd(previous_dir)
+portable_dir<-tempfile('relocated materials ',tmpdir='.local/exam-selection')
+dir.create(portable_dir,recursive=TRUE)
+raw_bank<-jsonlite::read_json('exam-materials/bank.json',simplifyVector=FALSE)
+for(source_id in names(raw_bank$sources))for(kind in c('question','solution')){
+  field<-paste0(kind,'_path')
+  target<-file.path(portable_dir,raw_bank$sources[[source_id]][[field]])
+  dir.create(dirname(target),recursive=TRUE,showWarnings=FALSE)
+  stopifnot(file.copy(local_exam_bank$sources[[source_id]][[field]],target))
+}
+portable_bank<-file.path(portable_dir,'bank.json')
+stopifnot(file.copy('exam-materials/bank.json',portable_bank))
+relocated<-read_local_exam_bank(portable_bank)
+record('loader','relative_pdf_paths_load_after_relocation',relocated$status=='verified'&&length(relocated$questions)==4)
+first_relative<-raw_bank$sources[[1]]$question_path
+record('loader','resolved_pdf_uses_relocated_directory',
+  identical(relocated$sources[[1]]$question_path,normalizePath(file.path(portable_dir,first_relative),winslash='/')))
+override_before<-Sys.getenv('STATS125_EXAM_BANK',unset=NA_character_)
+Sys.setenv(STATS125_EXAM_BANK=normalizePath(portable_bank,winslash='/'))
+record('loader','explicit_bank_override_retained',identical(exam_bank_path(),Sys.getenv('STATS125_EXAM_BANK')))
+if(is.na(override_before))Sys.unsetenv('STATS125_EXAM_BANK')else Sys.setenv(STATS125_EXAM_BANK=override_before)
+unlink(file.path(portable_dir,first_relative))
+record('loader','missing_relative_pdf_is_rejected',read_local_exam_bank(portable_bank)$status=='invalid')
 all_questions<-unlist(lapply(c('overview','joint','conditional','expectation'),exam_questions),recursive=FALSE)
 for (module in c('joint','conditional','expectation')) {
   choices <- learning_pmf_example_choices(module)

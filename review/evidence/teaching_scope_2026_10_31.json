@@ -1,61 +1,61 @@
 {
   "date": "2026-10-31",
   "baseline_commit": "eabd1847d4d5f3c38b5885308f4cad0b8a337e16",
-  "audience": "当前学习 STATS125、后续将学习 STATS210 的学生；125 核心优先，210 铺垫自愿，不预设已学 210。",
-  "status": "教学复核已完成；分层与新增题仅为实施方案，尚未写入应用路径。少量语义/近似符号已修正。",
+  "audience": "Current STATS125 students who will study STATS210 later. Prioritise STATS125 core and provide voluntary STATS210 preparation.",
+  "status": "Teaching review completed at this stage. Paths/new questions remained implementation proposals, with limited wording/approximation-symbol fixes completed.",
   "sources": [
     {
       "source_id": "STATS125",
-      "local_file": "G:\\STATS\\STATS125\\2026_S2\\01_课程手册\\2026\\Stat 125 Coursebook 2026 gapped_working file .pdf",
+      "local_file": "Stat 125 Coursebook 2026 gapped_working file .pdf",
       "sha256": "1a1fa06f5cec71ada1b5d6b9b58dbf9dee7720af0db78184f54d117c974e4154",
       "pdf_pages": 205,
       "version": "2026"
     },
     {
       "source_id": "STATS210",
-      "local_file": "G:\\STATS\\STATS210\\2026_S2\\01_课程手册与章节笔记\\Notes and Slides S2 2024\\Gapped\\Stat 210 gapped Coursebook 2024.pdf",
+      "local_file": "Stat 210 gapped Coursebook 2024.pdf",
       "sha256": "f556261d26f5a37cb34fb676b81ea5fc079503088f46b63ead01a89bb1a6e125",
       "pdf_pages": 235,
       "version": "2024"
     },
     {
       "source_id": "C125-TINFO",
-      "local_file": "G:\\STATS\\STATS125\\2026_S2\\07_测试信息与公式\\2026S2_test stuff\\test Info _S2_26.pdf",
+      "local_file": "test Info _S2_26.pdf",
       "sha256": "1d0ab97bd9c49e187d0ed4d7f07df0d8977120725cb800775f4a4365ef4eee01",
       "pdf_pages": 2,
       "version": "2026 S2"
     },
     {
       "source_id": "C125-FORM",
-      "local_file": "G:\\STATS\\STATS125\\2026_S2\\07_测试信息与公式\\2026S2_test stuff\\Test formulae_S22026.pdf",
+      "local_file": "Test formulae_S22026.pdf",
       "sha256": "628a816ff7e8c701011c20779af297ddbc331dbf59d37f2dcdccf6efefe0252e",
       "pdf_pages": 3,
       "version": "2026 S2"
     },
     {
       "source_id": "C125-T4",
-      "local_file": "G:\\STATS\\STATS125\\2026_S2\\03_辅导课\\S2_26\\S2_26Tut4Questions.pdf",
+      "local_file": "S2_26Tut4Questions.pdf",
       "sha256": "b072e57d67945af9c004bf725f94ed9c6a341a45df7dfa0c5f6c021c81ab0ef0",
       "pdf_pages": 2,
       "version": "2026 S2"
     },
     {
       "source_id": "C125-T6",
-      "local_file": "G:\\STATS\\STATS125\\2026_S2\\03_辅导课\\S2_26\\S2_2026Tut6.pdf",
+      "local_file": "S2_2026Tut6.pdf",
       "sha256": "24b5edac93164506fa2911c2b866aeb1a30c014e9c1f59e54e392daae67a7731",
       "pdf_pages": 1,
       "version": "2026 S2"
     },
     {
       "source_id": "C125-T7",
-      "local_file": "G:\\STATS\\STATS125\\2026_S2\\03_辅导课\\S2_26\\S2-26-Tut7.pdf",
+      "local_file": "S2-26-Tut7.pdf",
       "sha256": "d17a5d7fb072b82fb480d96fe3de117e57911e76c94e9d5f8f900bc6e51fbdba",
       "pdf_pages": 2,
       "version": "2026 S2"
     },
     {
       "source_id": "C125-T8",
-      "local_file": "G:\\STATS\\STATS125\\2026_S2\\03_辅导课\\S2_26\\S2_26-Tut8.pdf",
+      "local_file": "S2_26-Tut8.pdf",
       "sha256": "3589219a29c4febf7aeab992e8c8432e077284199a87467eec566141ea57ef0a",
       "pdf_pages": 2,
       "version": "2026 S2"
@@ -80,337 +80,337 @@
       "module": "Joint",
       "question_id": 1,
       "layer": "core",
-      "topic": "读取联合概率格子",
+      "topic": "Read a joint probability cell",
       "course_refs": [
         "C125:95-105"
       ],
-      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+      "action": "Retain the progression through table reading, marginals, events and validity, checking header orientation."
     },
     {
       "module": "Joint",
       "question_id": 2,
       "layer": "core",
-      "topic": "读取联合概率格子",
+      "topic": "Read a joint probability cell",
       "course_refs": [
         "C125:95-105"
       ],
-      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+      "action": "Retain the progression through table reading, marginals, events and validity, checking header orientation."
     },
     {
       "module": "Joint",
       "question_id": 3,
       "layer": "core",
-      "topic": "对 Y 求和得到 X 边际",
+      "topic": "Sum over Y for the X marginal",
       "course_refs": [
         "C125:95-105"
       ],
-      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+      "action": "Retain the progression through table reading, marginals, events and validity, checking header orientation."
     },
     {
       "module": "Joint",
       "question_id": 4,
       "layer": "core",
-      "topic": "对 X 求和得到 Y 边际",
+      "topic": "Sum over X for the Y marginal",
       "course_refs": [
         "C125:95-105"
       ],
-      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+      "action": "Retain the progression through table reading, marginals, events and validity, checking header orientation."
     },
     {
       "module": "Joint",
       "question_id": 5,
       "layer": "core",
-      "topic": "联合事件求和及边界",
+      "topic": "Sum a joint event with boundary conditions",
       "course_refs": [
         "C125:95-105"
       ],
-      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+      "action": "Retain the progression through table reading, marginals, events and validity, checking header orientation."
     },
     {
       "module": "Joint",
       "question_id": 6,
       "layer": "core",
-      "topic": "和变量事件求和",
+      "topic": "Sum an event involving X+Y",
       "course_refs": [
         "C125:95-105"
       ],
-      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+      "action": "Retain the progression through table reading, marginals, events and validity, checking header orientation."
     },
     {
       "module": "Joint",
       "question_id": 7,
       "layer": "core",
-      "topic": "补全缺失概率",
+      "topic": "Complete a missing probability",
       "course_refs": [
         "C125:95-105"
       ],
-      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+      "action": "Retain the progression through table reading, marginals, events and validity, checking header orientation."
     },
     {
       "module": "Joint",
       "question_id": 8,
       "layer": "core",
-      "topic": "允许零质量的归一化",
+      "topic": "Normalisation allowing zero mass",
       "course_refs": [
         "C125:95-105"
       ],
-      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+      "action": "Retain the progression through table reading, marginals, events and validity, checking header orientation."
     },
     {
       "module": "Joint",
       "question_id": 9,
       "layer": "core",
-      "topic": "带系数的归一化",
+      "topic": "Coefficient normalisation",
       "course_refs": [
         "C125:95-105"
       ],
-      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+      "action": "Retain the progression through table reading, marginals, events and validity, checking header orientation."
     },
     {
       "module": "Joint",
       "question_id": 10,
       "layer": "core",
-      "topic": "区分内部联合格子与边际总计",
+      "topic": "Distinguish interior joint cells from marginal totals",
       "course_refs": [
         "C125:95-105"
       ],
-      "action": "保留；按读表、求边际、事件、合法性递进，核对表头方向。"
+      "action": "Retain the progression through table reading, marginals, events and validity, checking header orientation."
     },
     {
       "module": "Conditional",
       "question_id": 1,
       "layer": "core",
-      "topic": "条件 Binomial 模型",
+      "topic": "Conditional Binomial model",
       "course_refs": [
         "C125:72-78",
         "C125:110-117"
       ],
-      "action": "保留，增加参数和支持集说明。"
+      "action": "Retain and explain parameters and support."
     },
     {
       "module": "Conditional",
       "question_id": 2,
       "layer": "core",
-      "topic": "条件 Binomial 补事件概率",
+      "topic": "Conditional Binomial complement probability",
       "course_refs": [
         "C125:72-78",
         "C125:110-117"
       ],
-      "action": "保留，增加参数和支持集说明。"
+      "action": "Retain and explain parameters and support."
     },
     {
       "module": "Conditional",
       "question_id": 3,
       "layer": "core",
-      "topic": "条件 Poisson 模型与区间参数",
+      "topic": "Conditional Poisson model and interval parameter",
       "course_refs": [
         "C125:92-93",
         "C125:110-117"
       ],
-      "action": "保留，增加参数和支持集说明。"
+      "action": "Retain and explain parameters and support."
     },
     {
       "module": "Conditional",
       "question_id": 4,
       "layer": "core",
-      "topic": "条件 Poisson CDF",
+      "topic": "Conditional Poisson CDF",
       "course_refs": [
         "C125:92-93",
         "C125:110-117"
       ],
-      "action": "保留，增加参数和支持集说明。"
+      "action": "Retain and explain parameters and support."
     },
     {
       "module": "Conditional",
       "question_id": 5,
       "layer": "core",
-      "topic": "Geometric 失败数与尝试数平移",
+      "topic": "Shift between Geometric failure and attempt counts",
       "course_refs": [
         "C125:79-81",
         "C125:110-117"
       ],
-      "action": "保留，增加参数和支持集说明。"
+      "action": "Retain and explain parameters and support."
     },
     {
       "module": "Conditional",
       "question_id": 6,
       "layer": "core",
-      "topic": "Geometric 条件尾事件",
+      "topic": "Conditional Geometric tail event",
       "course_refs": [
         "C125:79-81",
         "C125:110-117"
       ],
-      "action": "保留，增加参数和支持集说明。"
+      "action": "Retain and explain parameters and support."
     },
     {
       "module": "Conditional",
       "question_id": 7,
       "layer": "bridge",
-      "topic": "条件 Exponential 直观",
+      "topic": "Conditional Exponential intuition",
       "course_refs": [
         "C210:170-176"
       ],
-      "action": "可选预习；先给概念和所需公式，不计入核心路径必答。"
+      "action": "Optional preview with the required concepts and formulas supplied."
     },
     {
       "module": "Conditional",
       "question_id": 8,
       "layer": "bridge",
-      "topic": "Exponential CDF 给定公式代入",
+      "topic": "Evaluate a supplied Exponential CDF",
       "course_refs": [
         "C210:170-176"
       ],
-      "action": "可选预习；先给概念和所需公式，不计入核心路径必答。"
+      "action": "Optional preview with the required concepts and formulas supplied."
     },
     {
       "module": "Conditional",
       "question_id": 9,
       "layer": "bridge",
-      "topic": "条件 Normal 的均值与方差",
+      "topic": "Conditional Normal mean and variance",
       "course_refs": [
         "C210:183-188"
       ],
-      "action": "可选预习；先给概念和所需公式，不计入核心路径必答。 避免仅从题干抄写分布名称，改问参数变化或概率含义。"
+      "action": "Optional preview with concepts/formulas. Ask about parameter changes or probability interpretation rather than copying a supplied model name."
     },
     {
       "module": "Conditional",
       "question_id": 10,
       "layer": "later",
-      "topic": "Normal 标准化与尾概率",
+      "topic": "Normal standardisation and tail probability",
       "course_refs": [
         "C210:183-188"
       ],
-      "action": "移至后续拓展；不作为 125 学生的默认必答题。"
+      "action": "Move to voluntary further exploration for later study."
     },
     {
       "module": "Conditional",
       "question_id": 11,
       "layer": "bridge",
-      "topic": "连续 Uniform 范围与密度",
+      "topic": "Continuous Uniform range and density",
       "course_refs": [
         "C210:169"
       ],
-      "action": "可选预习；先给概念和所需公式，不计入核心路径必答。 避免仅从题干抄写分布名称，改问参数变化或概率含义。"
+      "action": "Optional preview with concepts/formulas. Ask about parameter changes or probability interpretation rather than copying a supplied model name."
     },
     {
       "module": "Conditional",
       "question_id": 12,
       "layer": "bridge",
-      "topic": "连续 Uniform 区间概率",
+      "topic": "Continuous Uniform interval probability",
       "course_refs": [
         "C210:169"
       ],
-      "action": "可选预习；先给概念和所需公式，不计入核心路径必答。"
+      "action": "Optional preview with the required concepts and formulas supplied."
     },
     {
       "module": "Conditional",
       "question_id": 13,
       "layer": "later",
-      "topic": "Gamma 的 shape-rate 模型",
+      "topic": "Gamma shape-rate model",
       "course_refs": [
         "C210:177-181"
       ],
-      "action": "移至后续拓展；不作为 125 学生的默认必答题。"
+      "action": "Move to voluntary further exploration for later study."
     },
     {
       "module": "Expectation",
       "question_id": 1,
       "layer": "core",
-      "topic": "Binomial 均值",
+      "topic": "Binomial mean",
       "course_refs": [
         "C125:58-59",
         "C125:72-78"
       ],
-      "action": "保留，强调模型参数与测量单位。"
+      "action": "Retain, emphasising model parameters and measurement units."
     },
     {
       "module": "Expectation",
       "question_id": 2,
       "layer": "core",
-      "topic": "Poisson 区间均值",
+      "topic": "Poisson interval mean",
       "course_refs": [
         "C125:58-59",
         "C125:92-93"
       ],
-      "action": "保留，强调模型参数与测量单位。"
+      "action": "Retain, emphasising model parameters and measurement units."
     },
     {
       "module": "Expectation",
       "question_id": 3,
       "layer": "bridge",
-      "topic": "Exponential 均值",
+      "topic": "Exponential mean",
       "course_refs": [
         "C125:58-59",
         "C210:170-176"
       ],
-      "action": "可选预习，给出必要定义；不作为核心必答。"
+      "action": "Optional preview with the necessary definitions supplied."
     },
     {
       "module": "Expectation",
       "question_id": 4,
       "layer": "later",
-      "topic": "连续 Uniform 二阶矩",
+      "topic": "Continuous Uniform second moment",
       "course_refs": [
         "C125:60-61",
         "C210:169"
       ],
-      "action": "移至后续拓展；核心改用离散例子训练同一个期望概念。"
+      "action": "Move to further exploration and use a discrete example for the core expectation objective."
     },
     {
       "module": "Expectation",
       "question_id": 5,
       "layer": "bridge",
-      "topic": "方差的定义，当前用 Normal 包装",
+      "topic": "Variance definition in the current Normal setting",
       "course_refs": [
         "C125:63-68",
         "C210:183-188"
       ],
-      "action": "概念本属 125 核心；当前 Normal 包装先列可选，优先改为简单离散 PMF 后纳入核心。"
+      "action": "Variance is STATS125 core. Make the current Normal setting optional and prioritise a simple discrete PMF version for core study."
     },
     {
       "module": "Expectation",
       "question_id": 6,
       "layer": "later",
-      "topic": "Exponential 二阶矩",
+      "topic": "Exponential second moment",
       "course_refs": [
         "C125:60-68",
         "C210:170-176"
       ],
-      "action": "移至后续拓展；核心改用离散例子训练同一个期望概念。"
+      "action": "Move to further exploration and use a discrete example for the core expectation objective."
     },
     {
       "module": "Expectation",
       "question_id": 7,
       "layer": "core",
-      "topic": "条件 Binomial 均值",
+      "topic": "Conditional Binomial mean",
       "course_refs": [
         "C125:72-78",
         "C125:136-137"
       ],
-      "action": "保留，强调模型参数与测量单位。"
+      "action": "Retain, emphasising model parameters and measurement units."
     },
     {
       "module": "Expectation",
       "question_id": 8,
       "layer": "core",
-      "topic": "两种天气下的条件 Poisson 均值",
+      "topic": "Conditional Poisson means for two weather conditions",
       "course_refs": [
         "C125:92-93",
         "C125:136-138",
         "C125:146"
       ],
-      "action": "保留；Q8 后增加按天气概率加权的全期望例子。"
+      "action": "Retain and add a weather-probability-weighted total-expectation example after Q8."
     },
     {
       "module": "Expectation",
       "question_id": 9,
       "layer": "bridge",
-      "topic": "条件 Normal 的均值函数",
+      "topic": "Conditional Normal mean function",
       "course_refs": [
         "C125:136-147",
         "C210:183-188"
       ],
-      "action": "当前 Normal 模型列可选；可改为给定条件均值函数，或离散条件模型后纳入核心。"
+      "action": "Make the Normal setting optional. A supplied conditional-mean function or discrete conditional model could serve the core route."
     }
   ],
   "distribution_catalog": [
@@ -453,48 +453,48 @@
       "distribution": "Uniform",
       "layer": "bridge",
       "course_ref": "C210:169",
-      "note": "只作可选的密度/面积/位置与尺度直观；不预设积分、标准化或特殊函数。"
+      "note": "Optional density/area/location/scale intuition, with integration, standardisation and special functions left for later study."
     },
     {
       "distribution": "Exponential",
       "layer": "bridge",
       "course_ref": "C210:170",
-      "note": "只作可选的密度/面积/位置与尺度直观；不预设积分、标准化或特殊函数。"
+      "note": "Optional density/area/location/scale intuition, with integration, standardisation and special functions left for later study."
     },
     {
       "distribution": "Normal",
       "layer": "bridge",
       "course_ref": "C210:183",
-      "note": "只作可选的密度/面积/位置与尺度直观；不预设积分、标准化或特殊函数。"
+      "note": "Optional density/area/location/scale intuition, with integration, standardisation and special functions left for later study."
     },
     {
       "distribution": "Gamma",
       "layer": "later",
-      "note": "C210 177-181 的后续分布，不作为 125 默认铺垫要求。"
+      "note": "Later distribution material in C210 p177-181, offered as further exploration."
     },
     {
       "distribution": "Beta",
       "layer": "later",
-      "note": "C210 2024 手册 p182 本身标为 non-examinable；不能据此推断 2026 安排。"
+      "note": "The 2024 C210 book labels this non-examinable on p182. Its version does not establish 2026 arrangements."
     },
     {
       "distribution": "Chi-Squared",
       "layer": "later",
-      "note": "210 Gamma/Normal 关系中出现，非本次 125 默认路径所需。"
+      "note": "Appears in STATS210 Gamma/Normal relationships and is optional for this STATS125 route."
     },
     {
       "distribution": "Student's t",
       "layer": "later",
-      "note": "210 后续推断中出现，非本次 125 默认路径所需。"
+      "note": "Appears in later STATS210 inference and is optional for this STATS125 route."
     },
     {
       "distribution": "F",
       "layer": "later",
-      "note": "本次未核实为 210 必备衔接内容；不据此断言后续课程完全不使用。"
+      "note": "Not verified as necessary STATS210 preparation in this review. Later course use remains unspecified."
     }
   ],
   "synthetic_example": {
-    "description": "原创虚构频数例子；X/Y 为 0/1 指示变量，未指代实际学生数据。",
+    "description": "Original fictional frequency example with binary X/Y indicators.",
     "counts": [
       [
         6,
@@ -520,7 +520,7 @@
   "proposed_core_exercises": [
     {
       "id": "B01",
-      "objective": "由 20 个虚构观测频数构造合法联合 PMF",
+      "objective": "Construct a valid joint PMF from 20 fictional observations",
       "expected": [
         "3/10",
         "1/5",
@@ -530,7 +530,7 @@
     },
     {
       "id": "B02",
-      "objective": "Bernoulli(.4) 的 CDF 与端点不等号",
+      "objective": "Bernoulli(.4) CDF and endpoint inequalities",
       "expected": {
         "F(0)": "3/5",
         "P(X<1)": "3/5",
@@ -540,7 +540,7 @@
     },
     {
       "id": "B03",
-      "objective": "边际由联合格子求和",
+      "objective": "Obtain marginals by summing joint cells",
       "expected": {
         "P(X=1)": "1/2",
         "P(Y=1)": "3/5"
@@ -548,7 +548,7 @@
     },
     {
       "id": "B04",
-      "objective": "区分联合、条件与条件反向",
+      "objective": "Distinguish joint, conditional and reverse conditional probabilities",
       "expected": {
         "P(X=1,Y=1)": "2/5",
         "P(Y=1|X=1)": "4/5",
@@ -557,7 +557,7 @@
     },
     {
       "id": "B05",
-      "objective": "检验独立性：反例一格即可，证明独立须检查所有支持格子",
+      "objective": "One counterexample refutes independence. Proving it requires checking all supported cells.",
       "expected": {
         "independent": false,
         "actual": "2/5",
@@ -566,7 +566,7 @@
     },
     {
       "id": "B06",
-      "objective": "条件期望与全期望，先固定 X 再对 X 加权",
+      "objective": "Conditional and total expectation, first fixing X and then averaging over X",
       "expected": {
         "E(Y|X=0)": "2/5",
         "E(Y|X=1)": "4/5",
@@ -577,7 +577,7 @@
     },
     {
       "id": "B07",
-      "objective": "DU(5) 下 E[X^2]、E[X]^2 与方差",
+      "objective": "E[X^2], E[X]^2 and variance for DU(5)",
       "expected": {
         "E(X^2)": "11",
         "E(X)^2": "9",
@@ -586,7 +586,7 @@
     },
     {
       "id": "B08",
-      "objective": "零边际时的条件分布未定义",
+      "objective": "Conditional distribution undefined for a zero marginal",
       "expected": {
         "P(X=0)": "0",
         "P(Y=1|X=0)": "undefined",

@@ -5,7 +5,7 @@ This tool enables learners to explore probability distributions through interact
 
 **Probability Distribution → Overview** defaults to **STATS125 Core**. Its **Learning path** selector also offers **Optional STATS210 preview** and **Further exploration**. The learning order is **review key ideas → explore tables and plots → optional past-exam extracts**. Practice is collapsed by default, with progress shown within each module's optional questions. Modules are accessed through the sidebar. The four module practice panels use only locally verified STATS125 past-exam extracts; the previous original and unverified exercise library is no longer offered in those panels. The separate detective game and generic visualization examples remain available.
 
-The selected extracts are from 2026 S1 Q2(a)–(d), 2025 S1 Q3(c)–(d), 2024 S2 Q3(e), and 2026 S1 Q3(d), (g). Each identifies its source and adaptation status and can load the corresponding table or plot parameters. **Exam content and source PDFs are local-only:** a public clone still runs the visualizations but shows no exam questions until a private bank and its matching local PDFs are available. There is no fallback to original exercises. See [selection and local setup](review/PAST_EXAM_SELECTION.md) and [current verification](review/evidence/past_exam_verification.md). Older teaching/layout reports describe earlier revisions.
+The selected extracts are from 2026 S1 Q2(a)–(d), 2025 S1 Q3(c)–(d), 2024 S2 Q3(e), and 2026 S1 Q3(d), (g). Each identifies its source and adaptation status and can load the corresponding table or plot parameters. **The four question groups and six matching source PDFs are included in `exam-materials/`.** Their paths are resolved relative to the bank file, so cloning or downloading the current repository provides the complete reviewed app. The launcher discovers the bundled materials automatically. See [source selection and loading](review/PAST_EXAM_SELECTION.md). Older teaching/layout reports describe earlier revisions, when exam materials were stored separately.
 
 Probability tables automatically use short decimals and simple fractions. Joint tables and heatmaps prefer simple fractions. Conditional and Expectation charts follow their corresponding table formats. Ordinary decimals use at most four decimal places without trailing zeroes; very small nonzero values use scientific notation, and approximate entries are marked. Compact editor bindings preserve the original value until an entry is edited. See [number-display verification](review/evidence/number_display_verification.md).
 
@@ -34,7 +34,7 @@ Users can interactively manipulate parameters, visualize how probability functio
 
 The current application is in the versioned `Project_PPeek1ng/` directory, with its R modules and bundled images. `Start-Shiny.R` launches that directory. Review records and regression scripts are in `review/`.
 
-`Project_PPeek1ng.zip` preserves the original project snapshot. For the reviewed version, download the full current repository using **Code → Download ZIP**, or clone it using the instructions below.
+`Project_PPeek1ng.zip` preserves the original project implementation with its comments translated into English. For the reviewed version, download the full current repository using **Code → Download ZIP**, or clone it using the instructions below.
 
 ---
 
@@ -61,7 +61,7 @@ In RStudio, set the working directory to the repository root and run
 
 Review status and reproducible checks are recorded in [review/README.md](review/README.md).
 Run `./review/scripts/run_regression.ps1` from the repository root to check the modules;
-the past-exam checks additionally require the private bank and matching source PDFs.
+the past-exam checks use the bundled bank and matching source PDFs.
 With the app running, `./review/scripts/test_assets.ps1` checks its image resources.
 
 ---
@@ -89,8 +89,9 @@ Shiny-Visualization-Project/
 │   ├── modules/
 │   └── www/                      # Images, styles and browser interaction
 ├── review/                      # Review records and validation scripts
+├── exam-materials/              # Four question groups and six matching PDFs
 ├── README.md
-└── Project_PPeek1ng.zip          # Original project snapshot
+└── Project_PPeek1ng.zip          # Original implementation, English comments
 ```
 
 ---

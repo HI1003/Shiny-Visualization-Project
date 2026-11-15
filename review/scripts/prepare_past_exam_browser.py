@@ -3,7 +3,10 @@ from pathlib import Path
 import json
 
 root = Path(__file__).resolve().parents[2]
-bank = json.loads((root / '.local/past-exams/bank.json').read_text(encoding='utf-8'))
+bank_path = root / 'exam-materials/bank.json'
+if not bank_path.exists():
+    bank_path = root / '.local/past-exams/bank.json'
+bank = json.loads(bank_path.read_text(encoding='utf-8'))
 questions = []
 for question in bank['questions']:
     source = bank['sources'][question['source_id']]

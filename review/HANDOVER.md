@@ -1,64 +1,76 @@
-# 模块修复与 STATS125 教学复核交接
+# Module fixes and STATS125 teaching-review handover
 
-2026-11-14 当前交付范围：已落实 Joint 分数热力图、移除 Joint/Conditional 的 3D 图、Conditional 表图统一，以及三个模块的布局整理。Expectation 以计算流程显示“条件均值 × 边际概率 = 贡献”，再将贡献相加得到总体均值，并与左侧表格保持一致。Overview 已完成参数输入与滑块同步、简短说明、整洁步长和刻度、同一 x 的自适应查询及悬停/触屏联动。无可用真题时隐藏空练习区。全期望流程图已提交为 `91e5faea07f4a41f169928b1c64cfb6b4e5a6c25`，推送后核对用户 GitHub 的 main 与该 SHA 一致。
+Updated on 2026-11-16. The contract is signed and the user confirmed that no timesheet is required. The user requested an English project and publication of the four selected exam groups and six matching PDFs so the complete reviewed experience can run from a clone. See [exam materials and loading](PAST_EXAM_SELECTION.md). The dated records below retain the storage arrangements and validation scope of each stage.
 
-## 2026-11-14 交付复核
+The 2026-11-14 delivery includes Joint's fraction-labelled heatmap, removal of Joint/Conditional 3D views, matching Conditional table/plot readings and revised layouts. Expectation shows **conditional mean × marginal probability = contribution**, followed by the sum of contributions giving the overall mean, consistent with the table. Overview has numeric inputs synchronised with sliders, short parameter explanations, consistent steps/ticks, adaptive x queries and linked hover/touch readings. Empty question sections are hidden. The expectation flow was committed as `91e5faea07f4a41f169928b1c64cfb6b4e5a6c25` and verified against remote main after push.
 
-本次检查覆盖运行入口、所有 15 种分布、三个表格模块、七章游戏及本地可选真题。未发现本次检查范围内阻碍提交验收的功能问题，代码可交给教师做最终验收。此结论不替代真实教师/学生的教学验收，也不表示已经正式部署。
+## Complete-repository delivery on 2026-11-16
 
-从上述提交用 `git archive` 导出仅含版本控制文件的副本，不含私有题库及本地依赖。通过副本的 `Start-Shiny.R --no-browser` 完成首次依赖安装及启动，并在 Chrome 中操作；因此公开仓库本身可运行核心可视化。环境为 Windows、R 4.6.1，副本首次安装得到 Shiny 1.14.0、Plotly 4.12.1。核验时副本运行于本地 7125，原工作区含题库的预览运行于 7130。
+The selected bank and six source PDFs are included under `exam-materials/`. PDF paths are relative to the bank and resolved during loading. The app discovers bundled materials from the repository root or application directory, with explicit environment overrides and the historical local-bank fallback retained. A clone can run the four optional question groups using the standard launcher. Source questions, answers and PDF contents match their previously verified versions.
 
-| 本次验证 | 结果与范围 |
+All 138 versioned text files were scanned for Chinese characters, with none remaining. Comments in the original nested ZIP were also translated. Ten R-expression comparisons confirmed unchanged executable expressions in the four comment-only current files and six archived R files, after removing CSS comments from the comparison. The two translated metadata JSON files retain their numerical structure and fingerprints. Machine-specific Chinese directory strings in course-reference metadata were replaced with source filenames. All six source PDFs contain English extracted text.
+
+Validation passed **861/861** calculation/resource checks, comprising R1-04 102, R1-05 11, R1-06 146, remaining models/app 301, number display 79, continuous queries 104, exam integration 95, independent mathematics 10 and images 13. New loading assertions cover root/app discovery, relocation with spaces, resolved paths, explicit override and missing-source rejection.
+
+A tracked-files-only export in a directory with spaces completed first-run package installation and launched on 7125. It loaded the bundled bank and PDFs from the export. Its separate exam-module run passed **95/95**. Chrome passed exam interaction/loading **93/93**, total-expectation flow **28/28**, game **20/20** and English-interface/layout **21/21**, totalling **162/162**. Selected wide/phone screenshots were visually checked. The clone startup used the configured local R-library environment, and the launcher installed missing packages in the exported project's library.
+
+Publication scope includes only the selected six exam PDFs, the matching bank, English project/review content and supporting loading tests. Local course-reference downloads, dependencies, working caches, raw browser output and screenshots remain under the existing ignored directories. Source PDF MD5/SHA-256 values, bank content equivalence, 211 local documentation links and staged-file exclusions were checked. A complete local ZIP provides the same approved files for direct sharing.
+
+## Delivery review on 2026-11-14
+
+The review covered the launcher, all 15 distributions, three table modules, seven game chapters and local optional exam questions. No delivery-blocking functional issue was found within that coverage. The code was ready for final teacher acceptance. Teacher/student evaluation and formal hosting remained pending.
+
+A tracked-files-only `git archive` export of that commit was created without a bank or installed dependencies. Its `Start-Shiny.R --no-browser` completed first-time dependency installation and launched successfully in Chrome. The environment was Windows and R 4.6.1, with freshly installed Shiny 1.14.0 and Plotly 4.12.1. The export ran on local port 7125, while the original bank-enabled preview ran on 7130.
+
+| Verification | Result and coverage |
 |---|---|
-| R 与独立核算、资源 | 855/855：R1-04 102、R1-05 11、R1-06 146、其他模型/应用 301、数值显示 79、真题 89、连续查询 104、独立数学 10、图片 13 |
-| 无私有资料的启动与导航 | 16/16；四个学习模块可用，空练习及入口隐藏，题库 HTTP 路径不可访问；本次三轮快速切页未复现空白，不据此声称覆盖所有启动时序 |
-| 全部分布参数 | 360/360；15 种分布、24 组参数控件，双向同步、实际输入精度、范围、整数及关联边界 |
-| 图表查询 | 悬停及触屏 87/87，连续分布同一 x 的 PDF/CDF 重新计算 157/157 |
-| 全期望流程 | 28/28；两个条件方向、因子/表格一致、贡献求和、零概率组、正负贡献、抵消及窄屏近似值 |
-| 七章游戏 | 20/20；空提交、错误提示、各章正确答案及解释、翻页定位、结束与重启、手机布局 |
-| 本地私有真题 | 93/93 浏览器检查；单独在原工作区复核题目元数据、作答、载入参数/表格、定位和进度，不向公开副本复制题库 |
-| 明暗主题与布局 | 36/36；三个表格模块在 1600px 与 390px 下无页面横向溢出、主题切页保持、无可见运行错误；另目视核对桌面/手机截图中的文字、分数及流程布局 |
+| R, independent calculations and assets | 855/855. R1-04 102, R1-05 11, R1-06 146, remaining models/app 301, number display 79, exam integration 89, continuous queries 104, independent mathematics 10, images 13. |
+| Launch/navigation without local materials | 16/16. Four learning modules worked, empty question areas/navigation were hidden and the bank HTTP path was inaccessible. Three rapid-navigation rounds recovered correctly. |
+| All distribution parameters | 360/360. Fifteen models and 24 parameter pairs, bidirectional updates, manual precision, ranges, integers and linked bounds. |
+| Plot queries | Hover/touch 87/87. Continuous same-x PDF/CDF recalculation 157/157. |
+| Total expectation flow | 28/28. Both directions, factors matching tables, contribution sums, zero-weight groups, signed contributions, cancellation and narrow-screen approximations. |
+| Seven-chapter game | 20/20. Empty input, wrong answers/hints, correct answers/explanations, chapter positioning, ending, restart and phone layout. |
+| Local exam version | 93/93 browser checks. Source metadata, answers, table/parameter loading, positioning and progress were checked separately on the original working copy. |
+| Light/dark themes and layout | 36/36. Three table modules at 1600px and 390px, page fit, retained theme and visible runtime errors. Desktop/phone screenshots were also visually reviewed. |
 
-详细 JSON、浏览器日志、临时脚本和截图留在忽略的 `.local/` 与 `output/playwright/`。本次另修正 README 中指向旧仓库的 clone 地址，以及将原始 `Project_PPeek1ng.zip` 作为当前运行包的说明；接收方应 clone 用户仓库或下载整个当前仓库 ZIP。原始 ZIP 未重新打包。
+Detailed JSON, browser logs, temporary scripts and screenshots are retained under ignored `.local/` and `output/playwright/`. README was corrected to point to the user's repository and explain that the whole current repository ZIP contains the reviewed version. The nested `Project_PPeek1ng.zip` was the original snapshot at that stage.
 
-交付时还需由本人确认实际人工工时，并请教师确认课程适配和题目选择。若接收方需要可选真题，须另行移交获授权的私有题库与匹配 PDF，并按 [本地设置](PAST_EXAM_SELECTION.md) 配置；只取得 GitHub 代码时，练习区按预期隐藏。正式托管仅在确定分享方式后另行进行。未重新逐份阅读全部课程历史资料，未在其他操作系统或全部浏览器上验收，未验证学习效果。
+Teachers still need to confirm course suitability and question selection. Formal hosting depends on the agreed sharing method. The review did not reread every historical course resource or evaluate all operating systems, all browsers or student learning outcomes.
 
-## 历史阶段记录
+## Historical stage records
 
-2026-11-12 更新：已完成 [学生视角完整走查](STUDENT_EXPERIENCE_REVIEW_20261112.md)，六组易用性问题已本地修复。主要剩余工作是 Joint 二维图表达概率大小、全期望的加权过程展示及真实教师/学生试用；冷启动快速切页需继续确认。最新验证见 [摘要](evidence/student_experience_20261112.json)。本轮及此前尚未提交的界面修改保留在工作区，未新增提交、推送或部署；以下旧同步与阶段记录保留为历史状态。
+**2026-11-12.** The [student-task walkthrough](STUDENT_EXPERIENCE_REVIEW_20261112.md) was completed and six usability issues fixed locally. Further priorities were Joint probability encoding, weighted total expectation, teacher/student trials and a cold-start navigation check. See the [dated summary](evidence/student_experience_20261112.json). Those changes had not been committed or pushed at that time.
 
-当前阶段：2026-11-10。面向 STATS125 学生，少量 STATS210 内容仅作可选预习。当前主线是 **知识点回顾 → 可视化探索 → 可选历年真题**；四个模块练习默认折叠，答题进度仅在模块内展示，模块入口统一使用左侧菜单。
+**2026-11-10.** The route was concept review → visual exploration → optional past-exam questions. The four question sections were initially collapsed, progress was shown within each module, and module entry used the sidebar.
 
-## 当前结果
+### Results recorded at those dates
 
-- 2026-11-10 按用户反馈移除侧栏 Optional past-exam progress 汇总，以及首页 Review STATS125 concepts / Explore joint probability 两个快捷按钮；模块菜单、模块内进度和答题反馈保留。现有浏览器检查已改用侧栏导航和逐模块进度核验；本轮已同步至用户 GitHub，远端内容提交核验为 `ba353d5c058ae0de2d191cf63260888001312845`，同步记录另作独立文档提交一并同步。
-- 2026-11-10 按用户反馈移除 Probability table display 选择器，所有学生页面统一自动显示简洁分数/短小数；计算精度和更多精度入口保留。测试中仍核对内部格式函数，但学生界面不再切换模式；本轮及今天两次布局改动均已同步，未部署。
-- 2026-11-04 按用户体验反馈改进数值显示：侧栏选择 Auto / Short decimals / Simple fractions；表格/条件概率/期望与图形标签使用简洁数字，近似值标注，悬停或 More precision 查看完整值。编辑框缩短显示但保留未经编辑的真实精度。改进提交 `ecef621` 已同步至用户 GitHub，远端内容 SHA 已核验为 `ecef62163f4f4e74c99c989bbe6d4430c84ae26d`；同步记录另作独立文档提交一并同步，最终 SHA 见 Git 历史。未部署。见 [验证记录](evidence/number_display_verification.md) 及 [工作日志](WORKLOG.md)。
-- R1-01–R1-11、R2-01–R2-07 的技术修复及之前教学/布局改进已同步 GitHub，原记录提交 `5063d1d`。概念优先改版 `2eed4f9` 和真题改版 `b94764d` 已于 2026-11-01 同步至用户 GitHub；推送后核验远端 main 与本地内容提交均为 `b94764d412ad16f6420b37092b09243869bf8e36`。本次同步记录另作独立文档提交一并同步，最终 SHA 见 Git 历史。未部署。
-- 当前四模块可选题库只含 4 组经本地试卷及参考解答核实的 STATS125 真题节选。来源、页码和改编情况见 [选择记录](PAST_EXAM_SELECTION.md)；本轮未原创练习。
-- 此前新增 10 题的构建代码已删除，原 32 题保留为内部 legacy 回归依据，学生不能启用。旧 30/8/4、42 题及 695/695 结果为历史阶段记录。通用图表演示、独立游戏与原计算功能保留。
-- 期望题将分段 PMF 等价转换成表格，明确标注为呈现方式改编；其余为原题节选，只调整排版、符号显示与作答输入。书面假设/论证需对照参考解答，自动反馈只核验输入字段。
-- 概念与图表不依赖私有题库。真题内容只在本机 `.local/past-exams/bank.json` 中，加载时核对 G 盘原 PDF 的指纹；缺少资料时练习区提示不可用，不回退到旧题。GitHub 克隆本身不能还原真题内容。
+- On 2026-11-10 the sidebar exam-progress summary and Home's two shortcuts were removed. Menus, local progress and feedback remained. Browser checks were adjusted to sidebar navigation. The remote content commit was verified as `ba353d5c058ae0de2d191cf63260888001312845`, followed by a separate documentation commit.
+- On 2026-11-10 the Probability table display selector was removed and automatic compact fractions/decimals adopted. Internal format tests retained the format options. These UI changes were synchronised and remained undeployed.
+- On 2026-11-04 the sidebar offered Auto / Short decimals / Simple fractions. Tables, formulas and plot labels used compact readings, approximation marks and optional precision details. Editor display preserved unchanged values. Commit `ecef62163f4f4e74c99c989bbe6d4430c84ae26d` was synchronised with a matching remote SHA. See the [verification](evidence/number_display_verification.md) and [work log](WORKLOG.md).
+- R1-01–R1-11, R2-01–R2-07 and earlier teaching/layout work had been synchronised, with record commit `5063d1d`. Concept-first `2eed4f9` and exam revision `b94764d` were synchronised on 2026-11-01, with remote content SHA `b94764d412ad16f6420b37092b09243869bf8e36`. Subsequent documentation commits are recorded in Git history.
+- The four question panels contained four STATS125 groups checked against local papers and solutions. See [selection](PAST_EXAM_SELECTION.md). No original exercise was added in that round.
+- The earlier 10 original exercise builders were removed. The original 32 questions remained internal legacy regression material. Historical 30/8/4, 42-question and 695/695 records refer to earlier versions. Generic demonstrations and the game remained available.
+- The expectation extract converted a piecewise PMF to an equivalent table and disclosed the presentation adaptation. Other extracts changed layout, notation and answer entry. Written reasoning was checked by comparison with the reference solution, while automated checks assessed fields.
+- At that historical stage, the bank was held in `.local/past-exams/bank.json` and checked against G: PDFs. Missing materials left the visualisations available and the question collection empty. A code-only clone then omitted the exam contents.
 
-## 验证与证据
+### Historical verification and evidence
 
-2026-11-10 界面调整后的相关验证为 **80/80 模块及应用、66/66 浏览器流程**，见 `local_progress_*`；当前 11 个应用 R 文件的 MD5 已重新核对一致。移除显示选项时的 `auto_display_*`（72/72、29/29）及布局修正记录（19/19）分别对应 `d2dc5da`、`ff8c390` 阶段，保留原指纹。以下 `numbers_*` 为此前完整数值回归证据，不能据此声称已对最新界面重跑全套检查。
+The 2026-11-10 UI checks passed 80/80 module/app and 66/66 browser cases (`local_progress_*`), with matching MD5 values for 11 app R files. Earlier `auto_display_*` checks passed 72/72 and 29/29. The 19/19 layout result belonged to the `d2dc5da` / `ff8c390` stage. Each evidence file retains its original fingerprint.
 
-此前完整数值回归结果见 [数值显示验证](evidence/number_display_verification.md)：689/689 模块/精度、29/29 显示浏览器、10/10 独立数学及 13/13 图片；原 R1-04/05/06 与真题组均重跑。真题来源与上一阶段覆盖见 [真题验证](evidence/past_exam_verification.md)。旧 `test_learning_paths.R` 和旧 content/layout/concept 浏览器脚本保留用于历史阶段，不是当前入口。
+The earlier [number-display suite](evidence/number_display_verification.md) passed 689/689 module/precision checks, 29/29 browser checks, 10/10 independent mathematics and 13/13 images, including reruns of R1-04/05/06 and exam integration. See the [exam verification](evidence/past_exam_verification.md). Earlier learning-path/content/layout/concept scripts remain historical.
 
-当前从仓库根目录运行 `./review/scripts/run_regression.ps1 -ReportPrefix numbers`，最后加入数值显示/精度专项；其中真题检查需要私有题库与对应 PDF。启动后可运行 `./review/scripts/test_assets.ps1 -BaseUrl http://127.0.0.1:7130`。显示浏览器检查使用 `check_number_display_browser.js`；真题浏览器复现仍见选择记录。临时截图、CLI 命令回显和私有输入均不得提交。
+The recorded command was `./review/scripts/run_regression.ps1 -ReportPrefix numbers`. The exam group needed the local bank and PDFs at that stage. Asset checks used `./review/scripts/test_assets.ps1 -BaseUrl http://127.0.0.1:7130`. Browser number-display checks used `check_number_display_browser.js`, with exam fixture preparation described in the selection record.
 
-## 下一步
+### Follow-up recorded at that stage
 
-1. 在本地预览中体验知识点与图表，展开各模块底部 **3. Optional past-exam questions** 查看四组真题及来源。重点确认题目是否帮助读图，解释与图表是否清楚，无需完成练习。
-2. 教师复核题目选择与呈现；如要在其他电脑上使用，应另行移交获授权的私有题库及匹配 PDF。当前仅 GitHub 同步不会传递课程内容。
-3. 代码已同步；后续改动继续核对完整待推送提交范围及每个文件版本，排除课程 PDF、私有题库和所有本地缓存，并验证远端 SHA。本次已核对 56 个文件路径、66 个文件版本（65 个不同内容版本），未包含私有课程内容。
-4. 整理人工实际工时、试用反馈及正式分享方式；教师/学生教学验收与部署仍未完成。
+1. Experience the concept and plot sequence, and optionally expand **3. Optional past-exam questions** to check the four groups and their sources.
+2. Obtain teacher feedback on selection and presentation, and arrange materials for another computer when required.
+3. Review every outgoing file/version and verify the remote SHA after synchronising. That review covered 56 paths and 66 file versions, including 65 unique contents.
+4. Collect trial feedback and agree the sharing/hosting arrangement. The later user clarification removed the timesheet task.
 
-## 范围与存储边界
+### Scope and local storage
 
-当前不声称覆盖 STATS125 整门课程或改善了学习成绩。条件期望、全期望及离散 E[g(X)] 属于 125 核心；210 主手册为本地 2024 版，不据此断言 2026 考试范围。原始 ZIP 未重新打包。
+The app supports selected STATS125 topics. Conditional expectation, total expectation and discrete E[g(X)] remain core. The reviewed STATS210 coursebook was the downloaded 2024 edition.
 
-PDF 留在 `G:\STATS`；私有题库、文本、源页图片、临时脚本与日志留在 `.local/`；依赖留在 `.R-library/`；含真题的浏览器截图留在 `output/playwright/`，浏览器状态留在 `.playwright-cli/`。本轮只提交通用代码、元数据索引及不含课程内容的审查记录。
-
-新版预览为 [本地 7130](http://127.0.0.1:7130)，刷新页面可查看；原 7125 服务未干预。人工实际工时在 [WORKLOG.md](WORKLOG.md) 由本人填写，自动窗口不替代人工工时，也不扣减 15 小时预算。
+During those rounds, source PDFs were in `G:\STATS`, private bank/text/page images and scripts in `.local/`, dependencies in `.R-library/`, browser screenshots in `output/playwright/` and browser state in `.playwright-cli/`. The preview was on local 7130. Publication of the selected six PDFs and bank was subsequently authorised on 2026-11-16.

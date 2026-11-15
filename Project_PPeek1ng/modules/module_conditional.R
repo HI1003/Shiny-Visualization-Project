@@ -3,7 +3,7 @@
 # =====================================================================
 # ---- Helper: MathJax (v2) ----
 conditional_mathjax <- tags$head(
-  # 使用 MathJax v2 并允许在 renderUI 动态刷新
+  # Use MathJax v2 with re-typesetting after renderUI updates
   tags$script(type = "text/x-mathjax-config", HTML("
     MathJax.Hub.Config({
       tex2jax: { inlineMath: [['\\\\(','\\\\)'], ['$', '$']] },
@@ -44,7 +44,7 @@ to_tex_frac <- function(s) {
   } else paste0("\\(", s, "\\)")
 }
 
-# ---- 包装 HTML/MathJax 容器 ----
+# ---- Wrap content in an HTML/MathJax container ----
 wrap_div <- function(id, content) {
   div(
     id = id,
@@ -121,8 +121,8 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
     })
     
     ns <- session$ns
-    # ==========================输入逻辑与概率表===========================================
-    # ---- 初始化 ----
+    # ==========================Input handling and probability tables===========================================
+    # ---- Initialisation ----
     init_df <- data.frame(
       x = c(0, 0, 1, 1),
       y = c(0, 1, 0, 1),
@@ -132,7 +132,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
     )
     init_df$p_value <- sapply(init_df$p_input, parse_user_prob)
     
-    # ---- 初始化或加载全局 ----
+    # ---- Initialise or load shared state ----
     isolate({
       if (is.null(pmf_global$df_edit) || !isTRUE(pmf_global$has_final)) {
         pmf_global$df_edit  <- init_df
@@ -142,7 +142,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
       }
     })
     
-    # 一旦任一模块 Generate 过（has_final=TRUE），三个模块自动用全局值。
+    # After Generate in any module (has_final=TRUE), all three modules use the shared data.
     pmf_edit    <- reactiveVal(isolate(pmf_global$df_edit))
     pmf_final   <- reactiveVal(isolate(pmf_global$df_final))
     row_counter <- reactiveVal(isolate(pmf_global$counter))
@@ -155,7 +155,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
       row_counter(pmf_global$counter)
     })
     
-    # ---- 输入区域 ----
+    # ---- Input controls ----
     output$input_panel <- renderUI({
       df <- pmf_edit()
       if (is.null(df) || !"id" %in% names(df)) {
@@ -182,7 +182,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
       )
     })
     
-    # ---- 数据反应 ----
+    # ---- Reactive data ----
     df_current <- reactive({
       df <- pmf_edit()
       for (i in df$id) {
@@ -196,7 +196,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
       df
     })
     
-    # ---- 增删改查 ----
+    # ---- Add, remove and edit rows ----
     observeEvent(input$add_row, {
       df <- df_current()
       needed_cols  <- c("x", "y", "p_input", "p_value", "id")
@@ -248,7 +248,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
       row_tot <- rowSums(mat)
       col_tot <- colSums(mat)
       
-      # --- 联合概率表 ---
+      # --- Joint probability table ---
       joint_html <- tags$table(
         class = "pmf-table",
         tags$thead(
@@ -288,8 +288,8 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
         tags$p(class="small-note",HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)"))
       )
     })
-    # ==========================输入逻辑与概率表===========================================    
-    # ==========================条件概率表===========================================
+    # ==========================Input handling and probability tables===========================================
+    # ==========================Conditional probability table===========================================
     conditional_slice <- reactive({
       df <- pmf_final()
       req(input$cond_type)
@@ -348,8 +348,8 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
         )
       )
     })
-    # ==========================条件概率表===========================================
-    # ========================== 生成条件值选择==========================================
+    # ==========================Conditional probability table===========================================
+    # ========================== Generate conditioning-value choices==========================================
     output$cond_value_select <- renderUI({
       df <- pmf_final()
       req(input$cond_type)
@@ -360,7 +360,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
       selectInput(ns(id), if (by_x) "x0 =" else "y0 =", choices = values,
                   selected = if (length(selected)) selected[1] else values[1])
     })
-    # ========================== 生成条件值选择==========================================  
+    # ========================== Generate conditioning-value choices==========================================
     # Use the same conditional slice and number format as the probability table.
     output$plot_bird_cond <- renderPlotly({
       slice <- tryCatch(conditional_slice(),validation=identity)
@@ -398,7 +398,7 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
     })
 
     # ============================================================
-    # 题库 
+    # Question bank
     # ============================================================
     
     get_condition_question_bank <- function() {
@@ -1011,10 +1011,10 @@ conditional_Server <- function(id, shared = new_pmf_state(), course_path = funct
       )
     }
     # ============================================================
-    # 题目逻辑
+    # Question logic
     # ============================================================
     
-    # ==== 题库 ====
+    # ==== Question bank ====
     question_bank <- get_condition_question_bank()
     practice_questions <- learning_questions(question_bank, "conditional",shiny::isolate(course_path()))
     practice <- learning_practice_server(input, output, session, practice_questions,

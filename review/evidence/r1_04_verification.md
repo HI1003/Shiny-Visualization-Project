@@ -1,56 +1,52 @@
-# R1-04 联合分布题库修复验证
+# R1-04 joint-distribution question-bank verification
 
-日期：2026-10-30（Pacific/Auckland）。修复前基线：`d76627f`。状态：**已修复、已验证，待教师复核**。独立本地提交说明：`Fix R1-04 joint probability question bank consistency`；未推送或部署。
+Date 2026-10-30, Pacific/Auckland. Before-fix baseline `d76627f`. **Fixed and verified, awaiting teacher review.** Local commit title `Fix R1-04 joint probability question bank consistency`. Unpushed and undeployed at this stage.
 
-## 题库修复
+## Question-bank changes
 
-保留原有 10 题及学习目标。Joint 的 `get_joint_question_bank()` 统一定义整数权重、分母、事件条件或未知参数系数，从同一份数据生成表格、答案、提示和解答。分数先约分，判题使用精确计算值。完整表或代入正确参数后的表必须非负且总和为 1。
+The original 10 questions and learning objectives were retained. `get_joint_question_bank()` defines integer weights, denominators, event conditions and unknown-parameter coefficients in one data source, generating tables, answers, hints and solutions consistently. Fractions are reduced and answer checking uses calculated values. Completed tables must be nonnegative and sum to 1.
 
-| 题号 | 表格修改（坐标为 x,y） | 当前目标与正确答案 |
+| Question | Table change, coordinates (x,y) | Target and correct answer |
 |---|---|---|
-| Q1 | f(2,0)：1/24→1/3 | P(X=1,Y=1)=1/8 |
-| Q2 | f(0,0)：1/10→3/10 | P(X=2,Y=1)=1/20 |
-| Q3 | f(0,0)：1/9→1/6 | f_X(1)=7/18 |
-| Q4 | f(0,1)：1/24→11/24 | f_Y(0)=7/24 |
-| Q5 | 保留原表 | P(X>0,Y≤1)=1/2 |
-| Q6 | 保留原表 | P(X+Y≥3)=5/12 |
-| Q7 | 保留 8 个已知格和 1 个缺失格 | 已知和 23/24，缺失概率 p=1/24 |
-| Q8 | 保留原表，明确 a≥0 | 已知和 1，1+2a=1，因此 a=0 |
-| Q9 | 保留原概率公式与列举形式 | 系数和 18，k=1/18 |
-| Q10 | 保留原表及边际问号，明确只合计内部 9 格 | 已知和 2/3，p=1/9 |
+| Q1 | f(2,0) changed from 1/24 to 1/3 | P(X=1,Y=1)=1/8 |
+| Q2 | f(0,0) changed from 1/10 to 3/10 | P(X=2,Y=1)=1/20 |
+| Q3 | f(0,0) changed from 1/9 to 1/6 | f_X(1)=7/18 |
+| Q4 | f(0,1) changed from 1/24 to 11/24 | f_Y(0)=7/24 |
+| Q5 | Original table retained | P(X>0,Y≤1)=1/2 |
+| Q6 | Original table retained | P(X+Y≥3)=5/12 |
+| Q7 | Eight known cells and one missing cell retained | Known sum 23/24, missing p=1/24 |
+| Q8 | Original table retained, with a≥0 stated | Known sum 1, so 1+2a=1 and a=0 |
+| Q9 | Original probability formula and listing retained | Coefficients sum to 18, k=1/18 |
+| Q10 | Original table and marginal question marks retained, with only nine interior cells summed | Known sum 2/3, p=1/9 |
 
-Q1–Q4 修正非目标格，保留查表或边际求和的学习目的。Q8 的两个未知格可以为零，提示和解答解释这一点。Q7 解答明确把缺失概率定义为 p。Q10 区分边际问号和内部 p，避免重复计算边际。
+Q1–Q4 change non-target cells while retaining the reading/marginal objectives. Q8 explains why the unknown cells may have zero probability. Q7 explicitly names the missing probability p. Q10 distinguishes marginal question marks from interior p values.
 
-Joint 判题增加有限且非负检查，避免在 a=0 时把微小负数当作容差内正确答案。其他模块的答案判断未改动，既有精度容差保持不变。
+Joint answer checking additionally requires finite, nonnegative input, rejecting tiny negative values near a=0 before tolerance comparison. Existing tolerances and other modules' checkers were retained.
 
-## 独立数学验证
+## Independent mathematical checks
 
-[test_r1_04_math.py](../scripts/test_r1_04_math.py) 只使用 Python 标准库，读取实际题库生成的 HTML，不使用 R 生成器的权重数组：
+[test_r1_04_math.py](../scripts/test_r1_04_math.py) uses Python's standard library and parses the generated HTML independently of the R generator's weight arrays.
 
-- 解析表格方向、内部联合概率和未知参数系数，使用 Fraction 独立求和与求参数；Q10 排除边际格。
-- 核对题干目标、精确分数及数值答案；Q1–Q6 核对提示/解答坐标与目标事件。
-- 解析数值等式并用有理数逐步复算；参数等式代入独立求得的正确值。新解答必须有实际核验的数值等式，避免全部被跳过仍通过。
-- 10 张完整/补全表均精确合计 1 且无负项。
+- Parse table orientation, interior probabilities and unknown coefficients, then calculate with Fraction. Exclude Q10 marginal cells.
+- Check question targets, exact fractions and numerical answers. Check Q1–Q6 hint/solution coordinates against the event.
+- Recalculate numerical equations with rational arithmetic, substituting independently solved parameters. Require actual checked equations in new solutions.
+- Check all 10 completed tables sum exactly to 1 and have no negative entries.
 
-基线 [修复前数学结果](r1_04_before_math.json) 为 **2/10**，修复后 [数学结果](r1_04_math.json) 为 **10/10**。基线 8 个失败题与首轮记录一致。填空表按独立求解的参数补全后，还另外核对存储答案，不能把补全表合法当作原答案正确。
+The [before-fix result](r1_04_before_math.json) was **2/10**, and the [fixed result](r1_04_math.json) **10/10**. The eight failures agree with the first audit. Missing-cell tables were completed with independently solved parameters and their stored answers checked separately.
 
-## 实际模块交互验证
+## Actual module interactions
 
-[test_r1_04.R](../scripts/test_r1_04.R) 使用真实 joint_Server 和 shiny::testServer：
+[test_r1_04.R](../scripts/test_r1_04.R) uses the real joint_Server and shiny::testServer. It checks each table/question, first and second hints, third-attempt solution, correct fractions and five-place decimals, wrong/empty/abc input, navigation resets and page boundaries. Q8 input -0.000001 must fail.
 
-- 逐题验证当前表和题干、第一次/第二次错误提示、第三次完整解答。
-- 独立给定正确分数与五位小数，验证成功反馈；错误数值、空值及 abc 必须失败。
-- 验证翻页重置提示/尝试次数、首尾页边界；Q8 的 -0.000001 必须失败。
+The [before-fix interaction result](r1_04_before_ui.json) was **92/102**, and the [fixed result](r1_04_ui.json) **102/102**. Many button workflows already worked in the baseline, so mathematical checks were recorded separately.
 
-基线 [修复前 UI 结果](r1_04_before_ui.json) 为 **92/102**，修复后 [UI 结果](r1_04_ui.json) 为 **102/102**。UI 通过率不能替代数学验证，基线中很多按钮流程本来就能运行。
+## Regression and scope
 
-## 回归与范围
+- R1-05 passed **11/11** in the [rerun](r1_05_after_r1_04.json).
+- R1-06 passed **124/124** in the [rerun](r1_06_after_r1_04.json).
+- Existing first-round and earlier fix evidence was retained. The probability editor, shared PMF actions and Conditional/Expectation source were outside this patch.
 
-- **R1-05：11/11 通过**，[本次重跑](r1_05_after_r1_04.json)。
-- **R1-06：124/124 通过**，[本次重跑](r1_06_after_r1_04.json)。
-- 原 R1-04 首轮证据、R1-05/R1-06 旧证据均保留。概率编辑器及共享 PMF 动作代码未改动；Conditional、Expectation 源码未修改。
-
-从仓库根目录运行（Rscript 本机路径为 `C:\Program Files\R\R-4.6.1\bin\x64\Rscript.exe`）：
+Run from the repository root. The local Rscript was `C:Program FilesRR-4.6.1indRscript.exe`.
 
 ```powershell
 Rscript --vanilla review/scripts/test_r1_04.R
@@ -59,12 +55,12 @@ Rscript --vanilla review/scripts/test_r1_05.R review/evidence/r1_05_after_r1_04.
 Rscript --vanilla review/scripts/test_r1_06.R review/evidence/r1_06_after_r1_04.json
 ```
 
-## 浏览器核对
+## Browser checks
 
-本地应用中依次实际翻页：Q5 提交 1/2 出现成功反馈，解答为 1/10+1/5+1/10+1/10=1/2；Q8 提交旧答案 0.1 得到警告，提交 0 得到成功反馈，解释 1+2a=1 和零概率合法。最后重新加载最终代码，核对 Q1 的修正表包含 f(2,0)=1/3。
+Q5 accepted 1/2 and showed 1/10+1/5+1/10+1/10=1/2. Q8 rejected the old 0.1 and accepted 0, explaining 1+2a=1 and valid zero probabilities. Reloading the final code confirmed Q1's f(2,0)=1/3.
 
-![Q5 正确事件概率及解答](r1_04_q5.jpg)
+![Q5 event probability and solution](r1_04_q5.jpg)
 
-![Q8 零参数及归一化核验](r1_04_q8.jpg)
+![Q8 zero parameter and normalisation](r1_04_q8.jpg)
 
-全部 10 题的提示层级、答题格式和页边界由模块交互检查覆盖，没有宣称每种输入都在浏览器重复点击。微小负数由模块测试验证。教师复核、剩余 8 项问题与多会话隔离仍待后续处理。
+All hint levels, answer formats and boundaries were covered by module tests. Browser checks exercised the selected cases above. Tiny-negative rejection was checked at module level. Teacher review, eight remaining issues and multi-session isolation remained follow-up work at this stage.

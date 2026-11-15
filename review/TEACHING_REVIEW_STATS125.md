@@ -1,181 +1,175 @@
-# STATS125 为主的教学内容复核
+# STATS125 teaching review and implementation
 
-2026-11-01 最新实施：按用户“不需要原创练习，只需历年真题”的要求，四模块可选题库现仅含 4 组核实过的真题节选；年份/题号、题目筛选与改编说明见 [真题选择记录](PAST_EXAM_SELECTION.md)。练习默认折叠，概念与图表继续优先；210 预习保留可视化，本轮没有选入预习题。此前新增 10 题已移除，原 32 题仅留内部回归，不能在学生界面选择。下文的原 42 题分层与新增题方案均为历史过程，当前题量及验证以 [真题验证](evidence/past_exam_verification.md) 为准。独立游戏及通用可视化演示保留。
+**Current exam-only revision.** The four student question panels use four verified STATS125 exam groups. The ten earlier original exercise builders were removed, and the original 32 remain internal regression material. Generic demonstrations and the game remain. The 42-question classification and original proposals below preserve the earlier development record. Current selection is in [PAST_EXAM_SELECTION.md](PAST_EXAM_SELECTION.md).
 
-2026-11-01 更新：按用户的使用场景反馈，当前教学主线改为 **知识点回顾 → 可视化理解 → 可选自测**。此前“练习优先”的页面安排已调整；知识点与观察提示默认可见，练习移至末尾并收起。新增 10 题为原创，原项目 32 题来源未逐题核实，不称为历年真题。本轮未新增真题；细节与当前验证见 [概念优先记录](evidence/concept_first_verification.md)。以下保留此前课程复核与改进依据，题量不代表学生必须完成的任务量。
+**2026-11-01 update.** The user prioritised concept review → visual understanding → optional self-checks. Concepts/prompts initially appeared, with practice at the end and collapsed. At that earlier stage ten questions were identified as originals and the original 32 had unverified exam provenance. See [concept-first verification](evidence/concept_first_verification.md).
 
-日期：2026-10-31（Pacific/Auckland）。审查基线：`eabd184`。定位来自本轮用户说明：**当前使用者是 STATS125 学生，之后才会学习 STATS210；本项目以 125 为主，仅提供少量可选的 210 基础铺垫。**
+The course-scope review was dated **2026-10-31**, Pacific/Auckland, against `eabd184`. The intended users were current STATS125 students, with STATS210 later and a small optional preview of useful foundations.
 
-此前已完成课程与题库复核及少量文案修正。2026-10-31 后续内容改进现已落实：默认 STATS125 核心，预习和拓展独立选择、独立计数；保留原 32 题，新增 10 道核心题；题目可载入对应表格或图形参数。当前共 **30 核心、8 可选预习、4 可选拓展**。这表示本轮改版已实施和验证，教师/学生使用验收仍待进行。此前复核的来源和历史证据保留。
+After the initial review/wording fixes, historical content work implemented a default core route, separate preview/further paths and progress, ten added core questions and question-to-table/plot loading. Totals were **30 core, 8 preview and 4 further exploration**, pending teacher/student acceptance.
 
-## 结论
+## Teaching scope
 
-当前应用最适合作为 STATS125 第 5–8 章部分主题的辅助工具：离散 PMF/CDF、离散分布、联合与条件分布、期望及条件期望。建议让这一条学习路径完整、清楚，再提供连续分布的可选直观预习。
+The app supports selected topics in STATS125 Chapters 5–8, including discrete PMF/CDF, distributions, joint/conditional distributions and expectations. **Conditional expectation, total expectation and E[g(X)] remain STATS125 core.** C125 Chapter 5 p60–68, Chapter 8 p136–149 and 2026 S2 Tutorial 8 support that scope. Discrete examples introduce these concepts before optional Normal/Exponential prerequisites.
 
-**条件期望、全期望公式以及 E[g(X)] 都属于 125 核心，不能仅因 210 也会使用而移出主线。** C125 第 5 章 p60–68、第 8 章 p136–149 及 2026 S2 Tutorial 8 提供直接依据。相关概念应优先通过离散例子教授，避免借用尚未介绍的 Normal/Exponential 模型作为必需前提。
+The original 32 were classified as **20 core, 8 preview and 4 further**. Ten original additions were all core, addressing CDF inequalities, conditioning tables, independence, transformed expectation and total expectation. These classifications describe the app's learning sequence.
 
-原 32 题分为 **20 核心、8 可选预习、4 可选拓展**；新增的 10 道题全部属于核心，补强 CDF 不等号、联合表条件化、独立性、离散变换期望和全期望的实际运算。分层属于本工具的教学安排，不是课程官方考试划分，也不表示覆盖整门课程。
+## Course evidence
 
-## 课程证据和边界
-
-| 来源 | 本轮用途 |
+| Source | Review use |
 |---|---|
-| C125：2026 gapped 手册，205 页 | 目录；第 5–8 章相关定义、公式与学习目标；p136 条件期望、p138/p146 全期望、p145 条件期望作为随机变量 |
-| C125-T4：2026 S2 Tutorial 4 | CDF 的合法性、端点、不等号、PMF/CDF 与均值方差的联系 |
-| C125-T6：2026 S2 Tutorial 6 | 联合与边际表、E[XY]、独立性的条件与检验 |
-| C125-T7：2026 S2 Tutorial 7 | 从联合表求两个方向的条件 PMF；识别离散条件模型并给出参数、假设 |
-| C125-T8：2026 S2 Tutorial 8 | 条件期望、全期望、离散变换、相关与独立的区别 |
-| C125-TINFO / C125-FORM：2026 S2 测试说明与公式 | 辅助核对当学期离散主题与符号。某次期中范围为第 2–6 章，不用于排除后半学期第 7–8 章；公式表也不等于每项内容均在该次考试考查 |
-| C210：下载目录中的 2024 gapped 手册，235 页 | p94–108 的密度/连续期望；p169 Uniform、p170 起 Exponential、p177 起 Gamma、p183 起 Normal，仅用于后续铺垫的依据 |
+| C125, 2026 gapped book, 205 pages | Contents and Chapters 5–8 definitions/formulas/objectives, p136 conditional means, p138/p146 total expectation, p145 conditional expectation as a random variable |
+| C125-T4, 2026 S2 Tutorial 4 | CDF validity/endpoints/inequalities and relations among PMF/CDF/mean/variance |
+| C125-T6, Tutorial 6 | Joint/marginal tables, E[XY] and independence |
+| C125-T7, Tutorial 7 | Both conditional-PMF directions, discrete models, parameters and assumptions |
+| C125-T8, Tutorial 8 | Conditional/total expectation, discrete transformations, correlation and independence |
+| C125-TINFO / C125-FORM | Test information/formulas and notation. A Chapters 2–6 mid-semester test scope applies to that assessment. |
+| C210, downloaded 2024 gapped book, 235 pages | Density/expectation p94–108, Uniform p169, Exponential from p170, Gamma from p177 and Normal from p183, for optional later-study context |
 
-C125/C210 对应证据清单中的 STATS125/STATS210 源 ID。所有 8 份选用 PDF 已校验 SHA-256；已目视核对 C125 p3、136、146，C210 p3，以及 Tutorial 4/7/8 的第 1 页。其他选中章节采用文本与公式核对。**没有逐份阅读全部下载目录、全部历史教程或试卷，也没有据 2024 手册推断 2026 年 STATS210 的完整教学安排。**
+C125/C210 correspond to STATS125/STATS210 IDs in the evidence. All eight selected PDFs' SHA-256 values were checked. Rendered-page review covered C125 p3/136/146, C210 p3 and Tutorial 4/7/8 p1. Other selected topics used text/formula inspection. Full downloaded directories and all historical papers were outside this review. The 2024 book identifies its own version.
 
-完整元数据、32 题目录和原创例子的精确结果见 [teaching_scope_2026_10_31.json](evidence/teaching_scope_2026_10_31.json)。PDF 原文、抽取文本、渲染图片和临时脚本全部留在本地，不纳入 Git。
+Metadata, the original 32-question catalogue and exact original-example results are in [teaching_scope_2026_10_31.json](evidence/teaching_scope_2026_10_31.json). At this stage source PDFs, text extracts, rendered pages and temporary scripts stayed local.
 
-## 内容分层
+## Learning levels
 
-| 层级 | 范围 | 学生需要做到 | 建议呈现 |
+| Level | Content | Student task | Presentation |
 |---|---|---|---|
-| 125 核心：基础部分 | PMF、CDF、E[X]、E[g(X)]、Var(X)，7 种离散分布 | 用语境定义变量、支持集和参数；读图读表、计算并解释结果 | 默认主线，说明相应 125 章节；先学基础，再做模型选择游戏 |
-| 125 核心：后续部分 | 联合、边际、独立、条件 PMF、条件期望、全期望 | 固定条件后重新分配概率；区分方向；按条件均值加权 | 标注先修要求，接在第 7–8 章相关内容之后；保留为 125 内容 |
-| 可选铺垫 | 连续 Uniform、Exponential、Normal 的直观 | 区分密度与概率；理解面积、等待时间、均值/尺度的含义 | 主线末尾自愿进入，提供所需概念和公式，不计入核心路径必答 |
-| 后续拓展 | Gamma、Beta、χ²、t、F，以及积分求矩、Normal 标准化和尾概率等运算 | 需要另行学习连续分布和相应运算方法 | 默认收起，保留探索入口，不作为 125 学生的学习完成障碍 |
+| STATS125 foundations | PMF, CDF, E[X], E[g(X)], Var(X), seven discrete models | Define variable/support/assumptions/parameters, read plots/tables and interpret calculations | Default route with chapter cues, then the model-choice game |
+| Later STATS125 core | Joint/marginal distributions, independence, conditional PMFs/means and total expectation | Restrict and renormalise, distinguish directions and weight conditional means | Prerequisites linked to Chapters 7–8 |
+| Optional preview | Continuous Uniform/Exponential/Normal intuition | Density versus probability, area, waiting times, location/scale | Voluntary route with necessary concepts/formulas |
+| Further exploration | Gamma/Beta/χ²/t/F, integration for moments, Normal standardisation/tails | Further continuous-distribution methods | Optional exploration |
 
-Gamma 是 210 手册中的正式后续内容，但无需因此成为当前 125 学生的预习要求。Beta 在所读 2024 手册 p182 自身标为 non-examinable；χ²、t 在该手册后续关系或推断中出现。未核实 F 是本次必要铺垫，亦不据此断言后续课程完全不使用。
+Gamma appears in the STATS210 book, but was not required as an initial preview for current STATS125 students. Beta is labelled non-examinable in that book at p182. χ²/t occur in later relationships/inference. F was not verified as necessary preview material. Suggested labels were `STATS125 Core`, `Optional preview for later STATS210 study` and `Further exploration`.
 
-建议界面标签为 `STATS125 Core`、`Optional preview for later STATS210 study`、`Further exploration`。标签描述本工具的路径，不替教师宣布考试范围。
+## Original question-by-question review
 
-## 逐题核对
+J/C/E denote Joint/Conditional/Expectation. The 32 questions exclude game chapters and distribution plots. Metadata/filtering was proposed while preserving question IDs/answers and existing regression evidence.
 
-下表按当前原始题号记录，J/C/E 分别对应 Joint/Conditional/Expectation。32 题不包含游戏的 7 个章节或分布图。实际重组时可增加分层元数据与筛选，不必立即删除原题或改变答案，以保留既有修复与回归证据。
-
-| 题号 | 当前主要目标 | 建议层级 | 依据与教学处理 |
+| ID | Main objective | Level | Basis and treatment |
 |---|---|---|---|
-| J01 | 读取联合概率格子 | 125 核心 | C125:95-105。保留；按读表、求边际、事件、合法性递进，核对表头方向。 |
-| J02 | 读取联合概率格子 | 125 核心 | C125:95-105。保留；按读表、求边际、事件、合法性递进，核对表头方向。 |
-| J03 | 对 Y 求和得到 X 边际 | 125 核心 | C125:95-105。保留；按读表、求边际、事件、合法性递进，核对表头方向。 |
-| J04 | 对 X 求和得到 Y 边际 | 125 核心 | C125:95-105。保留；按读表、求边际、事件、合法性递进，核对表头方向。 |
-| J05 | 联合事件求和及边界 | 125 核心 | C125:95-105。保留；按读表、求边际、事件、合法性递进，核对表头方向。 |
-| J06 | 和变量事件求和 | 125 核心 | C125:95-105。保留；按读表、求边际、事件、合法性递进，核对表头方向。 |
-| J07 | 补全缺失概率 | 125 核心 | C125:95-105。保留；按读表、求边际、事件、合法性递进，核对表头方向。 |
-| J08 | 允许零质量的归一化 | 125 核心 | C125:95-105。保留；按读表、求边际、事件、合法性递进，核对表头方向。 |
-| J09 | 带系数的归一化 | 125 核心 | C125:95-105。保留；按读表、求边际、事件、合法性递进，核对表头方向。 |
-| J10 | 区分内部联合格子与边际总计 | 125 核心 | C125:95-105。保留；按读表、求边际、事件、合法性递进，核对表头方向。 |
-| C01 | 条件 Binomial 模型 | 125 核心 | C125:72-78；C125:110-117。保留，增加参数和支持集说明。 |
-| C02 | 条件 Binomial 补事件概率 | 125 核心 | C125:72-78；C125:110-117。保留，增加参数和支持集说明。 |
-| C03 | 条件 Poisson 模型与区间参数 | 125 核心 | C125:92-93；C125:110-117。保留，增加参数和支持集说明。 |
-| C04 | 条件 Poisson CDF | 125 核心 | C125:92-93；C125:110-117。保留，增加参数和支持集说明。 |
-| C05 | Geometric 失败数与尝试数平移 | 125 核心 | C125:79-81；C125:110-117。保留，增加参数和支持集说明。 |
-| C06 | Geometric 条件尾事件 | 125 核心 | C125:79-81；C125:110-117。保留，增加参数和支持集说明。 |
-| C07 | 条件 Exponential 直观 | 可选铺垫 | C210:170-176。可选预习；先给概念和所需公式，不计入核心路径必答。 |
-| C08 | Exponential CDF 给定公式代入 | 可选铺垫 | C210:170-176。可选预习；先给概念和所需公式，不计入核心路径必答。 |
-| C09 | 条件 Normal 的均值与方差 | 可选铺垫 | C210:183-188。可选预习；先给概念和所需公式，不计入核心路径必答。 避免仅从题干抄写分布名称，改问参数变化或概率含义。 |
-| C10 | Normal 标准化与尾概率 | 后续拓展 | C210:183-188。移至后续拓展；不作为 125 学生的默认必答题。 |
-| C11 | 连续 Uniform 范围与密度 | 可选铺垫 | C210:169。可选预习；先给概念和所需公式，不计入核心路径必答。 避免仅从题干抄写分布名称，改问参数变化或概率含义。 |
-| C12 | 连续 Uniform 区间概率 | 可选铺垫 | C210:169。可选预习；先给概念和所需公式，不计入核心路径必答。 |
-| C13 | Gamma 的 shape-rate 模型 | 后续拓展 | C210:177-181。移至后续拓展；不作为 125 学生的默认必答题。 |
-| E01 | Binomial 均值 | 125 核心 | C125:58-59；C125:72-78。保留，强调模型参数与测量单位。 |
-| E02 | Poisson 区间均值 | 125 核心 | C125:58-59；C125:92-93。保留，强调模型参数与测量单位。 |
-| E03 | Exponential 均值 | 可选铺垫 | C125:58-59；C210:170-176。可选预习，给出必要定义；不作为核心必答。 |
-| E04 | 连续 Uniform 二阶矩 | 后续拓展 | C125:60-61；C210:169。移至后续拓展；核心改用离散例子训练同一个期望概念。 |
-| E05 | 方差的定义，当前用 Normal 包装 | 可选铺垫 | C125:63-68；C210:183-188。概念本属 125 核心；当前 Normal 包装先列可选，优先改为简单离散 PMF 后纳入核心。 |
-| E06 | Exponential 二阶矩 | 后续拓展 | C125:60-68；C210:170-176。移至后续拓展；核心改用离散例子训练同一个期望概念。 |
-| E07 | 条件 Binomial 均值 | 125 核心 | C125:72-78；C125:136-137。保留，强调模型参数与测量单位。 |
-| E08 | 两种天气下的条件 Poisson 均值 | 125 核心 | C125:92-93；C125:136-138；C125:146。保留；Q8 后增加按天气概率加权的全期望例子。 |
-| E09 | 条件 Normal 的均值函数 | 可选铺垫 | C125:136-147；C210:183-188。当前 Normal 模型列可选；可改为给定条件均值函数，或离散条件模型后纳入核心。 |
+| J01 | Read a joint cell | Core | C125:95-105. Retain a progression from cells to marginals/events/validity, checking table orientation. |
+| J02 | Read a joint cell | Core | C125:95-105. Same progression and orientation check. |
+| J03 | Sum over Y for X marginal | Core | C125:95-105. Same progression and orientation check. |
+| J04 | Sum over X for Y marginal | Core | C125:95-105. Same progression and orientation check. |
+| J05 | Joint event and boundaries | Core | C125:95-105. Same progression and orientation check. |
+| J06 | Event involving a sum | Core | C125:95-105. Same progression and orientation check. |
+| J07 | Missing probability | Core | C125:95-105. Same progression and orientation check. |
+| J08 | Normalisation allowing zero mass | Core | C125:95-105. Same progression and orientation check. |
+| J09 | Coefficient normalisation | Core | C125:95-105. Same progression and orientation check. |
+| J10 | Interior cells versus marginals | Core | C125:95-105. Same progression and orientation check. |
+| C01 | Conditional Binomial | Core | C125:72-78,110-117. Retain and explain parameters/support. |
+| C02 | Binomial complement | Core | C125:72-78,110-117. Retain and explain parameters/support. |
+| C03 | Conditional Poisson and interval parameter | Core | C125:92-93,110-117. Retain and explain parameters/support. |
+| C04 | Conditional Poisson CDF | Core | C125:92-93,110-117. Retain and explain parameters/support. |
+| C05 | Shift failures to attempts | Core | C125:79-81,110-117. Retain and explain parameters/support. |
+| C06 | Geometric conditional tail | Core | C125:79-81,110-117. Retain and explain parameters/support. |
+| C07 | Conditional Exponential intuition | Preview | C210:170-176. Supply definitions/formulas before optional practice. |
+| C08 | Substitute in an Exponential CDF | Preview | C210:170-176. Supply definitions/formulas before optional practice. |
+| C09 | Conditional Normal mean/variance | Preview | C210:183-188. Explain concepts and ask about parameter/probability changes rather than copying a supplied name. |
+| C10 | Normal standardisation/tail | Further | C210:183-188. Optional later methods. |
+| C11 | Continuous Uniform range/density | Preview | C210:169. Explain concepts and ask about parameter/probability changes rather than copying a supplied name. |
+| C12 | Uniform interval probability | Preview | C210:169. Supply definitions/formulas. |
+| C13 | Gamma shape/rate | Further | C210:177-181. Optional later methods. |
+| E01 | Binomial mean | Core | C125:58-59,72-78. Emphasise parameters and units. |
+| E02 | Poisson interval mean | Core | C125:58-59,92-93. Emphasise parameters and units. |
+| E03 | Exponential mean | Preview | C125:58-59, C210:170-176. Provide definitions. |
+| E04 | Uniform second moment | Further | C125:60-61, C210:169. Use a discrete example for the core expectation objective. |
+| E05 | Variance definition in a Normal setting | Preview | C125:63-68, C210:183-188. Variance is core, so prioritise a simple discrete version. |
+| E06 | Exponential second moment | Further | C125:60-68, C210:170-176. Use a discrete example for the core objective. |
+| E07 | Conditional Binomial mean | Core | C125:72-78,136-137. Emphasise parameters/units. |
+| E08 | Conditional Poisson means under two weather conditions | Core | C125:92-93,136-138,146. Add weighting by weather probabilities. |
+| E09 | Conditional Normal mean function | Preview | C125:136-147, C210:183-188. Could become core with a supplied conditional-mean function or a discrete setting. |
 
-## 优先教学改进项
+## Priority teaching improvements
 
-| ID | 发现 | 建议与验收条件 | 本轮状态 |
+| ID | Finding | Recommendation and acceptance | Status at that stage |
 |---|---|---|---|
-| T125-01 | 连续模型与 125 题目混在一条 Next 路径；学生可能误以为都必须掌握 | 默认仅走核心题；铺垫与后续拓展显式自愿，跳过不影响核心完成；保留原题 ID 和历史验证 | 已实施、已验证；默认 30 核心，预习 8 / 拓展 4 独立进度 |
-| T125-02 | 公式与交互能算条件 PMF，但练习主要是识别命名分布；CDF 端点、独立检验、从表到条件期望练习不足 | 增加下述 B01–B08，用读表和多字段计算验证学习目标 | 已实施；O01、J11–13、C14–15、E10–11；解释由提示/解答支持，暂不自动评阅自由文字 |
-| T125-03 | 命名题只检查分布名称，教程 7 同时要求参数和模型假设 | 先识别分布，再给支持集和参数；补充条件 Hypergeometric/Negative Binomial 的离散例子 | C16–17 已实施：名称、参数、条件均值均须正确；题干给假设、提示/解答给支持集。原有名称题保持原判题，不宣称所有模型均新增参数考查 |
-| T125-04 | E[g(X)]、方差等 125 概念由连续 Uniform/Normal/Exponential 题承载 | 核心使用 DU(5) 的 E[X²]、均值平方及方差；原连续题保留作可选内容 | 已实施 E11；E10 同时考查离散 E[XY]、条件均值和全期望 |
-| T125-05 | 首页和理论栏未明确先修关系；从公式直接跳入运算 | 加入变量/取值、条件方向、参数单位词表及贯穿离散例子 | 已实施首页先修/词表、题目章节提示、20 个虚构观测的贯穿例子 |
-| T125-06 | 游戏顺序按故事推进；3D 图和复杂公式可能抢占首次学习注意力 | 游戏放在学完相关离散分布后，表和二维图先用，3D 为辅助 | 按 11 月 1 日反馈先回顾概念，再探索表格/2D，3D 和练习默认可选收起；游戏章节顺序保留，待体验反馈 |
-| T125-07 | 牧羊题“风越大越近”与上界 100+20w 冲突；近似值写成等式；连续 Uniform 点值解释不清；Gamma shape 缺正值前提 | 保留现有模型/答案，明确假设方向、等长区间与近似符号；Gamma 假设正日照。32 题答案字段应完全不变 | 已修正文案并验证 |
-| T125-08 | 默认联合表没有解释 188/221 等分数的来源 | 提供一种合法抽牌解释，并提供 20 个虚构观测的简单例子 | 已实施默认表说明、频数/零边际预设、自定义表语境提示；不把解释称为作者原始设定 |
-| T125-09 | 题目参数超出 Overview 原控件范围 | 使核心与可选例子能在图中重现，并明确事件和模型参数 | 已实施 15 个图形预设及题目载入入口；λ 上限 30、Normal μ 范围 ±100、Uniform b 上限 200；预设同步选中题目 x，手动改参不改题目答案 |
+| T125-01 | Continuous/core questions mixed in one Next route | Default core, explicit optional routes and independent counts, retain IDs | Implemented 30/8/4 with transient-navigation fix |
+| T125-02 | Limited CDF/independence/table-to-mean practice | B01–B08 use table reading and multiple numerical fields | O01, J11–13, C14–15, E10–11 implemented, with hints/solutions supporting written explanations |
+| T125-03 | Name-only questions omit Tutorial 7 parameter/assumption tasks | Add support/parameters and discrete Hypergeometric/Negative Binomial examples | C16–17 check name/parameters/means, with assumptions/support explained. Older name rules retained. |
+| T125-04 | Core expectation/variance taught through continuous settings | Use DU(5) second moment, squared mean and variance | E11 implemented, E10 covers discrete E[XY], means and total expectation |
+| T125-05 | Formula-first pages lack prerequisites | Variable/value, direction, units glossary and running discrete example | Home prerequisites/glossary, chapter cues and 20-observation example implemented |
+| T125-06 | Story/3D/complex formulas compete with initial learning | Game after discrete foundations, table/2D first, 3D optional | Concept-first changes on 1 November, with game story order retained |
+| T125-07 | Shepherd direction conflicts with 100+20w, approximation signs, Uniform wording and Gamma positivity | Clarify assumptions/units/intervals while retaining original answers | Wording fixed and verified |
+| T125-08 | Unexplained default 188/221 fractions | Give a valid cards interpretation and simpler frequency example | Cards/frequency/zero-marginal examples and custom-variable cues implemented |
+| T125-09 | Question parameters exceed controls | Reproduce question models/events in plots | Fifteen presets, λ≤30, μ±100 and Uniform b≤200, with x synchronisation and fixed question answers |
 
-课程手册还包含协方差、相关及第 9–11 章 Markov chains。当前工具不覆盖整门 125；本轮不因此要求新增 Markov 模块或完整 210 模块。补强独立性、变换期望等现有主题，比扩展更多分布更符合当前目标。
+The course also includes covariance/correlation and Markov chains in Chapters 9–11. The review focused on strengthening existing topics.
 
-## 建议学习顺序
+## Recommended learning sequence
 
-1. **先修自查**：会把文字转换为事件，理解条件概率和独立性（C125 第 2–4 章）。缺少基础时先回到课程例题。
-2. **离散基础**：PMF 合法性、CDF 跳跃与不等号、期望和方差（第 5 章）。
-3. **命名离散模型**：变量、支持集、假设、参数和事件；再进入游戏巩固（第 6 章）。
-4. **联合与边际**：先看表头，再选事件格子；对比独立与非独立表（第 7 章）。
-5. **条件 PMF**：固定一个条件，只在该条件对应的格子中重新归一化；对比两个方向（第 7 章）。
-6. **条件期望与全期望**：先得到条件 PMF 再求均值；最后按条件概率加权（第 8 章）。
-7. **可选的后续铺垫**：最多先展示 Uniform 的面积、Exponential 的等待时间、Normal 的位置与尺度，不要求积分或标准化运算。
+1. Prerequisites in Chapters 2–4, translating words into events, conditional probability and independence.
+2. Chapter 5 discrete foundations, PMF validity, CDF jumps/inequalities, expectation and variance.
+3. Chapter 6 named models, variables, support, assumptions, parameters and events, followed by the game.
+4. Chapter 7 joint/marginal tables, headers, event cells and independence.
+5. Chapter 7 conditional PMFs, fixing a condition, renormalising and comparing directions.
+6. Chapter 8 conditional/total expectation, deriving the conditional PMF, then its mean, then weighting by condition probabilities.
+7. Optional Uniform area, Exponential waiting time and Normal location/scale intuition, with the needed definitions.
 
-这是按已学知识组织的路径；同属 125 核心，不代表学生在学期开始就已经学过。
+Later core topics identify what students need to have studied first.
 
-## 可直接实施的原创核心练习方案
+## Original core-exercise proposals
 
-以下为虚构频数，不涉及真实学生或课程试卷数据。令 X/Y 为两个 0/1 指示变量，20 个观测的频数为：
+These fictional observations use two binary indicators X/Y and 20 observations.
 
-| X\Y | 0 | 1 | 合计 |
+| X\Y | 0 | 1 | Total |
 |---|---:|---:|---:|
 | 0 | 6 | 4 | 10 |
 | 1 | 2 | 8 | 10 |
-| 合计 | 8 | 12 | 20 |
+| Total | 8 | 12 | 20 |
 
-| ID | 问题与学习目标 | 精确答案和反馈重点 |
+| ID | Task/objective | Exact results and feedback |
 |---|---|---|
-| B01 | 将频数变成联合 PMF，并检查合法性 | 按行 `3/10,1/5,1/10,2/5`，全非负且总和 1；总质量包括所有联合格子 |
-| B02 | 对另一个单变量例子 X~Bernoulli(.4)，比较 F(0)、P(X<1)、P(X≥1)、P(X>1) | 分别 `3/5,3/5,2/5,0`。给定 X 为整数值时，P(X≥k)=1−F(k−1)，不能直接用 1−F(k) |
-| B03 | 由上表求 P(X=1)、P(Y=1) | `1/2,3/5`；说明分别对另一变量求和 |
-| B04 | 对比 P(X=1,Y=1)、P(Y=1\|X=1)、P(X=1\|Y=1) | `2/5,4/5,2/3`；先选格子，再确定条件事件的分母，三个量不同 |
-| B05 | 判断 X、Y 是否独立并给出证据 | 不独立：`2/5 ≠ (1/2)(3/5)=3/10`。一个反例可否定；证明独立需对全部支持格子验证 |
-| B06 | 求 E[Y\|X=0]、E[Y\|X=1]、E[Y]，并验证全期望；可再求 E[XY] | `2/5,4/5,3/5`；`(1/2)(2/5)+(1/2)(4/5)=3/5`；E[XY]=`2/5`。强调固定 x 后的数值与 E[Y\|X] 这个随机变量的区别 |
-| B07 | 对另一个例子 Z~DU(5)，求 E[Z²]、E[Z]² 和 Var(Z) | `11,9,2`。用离散求和说明 E[g(Z)] 通常不等于 g(E[Z])，无需连续模型或积分 |
-| B08 | 将联合表改为两行 `(0,0)` 与 `(1/4,3/4)`；求给定 X=0 的条件分布 | P(X=0)=0，因此未定义；不能填全零 PMF。作为对照，P(Y=1\|X=1)=`3/4` |
+| B01 | Convert frequencies to a valid joint PMF | Row order 3/10,1/5,1/10,2/5, all nonnegative, sum 1 |
+| B02 | For Bernoulli(.4), compare F(0), P(X<1), P(X≥1), P(X>1) | 3/5,3/5,2/5,0. For integer X, P(X≥k)=1−F(k−1). |
+| B03 | Find P(X=1), P(Y=1) | 1/2,3/5, summing over the other variable |
+| B04 | Compare P(X=1,Y=1), P(Y=1\|X=1), P(X=1\|Y=1) | 2/5,4/5,2/3, identifying cells and the conditioning denominator |
+| B05 | Assess independence | Dependent, since 2/5 differs from (1/2)(3/5)=3/10. One counterexample refutes independence, while proof requires all supported cells. |
+| B06 | Conditional means, overall mean, total expectation and E[XY] | 2/5,4/5,3/5, with (1/2)(2/5)+(1/2)(4/5)=3/5 and E[XY]=2/5. Distinguish a fixed-x value from E[Y\|X]. |
+| B07 | For Z~DU(5), calculate E[Z²], E[Z]², Var(Z) | 11,9,2, using discrete sums |
+| B08 | Replace rows by (0,0) and (1/4,3/4), condition on X=0 | Undefined because P(X=0)=0. Contrast P(Y=1\|X=1)=3/4. |
 
-额外的离散模型题可用“20 个标记中 8 个为红色，给定抽取数 X=x，不放回抽取，Y 为红色个数”，得到 `Y|X=x ~ Hypergeometric(n=x,M=8,N=20)`；x 的范围与抽样假设须写清。这样补参数识别和条件期望，无需借 Gamma 来填充题量。
+A supplementary model proposal samples without replacement from 20 tokens, eight red, with fixed count X=x and Y red tokens, giving `Y|X=x ~ Hypergeometric(n=x,M=8,N=20)`. State x's range and sampling assumptions.
 
-默认分数表的一种解释也可保留：标准 52 张牌有 4 张 Ace，两次不放回抽牌，以各次是否 Ace 定义 X/Y。四格为 `48×47/(52×51)=188/221`、`48×4/(52×51)=16/221`、`4×48/(52×51)=16/221`、`4×3/(52×51)=1/221`。这是本轮独立推导出的可能设定，不是已查证的作者原始说明。
+A valid possible interpretation of the default table is two draws without replacement from 52 cards with four Aces. Binary X/Y indicate Aces in each draw. Cells are `48×47/(52×51)=188/221`, `48×4/(52×51)=16/221`, `4×48/(52×51)=16/221`, `4×3/(52×51)=1/221`. This interpretation was independently derived in the review.
 
-## 125 学生所需的最小词表
+## Minimum glossary
 
-- **X 与 x**：X 是随机变量；x 是给定/观察到的某个取值。
-- **PMF 与 PDF**：离散 PMF 的高度就是点概率；连续 PDF 的区间面积才是概率，点概率为 0。不要用“所有单个数值的概率相等”代替等长区间的解释。
-- **条件方向**：Y|X=x 固定 X、让 Y 变化；X|Y=y 固定 Y、让 X 变化。
-- **Geometric**：课程约定为首次成功前失败次数，从 0 开始；若问含成功的尝试次数，应加 1。
-- **参数单位**：Poisson 区间参数是“每单位平均率 × 区间长度”；Exponential 的 rate 单位为时间的倒数。先给单位，再代数值。
-- **条件期望的两种写法**：E[Y|X=x] 是给定 x 时的数；E[Y|X] 随 X 变化。全期望是对后者再加权平均。
-- **独立性**：一般不能由“条件均值相同”或“协方差为零”推出独立；应检查分布/联合概率条件。
+- **X and x.** X is a random variable, x a specified/observed value.
+- **PMF and PDF.** Discrete height is point probability, continuous interval area is probability and continuous point probability is zero. Use equal-length interval explanations for continuous Uniform.
+- **Direction.** Y|X=x fixes X and varies Y. X|Y=y fixes Y and varies X.
+- **Geometric.** The course counts failures before success, starting at 0. Attempts including success add 1.
+- **Units.** Poisson's interval mean is rate × interval length. Exponential rate has inverse-time units.
+- **Conditional expectation.** E[Y|X=x] is a number for a fixed x. E[Y|X] varies with X, and total expectation averages it with the marginal weights.
+- **Independence.** Equal conditional means or zero covariance alone generally do not establish independence. Check distributions/joint probabilities.
 
-## 可选铺垫的上限
+## Optional-preview limits
 
-建议先用 2–3 个简短观察任务：Uniform(0,10) 的点概率为 0、区间 [2,5] 的概率为 3/10；给出 Exponential 的均值公式后理解 rate 增大、平均等待时间缩短；观察 Normal 改变均值或标准差时图形如何变化。Normal 的方差与标准差先解释清楚，再谈后续标准化。
+Two or three short tasks were proposed, including Uniform(0,10) point probability 0 and interval [2,5] probability 3/10, a supplied Exponential mean formula connecting higher rate to shorter waiting, and changes to Normal location/scale. Explain variance versus standard deviation before standardisation. More advanced integration, special functions and tail lookup remain voluntary later exploration.
 
-核心路径不要求记忆连续分布积分公式、Gamma/Beta 特殊函数或 Normal 尾概率查表。保留这些功能供后续探索，不能使不会这些运算的学生无法完成 125 路径。
+## Initial verification and subsequent work
 
-## 本轮验证与下一步
+All original 32 answer/fraction/name/pair/tolerance fields matched `eabd184`. B01–B08 and the possible cards setting were independently checked using rational arithmetic, and all eight PDF hashes were checked. Wording changes passed [300/300 actual-module checks](evidence/teaching_regression_2026_10_31.json) and R parsing. That initial review retained layout/calculation/route implementations and its existing browser coverage.
 
-已对 32 题的答案、分数、受控名称、双值答案及容差字段与 `eabd184` 逐项比较，**全部未变**；已用有理数核算 B01–B08 及默认表的可能解释；8 份 PDF 来源哈希已核对。文案修正后 [300/300 真实模块回归通过](evidence/teaching_regression_2026_10_31.json)，R 文件解析通过。本轮没有改变布局、计算或分层界面，未新增浏览器视觉验收，也未重复运行原先全部 537 个案例。
+Subsequent work is in [content verification](evidence/content_verification.md) and [layout verification](evidence/layout_verification.md). Teachers/users were to experience the core route and review difficulty, hints and optional content. The game retained story order.
 
-上述段落记录的是第一次教学复核的验证边界。后续改版见 [内容改进验证记录](evidence/content_verification.md)，最新入口、遮挡修复和响应式布局见 [布局验证记录](evidence/layout_verification.md)。下一步是教师/用户按核心路径体验，核对难度、提示及可选内容的位置；游戏章节顺序仍保留，不据本轮改版宣称正式课程采用或整门课覆盖。
+## Historical implemented exercises and operations
 
-## 已落实的练习与操作
-
-| 新题 | 内容 | 主要结果 |
+| New question | Content | Results |
 |---|---|---|
-| O01 | Bernoulli(.4) 的 CDF 端点与严格/含等号事件 | .6、.6、.4、0 |
-| J11 | 从 20 个虚构观测的 2×2 频数表生成 PMF | .3、.2、.1、.4 |
-| J12 | 从联合表求两个边际 | P(X=1)=.5、P(Y=1)=.6 |
-| J13 | 检查独立性并给出反例 | 不独立；联合 .4 与边际乘积 .3 不相等 |
-| C14 | 区分联合、条件与反向条件 | .4、.8、2/3 |
-| C15 | 零概率条件与正概率对照 | X=0 时未定义；P(Y=1\|X=1)=3/4 |
-| C16 | 有限总体不放回条件模型及参数/均值 | Hypergeometric(n=5,M=8,N=20)，均值 2 |
-| C17 | 第二次成功前失败数及参数/均值 | Negative Binomial(k=2,p=1/4)，均值 6 |
-| E10 | 条件均值、无条件均值、全期望及 E[XY] | .4、.8、.6、.6、.4 |
-| E11 | DU(5) 的二阶矩、均值平方和方差 | 11、9、2 |
+| O01 | Bernoulli(.4) CDF and strict/inclusive events | .6,.6,.4,0 |
+| J11 | Convert the 20-observation 2×2 table | .3,.2,.1,.4 |
+| J12 | Marginals | P(X=1)=.5, P(Y=1)=.6 |
+| J13 | Independence counterexample | Joint .4 differs from product .3 |
+| C14 | Joint, conditional and reverse conditional | .4,.8,2/3 |
+| C15 | Zero conditioning probability and positive contrast | Undefined at X=0, P(Y=1\|X=1)=3/4 |
+| C16 | Without-replacement model, parameters and mean | Hypergeometric(n=5,M=8,N=20), mean 2 |
+| C17 | Failures before the second success | Negative Binomial(k=2,p=1/4), mean 6 |
+| E10 | Conditional/overall means, total expectation and E[XY] | .4,.8,.6,.6,.4 |
+| E11 | DU(5) second moment, squared mean and variance | 11,9,2 |
 
-侧栏切换路径。核心各区为 Overview 1、Joint 13、Conditional 10、Expectation 6 题，Next/Back 仅在当前路径中移动；多字段题须全部正确。完成数按当前会话中至少答对一次的题目计算，重复提交不重复计数；刷新/新会话重新开始，未实现持久化学生成绩。游戏继续使用自己的 21 分规则，不计入 30 道核心题。
+At that stage sidebar paths filtered Next/Back within each collection. Core counts were Overview 1, Joint 13, Conditional 10 and Expectation 6. All fields had to be correct and repeat success counted once per session. Refresh/new sessions reset progress. The game retained its separate 21-point rule.
 
-题目中的模型、事件和参考表固定。载入按钮将其复制到交互表格/Overview；更改交互参数不改变题目或答案。Overview 的可选预习只列 Uniform、Exponential、Normal，并提供 3 个观察任务；正式公式默认折叠。Gamma/Beta/χ²/t/F 保留在 Further exploration。
+Questions' models/events/reference tables remained fixed, while loading copied their parameters into interactive controls. Changing plots did not change question answers. Preview offered Uniform/Exponential/Normal and three observation tasks with formulas collapsed. Gamma/Beta/χ²/t/F remained further exploration.
 
-当前易用性安排：首页进入核心或 Joint 的知识回顾；模块顶部按回顾、探索、可选练习排序。知识点默认展示，完整公式可展开；表格/图形按宽度调整，3D 默认收起；练习与侧栏进度默认折叠。可见公式仍在切换/展开时重新排版，避免隐藏页中的零宽公式与正文重叠。现有题量、分层及自测判题规则保留，自测不作为本工具使用前提。
+The subsequent concept-first layout entered review from Home, followed by exploration and optional questions. Concepts appeared initially, full formulas expanded, tables/plots responded to width and 3D/practice/progress were initially collapsed at that stage. Visible formulas were re-typeset after tab/expansion changes to prevent zero-width overlap.

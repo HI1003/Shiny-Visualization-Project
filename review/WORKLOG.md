@@ -1,601 +1,534 @@
-# 工作日志（15 小时项目）
+# Project work log
 
-总预算按会议口径为 **15 小时**。下方“人工计费工时”由本人按实际投入填写；自动审查运行时间不直接作为人工工时，也不据此扣减预算。
+Updated on 2026-11-16. The contract has been signed and the user confirmed that no timesheet is required. Historical budget and time-recording notes below describe the process at their stated dates. The user subsequently authorised publication of the four selected exam groups and their six source PDFs with the English project so recipients can clone the complete app.
 
-| 日期 | 工作 ID | 工作内容及产出 | 时间口径 | 人工计费工时 | 状态 |
+The original meeting budget was **15 hours**. Human billable time was to be entered by the user based on actual effort. Automatic review windows were recorded separately.
+
+| Date | Work ID | Work and output | Timing basis | Human billable time at that stage | Status |
 |---|---|---|---|---|---|
-| 2026-10-21 | REV-01 | 核对本地 C125/C210 主手册版本、按章节定位，渲染 3 页核对公式；创建 COURSE_MAP | 本轮部分资料准备发生在首个时间戳前，未精确计时 | 待本人填写 | 完成初步映射 |
-| 2026-10-21 | REV-02 | 全模块入口冒烟；Joint 10 题、Conditional 6 道数值题和 7 道名称题结构、Expectation 9 题核对；执行判题与端点检查 | 自动审查窗口首个可核实时间戳：15:18:09 NZDT；包括期间文档整理，不是逐项计费时间 | 待本人填写 | 第一轮完成 |
-| 2026-10-21 | REV-03 | 建立 11 项问题、浏览器证据、复算脚本和结果、修复顺序及交接记录 | 结束时间及自动工作窗口见本文件下方核验记录 | 待本人填写 | 已记录，未修复 |
+| 2026-10-21 | REV-01 | Check C125/C210 coursebook versions and chapter locations, render three formula pages and create COURSE_MAP | Preparation partly preceded the first timestamp | Pending user entry | Initial mapping completed |
+| 2026-10-21 | REV-02 | Module-entry smoke checks, Joint 10 questions, Conditional six numerical/seven name structures, Expectation nine questions, answer and endpoint checks | First verifiable automatic timestamp 15:18:09 NZDT, including documentation | Pending user entry | First round completed |
+| 2026-10-21 | REV-03 | Record 11 issues, browser evidence, scripts/results, fix order and handover | End/window recorded below | Pending user entry | Recorded before fixes |
 
-## 本轮记录原则
+## Original record principles
 
-- 课程资料保留在 `G:\STATS`，本地提取缓存位于 Git 忽略的 `.local/course-review`。
-- 记录区分代码发现、独立复算、浏览器复现、教师待确认。未确认风险不加入“11 项确认问题”的计数。
-- 本轮未修改应用源码，未提交/推送 GitHub，未部署；本地记录可供本人审阅后继续修复。
-- 不根据自动工具运行时长虚构已消耗的人工工时。**已用预算与剩余预算均待本人填写后计算。**
+- Course materials remained in `G:\STATS`, with extracted caches under ignored `.local/course-review`.
+- Records distinguished source findings, independent calculations, browser reproductions and teacher-review items. Unconfirmed risks were separate from the 11 confirmed issues.
+- The first review left app source unchanged and was uncommitted, unpushed and undeployed at that stage.
+- Automatic runtime did not determine used/remaining human budget.
 
-## 后续每次工作填写
+## Historical work-entry template
 
-| 日期 | 开始/结束 | 人工实际小时 | 问题 ID | 做了什么/修改文件 | 证据与复测结果 | commit | 状态 |
+| Date | Start/end | Actual human hours | Issue ID | Work/files | Evidence/retest | Commit | Status |
 |---|---|---|---|---|---|---|---|
-| 待填 | 待填 | 待填 | 例如 R1-05 | 具体修改 | 输入、预期、实际、通过/失败 | 待提交 | 待修复→已修改→已验证→教师确认 |
+| Pending | Pending | Pending | e.g. R1-05 | Specific changes | Input, expected, actual, pass/fail | Pending commit | Open → changed → verified → teacher accepted |
 
-## 15 小时范围安排
+## Original 15-hour scope plan
 
-以下是总预算内的规划，不是本轮实耗：基线与记录 1h、课程/模块审查 3h、内容与计算修复 5h、易用性 2h、回归 2h、交付 1h、预留 1h。现已发现多处核心题库错误，优先使用修复预算解决 P1；若题库重设计超出预算，应缩减低优先级美化并明确剩余项，不自行扩展新模块。
+The planned allocation was baseline/records 1h, course/module review 3h, content/calculation fixes 5h, usability 2h, regression 2h, delivery 1h and reserve 1h. Confirmed core-bank errors made P1 fixes the priority, with lower-priority visual work to be reduced if necessary.
 
-## 本轮核验记录
+## First-round verification record
 
-可核实的自动工作窗口截至最后核验时间为 **15:18:09–15:35:32 NZDT（17 分 23 秒）**，不含首个时间戳前的准备和最后收尾，不能当作完整耗时或人工计费工时。
+The verifiable automatic window was **15:18:09–15:35:32 NZDT, 17 minutes 23 seconds**, excluding preparation before the first timestamp and final wrap-up.
 
-两份来源 PDF 的 SHA-256 已与下载清单重新核对；R 和 Python 审查脚本执行成功，确认记录 10+13+9=32 道题的结构/复算结果；11 项问题编号与优先级数量、JSON 和文档链接已检查。课程缓存受到 Git 忽略，`review/` 没有课程 PDF；应用源码与基线一致。启动检查中的 R 版本/locale 警告未阻止此次运行，应用成功监听且浏览器可操作；这不替代后续部署环境验证。
+Both source PDF SHA-256 values matched the download manifest. R/Python audit scripts checked the 10+13+9=32 question structures/calculations. Issue IDs, priority counts, JSON and documentation links were checked. Course caches were ignored, review/ contained no PDFs and app source matched the baseline. R version/locale warnings did not prevent the app from listening or browser use. Deployment acceptance remained separate.
 
-## 2026-10-30：审查记录基线提交
+## 2026-10-30, baseline audit-record commit
 
-GIT-01：按用户要求，将 `review/` 中的审查文档、证据摘要和复算脚本纳入一个独立 Git 提交，并同步到用户的 `origin/main`。提交说明为 `Record first-round course-based module review`，提交 SHA 与同步状态以 Git 历史及远端核验为准。
+GIT-01 placed review documents, evidence summaries and calculation scripts in a separate commit and synchronised origin/main. Title `Record first-round course-based module review`, with SHA/status in Git history and remote verification.
 
-提交范围不包含应用代码改动、课程 PDF、课程全文抽取缓存或本地 R 依赖。课程来源索引仅记录文件路径、版本、页数和 SHA-256。人工实际工时待本人填写；此步骤不改变 11 项问题的待修复状态。
+Scope comprised review records and source metadata including paths, versions, page counts and fingerprints. App code, course PDFs/text caches and dependencies were outside this commit. The 11 issues retained their then-open status. Human time remained pending at that stage.
 
-## 2026-10-30：R1-05 条件概率表修复
+## 2026-10-30, R1-05 conditional-table fix
 
-| 工作 ID | 内容 | 验证与状态 | 人工工时 |
+| Work ID | Work | Verification/status | Human time at that stage |
 |---|---|---|---|
-| FIX-01 | 修正 Conditional 两个方向的逐项归一化；零边际显示未定义提示 | 已修复、已验证，待教师复核；其余 10 项仍待修复 | 待本人填写 |
-| TEST-01 | 新增真实模块输出回归 `review/scripts/test_r1_05.R`；保存修复前后 JSON 与浏览器截图 | 修复前 0/11、修复后 11/11；9 个有效切片表图一致，2 个零边际提示正确；浏览器核对两个方向、Y=1 和零 Y 边际 | 待本人填写 |
+| FIX-01 | Elementwise normalisation in both directions and undefined zero-marginal feedback | Fixed/verified, teacher review pending, ten other issues open | Pending |
+| TEST-01 | Actual module-output test_r1_05.R, before/after JSON and browser screenshots | 0/11→11/11, nine valid table/plot slices, two zero marginals, browser both directions/Y=1/zero Y | Pending |
 
-修改文件：`Project_PPeek1ng/modules/module_conditional.R`，以及本问题的脚本、证据和审查状态文档。详见 [验证记录](evidence/r1_05_verification.md)。独立本地提交说明为 `Fix R1-05 conditional probability table normalization`，SHA 见 Git 历史；未推送 GitHub，未部署。
+Changed module_conditional.R and the associated scripts/evidence/status records. See [verification](evidence/r1_05_verification.md). Local commit `Fix R1-05 conditional probability table normalization`, SHA in Git history, unpushed/undeployed at that point.
 
-可核实的自动工作窗口截至核验为 **13:35:45–13:47:07 NZDT（11 分 22 秒）**，包括环境检查、依赖恢复、复现、修改、回归、浏览器验证与记录整理；不含核验后的收尾提交。此窗口单列为工具运行记录，不计作人工计费工时。
+Automatic window **13:35:45–13:47:07 NZDT, 11 minutes 22 seconds**, including environment/dependency recovery, reproduction, implementation, regression, browser checks and records, excluding final commit wrap-up.
 
-环境：使用新位置 `C:\Program Files\R\R-4.6.1\bin\Rscript.exe`；原 R 4.6.0 路径不可用。补装 Shiny 1.14.0 及 4 个缺失依赖到被忽略的 `.R-library/`。验证结果包含实际包版本与源码 MD5；课程资料和本地缓存未加入提交范围。临时验证数据已恢复默认四个分数。
+R 4.6.1 at `C:\Program Files\R\R-4.6.1\bin\Rscript.exe` replaced the unavailable 4.6.0 path. Shiny 1.14.0 and four missing dependencies were installed in ignored .R-library/. Reports retain package versions/source MD5. The default four fractions were restored. Course files/caches stayed outside the commit.
 
-## 2026-10-30：R1-06 三模块概率输入校验
+## 2026-10-30, R1-06 three-module input validation
 
-| 工作 ID | 内容 | 验证与状态 | 人工工时 |
+| Work ID | Work | Verification/status | Human time at that stage |
 |---|---|---|---|
-| FIX-02 | 从 Joint 抽出共享 PMF 解析、校验和按钮逻辑，应用到 Conditional/Expectation；同步归一化文本和数值，保留上一张有效结果，恢复空表操作和唯一编号 | R1-06 已修复、已验证，待教师复核；现在剩余 9 项问题 | 待本人填写 |
-| TEST-02 | 三模块各 40 例与同会话同步 4 例；对比修复前 3 个负概率复现；浏览器检查负输入、归一化、三模块读取和全零输入 | **124/124 通过**，含 0/0、微小负数、重复坐标、删除全表和大权重；题库及练习判断逻辑保持原内容 | 待本人填写 |
-| RETEST-01 | 重跑 R1-05 原 11 例；测试脚本只增加共享帮助函数加载，不修改原判断标准 | **11/11 通过**，结果另存 `r1_05_after_r1_06.json`，旧证据保留 | 待本人填写 |
+| FIX-02 | Shared PMF parsing/validation/actions from Joint to Conditional/Expectation, synchronised normalised text/values, retained valid results and recovered empty tables/IDs | Fixed/verified, teacher review pending, nine issues remained | Pending |
+| TEST-02 | Forty cases per module plus four within-session cases, three negative-input baseline reproductions and browser recovery/synchronisation | **124/124**, including 0/0, tiny negatives, duplicates, empty tables and large weights | Pending |
+| RETEST-01 | Original 11 R1-05 cases, adding shared-helper setup only | **11/11**, separately saved r1_05_after_r1_06.json | Pending |
 
-详细证据见 [R1-06 验证记录](evidence/r1_06_verification.md)。代码涉及 `main.R`、新增 `modules/pmf_helpers.R` 和三个表格模块。独立本地提交说明为 `Fix R1-06 PMF input validation and normalization`，SHA 见 Git 历史；本次未推送 GitHub、未部署。
+See [R1-06](evidence/r1_06_verification.md). Code included main.R, new pmf_helpers.R and the three table modules. Local title `Fix R1-06 PMF input validation and normalization`, unpushed/undeployed then.
 
-可核实的自动工作窗口截至核验为 **14:06:12–14:27:05 NZDT（20 分 53 秒）**，包括检查、实现、修复前复现、模块回归、R1-05 重跑、浏览器验证和记录整理；不含核验后的收尾提交。自动窗口单列，不计作人工计费工时，也不自动扣减 15 小时预算。
+Automatic window **14:06:12–14:27:05 NZDT, 20 minutes 53 seconds**, covering inspection, implementation, baseline reproduction, regression, browser checks and records, excluding final commit work.
 
-环境继续使用 R 4.6.1 和现有项目依赖，HTML 表格测试使用本机已有的 `xml2`。本次未安装新依赖。验证结果保存最终模块与帮助函数的 MD5，并核对题库及练习逻辑与修复前一致。浏览器结束时恢复有效 `.1,.2,.3,.4` 示例；课程 PDF、原始课程下载、全文缓存和 `.R-library` 均未进入提交范围。多会话隔离、题库错误和布局问题继续保留在待办中。
+Existing R 4.6.1/dependencies and installed xml2 were used, with no new dependency installation. Final module/helper MD5 values were recorded and question/checking logic compared with the baseline. Browser state ended on valid .1,.2,.3,.4. PDFs, downloads, full text and R libraries stayed excluded. Session isolation, bank errors and layout remained follow-ups.
 
-## 2026-10-30：R1-04 联合分布题库修复
+## 2026-10-30, R1-04 Joint bank fix
 
-| 工作 ID | 内容 | 验证与状态 | 人工工时 |
+| Work ID | Work | Verification/status | Human time at that stage |
 |---|---|---|---|
-| FIX-03 | 修正 Q1–Q4 的非目标格使表合法；由统一数据生成 10 题的表格、答案、提示、解答；修正 Q4–Q8 答案，明确 Q8 零概率和 Q10 边际含义 | R1-04 已修复、已验证，待教师复核；剩余 8 项 | 待本人填写 |
-| TEST-03 | 解析实际 HTML，用有理数独立核对表、事件单元格、题干和等式；真实模块逐题测试两级提示、解答、分数/小数、错误输入、翻页及零边界 | 数学由 2/10→10/10；交互由 92/102→102/102 | 待本人填写 |
-| RETEST-02 | 重跑 R1-05、R1-06，另存本次结果，保留既有证据；浏览器核对 Q5、Q8，并重新加载最终代码核对 Q1 表 | R1-05 11/11、R1-06 124/124 均通过 | 待本人填写 |
+| FIX-03 | Make Q1–Q4 legal by changing non-target cells, derive ten tables/answers/hints/solutions from one source, fix Q4–Q8 and clarify Q8/Q10 | Fixed/verified, teacher review pending, eight issues remained | Pending |
+| TEST-03 | Independently parse HTML/rational equations, test two hints/solution, fractions/decimals, wrong input, navigation and zero boundary | Mathematics **2/10→10/10**, interaction **92/102→102/102** | Pending |
+| RETEST-02 | R1-05/R1-06 reruns and browser Q5/Q8, final reload/Q1 table | **11/11**, **124/124** | Pending |
 
-修改范围为 `Project_PPeek1ng/modules/module_joint.R` 的题库生成及 Joint 答题的非负性检查。概率输入编辑器、共享 PMF 处理、Conditional/Expectation 源码均未改动。详细改动及每题正确答案见 [验证记录](evidence/r1_04_verification.md)。
+Scope was Joint bank generation and nonnegative answer checking. Editors/shared PMF and other module code remained outside this patch. See [verification](evidence/r1_04_verification.md). Local title `Fix R1-04 joint probability question bank consistency`, unpushed/undeployed. Previous evidence was retained.
 
-独立本地提交说明为 `Fix R1-04 joint probability question bank consistency`，SHA 见 Git 历史；本次未推送 GitHub、未部署。旧审查结果、前两项修复结果及各次复测文件均保留。
+Automatic window **14:32:50–15:01:50 NZDT, 29 minutes**, including inspection, correction, before/after comparison, mathematical/interactive regression, browser and records, excluding later commit work. Existing R/Shiny and Python's standard library were used. Final report MD5 values matched source. Browser screenshots showed local exercises. Course materials/caches/dependencies were excluded and remaining issues/teacher review continued.
 
-可核实的自动工作窗口截至核验为 **14:32:50–15:01:50 NZDT（29 分钟）**，包含检查、题库修正、修复前后比较、交互/数学验证、回归、浏览器核对和记录整理；不含之后的收尾提交。自动窗口与人工计费工时分开记录，不自动扣减 15 小时预算。
+## 2026-10-30, remaining confirmed issues
 
-使用现有 R 4.6.1/Shiny 和 Python 标准库，本次未安装依赖。复测结果与最终代码 MD5 一致；课程 PDF、下载包、全文缓存和本地 R 依赖均不在提交范围。浏览器截图仅包含本地应用练习界面。教师复核与剩余问题按清单继续推进。
-
-## 2026-10-30：剩余问题全量核对与修复
-
-| 工作 ID | 内容 | 验证与状态 | 人工工时 |
+| Work ID | Work | Verification/status | Human time at that stage |
 |---|---|---|---|
-| FIX-04 | 修复 R1-01/02/03/07/08：数值精度、完整名称匹配、几何平移变量、双答案输入与反馈 | 首轮 11 项全部已修复并验证，待教师复核 | 待本人填写 |
-| FIX-05 | 修复 R1-09/10/11：合法端点、表格与控件布局、连续密度说明、DU 建模假设 | 指定分布参数和两个视口验证通过 | 待本人填写 |
-| FIX-06 | 补充 R2-01–R2-07：会话隔离、无效 Uniform/奇异密度、游戏模型前提与重启、零/极小边际、图片入口、深色主题 | 7 组补充确认问题均已修复并验证，详见 ISSUES | 待本人填写 |
-| TEST-04 | 保留前三项的案例标准，适配显式会话状态；新增本轮真实模块检查和一键回归入口 | R1-04 102/102、R1-05 11/11、R1-06 124/124、本轮 300/300；独立有理数 10/10；图片资源 13/13 | 待本人填写 |
-| UI-04 | 浏览器核对数值/双答案反馈、两个独立标签页、全部 7 章/21 分/重启、1266 与 900 宽布局、图片加载、深色主题与导航保留 | 页面记录和截图另存 final_*，不覆盖首轮及前次修复证据 | 待本人填写 |
+| FIX-04 | R1-01/02/03/07/08 precision, complete-name matching, shifted Geometric, paired answers/feedback | All first-round issues fixed/verified, teacher review pending | Pending |
+| FIX-05 | R1-09/10/11 endpoints, layout, continuous-density wording and DU assumptions | Specified parameters and two viewports passed | Pending |
+| FIX-06 | R2-01–R2-07 session isolation, invalid Uniform/singular density, game assumptions/restart, tiny/zero marginals, assets and theme | Seven groups fixed/verified | Pending |
+| TEST-04 | Preserve earlier assertions with explicit session state, add module checks and regression entry | R1-04 102/102, R1-05 11/11, R1-06 124/124, remaining 300/300, independent 10/10, assets 13/13 | Pending |
+| UI-04 | Numerical/pair feedback, independent tabs, all seven chapters/21 points/restart, 1266/900 layouts, assets and theme | Separate final_* records/screenshots | Pending |
 
-详细修复、复现命令和覆盖边界见 [全量验证记录](evidence/final_verification.md)。当前确认的问题已完成，不据此宣称穷尽所有参数、设备、无障碍组合或通过多人部署验收；课程覆盖与场景偏好仍待教师复核。
+See [final verification](evidence/final_verification.md). Course/scenario acceptance and broader parameter/device/accessibility/production coverage remained separate. Local title `Fix remaining course audit issues and session isolation`, unpushed/undeployed. The nested archive remained unchanged then, with current work in the source directory.
 
-本轮独立本地提交说明：`Fix remaining course audit issues and session isolation`，SHA 见 Git 历史。**未推送 GitHub，未部署。** 原始压缩包未重新打包，当前工作版本为目录中的源码。
+Automatic window **18:20:56–19:06:38 NZDT, 45 minutes 42 seconds**, including diagnosis, changes, reruns, browser checks and records, excluding later commit work. Existing R 4.6.1/Shiny 1.14.0/Python were used. Reports contained hashes/exit codes. Course PDFs/downloads/text, temporary scripts/logs and libraries remained local. Task-owned temporary browser/services closed during wrap-up. Human time was separate from the 15-hour budget.
 
-可核实的自动工作窗口截至核验为 **18:20:56–19:06:38 NZDT（45 分 42 秒）**，含核对、修改、失败定位、回归重跑、浏览器和记录整理；不含此后的收尾提交。自动窗口单列，人工实际工时待本人填写，**不自动扣减 15 小时预算**。
+## 2026-10-31, STATS125 teaching review
 
-使用现有 R 4.6.1/Shiny 1.14.0、Python 标准库，本轮未安装依赖。最终校验包含源码哈希和退出码；课程 PDF、历史下载、课程全文缓存、临时修复脚本、启动日志和 `.R-library/` 均不纳入提交。首轮证据及前三次修复记录保留。临时浏览器及验证服务在收尾时关闭。
+The user clarified current STATS125 users and later STATS210 preparation. The four earlier technical fixes were synchronised, with remote read-only verification at `eabd184`. Earlier unpushed notes retain their dates.
 
-## 2026-10-31：以 STATS125 学生为对象的教学复核
-
-本轮范围由用户明确：当前面对 STATS125 学生，STATS210 为后续课程，只涉及少量未来可能需要的基础铺垫。此前四次技术修复已经同步 GitHub，远端本轮只读核验为 `eabd184`；历史记录中的“未推送”描述保留为当时状态，当前交接已更新。
-
-| 工作 ID | 内容 | 结果与边界 | 人工工时 |
+| Work ID | Work | Result/scope | Human time at that stage |
 |---|---|---|---|
-| TEACH-01 | 核对 2026 版 125 手册、2024 版 210 手册、2026 S2 Tutorial 4/6/7/8、测试说明及公式表 | 8 份 PDF 哈希核对，7 页渲染目视检查；条件期望/全期望、离散变换期望和方差保留为 125 核心；未逐份阅读所有下载资料 | 待本人填写 |
-| TEACH-02 | 逐题复核 10 Joint、13 Conditional、9 Expectation；核对 15 种 Overview 分布的定位 | 建议 20 核心、8 可选铺垫、4 后续；分层属于本工具教学建议，不是官方考试划分，界面与评分尚未实施 | 待本人填写 |
-| TEACH-03 | 形成 T125-01–T125-09 改进项、先修词表与学习路径、8 个原创离散核心练习方案 | 有理数核对例子；核对默认分数表的一种合法抽牌解释；确认例题参数超出 Overview 部分控件范围，记录为待实施项 | 待本人填写 |
-| FIX-TEACH-01 | 保留模型和答案，修正条件题的牧羊叙述方向、连续 Uniform 区间解释、近似符号及 Gamma 正值前提；澄清 E5 的方差定义不依赖 Normal | 32 题答案/分数/名称/双答案/容差字段与基线完全一致；仅明确文案修正已完成，其余教学方案待实施 | 待本人填写 |
-| TEST-TEACH-01 | 复用真实模块回归，报告日期改为实际 Auckland 运行日期；检查 R 解析、来源与代码哈希、32 行题目清单、Markdown 链接和表格 | 本轮 300/300 通过；历史 537、10/10 和 13/13 证据保持原样，本轮未新增浏览器视觉验收或重跑全部历史案例 | 待本人填写 |
+| TEACH-01 | 2026 STATS125, 2024 STATS210, Tutorials 4/6/7/8, test information/formulas | Eight PDF hashes, seven rendered pages, conditional/total/transformed expectation and variance core, selected-resource review | Pending |
+| TEACH-02 | Ten Joint, 13 Conditional, nine Expectation and 15 Overview models | Proposed 20 core/8 preview/4 further, with interface/scoring changes pending | Pending |
+| TEACH-03 | T125-01–09, prerequisites/glossary/route and eight original discrete proposals | Rational checks, possible cards setting and parameter-range gaps identified | Pending |
+| FIX-TEACH-01 | Shepherd direction, Uniform intervals, approximation symbols, positive Gamma assumptions and E5 variance explanation | Original 32 answer/fraction/name/pair/tolerance fields matched baseline, wording fixes completed | Pending |
+| TEST-TEACH-01 | Actual-module regression, Auckland report dates, parsing, hashes, 32-row catalogue, links/tables | **300/300**, historical 537, 10/10 and 13/13 retained, without new browser/full historical rerun | Pending |
 
-交付文件：[教学复核](TEACHING_REVIEW_STATS125.md)、[课程分层与精确例子证据](evidence/teaching_scope_2026_10_31.json)、[本轮回归](evidence/teaching_regression_2026_10_31.json)，并更新 COURSE_MAP、ISSUES、README 和 HANDOVER。
+Deliverables were [teaching review](TEACHING_REVIEW_STATS125.md), [scope/exact examples](evidence/teaching_scope_2026_10_31.json), [regression](evidence/teaching_regression_2026_10_31.json) and updated COURSE_MAP/ISSUES/README/HANDOVER. Local title `Review STATS125 teaching scope and clarify exercise wording`, unpushed/undeployed then. PDFs/text/pages/scripts stayed local.
 
-独立本地提交说明为 `Review STATS125 teaching scope and clarify exercise wording`，SHA 见 Git 历史；**本轮未推送、未部署**。课程 PDF、抽取全文、渲染页图及临时工具均留在本地，未纳入提交。
+Automatic window **16:29:42–16:56:46 NZDT, 27 minutes 04 seconds**, including selection, course/question comparison, wording, exact mathematics, regression and records, excluding final commit work.
 
-可核实的自动核对窗口截至记录核验为 **16:29:42–16:56:46 NZDT（27 分 04 秒）**，包含选材、逐题核对、教材与教程比对、文字修正、精确复算、回归和记录整理；不含此后收尾提交。人工实际工时待本人填写，自动窗口不自动计入或扣减 15 小时预算。
+## 2026-10-31, core paths, exercises and plot parameters
 
-## 2026-10-31：落实核心分层、核心练习与图形参数
-
-| 工作 ID | 内容 | 验证与边界 | 人工工时 |
+| Work ID | Work | Result/scope | Human time at that stage |
 |---|---|---|---|
-| CONTENT-01 | 侧栏增加 STATS125 Core / Optional STATS210 preview / Further exploration；筛题、翻页和完成数分开 | 默认 30 核心，预习 8、拓展 4；跳过可选内容不影响核心；重复答对不重复计数 | 待本人填写 |
-| CONTENT-02 | 保留原 32 题，落实原 8 个核心练习方案，并加条件 Hypergeometric / Negative Binomial 参数题 | 共新增 10 题；检验 CDF、边际、独立、条件方向、零边际、条件均值/全期望、E[XY]、离散二阶矩和方差 | 待本人填写 |
-| CONTENT-03 | 公共练习呈现与多字段判断，保留两级提示/解答和旧题答题规则 | 新题所有字段正确才计数；原 32 题答案字段与 7852cc1 一致；不自动评阅自由文字解释 | 待本人填写 |
-| CONTENT-04 | 三种交互表格预设和语境说明；15 个图形预设、题目载入入口、参数与所选 x 同步 | Poisson 12/24、Normal 50/65、Uniform 100/140 可重现；改变交互参数不改变固定题干答案 | 待本人填写 |
-| CONTENT-05 | 首页先修/词表，核心保留 125 的条件期望与全期望；连续预习限三种直观模型，公式默认折叠 | T125-01/02/04/05/08/09 已落实；03 新增两题参数考查，06 只补学习顺序提示，旧命名题与 3D/游戏章节未全面改造 | 待本人填写 |
-| TEST-CONTENT-01 | 重跑原 R1-04/05/06 和其他模块，新增分层与真实应用测试；独立数学核算 | 原 537 + 新 158 = **695/695**；独立数学 **10/10**；浏览器发现的切换瞬间导航问题已修复并补三模块检查 | 待本人填写 |
-| UI-CONTENT-01 | 独立 Chrome 中执行真实页面路径、表格载入、题目跳转图形、两标签页和 1266/900 视口检查 | **22/22** 浏览器流程、**13/13** 图片资源；选取本地应用截图作为证据，未触碰课程平台登录 | 待本人填写 |
+| CONTENT-01 | Core/preview/further routes, independent filtering/navigation/counts | Default 30 core, 8 preview, 4 further, count-once completion | Pending |
+| CONTENT-02 | Retain 32, implement eight proposals and two discrete parameter questions | Ten additions covering CDFs, marginals, independence, conditions/zero marginals, parameters, means, E[XY], second moment/variance | Pending |
+| CONTENT-03 | Shared multi-field display/checking with two hints/solution | All fields required, original 32 answers matched 7852cc1, written explanations manually assessed | Pending |
+| CONTENT-04 | Three PMF examples, 15 plot presets and x/parameter loading | Poisson 12/24, Normal 50/65 and Uniform 100/140 reproducible, interactive changes preserve fixed question answers | Pending |
+| CONTENT-05 | Prerequisites/glossary, core conditional/total expectation, three-model preview/collapsed formulas | T125-01/02/04/05/08/09 implemented, 03 adds two parameter questions, 06 adds order guidance | Pending |
+| TEST-CONTENT-01 | R1-04/05/06/remaining reruns, new route/app checks and mathematics | 537+158=**695/695**, mathematics **10/10**, transient route-navigation fix covered | Pending |
+| UI-CONTENT-01 | Independent Chrome, table/plot loading, two tabs and 1266/900 widths | **22/22** flow, **13/13** images, local screenshots | Pending |
 
-交付与边界见 [内容改进验证记录](evidence/content_verification.md)；更新 TEACHING_REVIEW_STATS125、ISSUES、COURSE_MAP、HANDOVER 和 README。新题与路径不依赖课程 PDF；当前会话计数不跨刷新保存，不是持久化成绩系统。教师/用户实际体验和正式教学采用仍待复核。
+See [content verification](evidence/content_verification.md). Teaching/issue/course/handover/readme records were updated. Helpers/presets were independent of course PDFs. Progress was session-local. Teacher/user evaluation remained pending.
 
-本轮独立本地提交说明为 `Implement STATS125 core learning paths and practice`，SHA 见 Git 历史；**未推送、未部署**。课程资料、全文缓存、依赖与浏览器临时数据未纳入提交；旧验证证据保留。本轮在 7130 保留新版本地预览供查看，原 7125 服务未干预，独立验证浏览器在收尾时关闭。
+Local title `Implement STATS125 core learning paths and practice`, unpushed/undeployed then. Earlier evidence and local-only materials were preserved. New preview stayed on 7130, with earlier 7125 unchanged. The independent verification browser closed afterward.
 
-可核实的自动工作窗口截至功能验证为 **21:37:45–22:18:32 NZDT（40 分 47 秒）**，包含检查、实现、失败定位与修正、回归、浏览器验证和记录整理；不含此后证据/源码哈希核对和提交收尾。使用现有 R 4.6.1/Shiny 1.14.0 与 Python；浏览器验证通过 npx 缓存的 Playwright CLI，缓存不进入 Git。人工实际工时待本人填写，自动窗口不自动扣减 **15 小时**预算。
+Automatic window **21:37:45–22:18:32 NZDT, 40 minutes 47 seconds**, including implementation/diagnosis/regression/browser/records and excluding later fingerprint/commit work. Existing R 4.6.1/Shiny 1.14.0/Python and cached Playwright CLI were used.
 
-## 2026-10-31：练习入口、文字遮挡和页面空间改进
+## 2026-10-31, practice access, clipped text and space
 
-| 工作 ID | 内容 | 结果与边界 | 人工工时 |
+| Work ID | Work | Result/scope | Human time at that stage |
 |---|---|---|---|
-| UI-05 | 复现窄理论栏、难找练习、Joint 空列占位、长选项和公式重叠 | 新增 U1-01–U1-07；1266px 下原理论栏 213px、内容约 420px；发现隐藏页内联公式排版宽度为 0 | 待本人填写 |
-| UI-06 | 首页增加核心/Joint 练习按钮，模块增加跳转；练习和交互表格优先展示 | 宽屏双列、窄屏堆叠，理论全宽展开，2D 优先、3D 默认折叠；编辑器行紧凑排列 | 待本人填写 |
-| UI-07 | 修正表格偏移、控件换行/箭头空间、侧栏收起和图形尺寸变化；重排可见公式 | 默认表在四种宽度完整可见；理论宽度约 969px；Bernoulli 内联公式恢复约 152.7px，正文不再重叠 | 待本人填写 |
-| TEST-UI-05 | 重跑所有原模块/分层及独立数学，保留原断言，新增真实布局与公式检查 | 模块 **695/695**、独立数学 **10/10**；原 32 题答案保持一致，30/8/4 与游戏分数规则保留 | 待本人填写 |
-| TEST-UI-06 | 独立 Chrome 检查四模块、四种宽度、入口焦点、侧栏、3D 展开、深色和公式宽度；重跑学生流程 | 布局 **77/77**、学生流程 **22/22**；图片 **13/13**，新增 CSS/JS HTTP/哈希 **2/2** | 待本人填写 |
+| UI-05 | Reproduce narrow theory, hidden questions, empty Joint column, long options and overlapping formulas | U1-01–07, 213px theory versus about 420px content at 1266px, zero-width hidden inline formulas | Pending |
+| UI-06 | Home/module shortcuts and primary practice/table layout | Wide columns/narrow stacks, full-width theory, 2D first, collapsed 3D, compact input rows | Pending |
+| UI-07 | Table alignment, wrapping/arrow space, sidebar/plot resizing and typesetting | Tables fit four widths, theory about 969px, Bernoulli formula about 152.7px | Pending |
+| TEST-UI-05 | Retain module/path/math assertions | **695/695**, independent **10/10**, original answers, 30/8/4 and game rules retained | Pending |
+| TEST-UI-06 | Four modules/widths, focus, sidebar, 3D, dark mode and formula widths | Layout **77/77**, student flow **22/22**, images **13/13**, CSS/JS HTTP/SHA **2/2** | Pending |
 
-实现、复现、截图及边界见 [布局验证记录](evidence/layout_verification.md)。新增学习布局 CSS/JS 和共享页面区域帮助函数；不依赖课程文件。更新 ISSUES、TEACHING_REVIEW_STATS125、HANDOVER、README。旧 content_*、final_* 和首轮证据保留，新结果使用 layout_*。
+See [layout verification](evidence/layout_verification.md). Shared sections and layout CSS/JS were added independently of course files. Updated issue/teaching/handover/readme records, preserving content_*, final_* and original evidence. Local title `Improve practice access and responsive learning layout`, unpushed/undeployed. Preview remained 7130, earlier 7125 unchanged. An independent browser profile was closed after checks. Selected local-app screenshots/JSON were retained, with raw screenshots/logs/course files/dependencies/cache excluded.
 
-独立本地提交说明为 `Improve practice access and responsive learning layout`，SHA 见 Git 历史；**未推送、未部署**。新版预览仍保留在 7130，需刷新读取新页面；原 7125 服务未干预。验证使用独立浏览器配置，收尾关闭；课程 PDF、依赖、原始截图/日志和浏览器缓存不纳入提交，只选取应用页面截图和审查 JSON。
+Automatic window **22:56:18–23:22:23 NZDT, 26 minutes 05 seconds**, through parsing/screenshots/source checks, excluding final documentation/commit work. Existing R 4.6.1/Shiny 1.14.0/Python/Playwright were used.
 
-可核实的自动工作窗口截至解析、截图及源码核验为 **22:56:18–23:22:23 NZDT（26 分 05 秒）**，包含复现、实现、失败定位、回归、浏览器与记录整理；不含此后的最终文档/提交收尾。使用现有 R 4.6.1、Shiny 1.14.0、Python 和缓存的 Playwright CLI，未安装新 R 依赖。人工实际工时待本人填写，自动窗口不计入或扣减 **15 小时**预算。
+## 2026-10-31, teaching/layout synchronisation
 
-## 2026-10-31：教学与布局改进同步 GitHub
+The user requested the three local commits be synchronised to origin/main, HI1003/Shiny-Visualization-Project, preserving history.
 
-按用户要求，将以下三个本地提交保留原历史同步至 `origin/main`（`HI1003/Shiny-Visualization-Project`），未修改 upstream，也未部署：
-
-| 提交 | 内容 |
+| Commit | Work |
 |---|---|
-| `7852cc1` | 以 STATS125 为主的教学复核与文案澄清 |
-| `09a0f90` | 核心/预习/拓展分层、新增核心练习与图形参数入口 |
-| `c534e81` | 练习入口、响应式布局、文字/表格/公式遮挡修复 |
+| 7852cc1 | STATS125 teaching review and wording |
+| 09a0f90 | Core/preview/further routes, core questions and plot loading |
+| c534e81 | Practice access, responsive layout and clipped text/tables/formulas |
 
-推送前重新获取远端状态，核对完整待推送范围的 **61 个文件路径、83 个文件版本**，包含各中间提交，避免只看最终差异而漏掉曾经加入的材料。排除项核对覆盖课程参考目录、`.local/`、`.R-library/`、`.playwright-cli/`、`output/playwright/`、`.Rhistory` 和 `.RData`；未发现被忽略但已跟踪的文件，课程 PDF、下载包、依赖和本地缓存未进入此次提交范围。应用截图和自建审查结果按既有范围保留。
+Pre-push review checked **61 paths and 83 file versions** across all intermediate commits. Ignore probes covered course references, .local/, .R-library/, .playwright-cli/, output/playwright/, .Rhistory and .RData. No ignored/tracked files or course/download/dependency/cache files were found in scope. Existing app screenshots and authored evidence were retained.
 
-本次未修改代码或重跑全部测试；对已有最新报告重新核对通过状态、源码 MD5、截图及布局资源 SHA-256，确认对应当前源码：695/695 模块、10/10 独立数学、77/77 布局、22/22 学生流程、13/13 图片、2/2 布局资源。
+Existing results/fingerprints were rechecked rather than rerun, including **695/695** modules, **10/10** mathematics, **77/77** layout, **22/22** flow, **13/13** images and **2/2** resources. Remote main matched content SHA `c534e819ecd53e4081a41573b5f559cdb8222094`. Log/handover/review README synchronisation notes followed in a separate documentation commit, with final SHA in Git history and a clean matching local/remote state. Upstream/deployment were outside this action. Human time remained pending then.
 
-三个改进提交推送成功后，使用远端引用核验：本地内容提交与 GitHub main 均为 `c534e819ecd53e4081a41573b5f559cdb8222094`。随后更新本日志、HANDOVER 及 review/README 的当前同步状态，作为独立文档提交一并同步；最终文档提交 SHA 见 Git 历史，推送后再次核对本地/远端一致及工作区清洁。历史条目的“未推送”仍描述当时状态。
+## 2026-11-01, concepts and visualisation first
 
-人工实际工时待本人填写；本次同步与自动核验不自动扣减 15 小时预算。
+The user noted existing quizzes/assignments and prioritised reviewing ideas and understanding plots, with optional practice and potential interest in sourced exam questions. This expressed a design preference.
 
-## 2026-11-01：知识回顾与可视化优先的教学反馈
-
-用户指出学生已有 quiz/assignment，项目应先回顾知识点，再通过可视化帮助理解；练习可以作为可选内容，历年真题可能更有吸引力。本轮据此调整界面主次，学生参与意愿仍待实际反馈，不作为已完成的用户研究结论。
-
-| 工作 ID | 内容 | 结果与边界 | 人工工时 |
+| Work ID | Work | Result/scope | Human time at that stage |
 |---|---|---|---|
-| TEACH-04 | 四模块采用知识点回顾→可视化探索→可选自测；补简短要点和观察提示 | 概念默认展示，完整定义/公式可展开；无需答题即可操作图表；125/210 主题分层保留 | 待本人填写 |
-| UI-08 | 首页先进入回顾，练习移至末尾且默认折叠；侧栏进度也默认收起 | 保留 42 题和已有判题/计分；30/8/4 自测分组不作为课程完成要求 | 待本人填写 |
-| SOURCE-01 | 澄清练习与真题的来源边界 | 新增 10 题标为原创自测；原项目 32 题未逐题核实考试出处。本轮未新增历年真题，待教师选定年份/题号后另行核验 | 待本人填写 |
-| TEST-TEACH-02 | 重跑所有模块、独立数学、新页面浏览及主动展开后的练习流程 | 695/695 模块、10/10 数学、65/65 概念优先浏览器、22/22 可选练习、13/13 图片、2/2 CSS/JS；源码/资源哈希匹配 | 待本人填写 |
+| TEACH-04 | Review → explore → optional self-checks, with concise key ideas/prompts | Concepts visible, definitions/formulas expandable, plots usable without answers, course levels retained | Pending |
+| UI-08 | Home enters review, practice/progress collapsed at the bottom | 42 questions and 30/8/4 optional groups retained | Pending |
+| SOURCE-01 | Exercise/exam provenance labels | Ten new originals labelled, 32 project exam sources unverified, exam selection pending | Pending |
+| TEST-TEACH-02 | Module/math/browser/optional-practice regression | **695/695**, **10/10**, concept browser **65/65**, optional flow **22/22**, images **13/13**, CSS/JS **2/2**, matching hashes | Pending |
 
-详见 [概念优先验证记录](evidence/concept_first_verification.md)。更新教学复核、ISSUES、README 和 HANDOVER，保留旧 content_*、layout_* 和原始审查证据。当前体验重点是解释是否清楚、观察提示和图表是否帮助理解，无需完成所有自测。独立本地提交说明为 `Prioritize concept review and visual exploration`；**本轮未推送、未部署**，此前 5063d1d 的同步状态不变。新版本地预览仍为 7130。
+See [concept-first verification](evidence/concept_first_verification.md). Teaching/issue/readme/handover records updated, earlier evidence preserved. Local title `Prioritize concept review and visual exploration`, unpushed/undeployed at that stage, with previous 5063d1d synchronisation unchanged and preview on 7130.
 
-可核实的自动窗口为 **14:43:30–14:53:31 NZDT（10 分 01 秒）**，包括实现、回归、浏览器和记录整理；首个时间戳之前的查阅及其后的文档/提交收尾未计入此窗口。人工实际工时待本人填写，自动时间不计入或扣减 15 小时预算。课程 PDF、依赖、提取缓存、浏览器临时数据和日志继续留在忽略目录。
+Automatic window **14:43:30–14:53:31 NZDT, 10 minutes 01 second**, covering implementation/regression/browser/records, excluding earlier reading and later documentation/commit work. Course files/dependencies/extracts/browser state/logs remained local.
 
-## 2026-11-01：筛选本地历年真题，撤下四模块原创练习
+## 2026-11-01, selected past exams replace original student exercises
 
-用户明确只需要历年真题作为可选练习，不需要原创题。本轮查阅本地四组年份/学期试卷及解答，从其中三组选择四组小问，对照选中原页和参考解答并独立复算；未声称读完整个历史目录。
+The user requested genuine past exams only. Four session paper/solution pairs were screened, with four subpart groups selected from three sessions, source-checked and independently calculated.
 
-| 工作 ID | 内容 | 结果与边界 | 人工工时 |
+| Work ID | Work | Result/scope | Human time at that stage |
 |---|---|---|---|
-| EXAM-01 | 选择适合现有四模块可视化的真题 | 2026 S1 Q2(a)–(d)、2025 S1 Q3(c)–(d)、2024 S2 Q3(e)、2026 S1 Q3(d), (g)；来源指纹/页码留索引 | 待本人填写 |
-| EXAM-02 | 来源标注与等价呈现 | 逐题注明年份、学期、题号、文件、页码和改编情况；期望题分段 PMF 转等价表格，其余为排版/输入调整；书面论证不自动评阅 | 待本人填写 |
-| EXAM-03 | 私有本地题库与四模块接入 | 原创 10 题构建代码移除，原 32 题仅留内部回归；学生可选区只提供 4 组核实过的真题，保持概念优先及默认折叠 | 待本人填写 |
-| EXAM-04 | 原题表/图形参数载入及私有来源验证 | 核对 PDF 指纹、题库结构和 PMF；缺失/损坏时不回退旧题；修正坐标存储类型导致的原题表说明识别问题 | 待本人填写 |
-| TEST-EXAM-01 | 重跑历史修复，新增真题及浏览器检查，独立复算 | 模块 617/617（原 537 + 新 80）；独立数学旧 10/10、新 7/7；Chrome 66/66；图片 13/13 | 待本人填写 |
-| PRIVACY-EXAM-01 | 排除课程文件、私有题库、原始浏览器回显和截图缓存 | 题干/数据/答案仅在 `.local/`，PDF 留 G 盘；含真题截图仅在 `output/playwright/`；仓库只留通用代码、元数据和不含真题内容的验证摘要 | 待本人填写 |
+| EXAM-01 | Select extracts matching four modules | 2026 S1 Q2(a)–(d), 2025 S1 Q3(c)–(d), 2024 S2 Q3(e), 2026 S1 Q3(d), (g), indexed pages/fingerprints | Pending |
+| EXAM-02 | Source/adaptation labels and equivalent presentation | Expectation piecewise PMF to equivalent table, other layout/input changes, written arguments manually assessed | Pending |
+| EXAM-03 | Local bank integrated into four modules | Ten original builders removed, 32 internal, four verified optional groups with concept-first/collapsed entry | Pending |
+| EXAM-04 | Question table/plot loading and source verification | PDF fingerprints/schema/PMF checked, no fallback, coordinate type mismatch in example recognition fixed | Pending |
+| TEST-EXAM-01 | Historical regression plus exams/browser/mathematics | **617/617** (537+80), original mathematics **10/10**, selected **7/7**, Chrome **66/66**, images **13/13** | Pending |
+| PRIVACY-EXAM-01 | Exclude course files/bank/raw CLI/screenshots at this stage | Contents under .local/, PDFs on G:, screenshots output/playwright/, general code/metadata/summaries versioned | Pending |
 
-选择及移交边界见 [真题选择记录](PAST_EXAM_SELECTION.md)，验证详情见 [真题验证](evidence/past_exam_verification.md)。更新 README、教学复核、ISSUES 与 HANDOVER；旧 42 题、30/8/4 和 695 检查均保留为历史阶段。通用调参示例和独立游戏保留，不将其称为历年考试练习。
+See [selection](PAST_EXAM_SELECTION.md) and [verification](evidence/past_exam_verification.md). Earlier 42/30/8/4/695 records remained historical. Generic presets and the independent game retained their identities.
 
-独立本地提交说明为 `Use verified local STATS125 past-exam extracts only`，SHA 见 Git 历史；**本轮未推送、未部署**。本地概念优先提交 `2eed4f9` 也尚未推送，此前 `5063d1d` 的同步记录不变。新版预览仍为 7130，刷新后可见；原 7125 服务未干预。只同步公共 GitHub 代码不会移交私有真题内容，教师另一电脑使用需另行安排获授权的私有材料移交。
+Local title `Use verified local STATS125 past-exam extracts only`, unpushed/undeployed then. Concept-first `2eed4f9` was also unpushed, with earlier `5063d1d` status retained. Preview remained 7130 and prior 7125 unchanged. At that date another computer required a separate authorised materials handover.
 
-可核实自动窗口截至结果及源码/来源指纹核验为 **14:56:54–15:24:30 NZDT（27 分 36 秒）**，不含后续文档、排除核对和提交收尾。使用现有 R 4.6.1、Python、Poppler 及缓存的 Playwright CLI，未安装新依赖。人工实际工时待本人填写，自动时间不计入或扣减 15 小时预算。
-
-
-## 2026-11-01：概念优先和真题改版同步 GitHub
-
-按用户要求，将两个本地改版提交同步至 `origin/main`（`HI1003/Shiny-Visualization-Project`）：
-
-| 提交 | 内容 |
-|---|---|
-| `2eed4f9` | 知识点回顾与可视化优先，练习和进度默认折叠 |
-| `b94764d` | 四模块只使用经核验的本地 STATS125 历年真题节选；课程内容保留为私有本地题库 |
-
-推送前获取远端状态，确认可正常快进；逐一核对两次提交的 **56 个文件路径、66 个文件版本（65 个不同内容版本）**。没有课程 PDF、压缩包、私有题库、提取文本、私有构建脚本、浏览器原始回显或缓存。6 张历史 concept 应用截图经目视复核，仅展示本地应用的概念/通用图表；本轮含真题的 exam 截图全部仍在被忽略的 `output/playwright/`，未加入 Git。
-
-排除规则核对覆盖 `.local/past-exams/`、`.local/exam-selection/`、`.local/course-review/`、`.R-library/`、`.playwright-cli/`、`output/playwright/`、`local_reference/`、`.Rhistory` 和 `.RData`；无被忽略但已跟踪的文件。逐版本检查排除 PDF 内容及私有题干/解答全文，公共来源索引仅包含年份、题号、文件名、页码与指纹等元数据。
-
-本次没有修改应用代码或重跑功能测试；重新核对既有通过报告：617/617 模块、66/66 真题浏览器、独立数学旧 10/10 与新 7/7、13/13 图片。当前真题报告的完整 R 源码 MD5 及 6 份本地原 PDF 的 SHA-256 均匹配；旧 remaining 报告记录最后一次页面容器清理前的版本，其范围差异已在真题验证记录说明。另将历史 TEST-TEACH-02 的浏览器计数笔误更正为原报告的 65/65；本轮真题浏览器为 66/66，两个阶段分别保留。
-
-两个改版推送成功后，于 **15:29:20 NZDT** 核对 GitHub main 与本地内容提交均为 `b94764d412ad16f6420b37092b09243869bf8e36`。随后更新本日志、HANDOVER 和 review/README 的当前同步状态；同步记录另作独立文档提交并同步，最终 SHA 见 Git 历史，收尾再次核对本地与远端一致及工作区清洁。历史“未推送”条目保留为当时状态。
-
-未更改 upstream，未部署；仅同步代码、来源元数据和审查记录，GitHub 克隆不包含本地真题题干、数据或答案。人工实际工时待本人填写，本次自动同步核验不自动扣减 15 小时预算。
+Automatic window **14:56:54–15:24:30 NZDT, 27 minutes 36 seconds**, through results/source fingerprint checks, excluding final docs/exclusions/commit. Existing R 4.6.1/Python/Poppler/cached Playwright were used. Human time was separate.
 
 
-## 2026-11-04：缩短概率显示，保留计算精度
+## 2026-11-01, concept/exam revisions synchronised
 
-用户在浏览器体验时指出概率小数位数太多，并要求先对照讲义提出建议，再实施。本轮按已确认方案修改概率表、编辑器、图形标签和计算读数；讲义 p97/113/114/119/148 的页面已在本地检查，四位小数属于界面建议，不冒称课程规定。
+The user requested origin/main synchronisation of `2eed4f9` (concept-first, collapsed practice/progress) and `b94764d` (four verified local STATS125 exam groups with local contents).
 
-| 工作 ID | 内容 | 验证与边界 | 人工工时 |
+After fetching remote state and confirming a fast-forward, review covered **56 paths, 66 versions and 65 distinct contents** across both commits. Scope excluded PDFs/archives/bank/text/build scripts/raw browser output/cache. Six historical concept screenshots were visually reviewed as generic concept/plot pages. Exam screenshots remained under ignored output/playwright/.
+
+Ignore probes covered .local/past-exams/, .local/exam-selection/, .local/course-review/, .R-library/, .playwright-cli/, output/playwright/, local_reference/, .Rhistory and .RData. No ignored/tracked file was found. Per-version review checked PDF signatures and private question/solution text. The source index retained year/question/filename/page/fingerprint metadata.
+
+Existing results were rechecked without new app changes or functional reruns, comprising **617/617** modules, **66/66** exam browser, **10/10** original and **7/7** selected mathematics, and **13/13** images. Current exam R MD5 and six source SHA-256 values matched. The older remaining report retained its pre-container-cleanup fingerprint. The earlier TEST-TEACH-02 browser count was corrected to its actual **65/65**, separately from the exam **66/66**.
+
+At **15:29:20 NZDT**, remote main matched `b94764d412ad16f6420b37092b09243869bf8e36`. Log/handover/review README notes followed in a separate documentation commit, with final SHA in history and final local/remote/clean-tree verification. Upstream and hosting were outside the action. At that stage cloning delivered code/metadata/records, with exam contents held separately. Human time remained pending then.
+
+## 2026-11-04, compact probabilities with retained precision
+
+The user first requested coursebook comparison and then approved the display proposal. Coursebook p97/113/114/119/148 were checked locally. Four places was an interface choice.
+
+| Work ID | Work | Verification/scope | Human time at that stage |
 |---|---|---|---|
-| FMT-01 | 数值显示与底层真实值分离，紧凑输入绑定未经修改时保留原数值 | 三模块重复 Generate 8 次、真实编辑、Normalize/Generate、负数拒绝和跨模块共享检查 | 待本人填写 |
-| FMT-02 | Auto / Short decimals / Simple fractions 共享显示模式 | 同组表格与期望公式一致；最多四位小数、去尾零、简洁分数分母上限 500；模式切换不修改 PMF | 待本人填写 |
-| FMT-03 | 近似标注、极小非零值和更多精度 | 近似单元格/公式标约等号；修正 0.00005 半舍入边界可能显示成零；表格/编辑框/结果悬停、Overview 折叠 More precision | 待本人填写 |
-| TEST-FMT-01 | 更新旧显示断言并重跑 R1-04/05/06、其他模块及真题；增加精度专项 | 102+11+124+300+80+72 = 689/689；独立有理数 10/10；保留实际图形及完整数值校验 | 待本人填写 |
-| UI-FMT-01 | 独立 Chrome 实际切换模式、编辑/重复生成、更多精度和四种宽度 | 29/29 浏览器、13/13 图片；目视检查宽窄屏；长公式保留原横向滚动 | 待本人填写 |
+| FMT-01 | Separate display from full values, retain untouched compact bindings | Eight repeated Generate operations per module, actual editing, Normalize/Generate, negatives and shared state | Pending |
+| FMT-02 | Shared Auto / Short decimals / Simple fractions | Matching table/formula styles, four places, no trailing zeros, denominator ≤500 and unchanged PMFs on format switches | Pending |
+| FMT-03 | Approximation marks, tiny values and more precision | ≈ in cells/steps, .00005 half-rounding fix, hover and expandable precision | Pending |
+| TEST-FMT-01 | Updated display assertions, historical/module/exam regression and precision checks | **102+11+124+300+80+72=689/689**, independent **10/10**, real plot/full-value assertions | Pending |
+| UI-FMT-01 | Chrome formatting, actual editing/repeated generation, precision and four widths | **29/29** browser, **13/13** images, visually reviewed wide/phone screenshots | Pending |
 
-完整说明及证据见 [数值显示验证](evidence/number_display_verification.md)。本轮重跑发生在补齐半舍入边界修复之后，所有 current 报告使用 `numbers_*`，旧 exam/content/layout/concept 证据保留。新增数值夹具为测试用途，没有原创学生练习或新增真题。原题静态内容与本地私有题库保持原样，课程 PDF、页面图、私有数据、依赖、截图和日志仍留在 G 盘或忽略目录。
+See [number-display verification](evidence/number_display_verification.md). The final numbers_* reports follow the half-rounding fix. Historical reports remained separate. Synthetic numeric fixtures were test data, with original static source contents retained. Source PDFs/page images/private data/dependencies/screenshots/logs stayed local at that stage.
 
-独立本地提交说明为 `Use compact probability displays without losing precision`，SHA 见 Git 历史；**本轮未推送、未部署**，此前 GitHub `a3a195c` 的同步记录保持。预览继续使用 7130，仅重启本任务拥有的服务，用户外部 Chrome 页面需刷新；独立验证浏览器在收尾关闭。
+Local title `Use compact probability displays without losing precision`, unpushed/undeployed then, with earlier `a3a195c` synchronisation retained. Preview remained 7130, only task-owned services restarted, user Chrome refreshed and the independent verification browser closed.
 
-可核实自动窗口为 **11:35:21–11:49:44 NZDT（14 分 23 秒）**，此前查阅/设计及此后文档、源码/暂存核对和提交收尾未计入。人工实际工时待本人填写，自动时间不计入或扣减 15 小时预算。
+Automatic window **11:35:21–11:49:44 NZDT, 14 minutes 23 seconds**, excluding earlier reading/design and later docs/source/index/commit work. Human time remained separate.
 
+## 2026-11-04, numeric-display synchronisation
 
-## 2026-11-04：数值显示改进同步 GitHub
+The user requested synchronisation of `ecef621`, `Use compact probability displays without losing precision`, to HI1003/Shiny-Visualization-Project origin/main.
 
-按用户要求，将数值显示改进提交 `ecef621`（`Use compact probability displays without losing precision`）同步至 `origin/main`，目标为 `HI1003/Shiny-Visualization-Project`。未修改 upstream，未部署。
+Pre-push review fetched remote state and checked **27 paths and 27 versions**. Course PDFs/archives/private questions/solutions/cache and screenshots were outside this range. Ignore probes covered the bank, number-format working directory/logs, libraries, browser state/screenshots, course references and R session files. No ignored/tracked files were found.
 
-推送前获取远端状态，确认可正常快进；核对完整待推送范围的 **27 个文件路径、27 个文件版本**，逐版本检查未包含课程 PDF、压缩包、私有真题题干/解答或任何本地缓存。此次范围不含截图文件。排除规则核对覆盖 `.local/past-exams/`、`.local/number-format-review/`、本地日志、`.R-library/`、`.playwright-cli/`、`output/playwright/`、`local_reference/`、`.Rhistory` 和 `.RData`；没有被忽略但已跟踪的文件。
+Existing **689/689**, **29/29**, **10/10** and **13/13** reports/source MD5 were rechecked against current code, without functional reruns. At **11:55:40 NZDT**, remote main and local content matched `ecef62163f4f4e74c99c989bbe6d4430c84ae26d`. Documentation updates followed in a separate synchronised commit, with final SHA in history and local/remote/clean-tree verification. Earlier unpushed entries retain their dates. Upstream/deployment remained outside this action. Course/bank/cache contents remained local then.
 
-本次仅同步与更新记录，没有修改应用代码或重跑功能测试。重新核对既有报告的通过状态及源码 MD5：**689/689 模块与精度、29/29 浏览器、10/10 独立数学、13/13 图片**，对应当前源码；历史 `numbers_*` 结果保持原样。
+## 2026-11-10, Overview step 2 heading
 
-数值显示改进推送成功后，于 **11:55:40 NZDT** 核验 GitHub main 与本地内容提交均为 `ecef62163f4f4e74c99c989bbe6d4430c84ae26d`。随后更新本日志、HANDOVER 与 review/README 的当前同步状态，作为独立文档提交一并同步；最终 SHA 见 Git 历史，收尾再次核对本地与远端一致和工作区清洁。历史“未推送”条目保留为当时状态。
+The user saw step 1 followed by step 3. Parameters/plots existed inside two unnumbered cards. Added **2. Explore plots and parameters** across the exploration area, changing one UI line and a grid-title style.
 
-课程资料、私有真题题库和缓存继续只保留在本机；公开仓库不包含私有真题题干、数据或答案。人工实际工时待本人填写，本次自动同步核验不自动计入或扣减 15 小时预算。
+R parsing passed. Browser checks at **1600px and 390px** confirmed 1→2→3 order, full-width step 2 before both cards and no page overflow. The user's external browser refreshed. Temporary records stayed in ignored folders. Existing numbers_* evidence retained its date/fingerprints. This reversible title/style patch added no permanent test and did not rerun numerical regression. Local title `Label Overview visualization as step 2`, unpushed/undeployed then.
 
+## 2026-11-10, heading column and stale browser assets
 
-## 2026-11-10：补齐 Overview 第 2 步标题
+The user's screenshot placed step 2 in a narrow left column, controls on the right and plots below. The original browser had loaded new UI with an old unversioned CSS file. Its heading was 28px with grid-column auto. The previous fresh-browser-only check missed this cached-window case.
 
-用户在体验中发现标题从“1. Review the key ideas”跳到“3. Optional past-exam questions”。参数和图形区域实际存在，但只有两张未编号的内部卡片标题，缺少统一的第 2 步标题。
+Step 2 became a full card like step 1, with its heading outside the grid, which now contains only parameter/plot areas. Wide screens use compact left controls and right plots, narrow screens stack. The old cross-column heading rule was removed and internal headings reduced. CSS/JS URLs gained content-based versions.
 
-已在整个 Overview 探索区补充 **2. Explore plots and parameters**，标题横跨参数与图形两张卡片。仅修改一行界面定义和一条网格标题样式；计算、数值显示规则和题库未改动。
+R parsing and **19/19** target-browser checks passed across 1600/1266/900/390px, heading placement/size, columns/stacks, overflow, versioned resources, model loading and preview. At 900px, the 855px course container exceeded the existing 840px two-column threshold, with 250/547px parameter/plot widths. At 390px it stacked. The actual original 1536px window then showed the new 18.4px heading above the cards with no overflow, visually checked.
 
-本次 R 语法解析通过；实际浏览器在 **1600px 和 390px** 确认 1→2→3 的页面顺序、第 2 步标题占满探索区域一行并位于两张卡片之前，未引入整页横向溢出。用户外部浏览器页面已刷新。临时浏览器记录留在忽略的 `.local/` 与 `.playwright-cli/`，不提交用户附件或含真题内容的截图。
+See [layout fix evidence](evidence/overview_layout_fix.json) for structure/cache checks and three-file SHA-256 values. Calculations, format rules and questions were outside this patch, with historical numerical reports retained. Temporary scripts/output/screenshots stayed ignored. Local title `Fix Overview section layout and stale assets`, both UI commits still unpushed/undeployed then. Chrome ended at the corrected step 2.
 
-本轮属于可逆的标题/样式修正，没有新增永久测试或重跑数值功能回归；原 `numbers_*` 报告保留为此前数值显示版本的历史证据，其源码指纹未改写。本轮独立本地提交说明为 `Label Overview visualization as step 2`，SHA 见 Git 历史；未推送、未部署。人工工时待本人填写，不自动扣减 15 小时预算。
+## 2026-11-10, remove probability display selector
 
+The user removed Probability table display. Its selector/listener were deleted and automatic compact formatting became universal, retaining fractions/short decimals, approximation marks, full computational precision, hover details and the then-existing More precision. Internal format helpers remained tested.
 
-## 2026-11-10：修正 Overview 标题错列与浏览器旧样式缓存
+Existing checks were updated, with **72/72** precision/app and **29/29** browser cases. Coverage included default automatic mode, ignored obsolete inputs, real editing/repeated generation, removed selector, shared precision and 1600/1266/900/390px layouts. See [precision](evidence/auto_display_precision.json) and [browser](evidence/auto_display_browser.json). Matching source fingerprints were recorded, with older numbers_* evidence retained. The user's browser refreshed. Local title `Remove probability display selector`, unpushed/undeployed then. Course/private/screenshot/cache contents stayed local.
 
-用户截图显示：新增的第 2 步标题独占左侧窄列，参数卡片占据右列，图表落到下一行。直接检查用户正在使用的浏览器确认：新界面已加载，但 CSS URL 没有版本，已加载的样式缺少刚新增的标题规则；标题实际为 28px、网格列为 auto。此前只用新浏览器确认标题，没有发现这个已打开窗口的旧样式缓存，原补编号验证不充分。
+## 2026-11-10, remove sidebar totals and Home shortcuts
 
-已把第 2 步改为与第 1 步一致的完整卡片区块；标题位于网格之外并占满上方一行，内部网格只含参数、图形两个区域。宽屏左侧紧凑参数卡、右侧图形；可用区域不足时顺序堆叠。移除上一轮依赖标题跨列的样式，内部标题字号略小以区分层级。CSS 与 JS 引用增加基于文件内容的版本，普通刷新能取得新样式，文件不变时仍可使用缓存。
+The user removed Optional past-exam progress from the sidebar and Home's Review STATS125 concepts / Explore joint probability buttons. Module menus, optional questions, local progress and feedback remained. Unused summaries/callbacks/styles were cleaned up.
 
-R 解析通过；目标浏览器检查 **19/19**，覆盖 1600/1266/900/390px、标题位置/字号、两列或堆叠、整页无溢出、带版本的 CSS/JS HTTP、模型载入和预习模式。900px 视口的实际课程容器为 855px，仍满足既有 840px 并排条件，参数/图形宽度分别为 250/547px；390px 顺序堆叠。另直接核对用户原浏览器（1536px）：已加载新版样式，标题 18.4px、位于网格外且在两卡片之上，参数/图形并排，未出现整页溢出，并已目视检查实际截图。
+Current browser checks switched to sidebar navigation and per-module counts. Table assertions were updated to parse mathematical coordinates rather than compare visible minus-sign strings after MathJax rendered Unicode. Values were checked after actual table updates.
 
-结构、缓存证据与当前三文件 SHA-256 见 [布局修正记录](evidence/overview_layout_fix.json)。本轮没有改计算、数值格式规则或题库；未重跑整个数值回归，原 numbers_* 报告仍属于此前版本，未改写其源码指纹。临时操作脚本、浏览器原始输出和截图留在忽略目录，用户附件与私有课程资料未加入 Git。
+Results were **80/80** exam/app and **66/66** browser checks, covering navigation, checking/progress, route-switch progress retention, removed controls and 1600/1266/900/390px question layouts. See [module checks](evidence/local_progress_regression.json) and [browser flow](evidence/local_progress_browser.json). Source fingerprints matched, with numbers_* and auto_display_* retained historically. The user browser refreshed. Local title `Remove sidebar progress and home shortcuts`, unpushed/undeployed then, with private/course/test/cache materials local.
 
-独立本地提交说明为 `Fix Overview section layout and stale assets`，SHA 见 Git 历史；本轮与前一次补编号提交均未推送，未部署。用户浏览器已刷新并停在修正后的第 2 步。人工实际工时待本人填写，自动核验不扣减 15 小时预算。
+## 2026-11-10, UI synchronisation
 
+The user requested these four commits be synchronised to origin/main.
 
-## 2026-11-10：移除概率显示模式选项
+- `e700365` added Overview step 2.
+- `ff8c390` corrected section layout and stale assets.
+- `d2dc5da` removed format selection.
+- `ba353d5` removed sidebar totals/Home shortcuts, retaining module feedback/progress.
 
-用户指出侧栏 Probability table display 不需要。已移除该选择器及对应设置监听，学生页面统一使用自动简洁显示；分数、短小数、近似标记、完整计算精度、悬停提示和 Overview 的 More precision 保留。内部格式函数仍作为基础工具测试，学生不能通过已移除的输入切换样式。
+After fetching, the **16 paths, 28 versions and 28 distinct contents** were reviewed. Ten ignore probes covered bank/fixtures/logs/number work/library/browser/screenshots/course references/R sessions. No excluded file or ignored/tracked file was found. The audit script/raw output stayed under .local/.
 
-更新现有精度和浏览器检查以匹配新的界面，未新增永久测试入口。精度/应用检查 **72/72**，包括自动模式默认值、旧输入不能覆盖自动显示、真实编辑与重复生成；浏览器 **29/29**，确认选择器消失、自动分数/短小数、三模块精度及 1600/1266/900/390px 布局。当前报告为 [精度](evidence/auto_display_precision.json) 与 [浏览器](evidence/auto_display_browser.json)，源码指纹匹配。未重跑整套数值回归，旧 numbers_* 报告保留为此前版本证据。
+Existing reports/fingerprints were rechecked, with current local_progress_* **80/80**, **66/66**, auto_display_* **72/72**, **29/29** at d2dc5da and layout **19/19** at ff8c390. LF/CRLF differences were considered when comparing historical fingerprints. Older numbers_* remained dated numerical evidence.
 
-已刷新用户外部浏览器；只提交代码、说明与验证摘要，课程资料、私有题库、用户截图、临时浏览器输出和缓存未加入 Git。本轮独立本地提交说明为 `Remove probability display selector`，SHA 见 Git 历史；未推送、未部署。人工实际工时待本人填写，不自动扣减 15 小时预算。
+`git ls-remote` confirmed remote/local content SHA `ba353d5c058ae0de2d191cf63260888001312845`. Separate log/handover/review README updates followed and final SHA/status were rechecked. Upstream and deployment remained outside this action. Materials/cache stayed local, with automatic synchronisation time recorded separately.
 
+## 2026-11-12, student-task walkthrough
 
-## 2026-11-10：移除侧栏总进度及首页快捷按钮
+Chromium followed Home, seven discrete Overview models, three preview models and eight legacy continuous models, then Joint/Conditional/Expectation, four exam groups and seven game chapters. Coverage included table editing/actions, invalid recovery, directions/zero conditions, auto examples, 2D/optional 3D, wide/narrow layouts and themes. Representative pages were visually inspected.
 
-按用户连续两次反馈，移除侧栏 Optional past-exam progress 总进度入口，以及首页 Review STATS125 concepts / Explore joint probability 两个快捷按钮。模块入口统一使用左侧菜单；各模块内的可选题、答题进度与反馈保留。同步清理不再使用的汇总输出、按钮回调和专属样式。
+UX-01–06 fixed exam-to-explore positioning, retained directions/valid conditions across examples, empty game feedback without penalty, top-of-chapter positioning on start/next/back/restart, game contrast and dark Expectation heading contrast. Question counts/answers/models/full-precision rules were retained.
 
-更新当前浏览器检查，改为通过侧栏进入 Overview、Joint、Conditional、Expectation，并逐个模块核对完成数；旧 content/concept 等历史阶段脚本保留。复测发现旧表格检查依赖坐标的可见字符串，受 MathJax 将负号排成 Unicode 符号影响；现改为解析数学坐标并逐项比较完整概率值，等待对应表格更新后再判断，未改题目或答案。
+Results were R1-04 **102/102**, R1-05 **11/11**, R1-06 **124/124**, remaining **301/301**, exams/app **87/87**, precision **76/76**, mathematics **10/10**, images **13/13**, exam browser **68/68**, display browser **33/33**, plus targeted Overview/further/table/editor/game/theme walks. Initial early-feedback assertions were corrected to wait for actual output updates. A rapid cold-navigation blank remained a follow-up.
 
-检查通过：**80/80** 真题及应用回归、**66/66** 浏览器流程。覆盖菜单导航、模块内判题/进度、换路径后的四模块完成数保留、首页/侧栏入口确实移除，以及 1600/1266/900/390px 的题目布局。当前摘要为 [模块回归](evidence/local_progress_regression.json) 与 [浏览器流程](evidence/local_progress_browser.json)，R 源码指纹匹配。仅重跑相关检查，未重跑整套数值回归；原 numbers_* 与 auto_display_* 保留为当时证据。
+See [student review](STUDENT_EXPERIENCE_REVIEW_20261112.md) and [summary/fingerprints](evidence/student_experience_20261112.json). Priorities were Joint probability magnitude, total-expectation weighting and simpler editors/text. Raw/private/course/cache material remained local, with public summaries limited to coverage/counts/fingerprints. No new commit/push/deployment occurred at that stage.
 
-用户外部浏览器已刷新。课程文件、私有题库、含题目内容的截图、测试私有输入、命令回显和缓存均留在 G 盘或忽略目录，只有通用代码/测试、说明与不含真题内容的验证摘要进入 Git。
+## 2026-11-13, Joint numerical heatmap
 
-独立本地提交说明为 `Remove sidebar progress and home shortcuts`，SHA 见 Git 历史；本轮未推送、未部署。人工实际工时待本人填写，不自动扣减 15 小时预算。
+The user approved replacing the Joint scatter plot with a heatmap. X rows/Y columns match the probability table. A fixed 0–1 colour scale, four-place approximate labels/hover readings and categorical cell widths show the probabilities. Absent combinations use the same zero interpretation as the table. Full numerical values are retained.
 
+R1-06 expanded to **132/132**, covering six valid input classes, heatmap rows/columns/labels, one outcome and sparse negative/uneven coordinates. Display browser checks passed **33/33**. A 390px 2×3 table was additionally checked, with approximately 42.7px labels fitting 51.3px cells and zeros shown as 0. Screenshots were visually reviewed. Logs/screenshots stayed in .local/heatmap-review/ and output/playwright/. The 12 November evidence retained its original version.
 
-## 2026-11-10：界面调整同步 GitHub
+External Edge displayed the 20-observation example with .3,.2,.1,.4. Other suggestions awaited user decisions. The round was uncommitted/unpushed then, with source/private/cache materials local.
 
-按用户要求，将四个本地界面提交同步至用户仓库 `HI1003/Shiny-Visualization-Project` 的 `origin/main`：
+## 2026-11-13, weighted total expectation
 
-- `e700365`：补齐 Overview 第 2 步标题。
-- `ff8c390`：修正标题/参数/图形布局及浏览器旧样式缓存。
-- `d2dc5da`：移除 Probability table display 选择器，统一自动简洁显示。
-- `ba353d5`：移除侧栏真题总进度及首页两个快捷按钮，保留模块内进度与反馈。
+Expectation gained conditional-mean, marginal-weight and contribution rows plus the actual weighted expression. A stacked contribution bar used table-row colours and a dashed overall-mean marker. The existing E[Y|X] / E[X|Y] selector controlled direction. Generated table edits updated the display. Zero-weight groups showed undefined conditional means and zero contributions, with valid groups used in the arithmetic. Signed contributions extended on both sides of zero.
 
-推送前获取远端状态并确认可快进；审查完整四提交范围的 **16 个文件路径、28 个文件版本（28 个不同内容）**，逐版本检查路径、内容和公开 JSON 字段。未包含课程 PDF、压缩包、私有题干/数据/解答、截图、浏览器原始输出或缓存。10 个忽略路径探针均通过，覆盖私有题库、私有测试输入、日志、数值检查临时目录、R 依赖、浏览器缓存、截图、课程参考目录和 R 会话文件；没有被忽略但已跟踪的文件。审查脚本及原始核验输出仅保存在忽略的 `.local/`。
+Full-precision calculations reused existing number formatting. R1-06 reached **146/146**, covering six input classes in both directions, weighted/direct means, plot sums and signed cases. Browser **9/9** covered direction, unequal weights, zero groups, editing, 1440/900/390px and dark mode, with visually checked screenshots. Logs remained in .local/total-expectation-review/ and output/playwright/.
 
-本次仅同步和更新记录，没有修改应用代码或重跑功能测试。重新核对现有报告通过状态：当前 `local_progress_*` 为 **80/80 模块及应用、66/66 浏览器流程**，当前 11 个应用 R 文件 MD5 与报告一致；`auto_display_*` 的 **72/72、29/29** 对应 `d2dc5da`，布局记录的 **19/19** 对应 `ff8c390`。历史源码指纹按各自提交内容核验，考虑 Git LF 与 Windows 检出 CRLF 的行尾差异；未改写历史报告。完整 `numbers_*` 回归仍是此前数值显示版本的证据。
+Google Chrome displayed E[X|Y] for the 20-observation example, with means .25 and 2/3, probabilities .4/.6, contributions .1/.4 and total .5. Other suggestions remained for user choice. The round was uncommitted/unpushed at that stage.
 
-四个界面提交推送成功后，独立通过 `git ls-remote origin refs/heads/main` 确认远端与本地内容提交均为 `ba353d5c058ae0de2d191cf63260888001312845`。随后更新本日志、HANDOVER 与 review/README，作为独立文档提交同步；最终 SHA 见 Git 历史，收尾再次核对本地/远端一致及工作区清洁。旧“未推送”条目保留为当时状态。
+## 2026-11-13, step numbering and text width
 
-课程资料、私有真题题库和本地缓存继续只保留在本机；未修改 upstream，未部署。人工实际工时待本人填写，自动同步核验不自动计入或扣减 15 小时预算。
+Expectation had steps 1 and 3 because the shared heading logic labelled only a separate plot card. Its exploration was inside the table card. The title became **2. Explore tables and expectations**, and the four-module browser suite gained continuous step-order assertions.
 
-## 2026-11-12：学生视角完整流程审查
+The prior 95ch prose limit had been removed. At 1600/1266/900/390px, all four modules used the full explanation container. At 1600px text fit one line, while narrow views wrapped naturally. Exam/browser checks passed **88/88**, bank/app **87/87**. Home, seven discrete, three preview/eight legacy continuous models and game intro/seven chapters/feedback/ending additionally passed **55/55** layout checks at 1600/900/390px. Phone Home and full Expectation were visually reviewed.
 
-按学生使用顺序，在真实 Chromium 中走查首页、Overview 七种离散模型、三种连续预习模型及八种拓展连续模型，再体验 Joint、Conditional、Expectation、四组可选真题和七章游戏；覆盖表格增删行、归一化/均匀化/生成、非法输入恢复、条件方向/零概率、例子自动加载、2D/可选 3D、桌面/窄屏及明暗主题。实际目视检查部分代表性页面，未把程序检查称为真实学生试用。
+Chrome showed loaded tables/expectation and steps 1/2/3. See [evidence](evidence/layout_steps_20261113.json). Raw/private/screenshots stayed ignored. No new commit/push then.
 
-本轮修复 UX-01–UX-06：真题表格载入后定位到探索区；换例子保留条件方向及仍有效的条件值；游戏空提交显示提示且不扣分；游戏开始/翻页/返回/重新开始定位到当前内容顶部；改善游戏解析/反馈文字对比；修正深色模式下期望计算标题的深灰文字。没有增加题目或修改真题答案、计算模型和完整精度规则。
+## 2026-11-13, Home learning-route wording
 
-验证：R1-04 102/102、R1-05 11/11、R1-06 124/124、其他模块 301/301、真题/应用 87/87、数值显示 76/76；独立精确数学 10/10、图片 13/13；当前真题浏览器 68/68、显示浏览器 33/33，另完成 Overview、连续拓展、表格、编辑器、游戏及主题的专项走查。浏览器最初有读取反馈过早导致的失败，已改为等待实际反馈变化；修正等待后的完整流程通过。另有一次首次快速切页空白现象需继续确认，未宣称该产品时序问题已修复。
+The long italic paragraph became four steps covering foundations, discrete models, joint/conditional probability and conditional/total expectation. Chapters/module names remained, with one concise optional game/exam note. STATS210 preview/further guidance moved into an initially collapsed section, retaining the Overview Learning path entry.
 
-完整发现、后续优先级、覆盖边界与源码指纹见 [学生视角审查](STUDENT_EXPERIENCE_REVIEW_20261112.md) 和 [验证摘要](evidence/student_experience_20261112.json)。下一轮建议先让 Joint 二维图直接表达概率大小，再增加条件均值按边际概率加权的展示，之后精简默认编辑与说明文字。
+Chrome at 1600px/390px showed four normal-text steps, no page overflow and working expanded/collapsed options. Both screenshots were visually reviewed and Chrome ended at Home. Files stayed ignored and the round was uncommitted/unpushed then.
 
-课程文件、私有题库、私有测试输入/命令回显、截图及浏览器缓存均保留在 G 盘或忽略目录；公开摘要只导出检查数量、通用检查范围和代码指纹。未新增 Git 提交、未推送、未部署；此前的工作区修改保留。人工实际工时待本人填写，不用本轮自动运行时长扣减 15 小时预算。
+## 2026-11-13, disjoint model paths
 
-## 2026-11-13：Joint 二维数值热力图
+Further exploration originally duplicated preview's Uniform/Exponential/Normal. Student catalogues became disjoint, with seven core discrete, three preview continuous and Gamma/Beta/Chi-Squared/Student's t/F further models. Home/path explanations matched the catalogues.
 
-按用户指定范围，将 Joint 的二维散点图改为数值热力图。X 对应行、Y 对应列，顺序与左侧联合概率表一致；颜色使用固定 0–1 概率尺度，格内普通近似值最多四位小数并标约等号，悬停提供坐标与简洁概率。缺省组合按概率表的零概率处理，分类轴让不等间距的离散取值各占一个格子。数值继续使用完整概率，改动集中在 Joint 图形输出及其验证。
+Uniform/Exponential/Normal parameter examples moved to preview, two per model, retaining scenarios/values. Invalid model selections switch to a valid model on path changes. Legacy checks retain all eight continuous models.
 
-扩展已有 R1-06 检查，验证六类有效输入的热力图数值/行列/标签、单一结果，以及带负值和不等间距坐标的稀疏表，最终 **132/132** 通过。将数值显示浏览器检查的悬停目标更新为热力图单元格，检查 **33/33** 通过；随后追加字号适配，复核 390px 下的 2×3 表，六个约数标签宽约 42.7px、格宽约 51.3px，零概率显示为 0。已目视检查数值热力图和该手机截图，原始操作日志与截图保存在忽略目录 `.local/heatmap-review/` 和 `output/playwright/`。11 月 12 日的验证摘要继续作为当时版本证据。
+Five path/example assertions were added, giving **92/92** exam/app and **301/301** model/remaining checks. Browser **20/20** covered disjointness, six preview examples/loading, five further plots, return-path selections, core retention and wide/phone layouts. Results stayed in .local/path-review/. Chrome displayed five further models. Uncommitted/unpushed then.
 
-外部 Edge 浏览器已停在 Joint 探索区，选中 20 次虚构观察的演示，四格显示 0.3、0.2、0.1、0.4，便于用户查看颜色与数值。其他建议等待用户决定。本轮未新增 Git 提交或推送；课程资料、私有真题和缓存继续只保留在本地。人工实际工时待本人填写。
+## 2026-11-13, Bernoulli definition and exploration prompt
 
-## 2026-11-13：全期望加权展示
+The user found the prompt abrupt. The CDF definition gained F(0)=P(X=0)=1−p for binary support. The prompt referred to the Success probability slider and p versus 1−p, summing to 1. Variable naming became X throughout Bernoulli definitions/formulas.
 
-按用户要求，在 Expectation 的联合表与原有均值计算下方增加分组条件均值、边际概率和乘积贡献表，并列出实际加权算式。堆叠条形图用与各组行标一致的颜色展示贡献，虚线标出最终总体均值。现有 E[Y | X] / E[X | Y] 选择器控制方向，修改并生成概率表后同步更新。零概率组显示条件均值未定义，权重和贡献为零，算式及图形仅使用正概率组；正负贡献在零点两侧展示，合计为总体均值。
+Chrome verified p=.2/.8 giving F(0)=.8/.2, rendered formulas and 1440/390px layouts without page overflow. The concept card was visually checked. Temporary evidence stayed ignored, Chrome ended at Bernoulli and the round was uncommitted/unpushed then.
 
-复用现有概率与期望显示规则，计算保留完整精度。扩展 R1-06 回归，覆盖六类输入下两个方向的加权值、直接均值、图形贡献之和与界面结果，以及带正负贡献的案例，**146/146** 通过。真实浏览器专项 **9/9**，覆盖方向切换、不等权重、零概率组、编辑后更新、1440/900/390px 页面与表格适配、深色模式；已目视检查桌面和手机截图。原始结果、浏览器操作回显和截图保存在忽略目录 `.local/total-expectation-review/`、`output/playwright/`，旧验证报告保持各自版本记录。
+## 2026-11-13, remove exploration-task prompts
 
-使用用户指定的 Google Chrome 展示 20 次虚构观察例子的 E[X | Y] 方向，条件均值为 0.25 和 2/3，概率为 0.4 和 0.6，贡献为 0.1 和 0.4，总体均值为 0.5。其余建议继续等待用户选择。未新增提交或推送，课程资料、私有题库与本地缓存继续保留在本机；人工实际工时待本人填写。
+The user explicitly removed What to explore / Try this with the plots below from all 15 Overview models and the three table concept cards. Unused learning-observe text/styles were removed. Definitions, probability concepts, formulas, example contexts, necessary controls and optional exams remained. Home/game instructions were checked.
 
-## 2026-11-13：全项目步骤编号与文字宽度复核
+R parsing, **18/18** browser checks and git diff --check passed. Every model/table module rendered its concepts/plots with no visible Shiny error. Bernoulli was visually reviewed and retained in Chrome. Temporary scripts/logs/screenshots stayed ignored. No new commit/push then.
 
-用户发现 Expectation 显示第 1、3 步而缺少第 2 步。该模块的探索内容放在概率表卡片内，原共享界面只给独立图形卡片标了第 2 步，因此未设置图形卡片的 Expectation 漏了编号。此前走查未检查数字是否连续，本轮把其实际探索卡片标题改为“2. Explore tables and expectations”，并在已有真实浏览器检查中增加四模块 1、2、3 连续顺序断言。
+## 2026-11-13, linked hover and duplicate readings
 
-一并复核此前说明文字的 95ch 最大宽度限制已移除，四个教学模块在 1600/1266/900/390px 下均使用说明容器的全部宽度；1600px 时说明为单行，窄屏自然换行，标题和可选题内容无整页横向溢出。新增宽度及标题边界检查与原真题流程共 **88/88** 通过；私有题库/应用检查 **87/87**。另对首页、全部七种离散模型、三种连续预习模型、八种拓展连续模型，以及游戏开场、七章及其反馈和结局进行布局检查，1600/900/390px 下 **55/55** 通过。已目视复核手机首页和修复后的完整 Expectation 页面。
+The user approved same-x PMF/CDF hover and removed Current Selection. Seven discrete/eight continuous models moved to Plotly client interaction, linking both plots, clearing on mouse leave and avoiding an R redraw per pointer movement. Compact four-place/approximation formatting retained full calculation precision. Old click selection/permanent labels/two duplicate panels were removed and the heading became Distribution plots.
 
-Google Chrome 已重新打开 Expectation，确认概率表和全期望图形加载完成，标题依次为 1、2、3。公开摘要及当前源码指纹见 [编号与布局验证](evidence/layout_steps_20261113.json)。原始回显、私有测试输入和含真题截图留在忽略目录，旧验证记录保留为当时状态。本轮没有新增提交或推送；人工实际工时待本人填写。
+CDF steps retain open/closed endpoints and use included endpoints for F(x) readings. Continuous plots linked the same sampling grid at this stage, with density/singular-endpoint explanations. Touch selection retained both tooltips after a native touch-end timing fix. Parameter changes cleared stale readings. Joint/Expectation instructional numeric decompositions remained visible.
 
-## 2026-11-13：首页学习路线文案整理
+Generic check_distribution_hover_browser.js passed **54/54**, covering 15 models, both directions, endpoints, leave, updates, 1600/900/390px and two repeated touch-emulation taps. Screenshots were visually reviewed. Other/display browser **33/33**, model/remaining **301/301**, exam/app **92/92** and precision **76/76** passed, along with JS syntax/diff checks. See evidence/distribution_hover_20261113.json. Touch coverage was Chrome emulation. Review/report/work-log entries updated, original comparison retained and the round stayed uncommitted/unpushed/undeployed.
 
-用户指出首页学习路线段落信息混杂。已把原来的大段斜体说明整理为四步路线，对应基础概念、离散分布、联合与条件概率、条件均值与全期望；保留章节和实际模块名称，游戏与真题的可选说明缩为一句。STATS210 预习及进一步拓展内容放入折叠说明，并保留 Overview 中 Learning path 的选择位置。
+## 2026-11-13, axes and displayed range
 
-Chrome 下实际检查 1600px 与 390px，均显示四步路线、普通字体、无整页横向溢出；可选说明默认折叠，展开显示两种路径，收起正常。已目视检查两种宽度截图，并将 Chrome 停在首页新路线处。截图只保存在忽略目录；本轮未新增提交或推送，人工实际工时待本人填写。
+The approved axis treatment added thin axis lines and short ticks. Bernoulli's paired range was −1 to 2, with ticks −1,0,1,2. Other discrete models used integer ticks selected for their range. PMF/CDF probability ticks were 0,.2,.4,.6,.8,1 with upper space, and zero CDF endpoints remained fully drawn.
 
-## 2026-11-13：学习路径模型去重
+Continuous x padding became 6% of the interval instead of a fixed ±1, preserving narrow Normal/Uniform shapes. Density axes could exceed 1. Repeated touch taps had triggered auto zoom and mismatched axes, so ranges were fixed and default double-click zoom disabled. Touch-end retention and repeated-tap range assertions were added.
 
-用户指出三条路径内容重复。核对发现 Further exploration 原来包含全部八种连续模型，其中 Uniform、Exponential、Normal 与 STATS210 预习重复。已将学生界面的模型目录划分为互不重叠的三组：STATS125 Core 的七种离散模型；预习中的 Uniform、Exponential、Normal；进一步拓展中的 Gamma、Beta、Chi-Squared、Student's t、F。首页折叠说明和路径说明同步列出实际范围。
+Browser **116/116** covered all models' axes/ticks/range matching, linked readings, layouts/touch and Normal sd=.01/Uniform [0,.1]. R model/remaining **301/301**, JS syntax and diff checks passed. Bernoulli wide and narrow-Uniform phone screenshots were visually checked. Evidence stayed in .local/axis-review/ and output/playwright/.
 
-原 Uniform、Exponential、Normal 的不同参数例子统一归入预习区，每种各两个，保留已有情境和数值。切换路径时，已不属于新路径的模型会自动切换为有效模型。内部 legacy 检查仍覆盖八种连续模型。
 
-新增五项模型范围、互斥及例子归属断言，现有题库/应用检查 **92/92**、模型和其他回归 **301/301** 通过；真实浏览器专项 **20/20**，确认三个目录无交集、六个预习例子归类及加载、五个拓展模型出图、往返路径后的有效选择、核心模型保留和宽/窄屏布局。结果保存在忽略目录 `.local/path-review/`。Google Chrome 已打开调整后的 Overview，展示拓展区仅有五种模型。未新增提交或推送；人工实际工时待本人填写。
+Chrome ended on Bernoulli p=.4 for inspection. Source/private/cache materials remained local and the axis round was uncommitted/unpushed then.
 
-## 2026-11-13：衔接 Bernoulli 定义与图表探索提示
+## 2026-11-13, remove parameter-example selectors
 
-用户指出 Bernoulli 的 “What to explore” 提示在定义后显得突兀。已在 CDF 定义后说明：只有 0 和 1 两个可能结果，因此 F(0)=P(X=0)=1−p；把提示改为操作下方 Success probability (p) 滑块、观察 PMF 在 1 的柱形和 CDF 在 0 的值，并解释它们分别为 p 和 1−p、相加为 1。Bernoulli 定义及展开公式中的随机变量统一为 X，与图表一致；其他模型的提示及数值计算不变。
+The user removed all 15 distribution example dropdowns and blue explanations. Parameters and examples became Parameters. Unused preset observers/explanations/state were removed. Exam scenarios and their loading button continued using the parameter loader and moved the viewport to the plots.
 
-Chrome 实际验证 p=0.2 和 p=0.8 时 F(0) 分别为 0.8 和 0.2，展开公式正常渲染；1440px 和 390px 均无整页横向溢出，已目视检查更新后的概念卡片。临时验证脚本和截图保存在忽略目录，Chrome 停在 Bernoulli 页面。未新增提交或推送；人工实际工时待本人填写。
+Updated checks retained exam model/parameter/probability assertions, with exam/app **89/89** and Chrome **66/66**, covering 15 distributions, paired hover/touch, layouts and actual loading of both exam scenarios. Wide/phone interfaces were visually reviewed. R/JS syntax and diff checks passed. Chrome ended at Bernoulli p=.4 with optional questions collapsed. Temporary fixtures/logs/screenshots stayed in .local/preset-removal/ and output/playwright/. The round was uncommitted/unpushed then.
 
-## 2026-11-13：统一移除定义后的探索任务提示
+## 2026-11-13, remove hover instruction
 
-用户明确要求删除各分布定义后的探索提示，并检查其他位置。已删除 Overview 全部十五种分布的 What to explore / Try this with the plots below 段落，同时删除 Joint、Conditional、Expectation 概念卡片中的同类任务段落，清理不再使用的 learning-observe 样式及提示文本。核心定义、PMF/CDF 等概念说明、公式、例子背景、控件操作说明和可选真题均保留；数值计算不变。另检查首页和离散游戏，保留必要的导航与题目操作说明。
+The user removed Hover to read values / tap on a touchscreen beneath discrete/continuous plots. Continuous density explanations remained. R parsing, actual core/preview browser checks and diff checks passed. Chrome ended at Bernoulli's plots. Temporary checks stayed ignored and the round was uncommitted/unpushed then.
 
-R 源码语法检查通过；Chrome 逐一检查十五种分布和三个表格模块，专项检查 **18/18** 通过：探索提示均移除，概念仍显示，分布出图、三个表格模块正常，未发现可见 Shiny 错误。已目视检查删除后的 Bernoulli 卡片，并把 Chrome 停在此页面。临时脚本、检查日志和截图保存在忽略目录，git diff --check 通过。未新增提交或推送；人工实际工时待本人填写。
+## 2026-11-13, discrete CDF interval readings
 
-## 2026-11-13：Overview 图表悬停联动与重复读数精简
+Bernoulli's x<0 zero plateau had no reading because hover was limited to filled jump markers. Queries now use the pointer's x across the left-zero, between-integer, jump and right-tail intervals. Both plots show the same x. Noninteger/out-of-support point probability is zero. CDF jumps use included endpoints, with near-integer snapping to make exact jump readings accessible.
 
-用户要求将 PMF/CDF 改为悬停显示数值、联动同一 x，并检查其他位置；另确认删除 Current Selection 区域。Overview 全部七种离散及八种连续模型已改用 Plotly 浏览器交互，悬停 PMF/PDF 或 CDF 均在两图显示对应值，鼠标移开清除提示，不再为每次指针移动请求 R 重新绘图。数值沿用最多四位小数的显示规则及近似标记，底层计算精度不变。移除旧点击选择逻辑、图上常驻数值和两个 Current Selection 区，标题改为 Distribution plots，并更新简短操作说明。
+Drawing/query calculations share discrete model data, adding a right-boundary integer for correct unbounded-support readings. Compact R formatting/approximation markers are reused. Touch supports intervals. New assertions cover plateaus, either side of jumps, outside support and clearing after leave.
 
-离散 CDF 保留水平阶梯和空心/实心端点，只有包含端点参与悬停读数，避免将跳跃前的值误报为 F(x)。连续 PDF/CDF 使用同一采样网格联动，保留“密度不是点概率”和奇异端点省略的说明。触屏点击会保留两图提示，修正了原生触摸事件结束时清除提示的时序问题；参数变化会清理旧提示。Joint 热力图和 Expectation 分解中的数值有直接比较与解释作用，继续保留；其他模块已有简洁悬停读数。
+Browser **87/87**, touch-interval emulation **4/4**, R model/remaining **301/301**, R/JS syntax and diff checks passed. Coverage included seven models' left-support intervals, Bernoulli left/middle/right/jump points and existing 15-model/layout checks. Interval tooltips were visually checked. Chrome ended on F(x)=0 at the left interval. Logs/screenshots stayed in .local/cdf-interval-review/ and output/playwright/. Uncommitted/unpushed/undeployed then.
 
-更新相关回归入口，新增不含私有真题的 check_distribution_hover_browser.js。Chrome 交互专项 **54/54**：覆盖十五种分布、双向联动、端点含义、鼠标移出、参数更新、1600/900/390px，以及触摸仿真的连续两次点击；已目视检查宽屏和触屏截图。数值/其他模块浏览器回归 **33/33**，R 模型和其他问题 **301/301**、私有题库/应用 **92/92**、数值显示/精度 **76/76** 通过，JS 语法和 git diff --check 通过。公开摘要见 evidence/distribution_hover_20261113.json；原始日志和截图只在忽略目录。触屏验证为 Chrome 仿真，并非实体手机或完整无障碍验收。
+## 2026-11-13, CDF tail arrows
 
-工作日志、审查报告和审查入口已更新；Google Chrome 保留修改后的 Overview。未改动原始对比版本，未新增提交、推送或部署；课程 PDF、私有真题和缓存均保留本地。人工实际工时待本人填写。
+The first requested design added outward arrows on constant CDF tails. Bernoulli/Binomial/Hypergeometric/Discrete Uniform and Uniform/Beta showed constant zero/one tails. Exponential/Gamma/Chi-Squared/F showed left-zero arrows. Poisson/Geometric/Negative Binomial and unbounded continuous tails used limiting F(x)→0/1 labels, with p=1 Geometric/Negative Binomial constant right tails.
 
-## 2026-11-13：分布图坐标轴和显示范围复核
+Large-range discrete models gained left padding, and both plots retained shared x ranges. Bernoulli stayed −1 to 2. Browser **123/123**, R **301/301**, syntax/diff checks passed, including all 15 models, two degenerate cases, wide/390px Geometric, hover/interval/touch/layout. Bernoulli/phone Geometric were visually checked. Chrome showed Bernoulli p=.6. Logs/screenshots stayed under .local/cdf-arrows/ and output/playwright/. This temporary design was uncommitted/unpushed/undeployed.
 
-按用户确认的方案，为 Overview 各分布的图表补上清楚的细轴线和短刻度。Bernoulli 两图使用相同的 −1 至 2 横轴范围，明确标出 −1、0、1、2；其余离散模型按显示范围选取整数刻度。PMF/CDF 的概率刻度统一为 0、0.2、0.4、0.6、0.8、1，并在上端留少量空间。CDF 位于 0 的端点允许完整绘制。
+## 2026-11-13, clarified x-axis arrows
 
-连续分布横轴改为按当前区间宽度留 6% 的两侧空间，解决 Normal 标准差很小或 Uniform 区间很窄时，原先固定各加 1 导致曲线被压缩的问题。密度图纵轴随数据范围调整，支持密度大于 1。复核触屏时发现默认连续点击会触发自动缩放，导致两图横轴范围不同，现已固定坐标并关闭默认双击缩放；同时修正原生触摸结束后偶发清掉已固定提示的问题，补上连续点击保持轴范围的回归断言。
+The user clarified that the coordinate axis should indicate extension. CDF curve arrows/limit labels and extra left padding were removed. Both plots instead gained grey x-axis endpoint arrows matching the axes. Bernoulli retained −1,0,1,2 ticks.
 
-Chrome 专项 **116/116** 通过，包含十五种分布的轴线、整数/概率刻度、两图范围一致性、原有悬停联动、宽窄屏和触屏连续点击，以及 Normal 标准差 0.01、Uniform 区间 [0,0.1] 等显示边界。模型和其他问题 R 回归 **301/301** 通过，JS 语法和 git diff --check 通过。已目视检查 Bernoulli 宽屏、窄区间 Uniform 手机布局和最终页面。原始检查与截图仅保存在忽略目录 .local/axis-review/ 及 output/playwright/。
+All 15 models' arrow positions, paired hover, CDF intervals, layouts/touch and Gamma singular-density annotation were checked. Duplicate arrow merging was corrected, and measurements waited for stable scrolled layouts. Browser **103/103**, R/JS syntax and diff checks passed. The final Bernoulli p=.6 view was visually checked, with ordinary CDF segments and arrows on bottom axes. Evidence stayed in .local/x-axis-arrows/ and output/playwright/. Uncommitted/unpushed/undeployed then.
 
-Google Chrome 已打开最终的 Bernoulli 页面，恢复 p=0.4 例子供用户查看。课程资料、私有真题和缓存保留本地；本轮未新增提交或推送。人工实际工时待本人填写。
+## 2026-11-13, remove axis arrows
 
-## 2026-11-13：删除分布参数区的例子选择与蓝色说明
+The user decided to remove arrows. Shared arrow generation and obsolete assertions were removed. R/JS syntax, diff checks and actual discrete/continuous browser checks passed. Bernoulli p=.6 was visually reviewed and retained in Chrome. Evidence stayed ignored and the round was uncommitted/unpushed then.
 
-按用户要求，删除 Overview 全部十五种分布参数区的例子下拉框和蓝色说明，卡片标题由 Parameters and examples 改为 Parameters。同步清理对应的预设选择观察器、说明渲染及关联状态，参数由学生直接调整。真题区的情境选择和 Open this example in Overview 按钮继续调用参数载入函数，载入后定位到图表区域。
+## 2026-11-13, clearer exam-loading button
 
-现行回归入口已按此界面更新，删除过时的预设选择和说明断言，保留真题模型、参数及概率结果验证。题库/应用 R 检查 **89/89**、Chrome 专项 **66/66** 通过，覆盖十五种分布、双图悬停、触屏点击、宽窄屏，以及从真题区实际点击载入两组参数并确认模型和 PMF 更新。已目视检查宽屏和手机宽度的精简界面，JS/R 语法与 git diff --check 通过。
+The user approved **Load question parameters into plots**. Browser-script wording was aligned. Syntax/diff checks and actual Chrome checks confirmed the new name and removal of the old one. Chrome ended at that button. Temporary checks stayed ignored and the round was uncommitted/unpushed then.
 
-Chrome 已停在修改后的 Bernoulli 页面，p=0.4，真题区收起供用户查看。临时验证脚本、私有参数夹具、日志与截图保存在忽略目录 .local/preset-removal/ 和 output/playwright/。课程资料、私有真题与本地缓存保留本地，本轮未新增提交或推送。人工实际工时待本人填写。
+## 2026-11-13, temporary parameter-control redesign
 
-## 2026-11-13：删除图表下方的悬停操作提示
+The user questioned .01,.11,.21 ticks. The then-current review established .61 was a valid probability and the grid offset came from a .01 minimum. A temporary change removed dense grids from 24 sliders, retaining minimum/current/maximum, and set Poisson step .01.
 
-按用户要求，删除离散分布和连续分布图表下方的 Hover to read values / tap on a touchscreen 操作句。连续图保留密度含义说明。R 语法检查通过，Chrome 实际切换核心及预习路径确认提示已移除，图表正常显示；git diff --check 通过。Chrome 已停在修改后的 Bernoulli 图表区。本轮未新增提交或推送，临时检查脚本仅在忽略目录。
+Uniform's temporary bounds allowed negative/positive ranges, a from −10 to 199.99, b up to 200 and b≥a+.01, moving b when needed and loading upper constraints first. Hypergeometric initial n/M bounds were aligned with N=20 rather than 30. Other positivity/integer/probability boundaries were checked. The 20-observation example gave conditional values .2 and 1/3, and expectation directions restored E[X]=.5/E[Y]=.6.
 
-## 2026-11-13：修复离散 CDF 水平区间的悬停读数
+Temporary generic check_parameter_controls_browser.js passed **78/78**, covering all controls, Uniform signs/equal/upper bounds, Hypergeometric linkage, updates and 1600/390px. R remaining **301/301**, R1-05 **11/11**, R1-06 **146/146**, exam/app **89/89**, syntax/diff checks passed. Controls were visually checked and Chrome showed Geometric p=.61. Evidence stayed in .local/parameter-review/ and output/playwright/. This design was later withdrawn.
 
-用户指出 Bernoulli 的 x<0、F(x)=0 水平线段无法读数。确认此前只允许实心跳跃点显示悬停值，水平线段被排除，因而无法正确读取整段 CDF。现改为根据鼠标所在 x 查询阶梯值，支持左侧零概率区间、两个整数之间、跳跃点及右侧区间。两图同步显示同一 x 的 PMF/CDF 值；非整数或支持集外的点概率为零，跳跃点使用包含端点的 CDF 值。鼠标靠近整数标记时吸附至该整数，方便准确读取跳跃点。
+## 2026-11-13, withdraw temporary parameter redesign
 
-CDF 绘制与读数复用离散分布数据计算，额外计算右侧显示边界的一个整数，保证无限支持模型在该边界也能正确读数；数值提示复用 R 的简洁格式及近似标记。触屏点击同样支持区间读数。新增了水平区间、跳跃前后、支持集外及离开图表清除提示的回归断言。
+The user clarified the question concerned .61 versus .6/.7 parameter choices and requested the original controls. All 24 grids, Poisson step, Uniform ranges/loading and Hypergeometric initial/range logic were restored. The temporary browser script was removed. Previously approved plots/hover/exam loading remained. Probability step .1 was not introduced in that rollback.
 
-Chrome 浏览器专项 **87/87**、CDF 区间触屏仿真 **4/4**、模型和其他问题 R 回归 **301/301** 通过；JS/R 语法和 git diff --check 通过。覆盖七种离散分布的支持集左侧区间、Bernoulli 左/中/右区间和跳跃点，以及原有十五种分布交互与宽窄屏检查。已目视检查修改后的区间提示，Chrome 停在 Bernoulli 左侧区间读数处，显示 F(x)=0。原始检查与截图仅保存在忽略目录 .local/cdf-interval-review/ 和 output/playwright/。
+R parsing/diff checks passed. Automatic approval blocked restarting the owned preview and a replacement launch. Source was restored, while the existing Chrome session still showed in-memory grid=false controls. Browser refresh/visual verification was left pending at that point. The previous redesign evidence referred only to the withdrawn version. No new commit/push occurred.
 
-本轮未新增提交、推送或部署，课程资料、私有真题及缓存保留本地。人工实际工时待本人填写。
+## 2026-11-13, refresh rollback preview and verify grids
 
-## 2026-11-13：CDF 尾部延伸标记
+The user reported grids still missing. Port 7130 was confirmed as the task's .local/content_start.R process and was stopped/restarted successfully. Chrome reload confirmed grid=true for all 24 sliders and Geometric p=.61 ticks .01,.11,.21,…,.91,1. The screenshot was visually checked. This completed the prior pending preview refresh. Steps/plot axes stayed restored, and temporary evidence stayed ignored. No new commit/push occurred.
 
-按用户要求，为 CDF 的恒定水平尾部添加向外箭头。Bernoulli、Binomial、Hypergeometric、Discrete Uniform 两端分别显示 F=0 和 F=1 的水平延伸箭头；Uniform、Beta 也按有限支持边界添加两端箭头。Exponential、Gamma、Chi-Squared、F 的左侧零概率尾部添加水平箭头。Poisson、Geometric、Negative Binomial 以及无界连续尾部使用 F(x) → 0 或 F(x) → 1 标记，表达仍在趋近极限；Geometric 和 Negative Binomial 在成功概率为 1 的退化情形使用右侧恒定箭头。
+## 2026-11-13, numeric parameter inputs and slider synchronisation
 
-大范围离散模型的左侧留白按支持区间宽度适当增加，使左箭头在宽窄屏都可见，两张图继续共用横轴范围。Bernoulli 保持 −1 至 2 的显示范围。
+All 15 distributions and 24 parameters gained numeric inputs beside labels. Enter/blur commits, with dragging/server updates reflected back. Input ranges track sliders. Integer parameters require integers. Empty/nonfinite/out-of-range/invalid Uniform inputs show inline feedback and retain valid plotting values.
 
-浏览器专项 **123/123**、R 模型和其他问题回归 **301/301** 通过，覆盖全部十五种分布的尾部含义、两个退化情形、大范围 Geometric 的 1600/390px 显示，以及原有悬停、区间读数、触屏和布局检查。已目视检查 Bernoulli 最终界面和 Geometric 手机布局。R/JS 语法和 git diff --check 通过，原始检查与截图保存在忽略目录 .local/cdf-arrows/ 及 output/playwright/。
+Fine manual input initially refined slider steps to retain values, fixing Poisson .61 rounding to .6. Numeric increment buttons initially defaulted to .01 and followed finer precision. Hypergeometric initial/later n/M bounds follow N. Enter completes and exits editing to prevent focus/duplicate-submission problems when resuming dragging.
 
-Chrome 已打开修改后的 Bernoulli 页面，p=0.6，供用户查看两端箭头。课程资料、私有真题与缓存保留本地，本轮未新增提交、推送或部署。人工实际工时待本人填写。
+Staged browser checks covered all models/controls, bidirectional updates, bounds, empties, integers, Uniform bounds and shrinking Hypergeometric populations. Final interaction **10/10** passed, with actual post-input dragging and all 24 numeric/slider bounds compared. Wide1600/phone390 screenshots were visually checked. Chrome showed Bernoulli p=.61. R remaining **301/301**, syntax/diff checks passed. Generic check_parameter_inputs_browser.js was added.
 
-## 2026-11-13：按澄清改为横轴两端的延伸箭头
+G: was unavailable at that moment, so source PDF validation and exam-loading end-to-end checks awaited its return. Temporary checks/logs/screenshots remained in .local/ and output/playwright/.
 
-用户澄清需要表达坐标轴的延伸。已撤去上轮 CDF 曲线水平尾部上的箭头和新增的极限提示，统一为 Overview 的 PMF/PDF、CDF 横轴左右两端添加灰色箭头，颜色与轴线一致。Bernoulli 显示 −1、0、1、2 的刻度，横轴箭头表示坐标还会向左右延伸。上轮为 CDF 尾部箭头增加的离散模型左侧留白也已撤回。
+## 2026-11-14, exam loading after G: recovery
 
-全部十五种分布均检查横轴箭头的位置，并复核悬停联动、CDF 区间读数、宽窄屏及触屏点击。额外检查 Gamma 奇异密度端点说明，修正重复合并箭头的问题，使说明与两个横轴箭头一起显示。检查脚本在滚动后的布局稳定后读取图上坐标。Chrome 专项 **103/103**、R/JS 语法及 git diff --check 通过。已目视检查最终 Bernoulli 页面，CDF 上方水平线为普通线段，箭头位于两图底部横轴。
+The restored bank/source papers and solutions passed **89/89**, then the owned preview restarted to load verified materials.
 
-Chrome 已打开更正后的界面，p=0.6。原始日志及截图只保存在忽略目录 .local/x-axis-arrows/ 和 output/playwright/。本轮未新增提交、推送或部署，课程资料、私有真题及缓存保留本地。人工实际工时待本人填写。
+Both actual exam-load scenarios synchronised distribution, numeric box, slider and plots. Manual edits, invalid input and actual dragging followed by reloading restored the stated parameters and cleared feedback. Every PMF/CDF plotted value matched independent Poisson calculations. Joint/Conditional/Expectation source-table loading also matched the bank. Browser **63/63** passed.
 
-## 2026-11-13：移除横轴箭头
+The generic exam browser gained numeric/slider/CDF assertions. JS syntax/diff checks passed. The final loaded Overview plots were visually checked and left in Chrome, completing the earlier blocked test. Private fixtures/logs/screenshots stayed in .local/exam-selection/ and output/playwright/.
 
-用户体验后决定取消箭头。已移除 Overview 各分布共用的横轴箭头及对应生成函数，并删除过时的箭头断言。R/JS 语法及 git diff --check 通过；Chrome 检查离散与连续两组图均无箭头，已目视检查最终页面。Chrome 停在 Bernoulli 页面，p=0.6。检查脚本及截图位于忽略目录，本轮未新增提交或推送。
+## 2026-11-14, concise parameter explanations
 
-## 2026-11-13：明确真题参数载入按钮文案
+Twenty-four parameter explanations were added below sliders and linked to numeric inputs' accessibility descriptions. Hypergeometric n/M/N explain without-replacement sample count, population successes and population size with integer/n≤N/M≤N constraints. Geometric/Negative Binomial describe failure counts. Other descriptions explain success probability, Poisson's full-interval mean, Uniform bounds, rates/waiting times, Normal sd versus variance, shape and degrees of freedom.
 
-按用户要求，将真题可视化按钮改为 Load question parameters into plots，并同步对应的浏览器脚本文案。R/JS 语法及 git diff --check 通过，Chrome 实际确认新按钮显示、旧按钮名称已消失，并停在该按钮处供用户查看。临时检查保存在忽略目录，本轮未新增提交或推送。
+Wording was checked against STATS125 Chapter 6 and STATS210 Chapter 7, with text-cache fingerprints matching source PDFs. All 15 models/24 descriptions were inspected, including accessible associations, wide/390px fit and actual Hypergeometric M updates. R parsing/diff checks and visual review passed. Chrome showed n=10,M=5,N=20. Temporary checks/screenshots remained ignored.
 
-## 2026-11-13：参数控件全面复核与刻度精简
+## 2026-11-14, default steps, ticks and precise loading
 
-用户指出概率滑块的 0.01、0.11、0.21 等刻度不直观，并要求检查全部参数选择。确认 p=0.61 是有效的当前值，刻度偏移来自滑块以 0.01 为起点生成网格。已将十五种分布的二十四个滑块统一去掉密集网格，显示最小值、当前值和最大值；Poisson λ 的步长统一为 0.01。
+All 24 parameter controls gained consistent defaults. Integer counts step by 1, decimal parameters by .1, degrees of freedom by 1 with valid manual fractions allowed. Numeric buttons/keyboard arrows follow the same defaults. Dragging after precise input returns to the default step. Descriptions/range/integer checks remain linked.
 
-Uniform 上下界支持正数或负数区间，a 的演示范围为 −10 至 199.99，b 的上限为 200，下限随 a 调整到 a+0.01。当 a 追上当前 b 时，b 上移到该最小合法值，保证最终 a<b。载入 Uniform 参数时先设置上界及其约束，随后设置下界。还修正 Hypergeometric 初次打开时 N=20、n/M 的最大值却为 30 的问题，初始及更新后的 n/M 上限均跟随总体大小 N。
+Ticks use zero-aligned clean values at their actual positions. Poisson shows 3,6,9,12,…,30, replacing 3.01/6.01 offsets. Slider updates retain fine manual/Shiny values, including scientific-step cases. From 12.01, increasing gives 12.1. Value 12.3456789 synchronises fully to slider/plots. Paired increment buttons avoid browser-native step-base offsets.
 
-其他正参数、整数参数和概率端点逐项核对。条件概率的两个方向及条件值选择使用 20 个虚构观测例子，浏览器实际验证条件概率为 0.2 和 1/3；Expectation 的两个方向分别恢复 E[X]=0.5、E[Y]=0.6。表格坐标、权重和题目输入的验证由已有回归覆盖。
+Main browser checks passed **360/360**, precision **28/28**, including Shiny messages to 18 noninteger controls with eight-place values, manual precision, negative increments, fractional df and resumed default dragging. Actual exam/table loading passed **63/63**, R remaining **301/301**, exam/app **89/89**, syntax/diff checks. Wide1600/phone390 screenshots were visually checked. Chrome ended at Poisson λ=12.1. Fixtures/logs/screenshots remained ignored.
 
-新增通用参数控件浏览器回归入口 check_parameter_controls_browser.js，不含私有题干或答案。Chrome 专项 **78/78** 通过，包含二十四个滑块、Uniform 正/负区间、等界处理、上端边界、Hypergeometric 范围联动、参数更新图表、条件与期望选择及 1600/390px 布局。R 模型/其他问题 **301/301**、R1-05 **11/11**、R1-06 **146/146**、题库/应用 **89/89** 通过；R/JS 语法及 git diff --check 通过。已目视检查宽窄屏控件，Chrome 保留 Geometric p=0.61 的修改后界面。
+## 2026-11-14, adaptive continuous x queries
 
-临时检查、原始日志和截图保存在忽略目录 .local/parameter-review/ 及 output/playwright/，课程 PDF、私有真题和缓存保留本地。本轮未新增提交、推送或部署。人工实际工时待本人填写。
+Eight continuous models choose clean query steps from approximately one percent of the base x range, rounded up to 1/2/5×10^k. x readings/axis labels use corresponding precision. Standard Normal uses .1, Uniform [0,1] .01 and [0,100] 1, Exponential rate10 .01, and Uniform [0,.0001] .000001.
 
-## 2026-11-13：撤回上一轮参数控件调整
+PDF/CDF share an R-calculated query table at exactly the same x, with parameter signatures preventing mixed updates. Smooth curves retain at least 600 points and include exact query points. Infinite-density endpoints omit markers while explaining unbounded density and retaining endpoint CDF values. Local mouse/touch interaction replaces unused server hover/click forwarding, with tooltips constrained to mobile plots.
 
-用户澄清只是在询问概率参数使用 0.61 还是 0.6、0.7 等值是否更合适，并要求退回原来的控件。已完整撤回上一轮新增的控件调整：恢复二十四个滑块的刻度网格、Poisson 原步长、Uniform 原范围与参数载入逻辑、Hypergeometric 原范围与初次观察设置，并删除该轮新增的 check_parameter_controls_browser.js。此前接受的图表、悬停读数及真题参数载入功能保留。本次没有将概率步长改成 0.1。
+Discrete integer/interval semantics remain. Touch uses paired readings. R continuous **104/104**, remaining **301/301**, continuous browser **157/157** and existing distribution interaction **87/87** passed across models/scales/singular endpoints/directions/updates/desktop/390px touch.
 
-R 语法与 git diff --check 通过。尝试重启本地预览服务被自动审批拦截，替代启动预览也被拦截；未继续尝试启动服务。现有 Chrome 会话仍显示内存中旧控件（grid=false），因此不将浏览器刷新或视觉核验记录为已完成。源文件已完成回退。上条日志的参数控件改动与测试结果仅对应已撤回的临时版本。
+Wide/phone screenshots were visually checked. Chrome's standard Normal reading at x=−1.1 showed density about .2179 and CDF about .1357. Small-axis labels were 0,.00005,.0001. Browser console had no errors/warnings. Evidence remained in .local/ and output/playwright/, with no source-material change or new commit/push then.
 
-本轮未新增提交或推送。人工实际工时待本人填写。
+## 2026-11-14, hide empty exam panels
 
-## 2026-11-13：完成回退后预览刷新与刻度核验
+The user requested hiding optional question sections/navigation when the current module/path has no verified questions, including removal of the empty-bank blue message. Shared rendering follows current question counts across four modules.
 
-用户反馈浏览器刻度仍未恢复。本轮核实 7130 端口监听进程确为项目 .local/content_start.R，分别停止该预览进程并重新启动成功。Chrome 重新载入后，已实际确认二十四个滑块的 grid 均为 true，Geometric p=0.61 的刻度恢复为原来的 0.01、0.11、0.21、…、0.91、1。已目视核验截图，Chrome 保留在恢复刻度的页面。上一条日志所述的预览未更新限制已解除。本轮未调整参数步长或图表坐标，也未新增提交、推送；截图和临时检查仅保存在忽略目录。人工实际工时待本人填写。
+R exam/app **89/89** and exam browser **93/93** passed. Chrome additionally confirmed preview/further sections hidden and core sections restored. Answers, parameter loading, per-module progress and layouts passed. Final screenshot visually checked, with Chrome left in preview. Private fixtures/logs/screenshots stayed ignored.
 
-## 2026-11-13 参数数值输入框与滑块同步
+## 2026-11-14, shared step 2 at exploration top
 
-为 Overview 的十五种分布、二十四个参数增加数值输入框，放在参数标签右侧。数值输入与原滑块共享参数值，按 Enter 或离开输入框提交，拖动滑块及服务端更新参数时同步输入框。输入框的范围跟随滑块配置，整数参数只接受整数，空值、非有限值、越界及 Uniform 等界输入显示就地提示并保留最后有效的绘图参数。
+Joint's numbered heading previously labelled only the right plot. Shared table modules gained an outer step card with the number/title above the entire region and left-aligned with step 1. Internal cards retained Interactive probability table and Distribution plots. Overview's equivalent structure was checked.
 
-手动输入的小数比现有拖动步长更精细时，细化该滑块的步长以保留输入值，解决 Poisson 输入 0.61 被舍入成 0.6 的问题。数值输入框的小数增减按钮默认以 0.01 递增，并跟随更精细的已输入精度。Hypergeometric 首次初始化时即根据 N 更新 n 和 M 的上限，后续更改 N 时同步范围和值。处理按 Enter 后继续操作滑块时的焦点与重复提交问题，有效输入按 Enter 后完成提交并退出输入框。
+R parsing and **64/64** browser layout/navigation checks passed across four modules at 1600/900/390px, confirming alignment, full-section coverage, heading position, no duplicate numbers and no page overflow. Joint wide/phone screenshots were visually checked. Chrome ended at Joint and temporary evidence stayed ignored.
 
-浏览器按阶段验证全部十五种分布、二十四个参数的双向同步、上下界、空输入和整数限制，并检查 Uniform 上下界及 Hypergeometric 缩小总体的联动。最终交互专项 10/10 通过，另实际拖动确认输入后可继续调整滑块，并复核二十四个输入框的范围与滑块一致。已目视检查 1600px 与 390px 页面，Chrome 保留在 Bernoulli p=0.61 的最终界面。R 模型及其他问题回归 301/301 通过，R/JS 语法及 git diff --check 通过。新增通用浏览器检查脚本 check_parameter_inputs_browser.js。
+## 2026-11-14, Joint fractions and 3D removal
 
-当前 G 盘未挂载，私有题库校验因源 PDF 不可读取而失败，真题参数载入的端到端复测待源文件恢复后进行。临时检查、日志及截图保存在忽略目录 .local/ 和 output/playwright/。人工实际工时待本人填写。
+The user removed Joint's 3D UI/server plot. Heatmap/table share number formatting, preferring exact simple fractions and otherwise short decimals/scientific notation with approximation marks. Cards show 188/221,16/221,1/221, frequencies 3/10,1/5. Hover probability uses up to four places, with full underlying values retained.
 
-## 2026-11-14 G 盘恢复后的真题参数载入复测
+Repeated titles, margins, label space and colour-bar text were simplified. Edit table initially collapses so phones first show table/plot. Step 2 covers both regions, side by side on wide screens and stacked on narrow ones.
 
-G 盘恢复读取后，重新核验私有题库及对应试卷、解答 PDF。题库与应用回归 89/89 通过，已重启当前本地预览，让应用重新加载经过核验的题库。
+R1-06 **146/146**, precision **76/76**, specialised browser **21/21**, display browser **33/33**, syntax/diff checks passed. Coverage included table/heatmap fractions, decimal fallback, approximations, removed 3D, editor access, repeated-generation precision and 1600/1266/900/390px. Old 3D assertions and fine-parameter browser actions were updated to current numeric input. Screenshots were visually checked and Chrome ended at Joint. Detailed evidence stayed ignored.
 
-在 Chrome 中通过两个真题场景的实际载入按钮复测，确认分布选择、数值输入框、滑块值及绘图参数同步更新。分别手动修改参数、输入越界值、实际拖动滑块，再重新载入真题，均正确恢复题目参数并清除旧错误提示。PMF 与 CDF 的完整绘图数据逐点对照独立的 Poisson 概率及累积计算，结果一致。还核对 Joint、Conditional 和 Expectation 的真题表格载入，实际表格与本地题库一致。浏览器专项 63/63 通过。
+## 2026-11-14, Conditional 3D removal and layout
 
-为通用真题浏览器回归脚本补充数值输入框、滑块以及 CDF 同步断言。JS 语法及 git diff --check 通过。Chrome 保留在已载入真题参数的 Overview 图表页面，已目视核对。上轮因 G 盘未挂载而未完成的真题参数载入复测已完成。
+The user removed Conditional's 3D output. The conditional table/bar share one computed distribution and matching fraction/decimal/approximation formats. Axes show discrete outcomes and conditional probability, with label space and hover for dense cases.
 
-专项脚本、私有参数夹具、详细结果和截图均保存于忽略目录 .local/exam-selection/ 及 output/playwright/。人工实际工时待本人填写。
+Direction/value controls join the conditional table/plot on the right, with joint table left. Wide table/plot layout becomes stacked on phones. Repeated titles/3D styles were simplified, Edit table collapsed and toolbar selection/zoom controls removed from the visible strip.
 
-## 2026-11-14 简短参数说明
+A stale-bar defect at zero-probability conditions was fixed by clearing the plot and showing undefined feedback, recovering at a valid condition. R1-05 **11/11**, R1-06 **146/146**, precision **76/76**, browser **33/33**, syntax/diff checks passed. Both directions/values, matching formats, zero/recovery, editor access and four widths were checked. Screenshots were visually reviewed. Chrome showed X=0 with table/bar 47/51,4/51. Detailed evidence stayed ignored.
 
-为十五种分布的二十四个参数补充滑块下方的简短灰色说明，并将说明关联到数值输入框的无障碍描述。Hypergeometric 说明 n 是不放回抽取的数量、M 是总体中的成功项数量、N 是抽样前的总体大小，同时标明整数及 n ≤ N、M ≤ N 约束。Geometric 和 Negative Binomial 强调当前模型计数成功前的失败次数。其他说明涵盖成功概率、完整区间的 Poisson 期望次数、Uniform 上下界、速率与平均等待时间、Normal 标准差与方差、形状参数及自由度。
+## 2026-11-14, Expectation formatting/layout
 
-用语核对本地 STATS125 第六章与 STATS210 第七章相关定义，两个讲义文本缓存的 SHA-256 与当前源 PDF 一致。浏览器逐一检查十五种分布的说明显示，确认二十四个说明均有无障碍关联，宽屏及 390px 下无横向遮挡。实际修改 Hypergeometric 的 M 后，输入框、滑块与图表同步更新。R 语法及 git diff --check 通过。已目视核对宽窄屏，Chrome 保留在 n=10、M=5、N=20 的 Hypergeometric 页面。
+The user requested table-matched bar labels/hover/overall-mean markers. number_reading gained an optional format argument, retaining decimal defaults. Cards contributions became 16/221 and 1/221, with overall 1/13. Narrow contributions used horizontal hover readings.
 
-临时检查及截图保存于忽略目录 .local/ 和 output/playwright/。人工实际工时待本人填写。
+Probability table/calculation panels sit above a full-width conditional-mean/weight/contribution table and graphic. Editors/calculation steps collapse independently. Wide/phone layouts adapt, with header widths preventing isolated-letter wraps. The overall marker sits upper-right and the toolbar avoids headings.
 
-## 2026-11-14 统一参数默认步长、刻度与精确载入
+Precision **79/79** added actual-label/hover assertions in three formats. R1-06 **146/146** covers signed/overall recovery. Browser **36/36** covers directions, fractions/decimals, actual hover, zero/signed groups, editors and four widths. Final 390px header wrapping and wide/phone screenshots were visually checked, with syntax/diff checks passed. Chrome showed E[Y]=1/13. Detailed evidence stayed ignored.
 
-统一十五种分布、二十四个参数的默认调整方式。整数计数参数按 1 调整，其余小数参数按 0.1 调整，自由度默认按 1 调整并允许手动输入有效小数。数值输入框的增减按钮与键盘上下键采用同一默认步长，精细输入之后再次拖动也会恢复默认步长。参数说明、整数及范围检查继续关联到各控件。
+## 2026-11-14, accumulated UI/number publication scope
 
-刻度使用零对齐的整洁数值，并按实际参数范围计算位置。Poisson 显示 3、6、9、12、…、30，避免原有 3.01、6.01 等偏移。为现有滑块补充零对齐及科学记数法步长处理，手动输入和 R updateSliderInput 接收的数值可保留实际精度。输入 12.01 后点击增加得到 12.1，输入 12.3456789 可完整同步到滑块和两张图。数值框使用配套增减按钮，统一处理默认增量与精确输入，避免浏览器原生步长基准引入偏移。
+The user requested synchronisation of the accepted layouts, paths, numeric/slider inputs, steps/ticks, paired queries, 3D removal, weighted expectation, hidden empty questions and general tests/review records. The explicit scope comprised **35 files**, targeting HI1003/Shiny-Visualization-Project main.
 
-浏览器主回归 360/360 通过，覆盖各分布参数、整数及范围限制、默认增量、刻度位置、同步及宽窄屏。最终精度专项 28/28 通过，其中对十八个非整数参数重放 Shiny 服务端更新消息，检查八位小数精度，并检查手动精度、负值增量、自由度小数及精细输入后恢复默认拖动步长。真实题库的两个图表场景与其他三个模块的表格载入专项 63/63 通过。R 模型回归 301/301、题库与应用校验 89/89 通过。R/JS 语法和 git diff --check 通过。
+Current checks passed R1-04 **102/102**, R1-05 **11/11**, R1-06 **146/146**, remaining **301/301**, exam/app **89/89**, display **79/79**, continuous queries **104/104**, independent mathematics **10/10**, assets **13/13**, total **855/855**. All outgoing JS syntax and diff checks passed. Browser results retained their dated coverage.
 
-已目视检查 1600px 与 390px 页面。Chrome 保留在 Poisson λ=12.1 的最终页面，供用户查看默认增量及新刻度。专项脚本、详细日志、私有夹具及截图均位于忽略目录 .local/ 和 output/playwright/。人工实际工时待本人填写。
+Complete outgoing contents were matched against **20** private-bank prose fragments. Eight ignore exclusions covered course/bank/fixtures/dependencies/screenshots/browser/R-cache files. Reports/manifests/fingerprints/audit stayed under .local/. Human time remained pending at that date.
 
-## 2026-11-14 连续分布自适应 x 查询与同步读数
+## 2026-11-14, explicit total-expectation multiplication/addition flow
 
-按用户要求，为八种连续分布按当前绘图区间选择整洁的 x 查询步长。以横轴基础范围的约百分之一为基准，向上选择 1、2、5 乘以 10 的整数次幂，并据此调整 x 读数及横轴标签的小数位数。标准正态步长为 0.1，Uniform [0,1] 为 0.01、[0,100] 为 1，Exponential rate=10 为 0.01；Uniform [0,0.0001] 可细化至 0.000001，避免小尺度查询或标签被舍入为零。
+The user found the stacked bar insufficiently explanatory. A dynamic calculation flow replaced it while retaining the table. Each condition shows conditional mean × marginal probability = contribution in its row colour. The lower section adds contributions to the overall mean. The default displays 4/51 × 12/13 = 16/221 and 1/17 × 1/13 = 1/221, followed by 16/221 + 1/221 = 1/13.
 
-PDF 与 CDF 共用由 R 分布函数计算的查询表，在同一个 x 上重新计算数值，并用参数签名防止两图更新期间混用不同参数的结果。曲线保留原有至少 600 个绘图点，并加入精确查询点，使读数位置落在对应曲线上。无穷密度端点不作为图形标记绘制，提示明确说明密度无界，CDF 仍显示该端点的累积概率。连续读数采用浏览器本地鼠标与触屏交互，移除不再使用的连续图服务端 hover/click 转发；移动端提示框限制在绘图区内。
+The flow/table share weighted data and number formats. Larger fractions aid reading. Long phone decimals use compact fonts and approximation marks on values/relations. Zero-weight groups state undefined conditional means with zero contribution. Signed contributions and cancellation to zero are supported. Directions/examples/edits update the flow, preserving left-to-right multiplication and wrapping addition.
 
-保留离散分布的整数查询和 CDF 区间语义。离散图触屏点击统一使用已有的配对读数，确保两图均保留提示。连续查询 R 专项 104/104、模型及其他问题 R 回归 301/301、连续交互浏览器专项 157/157、既有分布交互浏览器回归 87/87 通过。覆盖八种连续模型、窄宽尺度、奇异端点、两图发起查询、参数刷新及桌面和 390px 触屏布局。
+Precision **79/79**, R1-06 **146/146**, browser **28/28**, syntax/diff checks passed. Assertions checked rendered factors/products/sums, both directions, fractions/decimals, zero/signed groups, zero mean, approximation signs, phone decimals and four widths. Wide/phone screenshots and final larger fractions were visually checked. Chrome ended at the flow. Detailed evidence stayed ignored.
 
-已目视核对宽窄屏截图，Chrome 停在标准正态页面；光标对应 x=-1.1，两图分别显示密度约 0.2179 与累积概率约 0.1357。小尺度横轴标签实测为 0、0.00005、0.0001，浏览器控制台无错误或警告。临时夹具、详细日志和截图保存于忽略目录 .local/ 与 output/playwright/；未改动课程资料或私有题库，未新增提交或推送。人工实际工时待本人填写。
+## 2026-11-14, expectation-flow synchronisation
 
-## 2026-11-14 隐藏没有历年真题的练习区块
+Six files comprising the flow, shared style/format support, calculation tests and work log were committed/pushed. Publication review checked the complete files against private text/exclusion rules, with **79/79**, **146/146** and **28/28** results verified. Content commit `91e5faea07f4a41f169928b1c64cfb6b4e5a6c25` matched remote main through git ls-remote.
 
-按用户要求，当当前模块与学习路径没有可用历年真题时，隐藏整个可选练习区块及其导航入口，并移除空题库的蓝色说明。通过共享练习渲染逻辑应用到 Overview、Joint、Conditional 和 Expectation；可用性由当前题目数量驱动，路径切换后同步更新。
+## 2026-11-14, overall delivery review
 
-题库与应用 R 回归 89/89、已有真题浏览器回归 93/93 通过。另在 Chrome 实际确认 STATS210 preview 与 Further exploration 均隐藏空区块及导航，切回 STATS125 Core 后恢复显示。已有题目作答、参数载入、各模块进度保留及宽窄屏检查通过。已目视核对最终截图，Chrome 停在无真题的预习路径图表区域。临时私有夹具、详细日志及截图位于忽略目录 .local/ 和 output/playwright/。人工实际工时待本人填写。
+A git archive export of that commit contained versioned code without the local bank, course files or dependencies. Its Start-Shiny.R --no-browser installed dependencies and launched on 7125, using R4.6.1, Shiny1.14.0 and Plotly4.12.1. Original 7130 remained for separate bank checks, with the original comparison and other services retained.
 
-## 2026-11-14 第 2 步标题统一放在探索区顶部
+The current R/math/assets groups passed **855/855** with the same per-group counts above. Export Chrome checks passed launch/navigation **16/16**, 15 models/24 parameter controls **360/360**, hover/touch **87/87**, continuous x **157/157**, expectation flow **28/28**, game **20/20**, three-module themes/layout **36/36**. Original-bank browser checks passed **93/93**. Browser total **797/797**, with selected wide/phone/theme/game screenshots visually reviewed.
 
-用户指出 Joint 的第 2 步编号只出现在右侧图表标题，左侧概率表未被同一标题涵盖。将共享表格模块的探索区改为统一的外层步骤卡片，编号标题放在整块区域顶部并靠左对齐；左侧保留 Interactive probability table，右侧使用 Distribution plots。Joint、Conditional 和 Expectation 采用相同层级，Overview 的现有顶部步骤标题一并复核。
+The bank-free export retained core concepts/plots, hid question sections/navigation and returned 404 for the private bank route. Three rapid-navigation rounds after first connection recovered. Input ranges/integers, numeric/slider synchronisation, exam loading, editing, zero conditions, directions, weighted means and restart had specified coverage.
 
-R 语法检查通过。Chrome 在四个模块、1600/900/390px 下完成 64/64 项布局与导航检查，确认第 2 步标题与第 1 步左边缘对齐、覆盖完整区块、位于表格和图表上方、无重复编号及页面横向溢出。已目视核对 Joint 宽窄屏截图，Chrome 停在修改后的 Joint 探索区域。截图、专项脚本与日志保存于忽略目录 output/playwright/ 和 .local/。人工实际工时待本人填写。
+README's clone address and original nested-ZIP instructions were corrected to the user's repo and current versioned Project_PPeek1ng/ plus Start-Shiny.R, preserving authorship. Handover/issues/review entry were updated. This review changed documentation only.
 
-## 2026-11-14 Joint 移除 3D 图并统一分数显示
+No delivery-blocking issue was found within the stated Windows/Chrome coverage. Teacher/student acceptance and hosting arrangements remained follow-ups. At this date exam handover required separate local materials. Entire historical course directories, all systems/browsers and learning outcomes were outside the review.
 
-按用户要求，移除 Joint 的 3D 图界面及对应服务端绘图逻辑。Joint 热力图和左侧概率表共用相同的数值格式，默认优先显示可精确表示的简洁分数，其他值使用原有四位小数或极小值科学记数法，并标示近似。卡牌例子直接显示 188/221、16/221、1/221，频数例子显示 3/10、1/5 等。悬停提供最多四位小数的概率读数，底层概率精度由既有数据保留逻辑维护。
+Detailed results/export/dependencies/screenshots remained ignored. Five documentation files passed complete-file private-text matching and eight exclusion checks before publication. The later user clarification removed the human-timesheet requirement.
 
-精简 Joint 图表区的重复标题，调整热力图边距、标签空间和色标字号。为使手机页面先呈现概率表与图表，将 Joint 的 Edit table 默认折叠，点击后可继续编辑。第 2 步标题覆盖整个探索区，宽屏左右排列、窄屏上下排列。
+## 2026-11-16, English project and complete bundled exam delivery
 
-R1-06 回归 146/146、数值显示 R 回归 76/76 通过。浏览器专项 21/21、数值显示回归 33/33 通过，覆盖表格和热力图数值及分数一致性、自定义小数回退、近似标记、3D 移除、编辑入口、反复生成保留精度及 1600/1266/900/390px 布局。同步调整既有测试中对 Joint 3D 的断言，并将旧数值显示浏览器检查中的精细参数更新改为实际数值输入，以符合现有默认滑块步长。R/JS 语法与 git diff --check 通过。
+The user first requested a local private materials package, then clarified that all project documentation/comments should be English, and finally explicitly authorised publishing the selected question bank and corresponding PDFs with the complete GitHub project. The final publication scope follows that clarification. The contract is signed and no timesheet is required.
 
-已目视核对宽窄屏截图，Chrome 停在最终 Joint 探索区域，确认热力图为分数、3D 已移除、编辑区默认折叠。详细日志、浏览器专项夹具和截图位于忽略目录 .local/ 与 output/playwright/。人工实际工时待本人填写。
+The materials package initially collected four question groups and six question/solution PDFs, checked against the stored MD5/SHA-256 values. A configuration helper was tested in a moved directory with spaces. Following the publication request, the app was updated to discover `exam-materials/bank.json` and resolve its source paths relative to the bank. Explicit STATS125_EXAM_BANK overrides remain supported, with the earlier .local bank location available as a fallback. PDF bytes and all question/answer/graph/table data were preserved. Git attributes mark PDFs as binary to retain their fingerprints.
 
-## 2026-11-14 Conditional 移除 3D 图并整理条件概率展示
+The English conversion covers course mapping, teaching review, issue register, walkthrough, handover, work log, ten historical verification documents, two metadata JSON files and source comments. The nested original ZIP also has English comments. Ten R-expression comparisons verified comment-only changes in the four current and six archived R files, allowing only CSS-comment removal in the comparison. Metadata numbers/fingerprints were preserved. Machine-specific Chinese directory strings in historical source metadata now identify the original source filenames. The current version has 138 text files without Chinese characters, and extracted text from all six PDFs also has none.
 
-按用户要求，移除 Conditional 的 3D 图及服务端绘图逻辑。条件概率表和二维柱形图共用同一份条件分布计算结果，柱形标签、悬停读数沿用对应概率表的格式，分数、小数及近似标记保持一致。横轴显示实际离散取值，纵轴标示条件概率，并为柱顶读数留出空间；密集结果的读数通过悬停查看，避免标签重叠。
+Current checks passed R1-04 102/102, R1-05 11/11, R1-06 146/146, remaining 301/301, display 79/79, continuous query 104/104, exam integration 95/95, independent mathematics 10/10 and images 13/13, totalling **861/861**. Six new loader cases cover root/app discovery, relative-path relocation, the resolved moved PDF, explicit override and rejection of a missing relative PDF. A separate clean-copy run passed the same **95/95** exam checks.
 
-将条件方向及条件值选择与条件概率表、二维图集中放在右侧结果区。宽屏下表格和图形并排，窄屏自动上下排列，左侧保留联合概率表。精简重复标题、3D 相关界面和样式，并将 Conditional 的 Edit table 默认折叠。图表工具栏收起选择和缩放按钮，避免窄屏标题被遮挡。
+A tracked-files-only export in a directory with spaces completed first-run missing-package installation and launched using Start-Shiny.R --no-browser on 7125. Chrome checks passed four-module exam interaction/loading 93/93, total-expectation flow 28/28, seven-chapter game 20/20 and English interface/phone layout 21/21, totalling **162/162**. The app loaded its bank and six PDFs from the exported repository. R libraries used the configured local environment, with missing packages installed automatically in the export. Wide/phone expectation screenshots were visually reviewed.
 
-复核中发现零概率条件会留下旧柱形，已在该条件下清除图形并显示未定义提示，条件概率表继续提供具体原因，恢复有效条件后重新绘制。R1-05 实际输出回归 11/11、R1-06 模块回归 146/146、数值显示 R 回归 76/76 通过。浏览器专项 33/33 通过，覆盖两个条件方向、多个条件值、分数及小数匹配、零概率及恢复、1600/1266/900/390px 布局。另实际展开编辑区确认四行输入正常显示，再折叠返回预览。R/JS 语法及 git diff --check 通过。
-
-已目视核对宽窄屏截图。Chrome 停在 Conditional 探索区域，当前 X=0，条件概率表和柱形图均显示 47/51、4/51。详细日志、专项脚本与截图位于忽略目录 .local/ 和 output/playwright/。人工实际工时待本人填写。
-
-## 2026-11-14 Expectation 数值格式与布局复核
-
-按用户要求，统一 Expectation 加权贡献图中的柱形标签、悬停读数与总体均值标记，使其采用对应表格的数值格式。复用现有 number_reading 并增加可选格式参数，默认调用仍采用小数读数。卡牌例子贡献显示 16/221、1/221，总体均值标记显示 1/13；小数和近似标记也与表格一致。较窄色块通过悬停查看，标签保持水平，避免挤压或竖排。
-
-将概率表和期望计算分置上方左右两栏，将条件均值、边际概率、贡献表及图形放在下方整行区域。编辑区和条件期望计算步骤默认折叠，可分别展开。宽屏并排、窄屏上下排列，并调整手机表头列宽，避免 Condition 和 Contribution 出现孤立字母换行。图表总体均值标记放在绘图区右上方，工具栏精简以避开标题。
-
-数值显示 R 回归 79/79 通过，新增断言核对三种格式下实际图表标签和悬停文本与贡献表一致。R1-06 模块回归 146/146 通过，覆盖正负贡献及总体均值恢复。浏览器专项 36/36 通过，覆盖两个条件方向、分数与小数、真实柱形悬停、零概率组、正负贡献、编辑入口及 1600/1266/900/390px 布局。另实际核对最终 390px 表头自然换行，宽屏和窄屏截图均已目视检查。R/JS 语法及 git diff --check 通过。
-
-Chrome 已停在最终 Expectation 探索区域，当前总体均值标记为 E[Y] = 1/13。详细日志、专项脚本及截图保存在忽略目录 .local/ 与 output/playwright/。人工实际工时待本人填写。
-
-## 2026-11-14 本轮界面与数值改进提交范围
-
-按用户要求，将前几轮累计的界面布局、学习路径、参数数值输入与滑块同步、步长刻度、配对图表查询、Joint/Conditional 的 3D 移除、Expectation 加权展示、空练习区隐藏，以及相关通用检查脚本和审查记录纳入本次提交。收录范围明确为 35 个代码和审查文件，历史验证摘要按原日期保留。本次同步目标为用户仓库 HI1003/Shiny-Visualization-Project 的 main 分支。
-
-发布前按当前代码重新核验：R1-04 102/102、R1-05 11/11、R1-06 146/146、其他模型与应用 301/301、私有题库与应用校验 89/89、数值显示 79/79、连续查询 104/104、独立数学 10/10、图片资源 13/13，共 855/855 通过。全部待发布 JavaScript 语法与 git diff --check 通过；各轮浏览器体验结果按原日期记录在前文。
-
-逐文件检查完整待发布内容，并对本地私有题库的 20 段正文进行匹配检查。课程资料、私有题库、私有浏览器夹具、依赖、截图、浏览器状态及 R 缓存的八项排除规则核对通过。详细回归结果、发布清单、文件指纹及发布审计均保留于忽略目录 .local/。人工实际工时待本人填写。
-
-## 2026-11-14 全期望改为显式乘法与加法流程图
-
-用户反馈加权横条图未能直观说明条件均值、边际概率及总体均值之间的计算过程。已用动态计算流程图替换横条图，左侧计算表保留。每个条件组显示“条件均值 × 边际概率 = 贡献”，贡献使用与表格行一致的颜色；下方再次显示各组贡献相加及总体均值。默认例子直接呈现 4/51 × 12/13 = 16/221、1/17 × 1/13 = 1/221，再得到 16/221 + 1/221 = 1/13。
-
-流程图与表格共用现有加权数据和数值格式。放大分数以方便阅读，窄屏长小数使用紧凑字号并标注近似，计算关系也按显示精度标示近似。零概率组单独注明条件均值未定义、贡献为零。正负贡献和抵消为零的情况均支持。图形随条件方向、表格例子及手动编辑更新，宽窄屏的乘法顺序保持从左到右，加法区域自然换行。
-
-数值显示及格式回归 79/79、R1-06 模块回归 146/146 通过，检查实际渲染的三个因子、乘法、贡献求和及总体均值。浏览器专项 28/28 通过，覆盖两个方向、分数、小数、零概率组、正负贡献、零均值、近似符号、手机长小数及 1600/1266/900/390px 布局。已目视核对宽窄屏并检查最终放大的分数。R/JS 语法及 git diff --check 通过。
-
-Chrome 停在最终全期望流程图区域。临时脚本、详细日志与截图保存在忽略目录 .local/ 及 output/playwright/。人工实际工时待本人填写。
-
-## 2026-11-14 全期望流程图同步范围
-
-按用户要求，将本次全期望流程图、相关响应式样式、格式与计算回归脚本及工作日志共六个文件提交到用户 GitHub 的 main 分支。发布前复核 79/79 数值格式、146/146 模块计算和 28/28 浏览器流程检查的结果。完整待发布文件通过私有题库正文匹配与资料排除规则检查，发布审计保存在忽略目录 .local/。
-
-内容提交为 `91e5faea07f4a41f169928b1c64cfb6b4e5a6c25`，已推送至 HI1003/Shiny-Visualization-Project 的 main，并通过 `git ls-remote` 核验远端 SHA 与本地一致。
-
-## 2026-11-14 提交前整体交付复核
-
-用户要求在同步流程图后整体检查项目是否可交付。从上述提交用 git archive 创建仅含版本控制内容的独立副本，未复制私有题库、课程资料或现有依赖。通过副本 Start-Shiny.R --no-browser 完成首次依赖安装并在 7125 启动；实际安装环境为 R 4.6.1、Shiny 1.14.0、Plotly 4.12.1。原工作区 7130 预览继续用于独立核对私有真题。没有修改其他用户服务或原始比较版本。
-
-重新执行 R1-04 102/102、R1-05 11/11、R1-06 146/146、其他模型/应用 301/301、数值显示 79/79、真题与应用 89/89、连续查询 104/104、独立数学 10/10、图片资源 13/13，共 855/855 通过。公开副本 Chrome 检查包括启动与导航 16/16、全部 15 种分布及 24 组参数控件 360/360、悬停/触屏 87/87、连续 x 查询 157/157、全期望流程 28/28、七章游戏 20/20，以及三个表格模块的明暗主题和宽窄屏 36/36。本地含题库版本另通过真题浏览器检查 93/93。浏览器检查合计 797/797。已目视核对宽屏、手机、明暗主题及游戏截图。
-
-不含私有题库时，核心概念及图表正常运行，可选真题区域与入口隐藏，HTTP 访问私有题库路径为 404。本次首次连接后的三轮快速切页未复现旧空白现象；这不是全部启动时序的覆盖证明。数据范围、整数限制、数值输入/滑块同步、真题参数载入、表格编辑、零条件概率、两个条件方向、条件均值加权及重启流程均有相应本次验证。
-
-发现并修复一项交付说明问题：README 的 clone 地址仍指向原账户，并把原始 Project_PPeek1ng.zip 描述成当前运行包。现改为用户仓库地址，说明当前入口为受版本控制的 Project_PPeek1ng/ 与 Start-Shiny.R，完整仓库 ZIP 才是当前版本；保留原作者署名与原始 ZIP。同步更新交接、问题状态及审查入口，明确最新全期望流程与本次复核范围。此次复核未再改应用功能。
-
-本次检查范围内未发现阻碍提交验收的功能问题，可将代码交给教师做最终验收。真实教师/学生试用、本人实际工时确认及是否正式部署仍由后续验收确定。若接收方需要真题功能，须另行移交获授权的私有题库与匹配 PDF，不纳入公开 GitHub。未重新逐份阅读全部课程历史资料，未验证其他系统/全部浏览器或学习效果。
-
-详细结果、临时脚本、公开导出副本、安装依赖与截图均留在忽略目录。本次交付复核只提交五个文档文件，完整文件内容通过私有题库正文匹配和八项排除规则检查；不上传课程资料、私有题库或本地缓存。人工实际工时待本人填写。
+The publication audit checked all 187 candidate files, 211 local Markdown links, source PDF fingerprints and exact bank equivalence apart from source-path rebasing. The eight added files are the bank, six approved PDFs and their README. Other course-reference material and caches retain existing Git exclusions. Detailed tests, screenshots, extraction caches and audit scripts remain under ignored .local/ and output/playwright/. A complete delivery ZIP is generated from the reviewed commit for local sharing.

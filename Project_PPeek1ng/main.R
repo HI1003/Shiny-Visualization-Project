@@ -30,7 +30,7 @@ source("modules/module_probability.R")
 ui <- bs4DashPage(
   
   # =========================================================
-  # ✅ 顶部导航栏（Logo + 品牌标题）
+  # ✅ Top navigation bar with logo and brand title
   # =========================================================
   bs4DashNavbar(
     skin = "light",
@@ -44,11 +44,11 @@ ui <- bs4DashPage(
   ),
   
   # =========================================================
-  # ✅ 左侧菜单栏（含折叠子菜单）
+  # ✅ Sidebar with collapsible submenus
   # =========================================================
   bs4DashSidebar(
     skin = "light",
-    status = "primary",  # 蓝色主题
+    status = "primary",  # Blue theme
     elevation = 2,
     title = tags$div(
       tags$span("Navigation", style = "font-weight:600; color:#1a73e8;")
@@ -58,7 +58,7 @@ ui <- bs4DashPage(
       id = "tabs",
       bs4SidebarMenuItem("Home", tabName = "home", icon = icon("home")),
       
-      # --- 概率分布菜单（包含 Game 子项） ---
+      # --- Probability Distribution menu, including Game ---
       bs4SidebarMenuItem(
         "Probability Distribution",
         tabName = "probability",
@@ -67,7 +67,7 @@ ui <- bs4DashPage(
         bs4SidebarMenuSubItem("Game: Discrete", tabName = "game_discrete", icon = icon("dice"))
       ),
       
-      # --- 其他模块 ---
+      # --- Other modules ---
       bs4SidebarMenuItem("Joint Distribution", tabName = "joint", icon = icon("chart-area")),
       bs4SidebarMenuItem("Conditional Distribution", tabName = "conditional", icon = icon("chart-bar")),
       bs4SidebarMenuItem("Expectation", tabName = "expectation", icon = icon("chart-line"))
@@ -77,7 +77,7 @@ ui <- bs4DashPage(
   bs4DashBody(
     useShinyjs(),
     
-    # ---------- 全局样式 ----------
+    # ---------- Global styles ----------
     tags$head(
       tags$link(rel="stylesheet",href=paste0("css/learning-layout.css?v=",unname(tools::md5sum("www/css/learning-layout.css")))),
       tags$script(src=paste0("js/learning-layout.js?v=",unname(tools::md5sum("www/js/learning-layout.js"))),defer=NA),
@@ -128,7 +128,7 @@ ui <- bs4DashPage(
       "))
     ),
     
-    # === ✅ 新增：练习题样式 ===
+    # === ✅ Exercise styles ===
     tags$style(HTML("
       .pmf-table {
         border-collapse: collapse;
@@ -175,7 +175,7 @@ ui <- bs4DashPage(
       }
     ")),
     
-    # ✅ 加入 MathJax 重新渲染脚本
+    # ✅ Add MathJax re-typesetting script
     tags$script(HTML("
       Shiny.addCustomMessageHandler('refresh_mathjax', function(msg) {
         if (window.MathJax && window.MathJax.typesetPromise) {
@@ -189,15 +189,15 @@ ui <- bs4DashPage(
       });
     ")),
     
-    # ---------- 亮/暗主题切换样式 ----------
+    # ---------- Light/dark theme styles ----------
     tags$style(HTML("
-      /* 默认亮色主题 */
+      /* Default light theme */
       body.light-mode, .content, .main-sidebar {
         background-color: #f8f9fa !important;
       }
 
 
-      /* 深色主题 */
+      /* Dark theme */
       body.dark-mode, body.dark-mode .content, body.dark-mode .main-sidebar {
         background-color: #1c1c2b !important;
       }
@@ -219,7 +219,7 @@ ui <- bs4DashPage(
       }
     ")),
     
-    # ---------- Tab 内容 ----------
+    # ---------- Tab content ----------
     tabItems(
       tabItem(tabName = "home",
               fluidRow(

@@ -1,76 +1,70 @@
-# 模块审查与教学复核
+# Module audit and teaching review
 
-2026-11-14 当前界面已完成参数输入、步长刻度和联动读数改进，以及 Joint/Conditional/Expectation 的布局与数值一致性整理。Joint 使用分数热力图，Joint/Conditional 的 3D 图已移除，Expectation 展示条件均值乘边际概率、再将贡献相加的计算流程，无真题时隐藏练习区。仅含版本控制文件的副本已完成首次依赖安装、启动和全流程复核，详见 [交付结论与限制](HANDOVER.md) 和 [工作日志](WORKLOG.md)。下方证据文件与描述保留各自日期的验证范围，当前浏览器入口包括 `check_distribution_hover_browser.js`、`check_continuous_query_browser.js` 和 `check_parameter_inputs_browser.js`；早期 content/layout/concept 脚本属于历史流程。
+Updated on 2026-11-16. Project documentation and source comments are now in English. The four selected exam groups and six matching PDFs are bundled with the repository at the user's request. Their portable setup is described in the [exam-materials record](PAST_EXAM_SELECTION.md). The contract is signed and the user confirmed that no timesheet is required. The current verification passed 861/861 calculation/resource checks and 162/162 browser checks, plus 95/95 exam checks in a clean exported copy. See the current [handover](HANDOVER.md).
 
-2026-11-13 Overview 图表改为悬停查看数值并联动同一 x，触屏点击保留读数；离散和连续分布均移除 Current Selection 重复读数区，保留离散 CDF 的空心/实心端点。此次也统一移除定义后的探索任务提示。其他模块保留有教学作用的表格与分解数值。当前验证见 [图表交互记录](evidence/distribution_hover_20261113.json) 和 [工作日志](WORKLOG.md)；本轮尚未提交或推送。
+The 2026-11-14 interface includes numeric inputs synchronised with sliders, consistent steps/ticks, linked plot readings, and matching table/plot formats. Joint uses a fraction-labelled heatmap. Joint and Conditional have two-dimensional plots. Expectation displays each conditional mean multiplied by its marginal probability and then adds the contributions. Empty optional question sections are hidden. A tracked-files-only export completed dependency installation, launch and browser review. See the [handover and limits](HANDOVER.md) and [work log](WORKLOG.md).
 
-2026-11-12 完成 [学生视角完整流程走查](STUDENT_EXPERIENCE_REVIEW_20261112.md)：覆盖四个学习模块、四组可选真题、七章游戏、表格编辑、窄屏和明暗主题；修复载入真题后的定位、条件方向重置、游戏空提交/翻页定位及文字对比问题。下一轮优先改进 Joint 二维图和全期望的直观展示，验证摘要见 [本轮证据](evidence/student_experience_20261112.json)。本轮尚未提交或推送；此前未提交的界面改动仍保留，旧同步条目仅表示当时状态。
+Current generic browser checks include `check_distribution_hover_browser.js`, `check_continuous_query_browser.js` and `check_parameter_inputs_browser.js`. Earlier content/layout/concept scripts describe historical workflows. The evidence below retains the dates and coverage of each original run.
 
-2026-11-10 页面精简：侧栏不再展示真题总进度，首页不再提供两个重复的模块快捷按钮；从侧栏进入模块，进度和反馈留在各模块可选题区。本次四个界面提交已同步至用户 GitHub，远端内容提交核验为 `ba353d5`；同步检查见 [工作日志](WORKLOG.md)。
+## Dated implementation records
 
-2026-11-10 使用反馈：已移除侧栏 **Probability table display** 选项及其设置入口，统一使用自动简洁显示，保留完整计算精度、悬停提示和 Overview 的 More precision。旧显示模式说明保留为历史记录；本轮验证见 `auto_display_*`，详见 [工作日志](WORKLOG.md)。本轮已随上述界面提交同步，未部署。
+- **2026-11-13.** Overview uses linked hover values at the same x, with touch selection retaining the reading. The duplicate Current Selection panels were removed. Discrete CDFs retain open and closed endpoints. Exploration-task prompts after definitions were removed. Instructional tables and decomposition values remain in other modules. See the [interaction evidence](evidence/distribution_hover_20261113.json). These changes were still local at that stage.
+- **2026-11-12.** The [student-task walkthrough](STUDENT_EXPERIENCE_REVIEW_20261112.md) covered four learning modules, four exam groups, seven game chapters, table editing, narrow layouts and light/dark themes. It fixed exam-to-plot positioning, retained conditioning direction, empty game submissions, chapter positioning and text contrast. Joint probability encoding and total expectation were identified for subsequent work. See the [dated summary](evidence/student_experience_20261112.json). That round had not yet been committed or pushed.
+- **2026-11-10.** Sidebar exam-progress totals and two duplicate Home shortcuts were removed. Navigation uses the sidebar, with progress and feedback inside each optional question section. The four UI commits were synchronised and the remote content SHA was verified as `ba353d5`. The Probability table display selector was also removed in favour of automatic compact formatting. The older `auto_display_*` evidence and work log describe that stage. No deployment was performed.
+- **2026-11-04.** Tables, editors, plot labels and calculations gained consistent compact fractions/decimals, approximation marks and precision-preserving editor bindings. The sidebar then offered Auto / Short decimals / Simple fractions, and Overview offered More precision. Commit `ecef621` was synchronised with a matching remote SHA. See the [number-display record](evidence/number_display_verification.md). The later interface simplified those controls.
+- **2026-11-01.** The route became **review concepts → visualise → optional past-exam extracts**. Student question panels contained four verified STATS125 groups with year, semester, question and adaptation labels. The 10 original exercise builders were removed, and the original 32 remained for internal regression only. At this stage source PDFs, bank contents and screenshots containing questions were kept locally. Commits `2eed4f9` and `b94764d` were synchronised and the remote SHA verified. See [selection](PAST_EXAM_SELECTION.md) and [historical verification](evidence/past_exam_verification.md). Earlier references to an unpushed state apply to their stated dates.
 
-2026-11-04：概率表、编辑框、图形标签和计算结果已统一数值显示。侧栏新增 Auto / Short decimals / Simple fractions；默认短小数与简洁分数并用，近似值标“≈”，支持查看更高精度。显示舍入与原始值分离，未编辑的紧凑输入不会在再次生成时覆盖原有精度。当前验证及范围见 [数值显示记录](evidence/number_display_verification.md)。改进提交 `ecef621` 已同步至用户 GitHub，并核验本地/远端内容 SHA 一致；同步记录见 [工作日志](WORKLOG.md)。课程资料、私有题库与本地缓存未上传，未部署；旧条目的“未推送”保留为当时状态。
+The current regression entry point includes the original module fixes and `test_past_exam_bank.R`. Direct module loading uses `pmf_helpers.R`, `past_exam_bank.R`, `learning_content.R` and `learning_practice.R` in that order. Earlier counts of 42 questions, 30/8/4 and 695 checks refer to historical revisions.
 
-2026-11-01 最新状态：四模块已改为 **知识点回顾 → 可视化 → 可选历年真题**。学生可选题库只含 **4 组经核验的 STATS125 真题节选**，逐题注明年份、学期、题号及改编情况；此前原创 10 题已移除，原项目 32 题仅保留作内部回归。真题内容、PDF 和含题目内容的截图全部本地保存、不提交 Git。来源与本地使用见 [选择记录](PAST_EXAM_SELECTION.md)，当前验证见 [验证记录](evidence/past_exam_verification.md)。概念优先 `2eed4f9` 和真题改版 `b94764d` 已同步至用户 GitHub，推送后远端内容 SHA 已核验一致；同步记录见 [工作日志](WORKLOG.md)。未部署。以下历史条目的“未推送”仅描述当时状态。
+## Earlier stages and first audit
 
-当前回归入口包含原模块修复检查及 `test_past_exam_bank.R`；后者需要本机私有题库和匹配 PDF，详见选择记录。原 42 题、30/8/4、695 等数字及旧浏览器脚本均为以下历史阶段的结果，不代表当前可选题库。直接加载模块时，按 `pmf_helpers.R`、`past_exam_bank.R`、`learning_content.R`、`learning_practice.R` 顺序加载。
+An earlier 2026-11-01 revision prioritised concept review, visual exploration and optional self-checks. It kept 42 questions, identifying 10 new originals and 32 project questions with unverified exam provenance. It passed 65/65 concept-first browser checks, 695/695 module checks and 22/22 optional question checks. See the [dated record](evidence/concept_first_verification.md). The later exam-only version superseded that catalogue.
 
-## 早先阶段与首轮审查（历史记录）
+The 2026-10-31 [teaching review](TEACHING_REVIEW_STATS125.md) established STATS125 as the default route, with later STATS210 content optional. That historical implementation kept the original 32 and added 10 core questions, totalling **30 core / 8 preview / 4 further exploration**, with separate filtering and counts. Conditional and total expectation, discrete E[g(X)] and variance remained core. Questions could load matching plot/table parameters and x selections. See the [content verification](evidence/content_verification.md).
 
-2026-11-01 较早一次反馈后的定位（已由上述真题版本替代）：**知识点回顾 → 图表可视化理解 → 可选自测**。首页先进入概念回顾，四模块均先展示知识要点与观察提示；练习移至末尾并默认收起，侧栏进度也收起。现有 42 题保留：新增 10 题明确为原创自测，原项目 32 题的真题来源未逐题核实，本轮没有新增历年真题。当前本地改版及 65/65 新浏览器检查、695/695 模块与 22/22 可选练习流程见 [最新验证](evidence/concept_first_verification.md)；本轮尚未推送。
+The subsequent [layout work](evidence/layout_verification.md) improved question access, clipped text/formulas and use of space. Wide layouts placed tables and questions side by side, narrow layouts stacked them, theory used full width and 3D was initially collapsed. Results were 695/695 module checks, 77/77 layout checks and 22/22 student-flow checks. Their `layout_*` results preserve that version's fingerprints.
 
-2026-10-31 教学定位：**服务当前 STATS125 学生，少量内容为后续 STATS210 作可选铺垫。** [教学复核及实施](TEACHING_REVIEW_STATS125.md) 已落实默认核心路径，保留原 32 题、增加 10 道核心练习。实际为 **30 核心 / 8 可选预习 / 4 可选拓展**，各自筛题和计数；条件期望、全期望、离散 E[g(X)] 和方差保留为核心。图形预设可从题目载入，匹配参数和选中的 x。最新结果与限制见 [内容改进验证记录](evidence/content_verification.md)。
+The earlier four fix rounds reached baseline `eabd184`. Teaching review `7852cc1`, core content `09a0f90` and layout `c534e81` were synchronised on 2026-10-31, with content SHAs checked against remote main. Teacher/student acceptance and deployment remained pending at that stage.
 
-后续用户体验改进已完成练习入口、文字/公式遮挡和页面布局调整，见 [最新布局验证记录](evidence/layout_verification.md)。首页按钮及模块顶部入口可直达练习；宽屏练习/表格并排，窄屏堆叠，理论全宽展开，3D 默认折叠。695/695 模块、77/77 布局、22/22 学生流程通过；本轮结果另存 layout_*，原证据保留。
+The first audit was dated **2026-10-21**, Pacific/Auckland, against `0f609deed5caac75f55542ead1a0b4cd808f4f52`. It identified **11 confirmed issues, comprising 8 P1 and 3 P2**, with session isolation requiring further verification. By 2026-10-30 all 11 were fixed and verified, along with seven additional groups involving session isolation, model assumptions, boundaries, restart, assets and themes.
 
-此前四次修复已同步 GitHub，基线为 `eabd184`；之后的教学复核 `7852cc1`、核心内容改进 `09a0f90`、页面布局改进 `c534e81` 也已于 2026-10-31 同步。推送后的内容提交与远端 main 一致；同步检查及记录见 [工作日志](WORKLOG.md)。以下首轮和 2026-10-30 数值验证保留为历史记录。教师/学生使用验收待进行，尚未部署。
+The [2026-10-30 verification](evidence/final_verification.md) records R1-04 102/102, R1-05 11/11, R1-06 124/124, remaining checks 300/300, independent rational calculations 10/10 and image resources 13/13. The evidence identifies the specific inputs and workflows covered.
 
-审查日期：2026-10-21（Pacific/Auckland）。代码基线：`0f609deed5caac75f55542ead1a0b4cd808f4f52`。
+At that stage the command was `./review/scripts/run_regression.ps1`, writing `final_*.json` by default, or another prefix such as `content`. Run `test_assets.ps1` after starting the app, using `-BaseUrl` and `-ReportPath` as needed. Direct tests pass one shared `new_pmf_state()` to the three table modules within the same session. Internal legacy checks retain assertions for the original 32 questions. The student interface cannot choose legacy.
 
-首轮审查发现 **11 项已确认问题（8 项 P1、3 项 P2）**，另有会话隔离等待验证事项。**2026-10-30：首轮 11 项全部已修复并验证，另修复会话隔离、模型前提、边界、重启、图片和主题等 7 组问题**。此结果不表示应用已通过整体验收。
+- [R1-04 verification](evidence/r1_04_verification.md) includes 10/10 rational checks, 102/102 module interactions and reruns of R1-05 11/11 and R1-06 124/124. Run `test_r1_04.R` before `test_r1_04_math.py`.
+- [R1-05 verification](evidence/r1_05_verification.md) contains before/after results, 11 actual module cases and browser evidence. Run `Rscript --vanilla review/scripts/test_r1_05.R`. The original `round1_*` expressions are retained as reproductions of the old defects.
+- [R1-06 verification](evidence/r1_06_verification.md) covers validation, normalisation, draft/committed state and browser behaviour across the three table modules. That stage passed 124/124 and reran [R1-05 at 11/11](evidence/r1_05_after_r1_06.json). Load `pmf_helpers.R` before standalone module tests.
 
-2026-10-30 历史结果见 [全量验证记录](evidence/final_verification.md)：R1-04 102/102、R1-05 11/11、R1-06 124/124、本轮 300/300，以及独立有理数核算 10/10、图片资源 13/13。覆盖以各项证据为准，不是所有输入组合或部署验收。
-
-当时复测从仓库根目录运行 `./review/scripts/run_regression.ps1`；新增分层检查已纳入。默认写入 `final_*.json`，使用 `-ReportPrefix content` 可另存本轮结果。应用启动后运行 `./review/scripts/test_assets.ps1`，可用 `-BaseUrl` 与 `-ReportPath` 指定服务/输出。直接调用当前模块需先加载 `pmf_helpers.R`、`past_exam_bank.R`、`learning_content.R`、`learning_practice.R`；同一学生会话显式传入同一个 `new_pmf_state()`。旧题库专项测试显式使用内部 `legacy` 路径保持原 32 题断言，新增测试另外核验真实应用默认核心；学生界面不能选择 `legacy`。
-
-R1-04 的 [验证记录](evidence/r1_04_verification.md) 包含 10/10 题有理数复核、102/102 真实练习交互检查，以及 R1-05 11/11、R1-06 124/124 的重跑结果。复现需先运行 `Rscript --vanilla review/scripts/test_r1_04.R`，再运行 `python review/scripts/test_r1_04_math.py`。
-
-R1-05 的 [验证记录](evidence/r1_05_verification.md) 包含修复前后对比、11 个真实模块输出案例和浏览器证据。运行当前回归检查：`Rscript --vanilla review/scripts/test_r1_05.R`。首轮 `round1_*` 证据保持原样；首轮脚本中的 `actual_scalar_ifelse`、`invalid_mass_normalization` 是旧表达式复现，修复后状态以专项回归为准。
-
-R1-06 的 [验证记录](evidence/r1_06_verification.md) 包含三模块输入校验、归一化、草稿/结果同步及浏览器证据：124/124 通过；[R1-05 本次重跑](evidence/r1_05_after_r1_06.json) 为 11/11。独立检查：`Rscript --vanilla review/scripts/test_r1_06.R`。直接测试单个模块时需先加载 `modules/pmf_helpers.R`；正常启动由 `main.R` 加载。
-
-| 记录 | 用途 |
+| Record | Purpose |
 |---|---|
-| [COURSE_MAP.md](COURSE_MAP.md) | 本地课程来源、章节页码、模块对应关系 |
-| [TEACHING_REVIEW_STATS125.md](TEACHING_REVIEW_STATS125.md) | 125 主线、逐题分层、教学缺口、可直接实施的核心练习与先修说明 |
-| [ISSUES.md](ISSUES.md) | 问题编号、复现、预期、证据、修复建议和验收条件 |
-| [WORKLOG.md](WORKLOG.md) | 本轮工作、时间口径和后续工时记录模板 |
-| [HANDOVER.md](HANDOVER.md) | 修复顺序、范围边界和待确认事项 |
-| [浏览器记录](evidence/round1_browser.md) | 人机交互复现及覆盖限制 |
-| [数值结果](evidence/round1_numeric.json)、[联合题库结果](evidence/round1_joint.json) | 可复算证据 |
+| [COURSE_MAP.md](COURSE_MAP.md) | Course sources, chapter/page locations and module mapping |
+| [TEACHING_REVIEW_STATS125.md](TEACHING_REVIEW_STATS125.md) | STATS125 focus, question classification, gaps, core exercises and prerequisites |
+| [ISSUES.md](ISSUES.md) | Issue IDs, reproduction, expected behaviour, evidence, fixes and acceptance criteria |
+| [WORKLOG.md](WORKLOG.md) | Dated implementation and verification history |
+| [HANDOVER.md](HANDOVER.md) | Current delivery scope and remaining acceptance items |
+| [Browser record](evidence/round1_browser.md) | Original interaction reproductions and coverage |
+| [Numerical results](evidence/round1_numeric.json), [joint bank results](evidence/round1_joint.json) | Reproducible numerical evidence |
 
-## 首轮覆盖（2026-10-21 历史范围）
+## Initial coverage on 2026-10-21
 
-| 模块 | 已检查 | 本轮深度与限制 |
+| Module | Checked | Depth and limits at that stage |
 |---|---|---|
-| Home | 导航、学习顺序、参数说明 | 未做完整无障碍审查 |
-| Probability Overview | 离散/连续入口、默认 Bernoulli、几何分布说明、连续 Uniform；源码中 PMF/PDF/CDF 实现 | 7 种离散分布和 8 种连续分布未逐一完成全参数浏览器回归；几何/负二项 p=1 已执行源码表达式验证 |
-| Game: Discrete | 开始、第一章 Poisson 和第二章 DU 的选择、成功反馈及解释 | 7 章中前 2 章实际操作，后 5 章尚待浏览器回归 |
-| Joint | 默认表、负输入、Generate、Uniform、题库输入与导航；10 题独立复算 | 题库全部表格/数值已核对，未逐题点击全部提示层级 |
-| Conditional | 默认条件表、错误名称提交、第 4 题提交与反馈；13 题题干及答案结构 | 6 道数值题已复算；7 道分布名称题检查类型与参数，完整文本接受规则仍需改进 |
-| Expectation | 默认期望输出、第 4 题精确分数提交；9 题复算与输入结构 | 第 8 题要求两个数但只检查一个；未完成全部交互组合回归 |
+| Home | Navigation, learning order and parameter explanations | Full accessibility review pending |
+| Probability Overview | Discrete/continuous entry, default Bernoulli, Geometric explanation, continuous Uniform and source PMF/PDF/CDF implementations | Complete browser parameter coverage for seven discrete and eight continuous models pending. Geometric/Negative Binomial p=1 expressions were checked in R. |
+| Game: Discrete | Start, Poisson chapter 1, Discrete Uniform chapter 2, selection, feedback and explanation | First two of seven chapters operated in the browser. |
+| Joint | Default table, negative input, Generate, Uniform, question entry/navigation and 10 independent calculations | All bank tables/numbers checked, with only selected hint levels clicked. |
+| Conditional | Default table, wrong distribution-name submission, Q4 feedback and 13 question/answer structures | Six numerical calculations and seven name/parameter checks. Full text-acceptance rules needed work. |
+| Expectation | Default output, Q4 exact-fraction submission and nine question calculations/structures | Q8 requested two values but checked one. Complete interaction combinations pending. |
 
-课程阅读采用两本主课程手册的相关章节定位与核对，**没有逐份阅读下载目录内所有历史版本、作业或试卷**。STATS210 当前下载目录中的完整手册是 2024 年版本，应保留版本标记。课程原 PDF、抽取文本和页面图像留在 `G:\STATS` 或被忽略的 `.local/course-review/`，不加入 Git。
+Course review used relevant chapters from the two main coursebooks. The downloaded STATS210 complete coursebook is the 2024 edition. Original PDFs, extracted text and page images were held in `G:\STATS` or `.local/course-review/` during the historical review.
 
-## 复测与历史证据
-
-完整回归：
+## Regression reproduction
 
 ```powershell
 ./review/scripts/run_regression.ps1
 ```
 
-默认使用本机 R 4.6.1 与 Inkscape 自带 Python，可用 `-RscriptPath`、`-PythonPath` 指定其他安装位置。旧模块检查依赖项目现有 R 包和 Python 标准库；最新真题集成检查另需私有 JSON 与本地 PDF。`test_assets.ps1` 需先运行 `Rscript Start-Shiny.R --no-browser`。
+The script defaults to the local R 4.6.1 and Inkscape Python installations. Override them with `-RscriptPath` and `-PythonPath`. Module checks use the app's R packages and Python's standard library. Past-exam integration needs the bank and matching PDFs. Start `Rscript Start-Shiny.R --no-browser` before running `test_assets.ps1`.
 
-`round1_audit.R` / `round1_joint_audit.py` 保留用于首轮基线 `0f609de` 的复现，包含旧错误表达式。它们不是当前回归入口；不要在当前代码上运行并覆盖 `round1_*` 历史结果。当前模块的共享判题函数已移至 `pmf_helpers.R`，应使用真实模块回归脚本。
+`round1_audit.R` and `round1_joint_audit.py` reproduce baseline `0f609de` and include the old erroneous expressions. Keep their historical outputs separate from current module tests. Shared answer-checking functions now reside in `pmf_helpers.R`.

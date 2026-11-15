@@ -1,0 +1,423 @@
+{
+  "schema_version": 1,
+  "sources": {
+    "s26s1": {
+      "course": "STATS125",
+      "document_type": "final_exam",
+      "year": 2026,
+      "semester": "S1",
+      "question_path": "pdfs/2026_S1/exam26_S1_Qs_final.pdf",
+      "question_file": "exam26_S1_Qs_final.pdf",
+      "question_md5": "abd9b3a647d9698aa6b749254896f50f",
+      "question_sha256": "34a7137206448da80c8ad1aca2fcf689e40a8d96218e376ac30328e04255f502",
+      "solution_path": "pdfs/2026_S1/exam26_S1_Sol_final.pdf",
+      "solution_file": "exam26_S1_Sol_final.pdf",
+      "solution_md5": "bc681ef1d07b3e893088624b5805bfda",
+      "solution_sha256": "4a443348dcd978e337e6521eec70dedc1c144570a47e4b0f1c20ec73b971fd3d"
+    },
+    "s25s1": {
+      "course": "STATS125",
+      "document_type": "final_exam",
+      "year": 2025,
+      "semester": "S1",
+      "question_path": "pdfs/2025_S1/exam25_S1.pdf",
+      "question_file": "exam25_S1.pdf",
+      "question_md5": "c5feec853c96705541ee4754d147a4ef",
+      "question_sha256": "5fdf9535e64ec0dbb5a42ae6aaa49b9f148bd3fd708e1093948d14f6cdfb0457",
+      "solution_path": "pdfs/2025_S1/exam25_S1_Sol.pdf",
+      "solution_file": "exam25_S1_Sol.pdf",
+      "solution_md5": "e0b78bb7fbcb582aa29467f52dc89497",
+      "solution_sha256": "241b24964d12b5382f5c1326e5707c1258e1bb8d4798d282317d20a0e827fa5b"
+    },
+    "s24s2": {
+      "course": "STATS125",
+      "document_type": "final_exam",
+      "year": 2024,
+      "semester": "S2",
+      "question_path": "pdfs/2024_S2/exam24_S2.pdf",
+      "question_file": "exam24_S2.pdf",
+      "question_md5": "558292a64c5426e81394346f10d137a2",
+      "question_sha256": "2e1d1eeb6b76c2b2657f071f33b538bcb5325979655bf4b5aaf44894a35ad190",
+      "solution_path": "pdfs/2024_S2/exam24_S2_Sol.pdf",
+      "solution_file": "exam24_S2_Sol.pdf",
+      "solution_md5": "b97ddaa5b6358b1187a7fededd8da7d2",
+      "solution_sha256": "f2400463704a1cd26c737e65f989504e5ae4d8677300f316e5d0ba88b7c7aa56"
+    }
+  },
+  "questions": [
+    {
+      "key": "EX26S1Q2",
+      "module": "overview",
+      "source_id": "s26s1",
+      "source_question": "Q2(a)–(d)",
+      "source_pages": [
+        3
+      ],
+      "solution_pages": [
+        4
+      ],
+      "adapted": false,
+      "adaptation_note": "Original subparts selected; page layout, notation rendering and answer-entry fields changed only. Question meaning and numerical data are unchanged.",
+      "title": "2026 S1: a Poisson count model",
+      "track": "core",
+      "stage": "foundation",
+      "question": "<p>On a Saturday night, police set up a breath-testing checkpoint, where every passing motorist is stopped and breath-tested. Assume that an average of 4 motorists per minute pass through the checkpoint. Let X represent the number of motorists who are checked in a period of two minutes.</p><p><b>(a)</b> Name the most appropriate (named) discrete distribution to model X and state its parameter(s) and their value(s). If you believe additional assumptions are necessary, clearly state what these assumptions are.</p><p>Use your model in part (a) and its parameter/s to answer (b) to (d).</p><p><b>(b)</b> Find E(X) and sd(X).</p><p><b>(c)</b> What is the probability that exactly two motorists are checked in any given two minutes at this checkpoint?</p><p><b>(d)</b> What is the probability that fewer than two motorists are checked in any given two minutes at this checkpoint?</p>",
+      "fields": [
+        {
+          "key": "model",
+          "label": "(a) Distribution",
+          "expected": "Poisson",
+          "kind": "distribution"
+        },
+        {
+          "key": "lambda",
+          "label": "(a) Parameter lambda",
+          "expected": 8,
+          "kind": "numeric"
+        },
+        {
+          "key": "mean",
+          "label": "(b) E(X)",
+          "expected": 8,
+          "kind": "numeric"
+        },
+        {
+          "key": "sd",
+          "label": "(b) sd(X)",
+          "expected": 2.8284271247461903,
+          "kind": "numeric"
+        },
+        {
+          "key": "exact",
+          "label": "(c) P(X=2)",
+          "expected": 0.01073480409288038,
+          "kind": "numeric"
+        },
+        {
+          "key": "less",
+          "label": "(d) P(X<2)",
+          "expected": 0.003019163651122607,
+          "kind": "numeric"
+        }
+      ],
+      "story": "",
+      "table_ui": "",
+      "hint1": "Convert the per-minute rate into the expected count over the full observation interval.",
+      "hint2": "Use lambda=4*2. Exactly two uses the PMF at 2; fewer than two uses the CDF at 1.",
+      "solution": "<b>Reference answer:</b><br>X is Poisson(lambda=4*2=8), assuming independent arrivals at a constant rate and no simultaneous arrivals. E(X)=8 and sd(X)=sqrt(8). P(X=2)=exp(-8)*8^2/2!=0.0107348041; P(X<2)=P(X=0)+P(X=1)=9*exp(-8)=0.00301916365. The automatic check covers model/numeric entries; compare your written assumptions with this reference.",
+      "tolerance": 0.0001,
+      "plot_examples": [
+        "paper26s1q2_exact",
+        "paper26s1q2_less"
+      ]
+    },
+    {
+      "key": "EX25S1Q3",
+      "module": "joint",
+      "source_id": "s25s1",
+      "source_question": "Q3(c)–(d)",
+      "source_pages": [
+        3
+      ],
+      "solution_pages": [
+        4,
+        5
+      ],
+      "adapted": false,
+      "adaptation_note": "Original subparts selected; page layout, notation rendering and answer-entry fields changed only. Question meaning and numerical data are unchanged.",
+      "title": "2025 S1: marginals and independence",
+      "track": "core",
+      "stage": "joint",
+      "question": "<p>The random variables X,Y have the joint p.m.f. shown in the reference table.</p><p><b>(c)</b> Find the marginal p.m.f.s f_X(x) and f_Y(y).</p><p><b>(d)</b> Are X and Y independent? Justify your answer.</p>",
+      "fields": [
+        {
+          "key": "fx1",
+          "label": "(c) f_X(1)",
+          "expected": 0.4,
+          "kind": "numeric"
+        },
+        {
+          "key": "fx4",
+          "label": "(c) f_X(4)",
+          "expected": 0.2,
+          "kind": "numeric"
+        },
+        {
+          "key": "fx5",
+          "label": "(c) f_X(5)",
+          "expected": 0.4,
+          "kind": "numeric"
+        },
+        {
+          "key": "fy4",
+          "label": "(c) f_Y(4)",
+          "expected": 0.4,
+          "kind": "numeric"
+        },
+        {
+          "key": "fy5",
+          "label": "(c) f_Y(5)",
+          "expected": 0.6,
+          "kind": "numeric"
+        },
+        {
+          "key": "independent",
+          "label": "(d) Are X and Y independent?",
+          "expected": "no",
+          "kind": "choice",
+          "choices": {
+            "Choose an answer": "",
+            "Independent": "yes",
+            "Not independent": "no"
+          }
+        }
+      ],
+      "story": "<table class=\"pmf-table\"><caption>Joint PMF from the examination</caption><thead><tr><th>X / Y</th><th>Y=4</th><th>Y=5</th></tr></thead><tbody><tr><th>X=1</th><td>0.1</td><td>0.3</td></tr><tr><th>X=4</th><td>0.1</td><td>0.1</td></tr><tr><th>X=5</th><td>0.2</td><td>0.2</td></tr></tbody></table>",
+      "table_ui": "<table class=\"pmf-table\"><caption>Joint PMF from the examination</caption><thead><tr><th>X / Y</th><th>Y=4</th><th>Y=5</th></tr></thead><tbody><tr><th>X=1</th><td>0.1</td><td>0.3</td></tr><tr><th>X=4</th><td>0.1</td><td>0.1</td></tr><tr><th>X=5</th><td>0.2</td><td>0.2</td></tr></tbody></table>",
+      "hint1": "Add along rows and columns before checking independence.",
+      "hint2": "Independence requires the joint probability to equal the product of the marginals for every supported pair.",
+      "solution": "<b>Reference answer:</b><br>The X marginal is (0.4,0.2,0.4) at x=1,4,5. The Y marginal is (0.4,0.6) at y=4,5, and both PMFs are zero otherwise. They are not independent: f(1,4)=0.1 differs from f_X(1)f_Y(4)=0.4*0.4=0.16. The automatic choice checks the conclusion; compare your justification with the reference.",
+      "tolerance": 0.0001,
+      "pmf_example": "paper25s1q3"
+    },
+    {
+      "key": "EX24S2Q3",
+      "module": "conditional",
+      "source_id": "s24s2",
+      "source_question": "Q3(e)",
+      "source_pages": [
+        3
+      ],
+      "solution_pages": [
+        4
+      ],
+      "adapted": false,
+      "adaptation_note": "Original subparts selected; page layout, notation rendering and answer-entry fields changed only. Question meaning and numerical data are unchanged.",
+      "title": "2024 S2: condition on X=0",
+      "track": "core",
+      "stage": "conditional",
+      "question": "<p>The joint probability mass function of X and Y is given by the reference table.</p><p><b>(e)</b> Find the conditional p.m.f. f_{Y|X}(y|0) for Y given {X=0}.</p>",
+      "fields": [
+        {
+          "key": "y0",
+          "label": "(e) f_{Y|X}(0|0)",
+          "expected": 0.5,
+          "kind": "numeric"
+        },
+        {
+          "key": "y1",
+          "label": "(e) f_{Y|X}(1|0)",
+          "expected": 0.3333333333333333,
+          "kind": "numeric"
+        },
+        {
+          "key": "y2",
+          "label": "(e) f_{Y|X}(2|0)",
+          "expected": 0.16666666666666666,
+          "kind": "numeric"
+        }
+      ],
+      "story": "<table class=\"pmf-table\"><caption>Joint PMF from the examination</caption><thead><tr><th>X / Y</th><th>Y=0</th><th>Y=1</th><th>Y=2</th></tr></thead><tbody><tr><th>X=0</th><td>0.3</td><td>0.2</td><td>0.1</td></tr><tr><th>X=1</th><td>0.2</td><td>0.1</td><td>0.1</td></tr></tbody></table>",
+      "table_ui": "<table class=\"pmf-table\"><caption>Joint PMF from the examination</caption><thead><tr><th>X / Y</th><th>Y=0</th><th>Y=1</th><th>Y=2</th></tr></thead><tbody><tr><th>X=0</th><td>0.3</td><td>0.2</td><td>0.1</td></tr><tr><th>X=1</th><td>0.2</td><td>0.1</td><td>0.1</td></tr></tbody></table>",
+      "hint1": "Fix the row meeting the condition, then find its total probability.",
+      "hint2": "The conditioning probability is 0.6. Rescale each joint entry in that row by this denominator.",
+      "solution": "<b>Reference answer:</b><br>P(X=0)=0.3+0.2+0.1=0.6. Divide the X=0 row by 0.6: the conditional PMF is (1/2,1/3,1/6) at y=0,1,2, and zero otherwise. The conditional probabilities sum to 1.",
+      "tolerance": 0.0001,
+      "pmf_example": "paper24s2q3"
+    },
+    {
+      "key": "EX26S1Q3",
+      "module": "expectation",
+      "source_id": "s26s1",
+      "source_question": "Q3(d), (g)",
+      "source_pages": [
+        3,
+        4
+      ],
+      "solution_pages": [
+        5,
+        6
+      ],
+      "adapted": true,
+      "adaptation_note": "Visual representation adapted: the piecewise PMF is shown as an equivalent table, with zero cells made explicit. Variables, data and selected tasks are unchanged.",
+      "title": "2026 S1: joint and conditional expectations",
+      "track": "core",
+      "stage": "conditional",
+      "question": "<p>The random variables X,Y have the joint p.m.f. shown in the equivalent table. Unlisted pairs in the original piecewise PMF have probability zero.</p><p><b>(d)</b> Compute E(XY).</p><p><b>(g)</b> Compute E(Y | X=2), the conditional expectation for Y given X=2.</p>",
+      "fields": [
+        {
+          "key": "exy",
+          "label": "(d) E(XY)",
+          "expected": 1.8,
+          "kind": "numeric"
+        },
+        {
+          "key": "conditional_mean",
+          "label": "(g) E(Y | X=2)",
+          "expected": 2.25,
+          "kind": "numeric"
+        }
+      ],
+      "story": "<table class=\"pmf-table\"><caption>Joint PMF from the examination</caption><thead><tr><th>X / Y</th><th>Y=1</th><th>Y=2</th><th>Y=3</th></tr></thead><tbody><tr><th>X=-1</th><td>0.1</td><td>0</td><td>0.2</td></tr><tr><th>X=1</th><td>0.1</td><td>0</td><td>0.2</td></tr><tr><th>X=2</th><td>0.1</td><td>0.1</td><td>0.2</td></tr></tbody></table>",
+      "table_ui": "<table class=\"pmf-table\"><caption>Joint PMF from the examination</caption><thead><tr><th>X / Y</th><th>Y=1</th><th>Y=2</th><th>Y=3</th></tr></thead><tbody><tr><th>X=-1</th><td>0.1</td><td>0</td><td>0.2</td></tr><tr><th>X=1</th><td>0.1</td><td>0</td><td>0.2</td></tr><tr><th>X=2</th><td>0.1</td><td>0.1</td><td>0.2</td></tr></tbody></table>",
+      "hint1": "For the first expectation weight each product xy. For the second, first restrict to X=2.",
+      "hint2": "The X=2 row has probability 0.4. Normalise it, then form the weighted mean of Y.",
+      "solution": "<b>Reference answer:</b><br>E(XY)=sum x*y*f(x,y)=1.8. P(X=2)=0.4, so the Y conditional probabilities at y=1,2,3 are (1/4,1/4,1/2). The conditional expectation is 1*(1/4)+2*(1/4)+3*(1/2)=9/4=2.25.",
+      "tolerance": 0.0001,
+      "pmf_example": "paper26s1q3"
+    }
+  ],
+  "tables": {
+    "paper25s1q3": {
+      "label": "2025 S1 Q3 — joint PMF",
+      "note": "STATS125 2025 Semester 1, Question 3: joint PMF from the original examination.",
+      "rows": [
+        {
+          "x": 1,
+          "y": 4,
+          "p_value": 0.1
+        },
+        {
+          "x": 1,
+          "y": 5,
+          "p_value": 0.3
+        },
+        {
+          "x": 4,
+          "y": 4,
+          "p_value": 0.1
+        },
+        {
+          "x": 4,
+          "y": 5,
+          "p_value": 0.1
+        },
+        {
+          "x": 5,
+          "y": 4,
+          "p_value": 0.2
+        },
+        {
+          "x": 5,
+          "y": 5,
+          "p_value": 0.2
+        }
+      ]
+    },
+    "paper24s2q3": {
+      "label": "2024 S2 Q3 — conditional PMF",
+      "note": "STATS125 2024 Semester 2, Question 3: use the original joint PMF to condition on X=0.",
+      "rows": [
+        {
+          "x": 0,
+          "y": 0,
+          "p_value": 0.3
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "p_value": 0.2
+        },
+        {
+          "x": 0,
+          "y": 2,
+          "p_value": 0.1
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "p_value": 0.2
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "p_value": 0.1
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "p_value": 0.1
+        }
+      ]
+    },
+    "paper26s1q3": {
+      "label": "2026 S1 Q3 — joint and conditional means",
+      "note": "STATS125 2026 Semester 1, Question 3: the original piecewise PMF is displayed as an equivalent table; unlisted pairs have probability zero.",
+      "rows": [
+        {
+          "x": -1,
+          "y": 1,
+          "p_value": 0.1
+        },
+        {
+          "x": -1,
+          "y": 2,
+          "p_value": 0.0
+        },
+        {
+          "x": -1,
+          "y": 3,
+          "p_value": 0.2
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "p_value": 0.1
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "p_value": 0.0
+        },
+        {
+          "x": 1,
+          "y": 3,
+          "p_value": 0.2
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "p_value": 0.1
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "p_value": 0.1
+        },
+        {
+          "x": 2,
+          "y": 3,
+          "p_value": 0.2
+        }
+      ]
+    }
+  },
+  "graphs": {
+    "paper26s1q2_exact": {
+      "label": "2026 S1 Q2(c): PMF at the requested count",
+      "paths": [
+        "core"
+      ],
+      "type": "discrete",
+      "dist": "pois",
+      "inputs": {
+        "lambda": 8
+      },
+      "x": 2,
+      "note": "STATS125 2026 S1 Q2(c): the original two-minute Poisson model. Read the PMF at the selected value."
+    },
+    "paper26s1q2_less": {
+      "label": "2026 S1 Q2(d): CDF for a strict inequality",
+      "paths": [
+        "core"
+      ],
+      "type": "discrete",
+      "dist": "pois",
+      "inputs": {
+        "lambda": 8
+      },
+      "x": 1,
+      "note": "STATS125 2026 S1 Q2(d): the strict event is evaluated by the CDF at 1, not at 2."
+    }
+  }
+}

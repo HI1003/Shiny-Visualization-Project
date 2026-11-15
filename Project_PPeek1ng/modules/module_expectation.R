@@ -15,7 +15,7 @@ expectation_css <- tags$head(tags$style(HTML("
 # ---- Shared probability parsing and validation ----
 # main.R loads pmf_helpers.R before this module; direct module tests must do so too.
 
-# ---- 小数近似成分数（显示）----
+# ---- Approximate decimals as fractions for display----
 simp_frac <- function(x, tol = 1e-12, max_den = 500) {
   if (is.na(x) || !is.finite(x)) return("?")
   for (den in 1:max_den) {
@@ -26,7 +26,7 @@ simp_frac <- function(x, tol = 1e-12, max_den = 500) {
   format(signif(x, 10), scientific = FALSE, trim = TRUE)
 }
 
-# ---- 转成 LaTeX 分数显示 ----
+# ---- Render fractions with LaTeX ----
 to_tex_frac <- function(s) {
   if (grepl("/", s)) {
     ab <- strsplit(s, "/", fixed = TRUE)[[1]]
@@ -34,7 +34,7 @@ to_tex_frac <- function(s) {
   } else paste0("\\(", s, "\\)")
 }
 
-# ---- 包装 HTML/MathJax 容器 ----
+# ---- Wrap content in an HTML/MathJax container ----
 wrap_div <- function(id, content) {
   div(
     id = id,
@@ -109,7 +109,7 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
     
     ns <- session$ns
     
-    # ========================== 输入逻辑与概率表 ============================
+    # ========================== Input handling and probability tables ============================
     init_df <- data.frame(
       x = c(0, 0, 1, 1),
       y = c(0, 1, 0, 1),
@@ -120,7 +120,7 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
     init_df$p_value <- sapply(init_df$p_input, parse_user_prob)
     
 
-    # 初始化或加载全局（避免首次进入拿到旧数据）
+    # Initialise or load shared state, avoiding stale data on first entry
     isolate({
       if (is.null(pmf_global$df_edit) || !isTRUE(pmf_global$has_final)) {
         pmf_global$df_edit  <- init_df
@@ -130,12 +130,12 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
       }
     })
     
-    # 本模块的本地副本（用 isolate 取初值，避免“在 reactive 外访问”错误）
+    # Module-local copy, initialised with isolate to avoid access outside a reactive context
     pmf_edit    <- reactiveVal(isolate(pmf_global$df_edit))
     pmf_final   <- reactiveVal(isolate(pmf_global$df_final))
     row_counter <- reactiveVal(isolate(pmf_global$counter))
     
-    # 只有全局 has_final=TRUE 时，才自动把全局同步灌入当前模块
+    # Synchronise shared data into this module only when has_final=TRUE
     observe({
       req(isTRUE(pmf_global$has_final))
       pmf_edit(pmf_global$df_edit)
@@ -143,7 +143,7 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
       row_counter(pmf_global$counter)
     })
     
-    # ---- 输入区 ----
+    # ---- Input controls ----
     output$input_panel <- renderUI({
       df <- pmf_edit()
       if (is.null(df) || !"id" %in% names(df)) {
@@ -170,7 +170,7 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
       )
     })
     
-    # ---- 数据更新 ----
+    # ---- Data updates ----
     df_current <- reactive({
       df <- pmf_edit()
       needed_cols  <- c("x", "y", "p_input", "p_value", "id")
@@ -194,7 +194,7 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
       df
     })
     
-    # ---- 增删改查 ----
+    # ---- Add, remove and edit rows ----
     observeEvent(input$add_row, {
       df <- df_current()
       needed_cols  <- c("x", "y", "p_input", "p_value", "id")
@@ -249,7 +249,7 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
       row_tot <- rowSums(mat)
       col_tot <- colSums(mat)
       
-      # 联合表
+      # Joint table
       joint_html <- tags$table(
         class = "pmf-table",
         tags$thead(
@@ -289,10 +289,10 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
         tags$p(class="small-note",HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)"))
       )
     })
-    # ========================== 输入逻辑与概率表 ============================
+    # ========================== Input handling and probability tables ============================
     
-    # ========================== 期望计算 ============================
-    # ---- 普通期望 ----
+    # ========================== Expectation calculations ============================
+    # ---- Unconditional expectation ----
     output$expectation_results <- renderUI({
       df <- pmf_final(); req(nrow(df) > 0)
       
@@ -321,7 +321,7 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
       )
     })
     
-    # ---- 条件期望 ----
+    # ---- Conditional expectation ----
     output$expectation_detail <- renderUI({
       df <- pmf_final(); req(nrow(df) > 0)
       type <- input$cond_type; if (is.null(type)) type <- "yx"
@@ -479,9 +479,9 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
                 "expectation-flow-total"))))
       ))
     })
-    # ========================== 期望计算 ============================
+    # ========================== Expectation calculations ============================
     # ============================================================
-    # 题库
+    # Question bank
     # ============================================================
     get_expectation_question_bank <- function() {
       list(
@@ -858,10 +858,10 @@ expectation_Server <- function(id, shared = new_pmf_state(), course_path = funct
       )
     }
     # ============================================================
-    # 题目逻辑
+    # Question logic
     # ============================================================
     
-    # ==== 题库 ====
+    # ==== Question bank ====
     question_bank <- get_expectation_question_bank()
     practice_questions <- learning_questions(question_bank, "expectation",shiny::isolate(course_path()))
     practice <- learning_practice_server(input, output, session, practice_questions,

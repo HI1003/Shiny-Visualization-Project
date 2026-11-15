@@ -1,43 +1,43 @@
-# 课程依据与模块对应（STATS125 为主）
+# Course sources and module mapping, centred on STATS125
 
-初次核对：2026-10-21；教学定位复核：2026-10-31。以下均为 **PDF 文件页码（从 1 开始）**；所列手册正文印刷页码与 PDF 页码一致。这里只记录定位及审查结论，不复制课程全文。
+First checked on 2026-10-21. Teaching scope reviewed on 2026-10-31. All page references below are **one-based PDF pages**. The printed body-page numbers agree with the PDF pages in the listed coursebooks. This record contains source locations and review findings.
 
-**当前对象是 STATS125 学生，之后才学习 STATS210。** 本工具以 125 离散概率、联合/条件分布和期望为主；210 只提供少量可选直观铺垫，不能预设学生已经掌握连续分布和积分求矩。完整逐题复核见 [TEACHING_REVIEW_STATS125.md](TEACHING_REVIEW_STATS125.md)。
+**The intended users are current STATS125 students who will study STATS210 later.** The app concentrates on discrete probability, joint and conditional distributions, and expectation. A small optional preview introduces ideas needed later in STATS210. Continuous distributions and integration for moments cannot be assumed prerequisites. See the [question-by-question teaching review](TEACHING_REVIEW_STATS125.md).
 
-| 来源 ID | 本地课程来源 | 版本与用途 |
+| Source ID | Local course source | Version and use |
 |---|---|---|
-| C125 | `G:\STATS\STATS125\2026_S2` 下的 `Stat 125 Coursebook 2026 gapped_working file .pdf` | 2026 gapped 手册，205 页；课程定义和离散模块的主要依据 |
-| C210 | `G:\STATS\STATS210\2026_S2` 下的 `Stat 210 gapped Coursebook 2024.pdf` | 当前下载课程目录所含 2024 gapped 手册，235 页；连续分布、变换期望等依据。不能据此断言 2026 全部教学安排未变 |
+| C125 | `Stat 125 Coursebook 2026 gapped_working file .pdf` under `G:\STATS\STATS125\2026_S2` | 2026 gapped coursebook, 205 pages. Main reference for definitions and discrete modules. |
+| C210 | `Stat 210 gapped Coursebook 2024.pdf` under `G:\STATS\STATS210\2026_S2` | 2024 gapped coursebook in the downloaded course directory, 235 pages. Reference for continuous distributions and transformed expectations. Its version does not establish the complete 2026 teaching arrangements. |
 
-完整来源路径和文件 SHA-256 见 [course_sources.json](evidence/course_sources.json)。同一目录存在许多历史副本，因此未把文件总数当作独立课程资料数量。
+Source identifiers, filenames and SHA-256 fingerprints are in [course_sources.json](evidence/course_sources.json). The directory contains historical copies, so total file counts were not treated as counts of independent course resources.
 
-| 应用主题 | STATS125 对应 | STATS210 对应 | 审查用途 |
+| App topic | STATS125 reference | STATS210 reference | Review use |
 |---|---|---|---|
-| PMF / CDF 与合法概率 | §5.2 p52、§5.3 p54 | §1.2 p6、Chapter 5 p89 起 | 非负、总质量为 1；区分概率与密度 |
-| 离散分布与游戏建模 | Chapter 6 p69；几何 p79–80、负二项 p82、DU p91、Poisson p92–93 | Chapter 2 p11 起；分布汇总 p15 | 先定义随机变量、独立性和参数，再选模型；无信息不自动推出等概率 |
-| 联合、边际、事件求和 | Chapter 7 p95–96、例题 p101 | 离散回顾 p8；连续联合分布 Chapter 6 | 联合表总和、边际求和、事件所包含的格子 |
-| 条件 PMF | §7.3，定义 p114 | 离散回顾 p8；连续条件分布属于 Chapter 6 | 逐个单元格除以条件事件概率，且分母必须大于 0 |
-| 离散期望及变换 | §5.4 p58、§5.5 p60、联合期望 p96 | §1.2 p6–7 | 对数值加权，不能把变换的期望直接当作期望的变换 |
-| 连续 PDF / CDF / 期望 | STATS125 手册重点为离散模型 | Chapter 5，p102、p105–108 | 密度与点概率不同；使用积分计算连续期望 |
-| Uniform / Exponential / Gamma | 不以 C125 作为连续分布主要依据 | Uniform p169；Exponential p170–175；Gamma p178–180 | `E[X²]=∫x²f(x)dx`；Exponential 使用 rate，Gamma 使用 shape/rate |
-| 条件期望与全期望 | §8.3 p136 起；全期望 p138/p146；§8.5 p145 起 | §6.9 p153–154 | 属于 125 后半核心；先固定 x 求均值，再对 X 加权；区分数值与随机变量 |
+| PMF / CDF and valid probabilities | §5.2 p52, §5.3 p54 | §1.2 p6, Chapter 5 from p89 | Nonnegative probabilities and total mass 1. Distinguish probability from density. |
+| Discrete models and game scenarios | Chapter 6 p69, Geometric p79–80, Negative Binomial p82, Discrete Uniform p91, Poisson p92–93 | Chapter 2 from p11, distribution summary p15 | Define the variable, independence assumptions and parameters before choosing a model. Missing information alone does not establish equal probabilities. |
+| Joint, marginal and event sums | Chapter 7 p95–96, worked example p101 | Discrete review p8, continuous joint distributions in Chapter 6 | Joint-table total, marginal sums and cells belonging to an event. |
+| Conditional PMF | §7.3, definition p114 | Discrete review p8, continuous conditional distributions in Chapter 6 | Divide each cell by the conditioning-event probability, which must be positive. |
+| Discrete expectation and transformations | §5.4 p58, §5.5 p60, joint expectation p96 | §1.2 p6–7 | Weight numerical outcomes. A transformed expectation generally differs from the transformation of the expectation. |
+| Continuous PDF / CDF / expectation | The STATS125 coursebook concentrates on discrete models | Chapter 5, p102 and p105–108 | Density differs from point probability. Continuous expectations use integration. |
+| Uniform / Exponential / Gamma | C125 is not the main source for continuous models | Uniform p169, Exponential p170–175, Gamma p178–180 | `E[X²]=∫x²f(x)dx`. Exponential uses rate, Gamma uses shape/rate. |
+| Conditional and total expectation | §8.3 from p136, total expectation p138/p146, §8.5 from p145 | §6.9 p153–154 | Later STATS125 core material. First fix x and calculate the mean, then weight over X. Distinguish a value from a random variable. |
 
-已渲染并目视核对 C125 p79、p114 和 C210 p106 的公式，避免只依赖 PDF 文本抽取。其他页采用文本定位与公式核对；gapped 手册部分解题步骤为空，独立数值复算不应描述为“讲义提供了答案”。
+C125 p79 and p114 and C210 p106 were rendered and visually checked. Other referenced pages were checked through text and formula inspection. Some solution steps in the gapped books are blank. Independent numerical calculations are recorded as independent checks.
 
-最关键的课程一致性结论：C125 p79 明确定义几何分布为首次成功前的失败次数，支持集从 0 开始，并提醒其他教材可能采用总尝试次数。Overview 的实现符合这个定义，Conditional Q5–Q6 已在此前修复中显式使用平移变量。连续联合分布等 STATS210 内容目前只部分覆盖，不应在本轮扩展成新模块开发任务。
+C125 p79 explicitly defines Geometric as the number of failures before the first success, starting at 0, and notes the alternative convention counting total attempts. Overview follows that definition. Conditional Q5–Q6 explicitly use shifted variables following the earlier fix. Continuous joint distributions and other STATS210 material are only partly covered and were outside the new-module scope of this round.
 
-## 2026-10-31 的分层结论
+## Learning-path conclusions on 2026-10-31
 
-| 层级 | 当前内容 | 处理 |
+| Level | Content at that stage | Treatment |
 |---|---|---|
-| 125 核心 | 7 种离散分布；PMF/CDF、E[g(X)]、方差；联合、边际、独立、条件分布；离散条件期望和全期望 | 默认主线。后半核心标注先修章节，不因“210 也使用”而移走 |
-| 可选铺垫 | 连续 Uniform、Exponential、Normal 的密度/面积、等待时间、位置与尺度 | 在核心路径之后自愿探索，提供所需公式与定义 |
-| 后续拓展 | Gamma/Beta/χ²/t/F、积分求矩、Normal 尾概率等 | 默认收起，不作为本工具 125 核心路径必答要求；不代替课程官方考试范围 |
+| STATS125 core | Seven discrete distributions, PMF/CDF, E[g(X)], variance, joint and marginal distributions, independence, conditional distributions, discrete conditional and total expectation | Default route. Later core topics identify their prerequisite chapters and remain in STATS125. |
+| Optional preview | Density/area for continuous Uniform, Exponential and Normal, waiting times, location and scale | Voluntary exploration after the core route, with the required definitions and formulas. |
+| Further exploration | Gamma/Beta/χ²/t/F, integration for moments and Normal tail probabilities | Optional, initially collapsed content. The classification describes this app's learning route. |
 
-现有 32 题建议分层：Joint 10 题均核心；Conditional Q1–6 核心，Q7/8/9/11/12 为铺垫，Q10/13 为后续；Expectation Q1/2/7/8 核心，Q3/5/9 为铺垫，Q4/6 为后续。共 **20 核心、8 铺垫、4 后续**。E5 的方差概念本属核心，分层由其当前 Normal 包装决定，改为离散例子后可进入核心。
+The original 32 questions were classified as follows. All 10 Joint questions were core. Conditional Q1–6 were core, Q7/8/9/11/12 preview, and Q10/13 further exploration. Expectation Q1/2/7/8 were core, Q3/5/9 preview, and Q4/6 further exploration. Totals were **20 core, 8 preview and 4 further**. Variance in E5 is a core concept, but its Normal setting placed that version in preview. A discrete replacement could serve the core route.
 
-本轮补充核对了 2026 S2 的 Tutorial 4/6/7/8、测试说明与公式表；8 份选用 PDF 的路径、版本、页数和 SHA-256 记录在 [教学证据索引](evidence/teaching_scope_2026_10_31.json)。Tutorial 7 同时要求条件 PMF、模型参数与假设，Tutorial 8 使用全期望，均支持补强现有核心练习。期中测试只覆盖第 2–6 章的说明不代表整门课不含第 7–8 章。
+The review also checked 2026 S2 Tutorials 4/6/7/8, test information and the formula sheet. Identifiers, versions, page counts and SHA-256 values for the eight selected PDFs are in the [teaching evidence index](evidence/teaching_scope_2026_10_31.json). Tutorial 7 asks for conditional PMFs, model parameters and assumptions. Tutorial 8 uses total expectation. The mid-semester test's Chapters 2–6 scope applies to that test.
 
-本项目定位为第 5–8 章部分主题的辅助工具，不覆盖整门 STATS125；本轮不要求新增 Markov chains 或完整 210 课程。
+The app supports selected topics in Chapters 5–8. Adding Markov chains or implementing a complete STATS210 course was outside this review's scope.
 
-后续内容改进已实现上述原 32 题分层，并增加 10 道核心练习。实际默认路径共 30 核心题（Overview 1 / Joint 13 / Conditional 10 / Expectation 6），可选预习 8 题、可选拓展 4 题，分开计数。核心包括离散二阶矩、方差、条件期望及全期望。连续预习的图形选择只列 Uniform / Exponential / Normal，其他连续分布保留在拓展。15 个图形预设与题目相连，详细映射及验证见 [内容改进记录](evidence/content_verification.md) 和 [42 题目录/图形参数](evidence/content_learning_paths.json)。
+Subsequent historical content work implemented those classifications and added 10 core questions, giving 30 core questions (Overview 1 / Joint 13 / Conditional 10 / Expectation 6), 8 preview and 4 further-exploration questions with separate counts. Core topics included discrete second moments, variance, conditional and total expectation. Preview offered Uniform / Exponential / Normal, with the other continuous distributions in further exploration. Fifteen plotting presets linked questions to their parameters. See the [content record](evidence/content_verification.md) and [42-question catalogue and plot parameters](evidence/content_learning_paths.json). The later exam-only revision superseded that student question catalogue.

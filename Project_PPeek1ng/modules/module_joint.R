@@ -18,7 +18,7 @@ joint_css <- tags$head(tags$style(HTML("
 # ---- Shared probability parsing and validation ----
 # main.R loads pmf_helpers.R before this module; direct module tests must do so too.
 
-# ---- 小数近似成分数（边际展示用）----
+# ---- Approximate decimals as fractions for marginal displays----
 simp_frac <- function(x, tol = 1e-12, max_den = 500) {
   if (is.na(x) || !is.finite(x)) return("?")
   for (den in 1:max_den) {
@@ -104,8 +104,8 @@ joint_Server <- function(id, shared = new_pmf_state(), course_path = function() 
     
     
     ns <- session$ns
-    # ==========================输入逻辑与概率表===========================================    
-    # ---- 初始化 ----
+    # ==========================Input handling and probability tables===========================================
+    # ---- Initialisation ----
     init_df <- data.frame(
       x = c(0, 0, 1, 1),
       y = c(0, 1, 0, 1),
@@ -115,7 +115,7 @@ joint_Server <- function(id, shared = new_pmf_state(), course_path = function() 
     )
     init_df$p_value <- sapply(init_df$p_input, parse_user_prob)
     
-    # ---- 初始化或加载全局 ----
+    # ---- Initialise or load shared state ----
     isolate({
       if (is.null(pmf_global$df_edit) || !isTRUE(pmf_global$has_final)) {
         pmf_global$df_edit  <- init_df
@@ -125,7 +125,7 @@ joint_Server <- function(id, shared = new_pmf_state(), course_path = function() 
       }
     })
     
-    # 本地副本（用 isolate 取初值，防访问冲突）
+    # Local copy, initialised with isolate to avoid access conflicts
     pmf_edit    <- reactiveVal(isolate(pmf_global$df_edit))
     pmf_final   <- reactiveVal(isolate(pmf_global$df_final))
     row_counter <- reactiveVal(isolate(pmf_global$counter))
@@ -143,7 +143,7 @@ joint_Server <- function(id, shared = new_pmf_state(), course_path = function() 
     # ==========================================================
     output$input_panel <- renderUI({
       df <- pmf_edit()
-      # 防止启动时 id 不存在导致报错
+      # Guard against an absent input ID during startup
       if (is.null(df) || !"id" %in% names(df)) {
         return(tags$div(style="color:#888; padding:10px;", "Initializing table..."))
       }
@@ -169,7 +169,7 @@ joint_Server <- function(id, shared = new_pmf_state(), course_path = function() 
     })
     
     # ==========================================================
-    # 数据更新逻辑
+    # Data update logic
     # ==========================================================
     df_current <- reactive({
       df <- pmf_edit()
@@ -302,7 +302,7 @@ joint_Server <- function(id, shared = new_pmf_state(), course_path = function() 
                  HTML("\\(\\sum_x \\sum_y f_{X,Y}(x,y) = 1\\)"))
       )
     })
-    # ==========================输入逻辑与概率表===========================================
+    # ==========================Input handling and probability tables===========================================
 
     # Match the table: X runs down the rows and Y across the columns.
     output$plot_bird <- renderPlotly({
@@ -477,10 +477,10 @@ joint_Server <- function(id, shared = new_pmf_state(), course_path = function() 
     }
 
     # ============================================================
-    # 题目逻辑 
+    # Question logic
     # ============================================================
     
-    # ==== 题库 ====
+    # ==== Question bank ====
     question_bank <- get_joint_question_bank()
     practice_questions <- learning_questions(question_bank, "joint",shiny::isolate(course_path()))
     practice <- learning_practice_server(input, output, session, practice_questions,

@@ -1,251 +1,188 @@
-# 第一轮问题清单
+# First-round issue register
 
-2026-11-14 状态更新：下述学生流程审查中提出的二维图表达概率大小、全期望加权展示、编辑区默认折叠、路径内容重复与空真题区域均已有对应改进。Joint 和 Conditional 的 3D 图已移除，Expectation 使用与表格一致的乘法及加法流程图。仅含 Git 版本文件的副本已完成首次安装、启动和 Chrome 核验，本次三轮快速切页未复现空白；该结果不覆盖全部启动时序。交付复核结果与限制见 [交接记录](HANDOVER.md)，教师/学生教学验收仍待完成。以下按原日期保留历史记录。
+**2026-11-16 update.** The user requested English documentation/comments and distribution of the selected exam bank and six source PDFs with the public repository. Current loading is described in [PAST_EXAM_SELECTION.md](PAST_EXAM_SELECTION.md).
 
-2026-11-12 新增 [学生流程审查](STUDENT_EXPERIENCE_REVIEW_20261112.md)：UX-01–UX-06 已在本地修复并复核，包含真题跳回图表、条件方向保留、游戏空提交/翻页定位、游戏与深色期望标题对比。下一轮待办为二维图表达概率大小、展示全期望加权过程、默认折叠编辑器/精简说明，以及明确路径和静态真题解答显示策略。冷启动快速切页现象仍需独立确认；这些项目未标成已完成的教学验收。本轮未提交或推送。
+**2026-11-14 update.** The student-task findings concerning probability encoding, total expectation, collapsed editors, overlapping paths and empty exam sections have corresponding improvements. Joint/Conditional 3D views were removed. Expectation uses a table-matched multiplication/addition flow. A tracked-files-only export completed installation, launch and Chrome checks. Three rapid-navigation rounds recovered correctly. See the [handover](HANDOVER.md). Teacher/student acceptance remains pending. Dated observations below retain their original scope.
 
-2026-11-04 当前显示改进见文末 FMT-01–FMT-05 及 [数值显示验证](evidence/number_display_verification.md)。原 R1/R2 历史问题及证据保留。
+**2026-11-12.** [Student review](STUDENT_EXPERIENCE_REVIEW_20261112.md) added UX-01–UX-06, fixed locally, including exam-to-plot positioning, retained conditioning direction, empty game submission, chapter positioning and contrast. Further recommendations concerned probability encoding, total expectation, collapsed editors, path definitions and static solution formatting. Cold-start timing still required independent confirmation. That round was uncommitted/unpushed at the time.
 
-首轮日期：2026-10-21；审查基线 `0f609de`。2026-10-30 更新：**首轮 R1-01–R1-11 全部已修复并验证；本轮另核对修复 7 组问题，见下方 R2 清单**。首轮证据保留，修复信息见各条目。修复提交以 Git 历史中对应问题编号为准。
+**2026-11-04.** Display improvements appear in FMT-01–FMT-05 and [number-display verification](evidence/number_display_verification.md).
 
-P1：会影响教学正确性、答题判断或核心计算。P2：边界一致性、易用性或表述。证据类型：**B** 浏览器复现；**R** 可执行复算；**S** 当前源码检查；**C** 本地课程依据。源码行号对应上述基线，修复后可能变化。
+First audit dated 2026-10-21 against `0f609de`. By 2026-10-30 **R1-01–R1-11 were fixed and verified**, with seven additional R2 groups. Git history identifies the fix commits. P1 affects teaching correctness, checking or core calculations. P2 concerns boundaries, usability or wording. Evidence codes are **B** browser, **R** executable calculation, **S** source inspection and **C** local course reference. Original line numbers refer to the audit baseline.
 
-| ID | 优先级 | 模块 | 问题 | 证据 |
+| ID | Priority | Module | Issue and status | Evidence |
 |---|---|---|---|---|
-| R1-01 | P1 | Conditional | Q4 Poisson、Q10 Normal 数值答案错误；**已修复、已验证** | B/R/S/C |
-| R1-02 | P1 | Expectation | Q4 正确精确分数被判错；**已修复、已验证** | B/R/S/C |
-| R1-03 | P1 | Conditional | 分布名按子串匹配，错误分布名也通过；**已修复、已验证** | B/R/S/C |
-| R1-04 | P1 | Joint | 题库 8/10 题存在表格或答案问题；**已修复、已验证** | B/R/S/C |
-| R1-05 | P1 | Conditional | 默认条件表重复首项，概率和大于 1；**已修复、已验证** | B/R/S/C |
-| R1-06 | P1 | Joint/Conditional/Expectation | 缺少 PMF 输入校验，归一化后显示值不一致；**已修复、已验证** | B/R/S/C |
-| R1-07 | P1 | Conditional | 几何分布采用尝试次数，未与课程约定衔接；**已修复、已验证** | S/C |
-| R1-08 | P1 | Expectation | Q8 要求两个期望，只检查一个数；**已修复、已验证** | R/S/C |
-| R1-09 | P2 | Overview | p=1 被静默改为 .999；**已修复、已验证** | R/S/C |
-| R1-10 | P2 | Conditional/Overview | 表格重叠；连续模式沿用点概率操作提示；**已修复、已验证** | B/S/C |
-| R1-11 | P2 | Game | 离散均匀的等概率假设和重复抽取表述不严谨；**已修复、已验证** | B/S/C |
+| R1-01 | P1 | Conditional | Incorrect Q4 Poisson/Q10 Normal answers, fixed and verified | B/R/S/C |
+| R1-02 | P1 | Expectation | Q4 exact fraction rejected, fixed and verified | B/R/S/C |
+| R1-03 | P1 | Conditional | Substring distribution-name matching accepts wrong models, fixed and verified | B/R/S/C |
+| R1-04 | P1 | Joint | Eight of ten tables/answers inconsistent, fixed and verified | B/R/S/C |
+| R1-05 | P1 | Conditional | Default table repeats its first entry and exceeds mass 1, fixed and verified | B/R/S/C |
+| R1-06 | P1 | Joint/Conditional/Expectation | Missing validation and inconsistent normalised displays, fixed and verified | B/R/S/C |
+| R1-07 | P1 | Conditional | Attempt-count Geometric convention not connected to course convention, fixed and verified | S/C |
+| R1-08 | P1 | Expectation | Q8 requests two means but checks one value, fixed and verified | R/S/C |
+| R1-09 | P2 | Overview | p=1 silently replaced by .999, fixed and verified | R/S/C |
+| R1-10 | P2 | Conditional/Overview | Overlapping tables and continuous point-probability instructions, fixed and verified | B/S/C |
+| R1-11 | P2 | Game | Discrete Uniform equal-probability/sampling explanations, fixed and verified | B/S/C |
 
-## R1-01：条件题库两处数值错误
+## R1-01, two conditional-bank numerical errors
 
-- 位置：`module_conditional.R:852`（Q4），`:1143`（Q10），相应 hint/solution 也须一起修改。
-- 复现：Conditional → Q4，提交 `0.347229417554172`。浏览器返回 warning 提示而非通过；原答案为 `0.263`。
-- 预期：`ppois(10,12)=0.347229417554172`。Q10 明确 `N(65,9)` 的 9 是方差，因此 `P(Y>70)=pnorm(70,65,3,lower.tail=FALSE)=0.047790352272815`，原答案 `0.0475` 也超出判题容差 `1e-4`。
-- 依据：C125 p92 Poisson；C210 连续分布；[数值证据](evidence/round1_numeric.json)。Q10 为源码及 R 验证，未在浏览器提交。
-- 修复/验收：用未提前舍入的答案作为判定基准；四舍五入仅用于展示；正确值及合理 4–5 位小数应通过，错误原值应失败；题干/提示/解答同步。
+- Original locations were `module_conditional.R:852` for Q4 and `:1143` for Q10, including associated hints/solutions.
+- Q4 rejected `0.347229417554172` and stored `0.263`. The correct reference is `ppois(10,12)=0.347229417554172`.
+- Q10 states that 9 in `N(65,9)` is the variance, so `P(Y>70)=pnorm(70,65,3,lower.tail=FALSE)=0.047790352272815`. Its stored `0.0475` exceeded the `1e-4` tolerance.
+- C125 p92 and C210 continuous distributions support the checks. See [numerical evidence](evidence/round1_numeric.json). Q10 was checked in source/R, without a browser submission at that stage.
+- Acceptance required unrounded reference values, consistent question/hint/solution text, acceptance of permitted four/five-place readings and rejection of old wrong values.
 
-2026-10-30 修复记录：Q4 保存 `ppois(10,12)` 的全精度值，提示/解答改为约 0.3472（34.72%）；Q10 使用标准差 3 和未提前舍入的 z=5/3，答案约 0.0478，原 .263/.0475 均被拒绝。Q8/Q12 的正确近似展示保留，判题基准改存全精度。
+On 2026-10-30 Q4 stored full-precision `ppois(10,12)` and displayed approximately .3472 (34.72%). Q10 used sd=3 and z=5/3, displaying approximately .0478. The old .263/.0475 were rejected. Q8/Q12 retained their displayed approximations with full-precision checking references. **Fixed/verified, teacher review pending.** See [final verification](evidence/final_verification.md) and commit `Fix remaining course audit issues and session isolation`.
 
-状态：**已修复／已验证，待教师复核**。正反例、模块输出和浏览器范围见 [全量验证记录](evidence/final_verification.md)；此次本地提交 `Fix remaining course audit issues and session isolation`，SHA 见 Git 历史。
+## R1-02, exact Uniform second moment rejected
 
-## R1-02：Uniform 二阶矩的精确解被拒绝
+Original locations were `module_expectation.R:720` and checker `:70`. Q4 rejected `10000/3`, although fractions were allowed. `E[X²]=∫[0,100]x²/100 dx=10000/3`, while the stored 3333.33 differed beyond the general `1e-4` tolerance. References are C210 p106/p169 and [numerical evidence](evidence/round1_numeric.json).
 
-- 位置：`module_expectation.R:720`、`:70`（判题器）。
-- 复现：Expectation → Q4，输入 `10000/3`，Submit，浏览器返回 warning；输入格式明确允许分数。
-- 预期：`E[X²]=∫[0,100] x²/100 dx=10000/3`。当前先把基准存为 `3333.33`，再用 `1e-4` 比较，精确答案与高精度小数反而失败。
-- 依据：C210 p106、p169；[数值证据](evidence/round1_numeric.json)。
-- 修复/验收：保存精确计算值并统一展示精度规则；同时接受精确分数、高精度小数及题目允许的近似数，拒绝明显错误答案。不能简单无限放宽所有题目的容差。
+The 2026-10-30 fix stored `10000/3` and explicitly allowed exact fractions or two-place decimals. Only this question used absolute tolerance .005. `10000/3`, 3333.3333333333 and 3333.33 pass, while 3333.34/3333.32 fail. Other questions retain 1e-4. **Fixed/verified, teacher review pending**, with examples in [final verification](evidence/final_verification.md).
 
-2026-10-30 修复记录：Q4 基准改为 `10000/3`，明确允许精确分数或两位小数；仅此题采用 0.005 绝对容差，`10000/3`、3333.3333333333 和 3333.33 通过，3333.34/3333.32 拒绝。其他题仍为 1e-4。
+## R1-03, distribution-name false positives
 
-状态：**已修复／已验证，待教师复核**。正反例、模块输出和浏览器范围见 [全量验证记录](evidence/final_verification.md)；此次本地提交 `Fix remaining course audit issues and session isolation`，SHA 见 Git 历史。
+The original checker after `module_conditional.R:1370` used `grepl(correct_text,user_input,...)`. Q1 accepted Negative Binomial with success feedback. R also confirmed acceptance of `not Binomial`. The target was Binomial(x,0.2).
 
-## R1-03：分布名称误判
+The 2026-10-30 shared checker matches complete normalised names against controlled aliases. Name-only input remains explicitly allowed, with case variants, a distribution suffix, bin/binom and Gaussian accepted where applicable. Wrong models, negations, unrelated appended text and empty inputs fail. **Fixed/verified, teacher review pending**, in [final verification](evidence/final_verification.md).
 
-- 位置：`module_conditional.R:1370` 后的 `grepl(correct_text,user_input,...)`。
-- 复现：Q1 输入 `Negative Binomial`，提交后出现 `alert-success` 解答；`not Binomial` 也能被相同逻辑接受（R 验证）。
-- 预期：该题为 Binomial(x,0.2)；Negative Binomial 是另一种分布，不能因包含 `Binomial` 子串通过。
-- 修复/验收：优先用明确选择项，或对整个规范化答案做受控别名匹配；测试正确大小写/别名、错误分布、否定句、空输入。决定是否要求参数后同步说明输入要求。
+## R1-04, joint tables, answers and explanations
 
-2026-10-30 修复记录：共享判题器对完整规范化名称做受控别名匹配，保留名称输入，明确无需参数。大小写及 distribution 后缀、bin/binom、Gaussian 等受控别名可用；Negative Binomial、否定句、附加无关内容及空输入不再通过 Binomial 题。
+Original location `module_joint.R:574`, `get_joint_question_bank()`. See independent [rational calculations](evidence/round1_joint.json).
 
-状态：**已修复／已验证，待教师复核**。正反例、模块输出和浏览器范围见 [全量验证记录](evidence/final_verification.md)；此次本地提交 `Fix remaining course audit issues and session isolation`，SHA 见 Git 历史。
-
-## R1-04：联合题库需统一重建数据、答案和解答
-
-位置：`module_joint.R:574` 的 `get_joint_question_bank()`。独立逐格有理数复算见 [round1_joint.json](evidence/round1_joint.json)。
-
-| 题号 | 首轮表格/事件得到的结果 | 首轮答案 | 首轮问题 |
+| Question | Original table/event result | Stored answer | Finding |
 |---|---|---|---|
-| Q1 | 表总和 17/24 | 查询格子 1/8 | 查询格子匹配，但整个表不是 PMF |
-| Q2 | 表总和 4/5 | 查询格子 1/20 | 整个表不是 PMF |
-| Q3 | 表总和 17/18 | 边际 7/18 | 整个表不是 PMF |
-| Q4 | 表总和 7/12；该行和 7/24 | 1/4 | 表和答案均有问题 |
-| Q5 | 四格事件和 1/2 | 2/5 | 有效表，答案错误 |
-| Q6 | 三格事件和 5/12 | 7/24 | 有效表，答案错误 |
-| Q7 | 已知和 23/24，缺失值应 1/24 | 1/8 | 存储答案填入后总和 13/12 |
-| Q8 | 已知和已为 1，因此 2a=0，a=0 | 1/10 | 存储答案填入后总和 6/5 |
-| Q9 | 系数和 18，k=1/18 | 1/18 | 本次数值核对通过 |
-| Q10 | 已知和 2/3，3p=1/3，p=1/9 | 1/9 | 本次数值核对通过 |
+| Q1 | Total 17/24 | Target 1/8 | Target matches, table invalid |
+| Q2 | Total 4/5 | Target 1/20 | Table invalid |
+| Q3 | Total 17/18 | Marginal 7/18 | Table invalid |
+| Q4 | Total 7/12, target sum 7/24 | 1/4 | Table and answer inconsistent |
+| Q5 | Four-cell event 1/2 | 2/5 | Valid table, wrong answer |
+| Q6 | Three-cell event 5/12 | 7/24 | Valid table, wrong answer |
+| Q7 | Known sum 23/24, missing 1/24 | 1/8 | Stored answer gives total 13/12 |
+| Q8 | Known sum 1, 2a=0 | 1/10 | Stored answer gives total 6/5 |
+| Q9 | Coefficient sum 18, k=1/18 | 1/18 | Numerical check passes |
+| Q10 | Known sum 2/3, 3p=1/3 | 1/9 | Numerical check passes |
 
-依据：C125 p52、p95–96。Q1–Q4 不能只改判题答案：应先设计合法联合表，再重新生成所有边际、事件答案、提示和解答。验收要求每张完整表非负且和为 1，每个目标事件答案由同一份数据计算，含零格、边界事件和填空题。Q9/Q10 这里只表示数学核对通过，不代表所有提示/交互均验收。
+C125 p52/p95–96 requires legal PMFs before marginal/event calculations. Acceptance covers nonnegativity, mass 1, shared table/answer data, zero cells, boundaries and missing parameters.
 
-2026-10-30 修复记录：
+The 2026-10-30 fix defined all ten questions using integer weights/denominators and generated tables, target cells, reduced answers, two hints and solutions from the same data. Non-target changes were Q1 (2,0) 1/24→1/3, Q2 (0,0) 1/10→3/10, Q3 (0,0) 1/9→1/6, Q4 (0,1) 1/24→11/24. Q5–Q10 retained their table/parameter forms, with Q10's marginal question marks excluded from joint mass.
 
-- 在 Joint 的 `get_joint_question_bank()` 内以整数权重和分母统一定义 10 题，表格、目标单元格、分数答案、两级提示和解答由同一份数据生成；未修改概率输入编辑器和其他模块。
-- Q1–Q4 分别修正非目标格 `(2,0):1/24→1/3`、`(0,0):1/10→3/10`、`(0,0):1/9→1/6`、`(0,1):1/24→11/24`，使完整表总和为 1。Q5–Q10 保留原表的数据/参数形式；Q10 明确边际问号不参与联合概率求和。
-- 当前 Q1–Q10 正确答案为 **1/8、1/20、7/18、7/24、1/2、5/12、1/24、0、1/18、1/9**。Q8 明确 `a≥0`，固定概率合计 1，因此 `a=0`；Joint 判题在容差前检查非负性，避免微小负数被接受。
-- 有理数独立核验表、题干目标、提示/解答单元格及数值等式：修复前 **2/10**，修复后 **10/10**。真实模块交互：修复前 **92/102**，修复后 **102/102**。详见 [验证记录](evidence/r1_04_verification.md)。
-- 浏览器确认 Q5 的 `1/2` 通过，Q8 旧 `0.1` 被拒绝、`0` 通过，重新加载最终代码后核对 Q1 修正表。**R1-05 重跑 11/11、R1-06 重跑 124/124 通过**，旧证据保持原样。
-- 状态：**已修复／已验证，待教师复核**。独立本地提交说明为 `Fix R1-04 joint probability question bank consistency`；未推送或部署。剩余题库、布局和多会话隔离问题未在本次关闭。
+Correct Q1–Q10 answers are **1/8, 1/20, 7/18, 7/24, 1/2, 5/12, 1/24, 0, 1/18, 1/9**. Q8 states a≥0, and the checker rejects negative input before tolerance comparison. Independent mathematics improved **2/10→10/10**, module interaction **92/102→102/102**. Browser checks accepted Q5 1/2, rejected Q8 .1, accepted Q8 0 and confirmed Q1's changed table after reload. R1-05 reran **11/11**, R1-06 **124/124**. See [verification](evidence/r1_04_verification.md). **Fixed/verified, teacher review pending.** Local commit `Fix R1-04 joint probability question bank consistency` was unpushed/undeployed at that stage. Other bank/layout/session work remained separate.
 
-## R1-05：条件表重复第一项
+## R1-05, first probability repeated
 
-- 位置：`module_conditional.R:518`、`:526`。
-- 复现：新开应用 → Conditional，默认 `f(Y|X=0)` 显示两项均为 `0.92157`，合计 `1.84313`。
-- 预期：由默认表得 `188/204=47/51≈0.92157`、`16/204=4/51≈0.07843`，合计 1。
-- 原因：`ifelse(total_x > 0,p_value/total_x,0)` 的 test 长度为 1，返回单个值，随后在 `mutate` 中重复。另一条件方向同样存在该写法；图形路径则使用向量除法，导致表图可不一致。
-- 依据：C125 p114（已目视核对）；浏览器记录；R 单独复现该表达式。
-- 修复/验收：先判断标量分母，再对整列做除法；两个方向、多条件值、非均匀表均应逐项匹配图形且和为 1；零边际应显示“条件分布未定义”，不能伪装成全零分布。
+Original locations `module_conditional.R:518` and `:526`. Default `f(Y|X=0)` showed .92157 twice, total 1.84313. Expected values are 188/204=47/51≈.92157 and 16/204=4/51≈.07843. Scalar-test `ifelse(total_x>0,p_value/total_x,0)` returned one value that mutate recycled. Plots used vector division. C125 p114 was visually checked.
 
-2026-10-30 修复记录：
+The 2026-10-30 fix validates the scalar marginal, then divides each cell. Nonpositive/nonfinite marginals produce undefined validation. Actual table/3D/bird's-eye output tests improved **0/11→11/11**, covering both default directions/values, all five nonuniform 2×3 slices and zero marginals in both directions. Browser readings were .92157/.07843 and .94124/.05876 for Y=1, with total 1.00000. See [verification](evidence/r1_05_verification.md) and [results](evidence/r1_05_regression.json). **Fixed/verified, teacher review pending.** Local commit `Fix R1-05 conditional probability table normalization` was unpushed/undeployed, with R1-06/R1-10 still open at that point.
 
-- 修改 `Project_PPeek1ng/modules/module_conditional.R`：两个方向均直接逐项除以边际概率；分母不是正的有限值时，通过 Shiny validation 显示条件分布未定义。
-- 新增 [test_r1_05.R](scripts/test_r1_05.R)，调用实际模块的 `shiny::testServer`，同时验证 HTML 表、3D 图和俯视图输出。修复前 **0/11** 通过，修复后 **11/11** 通过，包括默认表的两个方向和两个条件值、非均匀 2×3 表的全部五个条件切片、两个方向的零边际。
-- 浏览器验证：默认两个方向为 `.92157,.07843`；切换 `Y=1` 为 `.94124,.05876`，均合计 `1.00000`；零 `Y` 边际显示未定义提示。详见 [验证记录](evidence/r1_05_verification.md) 与 [结果 JSON](evidence/r1_05_regression.json)。
-- 状态：**已修复／已验证，待教师复核**。本次独立本地提交说明：`Fix R1-05 conditional probability table normalization`；未推送或部署。本次不关闭 R1-06 或布局问题 R1-10。
+## R1-06, invalid probabilities and inconsistent normalisation
 
-## R1-06：非法概率进入计算；归一化显示不一致
+Original locations included Joint :24/:388/:435, Conditional Generate around :402 and Expectation :408. Input -1,1,1,1 generated -.5,.5,.5,.5 while cells retained original input strings. All-zero totals produced NaN and unparseable strings could propagate NA. C125 p52 requires nonnegativity and mass 1. See [browser evidence](evidence/round1_browser.md).
 
-- 位置：`module_joint.R:24`、`:388`、`:435`；Conditional Generate 约 `:402`；Expectation `:408`。
-- 复现：Joint 四行 p 改为 `-1,1,1,1` 后 Generate，仍生成表，没有拒绝负概率。生成公式会得到 `-.5,.5,.5,.5`。输入字段和单元格还保留原 `p_input` 字符串，与使用归一化 `p_value` 的边际不一致。
-- 同类源码路径：全零总和直接相除得到 NaN；不可解析输入可传播 NA。全零/坏字符串是代码及独立表达式验证，本轮未全部在 UI 执行。
-- 依据：C125 p52 的非负及归一性要求；[浏览器记录](evidence/round1_browser.md)。
-- 修复/验收：计算前验证可解析、有限、非负、非空、正总质量；支持权重时明示归一化并同步输入/表/图数据；非法输入保留上一张有效表并定位错误。验证 `-1`、`0/0`、`abc`、全零、删除全部行、重复坐标、有效分数和未归一化正权重。
+The 2026-10-30 shared pmf_helpers.R implementation accepts finite nonnegative values, rejects empty/unparseable/nonfinite/zero-denominator/all-zero data and retains committed results after failures. Generate validates each row, merges duplicates, scales large weights, normalises and updates text/values with fresh IDs. Normalize/Uniform edit drafts, and Generate commits. Add Row recovers empty tables. Three modules share committed state within a session.
 
-2026-10-30 修复记录：
+Results were **124/124**, comprising 40 per module and four synchronisation cases. Browser checks covered negative rejection, valid normalisation, cross-module readings and retained expectations after all-zero input. R1-05 reran **11/11**, with its original assertions retained and shared helpers added to setup. See [verification](evidence/r1_06_verification.md), [results](evidence/r1_06_regression.json) and [R1-05 rerun](evidence/r1_05_after_r1_06.json). **Fixed/verified, teacher review pending.** Local commit `Fix R1-06 PMF input validation and normalization` was unpushed/undeployed. Question banks, checking rules and multi-session isolation were outside that patch.
 
-- 新增共享 `modules/pmf_helpers.R`，由 `main.R` 统一加载，三个模块使用相同的解析、校验及 Normalize/Uniform/Generate 逻辑。输入保留计算精度，拒绝负数、非有限/无法解析的值、零分母、空表及全零质量；错误提示指出具体行，失败时不更新已提交表或图。
-- Generate 先验证每一行，再合并重复坐标、归一化并同步 `p_input` 与 `p_value`。大权重在求和前缩放以避免溢出。刷新后的输入使用新 ID，防止旧输入值覆盖结果；删除全部行后仍可 Add Row 恢复。Normalize/Uniform 只更新草稿，Generate 才更新结果。
-- [124/124 模块及同步案例通过](evidence/r1_06_regression.json)，包括三个模块各 40 例及 4 例跨模块检查。浏览器确认 Joint 的负输入拦截与有效权重归一化、三个模块结果同步、Expectation 全零输入拦截并保留旧期望。
-- **R1-05 重跑 11/11 通过**，见 [本次复测结果](evidence/r1_05_after_r1_06.json)。原 R1-05 历史证据保持不变；其测试脚本仅新增共享帮助函数的加载，原 11 个案例及判断标准未变。
-- 状态：**已修复／已验证，待教师复核**。本次独立本地提交说明为 `Fix R1-06 PMF input validation and normalization`；未推送或部署。详见 [验证记录](evidence/r1_06_verification.md)。本次没有修改题库、答案判断或多会话隔离。
+## R1-07, Geometric conventions
 
-## R1-07：几何变量约定跨模块不一致
+Original Conditional Q5/Q6 near :904/:945 defined attempts Y including the first success and used P(Y≥3)=(1-p)²=.64. That arithmetic is valid for support starting at 1. C125 p79 and Overview use failures before success, starting at 0, with dgeom and mean (1-p)/p.
 
-- 位置：`module_conditional.R:904`、`:945` 周边（Q5/Q6）。
-- 当前：题目把 Y 定义为“包含首次成功的尝试次数”，写 `Y~Geometric(p)`，并用 `P(Y≥3)=(1-p)^2=.64`。这在支持集从 1 开始的约定下成立，**.64 本身不是算术错误**。
-- 课程/Overview：C125 p79 明确 Geometric 为首次成功前失败次数，支持集从 0 开始；Overview 使用 `dgeom` 与 `(1-p)/p`，符合课程。
-- 修复/验收：保留尝试次数故事时令 `Y=Z+1, Z~Geometric(p)` 并说明；或将变量改为失败次数并重算事件（失败至少 3 次为 .8³=.512）。不要仅把答案 .64 改成 .512 而不改题干。检查 Q5/Q6 全部提示及 Overview/Game 定义一致。
+The 2026-10-30 fix asks Q5 for Z=Y−1 and states its zero-based support throughout. Q6 retains attempts Y, P(Y≥3)=.8²=.64 and the shift to Z. Changing only .64 to .512 would change the event. **Fixed/verified, teacher review pending**, in [final verification](evidence/final_verification.md).
 
-2026-10-30 修复记录：Q5 改问失败数 Z=Y−1 的分布，题干、两级提示和解答明确 Z 从 0 开始；Q6 保留尝试数 Y 从 1 开始和原事件 P(Y≥3)=.8²=.64，明确与 Z 的平移关系。
+## R1-08, two requested answers with one checked field
 
-状态：**已修复／已验证，待教师复核**。正反例、模块输出和浏览器范围见 [全量验证记录](evidence/final_verification.md)；此次本地提交 `Fix remaining course audit issues and session isolation`，SHA 见 Git 历史。
+Expectation Q8 near :881/:887 asks for Sunny and Cloudy means (24,12), but originally stored ans_val=24, accepted 24 alone and rejected paired input. C125 p92 and the numerical review support both means. The 2026-10-30 fix adds two labelled fields and requires both correct, accepting equivalent fractions and giving targeted feedback for missing/swapped/wrong values. **Fixed/verified, teacher review pending**, in [final verification](evidence/final_verification.md).
 
-## R1-08：两个答案只有一个输入判据
+## R1-09, valid endpoint silently replaced
 
-- 位置：`module_expectation.R:881`、`:887` 和统一 numeric checker。
-- 当前：Q8 同时问 Sunny 和 Cloudy 的期望，正确为 `(24,12)`；仅存 `ans_val=24`，单独输入 `24` 即可通过，规范双值输入会因不能转为单一数字而失败。
-- 依据：C125 p92 的 Poisson 均值；数值题全量复核。
-- 修复/验收：两个明确标注的输入框分别判断，或拆为两题；`24,12` 对应条件正确才通过；交换顺序、缺一项、错一项应有针对性反馈。
+Overview originally allowed p=1 but capped it at .999 near :74/:78/:240/:248/:311/:318. R source evaluation gave Geometric P(X=0)=.999 and mean .001001..., Negative Binomial k=2 mass .998001 and mean .002002..., instead of mass 1 at zero and mean 0. This endpoint was source/R checked in the first round.
 
-2026-10-30 修复记录：Q8 使用 Sunny、Cloudy 两个独立标注的输入框，二者同时正确才通过；支持各自的等价分数。缺失、交换、任一错误均拒绝，并指出需检查哪个条件。
+The 2026-10-30 fix removes the cap and supports the degenerate distribution. Checks used .01/.5/.99/1. Unbounded discrete plots start at 0 and extend to the .999 quantile with readable ticks. **Fixed/verified, teacher review pending**, in [final verification](evidence/final_verification.md).
 
-状态：**已修复／已验证，待教师复核**。正反例、模块输出和浏览器范围见 [全量验证记录](evidence/final_verification.md)；此次本地提交 `Fix remaining course audit issues and session isolation`，SHA 见 Git 历史。
+## R1-10, instructions and layout
 
-## R1-09：合法端点被静默替换
+At about 1521px the Conditional selector overlapped the joint table/marginal, near the original nested-column layout around :485. Overview's continuous mode retained “display P(X=x)” instructions although it should show f(x)/F(x), with P(X=x)=0 as in C210 p105.
 
-- 位置：`module_probability.R:74`、`:78`、`:240`、`:248`、`:311`、`:318`。
-- 当前 UI 允许 p=1，代码限制最大值为 .999。执行实际 `default_range`/`dist_df` 源码表达式得到 Geometric 的 `P(X=0)=.999`、均值 `.001001...`；NegBin(k=2) 得 `.998001`、均值 `.002002...`。预期均为 `P(X=0)=1`、均值 0。
-- 证据：R/S；本轮没有实际拖动浏览器滑块至该端点。
-- 修复/验收：明确处理退化分布；p=1、接近 1、普通 p 都应与 R 标准分布结果吻合，公式、均值与图形保持一致。
+The 2026-10-30 fix introduces wrapping table/calculation regions, wrapping rows and card-local formula/table scrolling. Browser checks used 1266×800 and 900×800. Continuous mode explicitly identifies density, CDF and zero point probability. **Fixed/verified, teacher review pending**, with that viewport coverage in [final verification](evidence/final_verification.md).
 
-2026-10-30 修复记录：删除 .999 隐藏上限；Geometric/NegBin 的 p=1 正确显示质量集中于 0、均值为 0。测试 .01/.5/.99/1；离散无界分布从 0 绘制至 .999 分位数，避免遗漏低端支持，横轴刻度不再逐整数挤满。
+## R1-11, Discrete Uniform modelling assumptions
 
-状态：**已修复／已验证，待教师复核**。正反例、模块输出和浏览器范围见 [全量验证记录](evidence/final_verification.md)；此次本地提交 `Fix remaining course audit issues and session isolation`，SHA 见 Git 历史。
+The game chapter 2, originally near :132–151, inferred “must be equally likely” from absent clues and made a general claim about changing success probabilities under repeated DU sampling. Equal probability must be an explicit assumption. Independent sampling with replacement can have constant success probability, while searching without replacement changes conditional probabilities. C125 p91's definition and specific example do not imply the broader claim.
 
-## R1-10：教学操作说明与布局
+The 2026-10-30 fix states the simplifying assumption in the story, explanation and summary, and distinguishes the sampling mechanisms. Additional game assumptions appear in R2-03. **Fixed/verified, teacher review pending**, in [final verification](evidence/final_verification.md).
 
-- Conditional 在本机约 1521px 宽截图中，条件选择器和联合表重叠，表内边际被遮挡；截图已目视检查。位置：`module_conditional.R:485` 一带嵌套列布局。应调整列宽/换行，在正常桌面和较窄视口验证可读性。
-- Overview 切换 Continuous 后仍出现提示 “display P(X = x)”，容易把 PDF 高度理解为点概率；实际连续模式应显示 `f(x)` 与 `F(x)`。位置：`module_probability.R` 共用操作提示。C210 p105 明确连续变量的点概率为 0。应按模式输出对应提示，并验证 Uniform/Normal 两例。
-- 这两项属于 P2 的界面/说明调整，不能据截图宣称完成手机端或无障碍审查。
+## Additional confirmed fixes
 
-2026-10-30 修复记录：联合表与计算面板改为可换行区域，输入行自动换行，长公式/宽表在所在卡片内部滚动，避免跨区遮挡。浏览器核对 1266×800 和 900×800；连续模式明确显示密度 f(x)、CDF F(x) 及 P(X=x)=0。未据此宣称完整移动端或无障碍验收。
-
-状态：**已修复／已验证，待教师复核**。正反例、模块输出和浏览器范围见 [全量验证记录](evidence/final_verification.md)；此次本地提交 `Fix remaining course audit issues and session isolation`，SHA 见 Git 历史。
-
-## R1-11：DU 教学解释需要明确建模假设
-
-- 位置：`module_game_discrete.r` 第二章，约 `:132–151`。
-- 浏览器复现：进入第二章，选择 Discrete Uniform，Determine；解释声称没有线索即每处“must be equally likely”，并笼统说 DU 在重复抽取中成功概率不恒定。
-- 预期：等概率是需声明的建模假设；独立有放回抽取类别可有恒定成功概率，不放回搜索位置的条件成功率才会变化。C125 p91 的 DU 定义及特定无放回例子不能推广成所有 DU 的性质。
-- 修复/验收：将“必然等可能”改成明确的简化假设，说明抽样机制，区分单次 DU 结果与 Bernoulli 试验序列；由教师确认场景和措辞是否适合课堂。
-
-2026-10-30 修复记录：DU 的题干、解答、总结均明确等概率是简化建模假设，缺少线索不能证明等概率；解释独立有放回与无放回机制的区别。另补齐游戏其他模型前提，见 R2-03。
-
-状态：**已修复／已验证，待教师复核**。正反例、模块输出和浏览器范围见 [全量验证记录](evidence/final_verification.md)；此次本地提交 `Fix remaining course audit issues and session isolation`，SHA 见 Git 历史。
-
-## 本轮补充确认并修复的问题
-
-| ID | 优先级 | 问题与修复 | 验证 |
+| ID | Priority | Change | Verification |
 |---|---|---|---|
-| R2-01 | P1 | 全局 PMF 改为每个 server 会话创建，显式传给三个模块；不再读写 .GlobalEnv 的学生数据 | 两个真实应用 server mock 会话同时存在，双向改表互不覆盖；两个浏览器标签页亦独立；原同会话同步回归保留 |
-| R2-02 | P2 | Uniform a=b 原来静默改参数；现明确拒绝并可恢复。Beta/Gamma/χ²/F 在奇异端点的无限密度不伪装成零，绘图省略端点并说明；Gamma 的指数和解释限定整数 shape，t/F 补独立性条件 | 7 种离散、8 种连续的典型参数；合法端点、无效区间恢复、4 个无限密度端点实际绘图检查 |
-| R2-03 | P1 | 游戏原先“已知十仓库恰五个藏货、搜全部十个”却判 Binomial；改为十个独立仓库各以 .5 概率藏货，总数未知。Hypergeometric 明确 N=7、M=1、预先固定抽查 n=4；Poisson/Geometric 明确模型假设 | 全 7 章真实模块正误反馈与跳转；浏览器完整正确路径 21 分；文本与模型定义核对 |
-| R2-04 | P2 | 游戏重启原来动态重复注册模块/观察器；现只注册一次，重置模块状态、分数和反馈，并阻止旧章节控件影响当前章节 | 7 章提示、评分，3 轮重启/开始回归；浏览器重启回到开始页 |
-| R2-05 | P2 | 零边际条件期望原来显示 NA/除以零；现明确 undefined。极小正边际/系数不再显示成零分数或零分母 | 两方向零边际；2e-8 正分母及 1e-14 正概率显示反例 |
-| R2-06 | P2 | 原启动器直接运行 app 对象未注册 www，Logo/游戏图片返回 404；新增标准 app.R，启动器按应用目录运行 | 本地启动、13/13 图片 HTTP 200 且 image 类型；浏览器实际图片加载 |
-| R2-07 | P2 | 深色模式白底白字表头、主题随导航被覆盖；补对比度样式，导航保留手动主题 | 浏览器检查深色表头、标题与背景，跨模块切换及返回浅色 |
+| R2-01 | P1 | Create PMF state inside each server session and pass it explicitly to modules | Two simultaneously live app-server mock sessions and two browser tabs update independently, with within-session regression retained |
+| R2-02 | P2 | Reject Uniform a=b with recovery, preserve mathematical infinite densities while omitting sampled endpoints, limit Gamma integer-shape explanation and add t/F independence conditions | Typical parameters for seven discrete/eight continuous models, valid endpoints, invalid-range recovery and four singular endpoints |
+| R2-03 | P1 | Replace fixed-five-of-ten warehouse story with ten independent p=.5 warehouses and unknown total. Hypergeometric states N=7/M=1 and fixed n=4. Poisson/Geometric assumptions explicit. | All seven chapters' correct/wrong feedback and transitions, complete browser path with 21 points, definition checks |
+| R2-04 | P2 | Register game once, reset state/scores/feedback and prevent old chapter controls affecting the current one | Seven chapters' hints/scoring, three restart rounds and browser restart |
+| R2-05 | P2 | Undefined zero-marginal means, readable tiny positive values | Both directions, 2e-8 denominators and 1e-14 probabilities |
+| R2-06 | P2 | Add standard app.R and launch the directory so www assets are served | Local launch, all 13 images HTTP 200/image MIME and visible browser loading |
+| R2-07 | P2 | Readable dark headers and retained manual theme during navigation | Actual headers/titles/backgrounds, module changes and return to light |
 
-以上均为 **已修复／已验证，待教师复核**，与首轮历史证据分开。详见 [全量验证记录](evidence/final_verification.md)。
+All were **fixed/verified, teacher review pending**. See [final verification](evidence/final_verification.md).
 
-## 后续验证范围
+## Follow-up verification scope
 
-| 原编号 | 当前证据与边界 |
+| ID | Evidence and limits |
 |---|---|
-| F1 | 已按 R2-01 修复并验证两个会话隔离；未做部署环境的大规模多人压力测试 |
-| F2 | 同一会话三模块结果同步、草稿与提交分离、非法输入保留结果继续通过原 124 例回归 |
-| F3 | 典型/指定端点矩阵已执行，Uniform 相等端点、奇异密度和离散尾部已处理；线性坐标下极尖峰仍可能难以分辨，界面明确采样限制 |
-| F4 | 游戏全部 7 章与重启、图形点选的服务端输出、浏览器主题与布局已检查；未做完整键盘/屏幕阅读器审查，未声称穷尽所有参数与操作组合 |
+| F1 | R2-01 verified two-session isolation, with production multi-user load testing pending |
+| F2 | Within-session synchronisation, separate drafts/commits and retained valid results remained covered by 124 checks |
+| F3 | Specified parameter/endpoint matrix covered invalid Uniform bounds, singular densities and discrete tails. Finite sampled sharp peaks remain visually limited on linear axes. |
+| F4 | Seven chapters/restart, server plot selection, browser themes/layouts were checked. Full keyboard/screen-reader coverage and every input combination remained outside that run. |
 
-**已验证不等于教师已认可或已部署。** 目前确认的问题已处理，课程覆盖、游戏场景偏好和课堂使用方式仍由教师复核。
+Teachers retain responsibility for course suitability, scenario preferences and classroom use.
 
-## 2026-10-31：STATS125 教学定位复核
+## STATS125 teaching review on 2026-10-31
 
-当前对象已由用户明确为 STATS125 学生，210 为后续课程。教学改进项使用独立 T125 编号，**不把已修复的 R1/R2 数值和交互问题重新标为失败**。
+The user identified current STATS125 students as the audience, with STATS210 later. T125 items track teaching improvements separately from the fixed R1/R2 issues.
 
-| ID | 内容 | 状态 |
+| ID | Work | Status at that stage |
 |---|---|---|
-| T125-01 | 默认核心路径与可选铺垫/后续题分层；避免连续分布成为完成 125 路径的障碍 | 已实施并验证：30 核心 / 8 预习 / 4 拓展，各自筛题、翻页及计数；修复切换瞬间导航错误 |
-| T125-02 | 补 CDF 端点、联合表条件化、独立性和全期望的核心运算练习 | 已实施并验证：8 个方案对应 O01、J11–13、C14–15、E10–11；多字段须全部正确 |
-| T125-03 | 命名模型题增加支持集、参数和假设；补离散 Hypergeometric/Negative Binomial 的条件模型 | C16–17 已实施并验证，另查参数和均值，给出假设与支持集；原有命名题规则保留，尚未扩展到全部旧题 |
-| T125-04 | 用离散模型承载 125 的变换期望、方差等核心目标，连续原题保留作拓展 | E10–11 已实施并验证，涵盖全期望、E[XY]、E[Z²]、均值平方与方差 |
-| T125-05 | 先修自查、符号与单位词表、一个贯穿的离散例子 | 已实施首页先修关系、简短词表、章节提示及虚构频数例子；待教师体验复核 |
-| T125-06 | 游戏与可视化在学习路径中的顺序和用途 | 已落实首页学习顺序、练习优先、2D 优先、3D 默认折叠；游戏分数独立，故事章节顺序保留，待教师体验反馈 |
-| T125-07 | 修正牧羊叙述与模型方向冲突、近似等号、Uniform 区间解释、Gamma 正 shape 前提 | 已修正文案，32 题答案字段未变；本轮 300/300 回归通过 |
-| T125-08 | 默认 188/221 等分数缺语境；需解释来源或提供更简单的入门例子 | 已实施并验证：抽牌解释、20 个虚构观测、零边际预设；自定义表提示先定义变量和单位 |
-| T125-09 | Overview 参数范围不足以重现例题：核心 Poisson λ=12/24 超出原上限；部分连续例题也超出范围 | 已实施并验证：15 个图形预设、题目载入入口和匹配的 x；λ≤30、μ∈[-100,100]、Uniform b≤200 |
+| T125-01 | Default core and optional preview/further paths | Implemented/verified 30/8/4 with separate filtering/navigation/counts, including transient switching fix |
+| T125-02 | CDF endpoints, table conditioning, independence and total-expectation practice | Eight proposals implemented as O01, J11–13, C14–15 and E10–11, requiring all fields correct |
+| T125-03 | Support, parameters and assumptions in model questions, including discrete Hypergeometric/Negative Binomial | C16–17 added name/parameter/mean checking and stated assumptions/support, while older name-question rules remained |
+| T125-04 | Discrete settings for transformed expectation/variance | E10–11 cover total expectation, E[XY], E[Z²], squared mean and variance |
+| T125-05 | Prerequisites, notation/units and a running example | Home prerequisites/glossary, chapter cues and fictional frequency example implemented, teacher trial pending |
+| T125-06 | Learning order for game/visualisation | Home order, practice-first layout, 2D priority and collapsed 3D implemented at that stage, story order retained |
+| T125-07 | Shepherd story direction, approximation signs, Uniform interval explanation and positive Gamma shape | Wording fixed, original 32 answer fields retained, 300/300 regression |
+| T125-08 | Context for default 188/221 fractions | Cards explanation, 20 observations, zero-marginal presets and custom variable/unit cues implemented |
+| T125-09 | Plot controls unable to represent question parameters | Fifteen presets with matching x, λ≤30, μ∈[-100,100], Uniform b≤200 |
 
-依据、原 32 题记录与教学方案见 [教学复核](TEACHING_REVIEW_STATS125.md) 及 [首次复核证据](evidence/teaching_scope_2026_10_31.json)。后续内容改进的实现、测试和边界见 [最新验证记录](evidence/content_verification.md)。本轮已实现分层、新题和参数对齐；教师/学生试用及正式课程验收尚待进行。
+See [teaching review](TEACHING_REVIEW_STATS125.md), [initial scope evidence](evidence/teaching_scope_2026_10_31.json) and [implementation verification](evidence/content_verification.md). Teacher/student acceptance remained pending.
 
-## 2026-10-31：入口与布局复核
+## Access and layout review on 2026-10-31
 
-用户确认继续改善练习入口，并提出文字遮挡与空间分配问题。本轮新增 U1-01–U1-07，分别处理窄理论栏、练习入口、Joint 空列占位、响应式主区、控件/侧栏文字、隐藏页公式零宽重叠及 Overview 分区；均已修复并验证。详见 [布局验证记录](evidence/layout_verification.md)。布局 77/77、学生流程 22/22、原模块 695/695、独立数学 10/10 通过。旧 R1/R2 和 content_* 证据保留；不据此宣称所有设备和正式课堂验收完成。
+U1-01–U1-07 addressed narrow theory, hidden practice access, an empty Joint column, responsive main content, control/sidebar wrapping, zero-width hidden formulas and Overview sections. All were fixed/verified. Results were layout 77/77, student flow 22/22, modules 695/695 and independent mathematics 10/10. See [layout verification](evidence/layout_verification.md). Historical R1/R2/content evidence was retained.
 
-## 2026-11-01：教学主线反馈
+## Learning-route feedback on 2026-11-01
 
-用户认为学生已有 quiz/assignment，工具应先帮助复习知识和通过可视化理解；练习应可选，有来源的真题可另行考虑。当前已将四模块调整为回顾→探索→可选自测，新增概念要点/观察提示，练习和进度默认折叠；保留原计算及自测能力。来源标注区分新增原创题与来源未核实的原项目题，本轮未加入真题。最新验证为 695/695 模块、65/65 概念优先浏览器检查、22/22 主动展开后的自测流程，详见 [记录](evidence/concept_first_verification.md)。旧“练习优先”布局记录保留为历史状态；教师对少量真题的选择与来源核验待进行。
+The user prioritised concept review and visual understanding because students already have quizzes/assignments. Four modules moved to review → explore → optional self-checks, with concise concepts/prompts and collapsed practice/progress. Ten new exercises were identified as originals and original-project provenance remained unverified. That stage added no past exams. Results were modules 695/695, concept-first browser 65/65 and optional practice 22/22. See [record](evidence/concept_first_verification.md). Previous practice-first records remain historical.
 
-## 2026-11-01：仅使用已核验的可选历年真题
+## Verified exam extracts on 2026-11-01
 
-| ID | 工作 | 当前状态 |
+| ID | Work | Status |
 |---|---|---|
-| EXAM-01 | 查本地试卷/解答，选择能配合现有可视化的原题 | 4 组：2026 S1 Q2(a)–(d)、2025 S1 Q3(c)–(d)、2024 S2 Q3(e)、2026 S1 Q3(d), (g)，见来源索引 |
-| EXAM-02 | 逐题标注年份、学期、题号、PDF 页码、来源及改编情况 | 已实施；期望题只改 PMF 的等价呈现，其余原题节选；书面论证需人工对照 |
-| EXAM-03 | 四模块不再向学生提供原创或来源未核实的旧练习 | 已实施；10 道原创构建代码移除，32 道旧题仅在内部 legacy 回归中使用；缺私有题库时不替补 |
-| EXAM-04 | 真题与图表/概率表对应，保留概念优先和折叠式可选入口 | 已实施；可载入原题表或对应图形情境，切换课程路径不泄露旧题 |
-| EXAM-05 | 严格排除课程内容和缓存 | PDF、私有 JSON、辅助构建脚本、抽取文本、页面图、浏览器原始输出及含真题截图均留在忽略目录 |
-| TEST-EXAM-01 | 真题加载/判题、真实浏览器、独立复算及 R1-04/05/06 回归 | 见最新验证；旧 695/695 与 42 题记录保留为历史结果，不能用来代替本次检查 |
+| EXAM-01 | Select original questions fitting the visualisations | Four groups, 2026 S1 Q2(a)–(d), 2025 S1 Q3(c)–(d), 2024 S2 Q3(e), 2026 S1 Q3(d), (g) |
+| EXAM-02 | Year/semester/question/PDF pages/source/adaptation labels | Implemented, with equivalent PMF presentation for Expectation and manual review of written arguments |
+| EXAM-03 | Remove original/unverified exercises from student panels | Ten original builders removed, 32 retained internally, no fallback when bank missing |
+| EXAM-04 | Questions linked to their tables/parameters | Original table/scenario loading, concept-first/collapsed entry and route isolation |
+| EXAM-05 | Exclude course contents and working caches at that stage | PDFs, bank, build scripts, extracted text, page images, raw CLI and exam screenshots stayed local |
+| TEST-EXAM-01 | Loading/checking, browser, independent calculations and R1-04/05/06 | [Latest exam verification](evidence/past_exam_verification.md), with older 695/42 records preserved |
 
-当前教师/学生试用、正式部署及向另一电脑移交私有题库仍待后续安排；GitHub 代码本身不携带真题内容。[选择记录](PAST_EXAM_SELECTION.md) / [验证记录](evidence/past_exam_verification.md)。
+Teacher/student trials, deployment and another-computer materials handover remained future work at that stage. See [selection](PAST_EXAM_SELECTION.md) and [verification](evidence/past_exam_verification.md).
 
+## Probability formatting on 2026-11-04
 
-## 2026-11-04：概率数值的显示与计算精度
-
-| ID | 问题 / 工作 | 结果 |
+| ID | Issue/work | Result at that stage |
 |---|---|---|
-| FMT-01 | 归一化后的长小数直接进入编辑框和表格，难以阅读 | 已分离显示与真实值；编辑器使用简洁数值，未经编辑的浏览器绑定保留原始精度 |
-| FMT-02 | 联合、边际、条件表与期望公式的分数/小数风格不一致 | 侧栏共享 Auto / Short decimals / Simple fractions；同组表和公式一致切换，不修改 PMF 或判题值 |
-| FMT-03 | 小数位数、尾零和近似等号缺少统一处理 | 普通近似值最多四位小数、去尾零；近似单元格和运算步骤标注约等号；原题静态题干、数据与答案保持原样 |
-| FMT-04 | 极小非零概率可能被显示成零，半舍入边界也可能产生零 | 非零小值及将被舍入为零的边界改用科学计数法；增加 0.00005 等边界检查；负输入校验保留 |
-| FMT-05 | 缩短显示后仍需查看数值细节 | 表格/编辑器悬停显示精度信息，Overview 增加折叠的 More precision；Plotly 悬停补六位小数读数 |
+| FMT-01 | Long normalised decimals in editors/tables | Separate full values and compact displays, preserving original precision for untouched bindings |
+| FMT-02 | Inconsistent fractions/decimals across tables/formulas | Shared Auto / Short decimals / Simple fractions formatting without changing probabilities or checker values |
+| FMT-03 | Decimal places, trailing zeros and approximation signs | At most four ordinary decimal places, no trailing zeros and ≈ in approximate cells/steps, with static original questions unchanged |
+| FMT-04 | Tiny nonzero values and half-rounding boundaries display as zero | Scientific notation for tiny/boundary values, including .00005, with negative validation retained |
+| FMT-05 | Detailed values after compact formatting | Precision tooltips, Overview More precision and six-place Plotly readings |
 
-依据为本地 STATS125 2026 手册 p97、113、114、119、148 的呈现方式：短小数与分数并用，比较时尽量一致，计算结果可补小数近似。本项目的四位小数和分母上限属于界面选择，不是课程统一规定。源码、精度保护、实际浏览器及历史回归结果见 [数值显示验证](evidence/number_display_verification.md)。本轮不复制或提交课程页面、私有真题题库或浏览器缓存。
+The local 2026 STATS125 coursebook p97/113/114/119/148 uses fractions and short decimals and suggests consistency in comparisons. Four places and denominator bounds were app choices. See [number-display verification](evidence/number_display_verification.md). Source pages, bank contents and browser caches were excluded at that date.
